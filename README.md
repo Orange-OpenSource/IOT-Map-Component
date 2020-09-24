@@ -9,7 +9,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 - <ins>markers</ins> of different **types** : *point of interest*, *square shape* and *circle shape* (the last 2 for any elements to be displayed). 
 - These markers can be displayed with different **labels**, **icones**, **colors**, **anchored** or not, **selected** or not. 
-- Square shapes and circle shapes can be displayed **with direction** or not. 
+- Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
 
 <img src="doc/Image1.png">
 
@@ -17,7 +17,7 @@ An always visible **tab** can be optionnaly added to every marker, for additionn
 
 <img src="doc/Image2.png">
 
-On square and circle shapes, the border color can be used to represent a **gauge level** : 
+On square and circle shapes, the border color can be used to represent a **gauge** : 
 
 <img src="doc/Image3.png">
 
