@@ -11,7 +11,7 @@ This component manipulates the following entities, with according design and opt
 - These markers can be displayed with different **labels**, **icones**, **colors**, *anchored* or not, *selected* or not. 
 - Square shapes and circle shapes can be *with direction* or not. 
 
-<img src="doc/image1.png">
+<img src="doc/Image1.png">
 
 
 
