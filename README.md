@@ -13,8 +13,13 @@ This component manipulates the following entities, with according design and opt
 
 <img src="doc/Image1.png">
 
+An always visible **tab** can be optionnaly added to every marker, for additionnal information :
 
+<img src="doc/Image2.png">
 
+On square and circle shapes, the border color can be used to represent a **gauge level** : 
+
+<img src="doc/Image3.png">
 
 
 [comment]: <Examples of use can be found in [samples](https://github.com/Orange-OpenSource/IOT-Map-Component/samples).>
