@@ -7,9 +7,9 @@ It provides Orange branded design and User eXperience.
 
 This component manipulates the following entities, with according design and option proposal :
 
-- 3 types of *markers* for *point of interest* and others elements to be displayed, with 2 possible shapes : *square shape* and **circle shape**. 
-- These markers can be displayed with different **labels**, **icones**, **colors**, *anchored* or not, *selected* or not. 
-- Square shapes and circle shapes can be *with direction* or not. 
+- 3 types of **markers** for **point of interest** and others elements to be displayed, with 2 possible shapes : **square shape** and **circle shape**. 
+- These markers can be displayed with different **labels**, **icones**, **colors**, **anchored** or not, **selected** or not. 
+- Square shapes and circle shapes can be **with direction** or not. 
 
 <img src="doc/Image1.png">
 
