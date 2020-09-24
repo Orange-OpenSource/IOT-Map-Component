@@ -5,9 +5,9 @@
 IOT-Map-Component is a map component, based on [Leaflet](https://leafletjs.com/), to be integrated in computer or mobile web application developed in Angular or REACT. 
 It provides Orange branded design and User eXperience. 
 
-This component manipulates the following entities, with according design and options :
+This component manipulates the following <u>entities</u>, with according **attributes** (and *values*) :
 
-- 3 **types** of **markers** : **point of interest**, **square shape** and **circle shape** (the last 2 for any elements to be displayed). 
+- <u>markers</u> of different **types** : *point of interest*, *square shape** and *circle shape* (the last 2 for any elements to be displayed). 
 - These markers can be displayed with different **labels**, **icones**, **colors**, **anchored** or not, **selected** or not. 
 - Square shapes and circle shapes can be displayed **with direction** or not. 
 
