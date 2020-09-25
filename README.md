@@ -8,7 +8,7 @@ It provides Orange branded design and User eXperience.
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
 <ins>Markers</ins> of different **types** : *point of interest*, *square shape* and *circle shape* (the last 2 for any elements to be displayed). 
-- These markers can be displayed with different **labels**, **icones**, **colors**, **anchored** or not, **selected** or not. 
+- These markers can be displayed with a **label**, an **icone**, a **color**, **anchored** or not, **selected** or not. 
 - Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
 
 <img src="doc/Image1.png">
@@ -26,6 +26,13 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 <img src="doc/Image4.png">
 
+<ins>User location</ins> to display the current position of the application user, **with direction** (**angle** in degree) or not.
+
+<img src="doc/Image5.png">
+
+<ins>Paths</ins> to display a path between several **positions**, including a **start** and an **end**, and with a **color**.
+
+<img src="doc/Image6.png">
 
 [comment]: <Examples of use can be found in [samples](https://github.com/Orange-OpenSource/IOT-Map-Component/samples).>
 
