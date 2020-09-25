@@ -1,0 +1,37 @@
+<version>1.0</version>
+<id><![CDATA[Helvetica Neue LT W07 55 Roman]]></id>
+<vendor>Monotype Imaging Inc.</vendor>
+<credits>
+<name>Fonts.com WebFonts</name>
+<URL>http://webfonts.fonts.com</URL>
+</credits>
+<license>
+<URL>http://webfonts.fonts.com/Legal</URL>
+</license>
+<copyright><![CDATA[Copyright © 2014 Monotype Imaging Inc. All rights reserved.]]></copyright>
+<trademark><![CDATA[Neue Helvetica is a trademark of Monotype Imaging Inc. registered in the U.S. Patent and Trademark Office and may be registered in certain other jurisdictions.]]></trademark>
+Orange has purchased the right to use Helvetica in its websites and mobile applications.
+Don't use and distribute Helvetica font family if you're not explicitly authorized by Monotype Imaging Inc
+Parts list under Monotype Imaging Inc Copyright
+
+End of the parts list under Monotype Imaging Inc Copyright
+
+
+Parts list under Orange SA Copyright
+Copyright (C) 2016 - 2019 Orange SA All rights reserved
+
+The following parts are proprietary information of Orange.
+You shall not use or display any trade names, trademarks, service marks, products names, illustrations or designs used within the software
+or displayed on this repository (https://github.com/Orange-OpenSource/IOT-Map-Component/) and owned by Orange SA and its subsidiaries,
+in whole or part of, in any medium, except as required for reasonable and customary use in describing the origin of the software
+and reproducing the content of the NOTICE and DOCUMENTATION files.
+Any use or displaying shall constitute an infringement under intellectual property laws of France and international conventions.
+
+doc/Image1.png
+doc/Image2.png
+doc/Image3.png
+doc/Image4.png
+doc/Image5.png
+doc/Image6.png
+
+End of the parts list under Orange SA Copyright
