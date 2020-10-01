@@ -1,5 +1,11 @@
 # IOT-Map-Component 
 
+## Table of contents
+
+- [Presentation](#presentation)
+- [Start](#start)
+
+
 ## Presentation
 
 IOT-Map-Component is a map component, based on [Leaflet](https://leafletjs.com/), to be integrated in computer or mobile web applications developed in Angular or REACT. 
@@ -42,6 +48,11 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 Following start options are available:
 
-[comment]: <- [Download the latest release.](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip)>
-[comment]: <- Clone the repo: `git clone ??`>
-[comment]: <- Install with [npm](https://www.npmjs.com): `npm install ???`>
+- [Download the latest release.](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip)
+- For each map view you needed :
+    - Duplicate map.component.ts, with a dedicated selector
+    - Insert this map view in your page with :
+```
+ <map-component></map-component>
+```
+    - Change 
