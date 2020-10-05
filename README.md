@@ -44,15 +44,13 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 [comment]: <TbAdded image of one sample>
 
-## Start
+## Start (to be consolidated)
 
 Following start options are available:
 
-- [Download the latest release.](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip)
-- For each map view you needed :
-    - Duplicate map.component.ts, with a dedicated selector
-    - Insert this map view in your page with :
+- [Download the latest release.](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip), and integrate it in your project,
+- To display a map, insert in your page:
 ```
  <map-component></map-component>
 ```
-    - Change 
+- (So far) MapComponent class in modify map.components.ts to implement your display/refresh of map elements.
