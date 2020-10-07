@@ -1,0 +1,19 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: navy;
+  margin-left: 20px;
+}
+
+
+.borderMarker{
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  left: -1.5rem;
+  top: -1.5rem;
+  border-radius: 0.5rem;
+}
+
