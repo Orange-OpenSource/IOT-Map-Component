@@ -4,7 +4,6 @@
 
 - [Presentation](#presentation)
 - [Quick start](#quick-start)
-- [What's included](#whats-included)
 
 
 ## Presentation
@@ -47,8 +46,8 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 ## Quick start
 
-[Download the latest release.](https://github.com/Orange-OpenSource/Orange-Boosted-Bootstrap/archive/v4.5.2.zip)
-- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/iot-map-component-v0.0.1.zip), and integrate it in your project,
+
+- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip), and integrate it in your project,
 - Display a map by inserting in your page:
 ```
  <map-component></map-component>
