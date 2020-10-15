@@ -52,6 +52,6 @@ This component manipulates the following <ins>entities</ins>, with according **a
 ```
  <map-component></map-component>
 ```
-- Modify **MapComponent** class in ```map.components.ts``` to display/refresh map elements, using **IoTMapManager** class methods (see [src/iotMapManager/readme.md]((https://github.com/Orange-OpenSource/IOT-Map-Component/src/iotMapManager/readme.md))).
+- Modify **MapComponent** class in ```map.components.ts``` to display/refresh map elements, using **IoTMapManager** class methods (see [src/iotMapManager/readme.md](https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/src/iotMapManager/readme.md)).
 
 
