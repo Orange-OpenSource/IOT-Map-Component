@@ -47,7 +47,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 ## Quick start
 
 
-- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.0.1.zip), and integrate it in your project,
+- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.1.0.zip), and integrate it in your project,
 - Display a map by inserting in your page:
 ```
  <map-component></map-component>
