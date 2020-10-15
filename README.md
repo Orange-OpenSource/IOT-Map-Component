@@ -13,8 +13,8 @@ It provides Orange branded design and User eXperience.
 
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
-<ins>Markers</ins> of different **types** : *point of interest*, *square shape* and *circle shape* (the last 2 for any elements to be displayed). 
-- These markers can be displayed with a **label**, an **icone**, a **color**, **anchored** or not, **selected** or not. 
+<ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
+- These markers can be displayed with a **position**, a **color**, a **label** and **label color** or an **icon** and **icon color**, **anchored** or not, **selected** or not. 
 - Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
 
 <img src="doc/Image1.png">
@@ -52,5 +52,6 @@ This component manipulates the following <ins>entities</ins>, with according **a
 ```
  <map-component></map-component>
 ```
-- (So far) Modify **MapComponent** class in ```map.components.ts``` to display/refresh map elements.
+- Modify **MapComponent** class in ```map.components.ts``` to display/refresh map elements, using **IoTMapManager** class methods (see [src/iotMapManager/readme.md]((https://github.com/Orange-OpenSource/IOT-Map-Component/src/iotMapManager/readme.md))).
+
 
