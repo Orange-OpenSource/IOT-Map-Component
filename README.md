@@ -14,8 +14,9 @@ It provides Orange branded design and User eXperience.
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
 <ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
-- These markers can be displayed with a **position**, a **color**, a **label** and **label color** or an **icon** and **icon color**, **anchored** or not, **selected** or not. 
+- Shapes can have a **color**, **anchored** or not, **selected** or not.
 - Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
+- Markers can be displayed also with a **position**, a **label** (**character** and **label color**) or an **icon** (**svg** description and **icon color**). 
 
 <img src="doc/Image1.png">
 
@@ -28,7 +29,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 <img src="doc/Image3.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
-- These clusters can be displayed with the **number** of markers, with an **icone**, and with a **gauge** representing repartition of markers replaced by this cluster.
+- These clusters can be displayed with the **number** of markers, with an **icon**, and with a **gauge** representing repartition of markers replaced by this cluster.
 
 <img src="doc/Image4.png">
 
