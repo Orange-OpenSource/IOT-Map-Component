@@ -14,7 +14,7 @@ It provides Orange branded design and User eXperience.
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
 <ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
-- Shapes can have a **color**, **anchored** or not, **selected** or not.
+- Shapes can have a **color**, be **anchored** or not, be **selected** or not.
 - Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
 - Markers can be displayed also with a **position**, a **label** (**character** and **label color**) or an **icon** (**svg** description and **icon color**). 
 
