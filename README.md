@@ -16,7 +16,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 <ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
 - Shapes can have a **color**, be **anchored** or not, be **selected** or not.
 - Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
-- Markers can be displayed also with a **position**, a **label** (**character** and **label color**) or an **icon** (**svg** description and **icon color**). 
+- Markers can be displayed also with a **location**, a **label** (**character** and **label color**) or an **icon** (**svg** description and **icon color**). 
 
 <img src="doc/Image1.png">
 
@@ -33,11 +33,11 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 <img src="doc/Image4.png">
 
-<ins>User location</ins> to display the current position of the application user, **with direction** (**angle** in degree) or not.
+<ins>User location</ins> to display the current location of the application user, **with direction** (**angle** in degree) or not.
 
 <img src="doc/Image5.png">
 
-<ins>Paths</ins> to display a path between several **positions**, including a **start** and an **end**, and with a **color**.
+<ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
 
 <img src="doc/Image6.png">
 
