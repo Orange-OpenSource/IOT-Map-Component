@@ -1,28 +1,40 @@
 {
   "map": {
     "DEFAULT_COORDINATES": [44.8888929,4.8849108],
-    "DEFAULT_ZOOM_LEVEL": 15
+    "DEFAULT_ZOOM_LEVEL": 15,
+    "geoportailLayer": "https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
+    "openStreetMapLayer": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   },
   "markers" : {
+    "default" : {
+      "shape": "circle",
+      "color": "black",
+      "anchored": true,
+      "plain": true
+    },
+
     "circles" : {
       "borderColor" : "white",
       "backgroundColor" : "white"
     },
+
     "square" : {
       "borderColor" : "white",
       "backgroundColor" : "white"
     },
+
     "poi" : {
       "borderColor" : "white"
     },
+
     "size" : {
       "selected" : {
-        "width" : "100",
-        "height" : "100"
+        "width" : 100,
+        "height" : 100
       },
       "unselected" : {
-        "width" : "40",
-        "height" : "40"
+        "width" : 40,
+        "height" : 40
       }
     }
   }

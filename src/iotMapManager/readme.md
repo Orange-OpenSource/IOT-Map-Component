@@ -7,25 +7,31 @@ A marker is defined as follow *(description will evoluate in the futur)* :
 
     {
         id: string,
-        position: [num, num],
-        shape: string,
-        color: string,
-        
-        label : character,
-        labelColor : string,
-        
-        icon: string,
-        iconColor: string,
-        
-        anchored: bool,
-        selected: bool
+        location: [num, num],
+        shape: {
+            shape: string,
+            color: string,
+            anchored: bool,
+            plain: bool
+        },
+        inner: {
+            color: string,
+            
+            icon: string,
+            // *** OR ***
+            label: character
+        },
+        gauge: {
+            color: string,
+            percent: number
+        }
     }
 
-* position is [lat, lon]
+* location is [lat, lon]
 * shape is 'circle', 'square' or 'poi'
 * icon is not completely implemented. For the moment, can be 'bat' or 'temp'
+* label is only one character. If string is sent, first character will be displayed
 * set anchored to true to get an anchor
-* set selected to true to get a bigger marker
 
 label and icon cannot be defined simultaneously : you can display only one of them.
 More options will arrive soon.
@@ -34,5 +40,5 @@ More options will arrive soon.
 
 this library provides following functions :
 * **addMarker / addMarkers** : send a marker structure or a list of marker structures
-* **updateMarker** : send a marker structure with same id
+* **updateMarker** : send a marker id and a structure containing modified parameters
 * **deleteMarker / deleteMarkers**  : send a marker id or a list of marker ids

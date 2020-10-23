@@ -1,11 +1,11 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.1.1
-* SPDX-FileCopyrightText: Copyright (c) 2020 Orange Business Services
+* Version: 0.1.2
+* SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
 * This software is distributed under the MIT License,
-* the text of which is available at <license-url>
+* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/LICENSE
 * or see the "license.txt" file for more details.
 *
 * Author: S. Gateau
@@ -13,40 +13,47 @@
 */
 
 import * as L from 'leaflet';
-import { iotSquareMarker } from './iotSquareMarker';
-import { iotCircleMarker } from './iotCircleMarker';
+import { IotSquareMarker } from './iotSquareMarker';
+import { IotCircleMarker } from './iotCircleMarker';
+import * as config from '../iotMapManager.json';
 
 export class IotMapMarkers {
-  iotSquareMarker : iotSquareMarker;
-  iotCircleMarker : iotCircleMarker;
+  iotSquareMarker : IotSquareMarker;
+  iotCircleMarker : IotCircleMarker;
 
   constructor() {
-    this.iotSquareMarker = new iotSquareMarker();
-    this.iotCircleMarker = new iotCircleMarker();
+    this.iotSquareMarker = new IotSquareMarker();
+    this.iotCircleMarker = new IotCircleMarker();
   }
 
-  getMarker(marker){
-    let html;
-    if (marker.shape == 'circle') {
-      html = this.iotCircleMarker.getSvg(marker)
-    } else if (marker.shape == 'poi' || marker.shape == 'square') {
-      html = this.iotSquareMarker.getSvg(marker)
+  getMarker(marker, selected = false){
+    let html = '';
+
+    // shape
+    if (!marker.shape) {
+      marker.shape = config.markers.default;
+    }
+    if (marker.shape.shape == 'circle') {
+      html = this.iotCircleMarker.getSvg(marker, selected)
+    } else if (marker.shape.shape == 'poi' || marker.shape.shape == 'square') {
+      html = this.iotSquareMarker.getSvg(marker, selected)
     }
 
-    if (marker.selected) {
-      return L.divIcon({
+    // sizing
+    const selectedMarkerSize = config.markers.size.selected;
+    const unselectedMarkerSize = config.markers.size.unselected;
+
+    const iconSize = (selected) ? [selectedMarkerSize.width, selectedMarkerSize.height] : [unselectedMarkerSize.width, unselectedMarkerSize.height];
+    const iconAnchor : [number, number] = (selected)
+      ? ((marker.shape.anchored) ? [selectedMarkerSize.width/2, selectedMarkerSize.height] : [selectedMarkerSize.width/2, selectedMarkerSize.height/2])
+      : ((marker.shape.anchored) ? [unselectedMarkerSize.width/2, unselectedMarkerSize.height] : [unselectedMarkerSize.width/2, unselectedMarkerSize.height/2]);
+
+    // creating icon
+    return L.divIcon({
         className: "my-custom-pin",
-        iconSize:     [100, 100], // size of the icon
-        iconAnchor:   [50, 100], // point of the icon which will correspond to marker's location
+        iconSize:     iconSize, // size of the icon
+        iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
         html: html
       });
-    } else {
-      return L.divIcon({
-        className: "my-custom-pin",
-        iconSize:     [40, 40], // size of the icon
-        iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
-        html: html
-      });
-    }
   }
 }

@@ -18,190 +18,252 @@ export class MapComponent implements AfterViewInit {
     //square
     {
       id: "s1",
-      position: [44.895,4.870],
-      color: '#FFCC00',
-      shape: 'square',
-      label : "A",
-      labelColor : "green",
-      anchored: false,
-      selected: false},
+      location: [44.895,4.870],
+      shape: {
+        shape: 'square',
+        color: '#FFCC00',
+        anchored: false
+      },
+      inner : {
+        icon : "A",
+        color: "green"
+      },
+    },
     {
       id: "s2",
-      position: [44.895,4.875],
-      color: '#32C832',
-      shape: 'square',
-      anchored: true,
-      plain : true,
-      selected: false},
+      location: [44.895,4.875],
+      shape: {
+        shape : 'square',
+        color: '#32C832',
+        anchored: true,
+        plain : true
+      },
+    },
     {
       id: "s3",
-      position: [44.895,4.88],
-      color: '#527EDB',
-      shape: 'square',
-      anchored: true,
-      selected: true},
+      location: [44.895,4.88],
+      shape: {
+        shape : 'square',
+        color: '#527EDB',
+        anchored: true
+      },
+    },
     {
       id: "s4",
-      position: [44.895,4.885],
-      color: '#CCCCCC',
-      shape: 'square',
-      icon: 'bat',
-      iconColor: 'black',
-      anchored: false,
-      selected: false},
+      location: [44.895,4.885],
+      shape: {
+        shape : 'square',
+        color: '#CCCCCC',
+        anchored: false
+      },
+      inner: {
+        icon: 'bat',
+        color: 'black'
+      },
+    },
     {
       id: "s5",
-      position: [44.895,4.890],
-      color: '#000000',
-      shape: 'square',
-      icon: 'temp',
-      iconColor: 'green',
-      anchored: true,
-      selected: false},
+      location: [44.895,4.890],
+      shape: {
+        shape : 'square',
+        color: '#000000',
+        anchored: true
+      },
+      inner: {
+        icon: 'temp',
+        color: 'green'
+      },
+    },
     {
       id: "s6",
-      position: [44.895,4.895],
-      color: '#CD3C14',
-      shape: 'square',
-      icon: 'bat',
-      iconColor: 'black',
-      anchored: false,
-      selected: true},
+      location: [44.895,4.895],
+
+      shape: {
+        shape : 'square',
+        color: '#CD3C14',
+        anchored: false
+      },
+      inner: {
+        icon: 'bat',
+        color: 'black'
+      },
+    },
 
     // POI
     {
       id: "p1",
-      position: [44.890,4.870],
-      color: '#008080',
-      shape: 'poi',
-      anchored: false,
-      selected: false},
+      location: [44.890,4.870],
+      shape: {
+        shape : 'poi',
+        color: '#008080',
+        anchored: false
+      },
+    },
     {
       id: "p2",
-      position: [44.890,4.875],
-      color: '#cc6600',
-      shape: 'poi',
-      anchored: true,
-      selected: false},
+      location: [44.890,4.875],
+      shape: {
+        shape : 'poi',
+        color: '#cc6600',
+        anchored: true
+      },
+    },
     {
       id: "p3",
-      position: [44.888798,4.885407],
-      color: '#d24d50',
-      shape: 'poi',
-      anchored: true,
-      selected: true},
+      location: [44.888798,4.885407],
+      shape: {
+        shape : 'poi',
+        color: '#d24d50',
+        anchored: true
+      },
+    },
     {
       id: "p4",
-      position: [44.890,4.885],
-      color: '#008080',
-      shape: 'poi',
-      icon: 'bat',
-      iconColor: 'black',
-      anchored: false,
-      selected: false},
+      location: [44.890,4.885],
+      shape: {
+        shape : 'poi',
+        color: '#008080',
+        anchored: false
+      },
+      inner: {
+        icon: 'bat',
+        color: 'black'
+      },
+    },
     {
       id: "p5",
-      position: [44.890,4.890],
-      color: '#cc6600',
-      shape: 'poi',
-      icon: 'temp',
-      iconColor: 'white',
-      anchored: true,
-      selected: false},
+      location: [44.890,4.890],
+      shape: {
+        shape : 'poi',
+        color: '#cc6600',
+        anchored: true
+      },
+      inner: {
+        icon: 'temp',
+        color: 'white'
+      },
+    },
     {
       id: "p6",
-      position: [44.890,4.895],
-      color: '#d24d50',
-      shape: 'poi',
-      icon: 'bat',
-      iconColor: 'white',
-      anchored: false,
-      selected: true},
+      location: [44.890,4.895],
+      shape: {
+        shape : 'poi',
+        color: '#d24d50',
+        anchored: false
+      },
+      inner: {
+        icon: 'bat',
+        color: 'white'
+      },
+    },
 
     // circle
     {
       id: "c1",
-      position: [44.885,4.870],
-      color: '#CD3C14',
-      shape: 'circle',
-      anchored: false,
-      label: "H",
-      selected: false},
+      location: [44.885,4.870],
+      shape: {
+        shape : 'circle',
+        color: '#CD3C14',
+        anchored: false
+      },
+      inner : {
+        label: "H",
+        color: "black"
+      },
+    },
     {
       id: "c2",
-      position: [44.885,4.875],
-      color: '#000000',
-      shape: 'circle',
-      anchored: true,
-      plain : true,
-      selected: false},
+      location: [44.885,4.875],
+      shape: {
+        shape : 'circle',
+        color: '#000000',
+        anchored: true,
+        plain : true
+      },
+    },
     {
       id: "c3",
-      position: [44.885,4.88],
-      color: '#CC6600',
-      shape: 'circle',
-      icon: 'temp',
-      iconColor: 'black',
-      anchored: true,
-      selected: true},
+      location: [44.885,4.88],
+      shape: {
+        shape : 'circle',
+        color: '#CC6600',
+        anchored: true
+      },
+      inner: {
+        icon: 'temp',
+        color: 'black'
+      },
+    },
     {
       id: "c4",
-      position: [44.885,4.885],
-      color: '#527EDB',
-      shape: 'circle',
-      icon: 'bat',
-      iconColor: 'black',
-      anchored: false,
-      selected: false},
+      location: [44.885,4.885],
+      shape: {
+        shape : 'circle',
+        color: '#527EDB',
+        anchored: false
+      },
+      inner: {
+        icon: 'bat',
+        color: 'black'
+      },
+    },
     {
       id: "c5",
-      position: [44.885,4.890],
-      color: '#32C832',
-      shape: 'circle',
-      icon: 'temp',
-      iconColor: 'green',
-      anchored: true,
-      selected: false},
+      location: [44.885,4.890],
+      shape: {
+        shape : 'circle',
+        color: '#32C832',
+        anchored: true
+      },
+      inner: {
+        icon : 'temp',
+        color: 'green'
+      },
+    },
     {
       id: "c6",
-      position: [44.885,4.895],
-      color: '#FFCC00',
-      shape: 'circle',
-      anchored: false,
-      label: "A",
-      selected: true}
-      ];
+      location: [44.885, 4.895],
+      shape: {
+        shape: 'circle',
+        color: '#FFCC00',
+        anchored: false
+      },
+      inner: {
+        label: "A",
+        color: "black",
+        icon: 'temp',
+      }
+    }];
 
-  markersIdToRemove = ["c6", "p4", "s2", "z2"];
+  markersIdToRemove = ["p4", "s2", "z2"];
 
   markerToAdd = {
     id: "toAdd",
-    position: [44.886, 4.895],
-    color: 'purple',
-    shape: 'circle',
-    anchored: true,
-    selected: false
+    location: [44.886, 4.895],
+    shape: {
+      shape : 'circle',
+      color: 'purple',
+      anchored: true
+    },
+    inner: {
+      icon: '../assets/4g.svg',
+      color: 'blue'
+    }
   };
 
-  markerToUpdate1 = {
+  markerToUpdate = {
     id: "toUpdate",
-    position: [44.887, 4.895],
-    color: 'green',
-    shape: 'circle',
-    anchored: true,
-    selected: true
+    location: [44.887, 4.895],
+    shape : {
+      shape: 'circle',
+      color: 'green',
+      anchored: true
+    },
+    gauge: {
+      color : 'red',
+      percent: '10'
+    }
   }
-
-  markerToUpdate2 = {
-    id: "toUpdate",
-    position: [44.887, 4.895],
-    color: 'blue',
-    shape: 'circle',
-    anchored: true,
-    selected: true
-  }
-
-
 
   constructor() {
     this.commonIotMap = new IotMapManager();
@@ -215,9 +277,18 @@ export class MapComponent implements AfterViewInit {
 
     this.commonIotMap.addMarkers(this.markersList);
     this.commonIotMap.removeMarkers(this.markersIdToRemove);
+    this.commonIotMap.addMarker(this.markerToUpdate);
 
-    this.commonIotMap.addMarker(this.markerToUpdate1);
-    this.commonIotMap.updateMarker(this.markerToUpdate2);
+    // update marker
+    this.commonIotMap.updateMarker("s3", {inner: {icon:'temp', color:'blue'}});
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id, {location: [44.887, 4.898], shape : {color: 'blue'}, gauge :{percent: '40'}}) }, 2000);
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id, {shape : {shape : 'square', color : 'green'}}) }, 4000);
+    setTimeout(() => { this.commonIotMap.updateMarker("s3", {inner: {label:'green'}})}, 6000);
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id, {gauge :{color: 'green'}}) }, 6000);
+
+
+
+    //
   }
 }
 
