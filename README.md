@@ -15,16 +15,16 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 <ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
 - Shapes can have a **color**, be **anchored** or not, be **selected** or not.
-- Square shapes and circle shapes can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
-- Markers can be displayed also with a **location**, a **label** (**character** and **label color**) or an **icon** (**svg** description and **icon color**). 
+- Markers can be displayed also with a **location** and a **inner** design: a **label** or an **icon**, with a **color**. 
+- Square shapes and circle shapes markers can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
 
 <img src="doc/Image1.png">
 
-- An always visible **tab** can be optionnaly added to every marker, for additionnal information :
+- An always visible **tab** can be optionnaly added to every marker, for additionnal information:
 
 <img src="doc/Image2.png">
 
-- On square and circle shapes, the border color can be used to represent a **gauge** : 
+- On square and circle shapes, the border color can be used to represent a **gauge**, with a **percent** and a **color**: 
 
 <img src="doc/Image3.png">
 
