@@ -35,7 +35,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
     - *inner* allow to group makers, depending on their inner label/icon : this label/icon is displayed in a cluster tab.
 - Clusters can be managed **colored**: if true, clusters display in a gauge the repartition of markers of any **shape** **color**.
 
-<img src="doc/Image4.png">
+<img src="doc/Image7.png">
 
 <ins>User location</ins> to display the current location of the application user, **with direction** (**angle** in degree) or not.
 
