@@ -29,7 +29,11 @@ This component manipulates the following <ins>entities</ins>, with according **a
 <img src="doc/Image3.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
-- These clusters can be displayed with the **number** of markers, with an **icon**, and with a **gauge** representing repartition of markers replaced by this cluster.
+- Clusters display the number of replaced markers.
+- Clusters can be managed with **mode**:
+    - *all* allow to group all markers in same clusters.
+    - *inner* allow to group makers, depending on their inner label/icon : this label/icon is displayed in a cluster tab.
+- Clusters can be managed **colored**: if true, clusters display in a gauge the repartition of markers of any **shape** **color**.
 
 <img src="doc/Image4.png">
 
