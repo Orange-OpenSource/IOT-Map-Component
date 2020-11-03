@@ -29,6 +29,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 <img src="doc/Image3.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
+- Circle, Square and POI markers are grouped in different clusters.
 - Clusters display the number of replaced markers.
 - Clusters can be managed with **mode**:
     - *all* allow to group all markers in same clusters.
