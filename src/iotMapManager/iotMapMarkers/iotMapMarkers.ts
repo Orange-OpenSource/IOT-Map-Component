@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.1.2
+* Version: 0.2.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -44,15 +44,15 @@ export class IotMapMarkers {
     const unselectedMarkerSize = config.markers.size.unselected;
 
     const iconSize = (selected) ? [selectedMarkerSize.width, selectedMarkerSize.height] : [unselectedMarkerSize.width, unselectedMarkerSize.height];
-    const iconAnchor : [number, number] = (selected)
-      ? ((marker.shape.anchored) ? [selectedMarkerSize.width/2, selectedMarkerSize.height] : [selectedMarkerSize.width/2, selectedMarkerSize.height/2])
-      : ((marker.shape.anchored) ? [unselectedMarkerSize.width/2, unselectedMarkerSize.height] : [unselectedMarkerSize.width/2, unselectedMarkerSize.height/2]);
+    const iconAnchor : [number, number] = (marker.shape.anchored) ? [iconSize[0]/2, iconSize[1]] : [iconSize[0]/2, iconSize[1]/2];
+    const popupAnchor : [number, number] = (marker.shape.anchored) ? [0, -iconSize[1]] : [0, -iconSize[1]/2];
 
     // creating icon
     return L.divIcon({
         className: "my-custom-pin",
         iconSize:     iconSize, // size of the icon
         iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
+        popupAnchor:  popupAnchor,
         html: html
       });
   }

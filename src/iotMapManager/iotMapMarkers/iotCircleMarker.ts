@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.1.2
+* Version: 0.2.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -39,11 +39,9 @@ export class IotCircleMarker {
     if (marker.inner) {
       // label
       // todo : a revoir pour bien centrer
-      svgInnerDesign = (marker.inner.label) ? `<text font-size="250"
-                                            fill='` + marker.inner.color + `'
-                                            stroke='#003366'
-                                            stroke-width='1px' x='135' y='310'
-                                            font-family='Arial'>` + marker.inner.label[0] + `</text>` : '';
+      svgInnerDesign = (marker.inner.label) ? `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+                                                font-size="160" font-family='Arial' fill='` + marker.inner.color + `'>`
+                                                + marker.inner.label[0] + `</text>` : "";
 
       // icon
       // todo : import des icones solaris
@@ -67,8 +65,8 @@ export class IotCircleMarker {
     }
     // gauge
     if (marker.gauge) {
-      const x = marker.gauge.percent * 1193 / 100;
-      svgGauge = commonSvg.circle_gauge + `stroke='` + marker.gauge.color + `' stroke-dasharray='` + x + `, 1193' />`;
+      const arc = marker.gauge.percent * 1193 / 100;
+      svgGauge = commonSvg.circle_gauge + `stroke='` + marker.gauge.color + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(-90 225 225)'/>`;
     }
 
     // build shape

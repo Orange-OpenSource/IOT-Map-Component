@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.1.2
+* Version: 0.2.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -21,8 +21,7 @@ export let circle_inner_color : string = `d='M193 27.14h57c12.02-.12 24.57 3.28 
 
 export let circle_center : string = `d='M200 77.15h41c23.72-.11 54 13.64 73 27.28 70.98 50.95 81.12 153.07 26.39 219.57-13.14 15.96-29.98 28.55-48.39 37.75-16.3 8.16-39.71 15.22-58 15.25h-21c-7.19-.09-18.88-2.39-26-4.13C135.54 360.31 94.8 320.6 79.72 270c-6.46-21.69-4.75-37.81-4.72-60 .02-15.57 6.83-36.12 13.75-50 22.96-46.01 61.12-73.33 111.25-82.85z'`;
 
-export let circle_gauge : string = `<circle r='190' cx='225' cy='225' stroke='whitesmoke' stroke-width='40' fill='none'/>
-                                    <circle r='190' cx='225' cy='225' class='jauge' stroke-width='40' stroke-linecap='round' fill='none' `;
+export let circle_gauge : string = `<circle r='180' cx='225' cy='225' stroke-width='60' stroke-linecap='butt' fill='none'`;
 
 // square
 export let sqr_anchored_border : string = `d='M224 545l-42-63c-6.06-9.09-14.35-24.18-24-29-4.95-2.48-12.5-2.99-18-3H94 71c-21.96-.03-43.02-11.81-56.32-29-3.88-5.01-7.82-12.04-9.99-18-3-8.26-4.68-15.18-4.69-24V71C.06 33.46 33.46.06 71 0h308c37.54.06 70.94 33.46 71 71v308c-.06 37.5-33.49 70.94-71 71h-71c-4.67.06-11.84.92-16 3-9.34 4.67-16.25 17.38-22 26l-44 66h-2zM67 25h-1l1 1v-1zm317 0h-1l1 1v-1zM226 494l19.67-30c4.63-6.95 13.06-20.55 18.37-25.99 10.83-11.08 25.72-15.99 40.96-16.01h70c26.76-.13 46.96-21.56 47-48V181 74c-.31-26.29-22.22-45.96-48-46H181 74c-26.22.31-45.96 22.25-46 48v300c.31 26.22 22.25 45.96 48 46h71c14.78.18 29.78 6.12 39.91 17 4.39 4.72 13.33 18.85 17.42 25L224 494h2zM46 34h-1l1 1v-1zm359 0h-1l1 1v-1zM35 45h-1l1 1v-1zm-9 21h-1l1 1v-1zm399 0h-1l1 1v-1zM26 383h-1l1 1v-1zm399 0h-1l1 1v-1zM35 404h-1l1 1v-1zm11 11h-1l1 1v-1zm359 0h-1l1 1v-1z'`;
