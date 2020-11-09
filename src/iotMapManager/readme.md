@@ -8,6 +8,7 @@ A marker is defined as follow *(description will evoluate in the futur)* :
     {
         id: string,
         location: [num, num],
+        popup: string,
         shape: {
             shape: string,
             color: string,
@@ -28,6 +29,7 @@ A marker is defined as follow *(description will evoluate in the futur)* :
     }
 
 * location is [lat, lon]
+* popup is a string displayed in a popup when marker is clicked
 * shape is 'circle', 'square' or 'poi'
 * icon is not completely implemented. For the moment, can be 'bat' or 'temp'
 * label is only one character. If string is sent, first character will be displayed
