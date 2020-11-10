@@ -54,7 +54,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 Several quick start options are available:
 - [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.1.2.zip), and integrate it in your project,
-- Install with [npm](https://www.npmjs.com/): `npm install iotmapcomponent`
+- Install with [npm](https://www.npmjs.com/): `npm install iotmapmanager`
 
 Then, display a map by inserting in your page:
 ```
