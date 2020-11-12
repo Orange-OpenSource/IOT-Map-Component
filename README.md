@@ -52,12 +52,14 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 ## Quick start
 
-
+Several quick start options are available:
 - [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.1.2.zip), and integrate it in your project,
-- Display a map by inserting in your page:
+- Install with [npm](https://www.npmjs.com/): `npm install iotmapmanager`
+
+Then, display a map by inserting in your page:
 ```
  <map-component></map-component>
 ```
-- Angular sample of use if given in ```map/map.components.ts``` to display/refresh map elements, using javascript **IoTMapManager** class methods (see [src/iotMapManager/readme.md](https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/src/iotMapManager/readme.md)).
+Angular sample of use is given in ```map/map.components.ts``` (and not included by npm) to display/refresh map elements, using javascript **IoTMapManager** class methods (see [src/iotMapManager/readme.md](https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/src/iotMapManager/readme.md)).
 
 
