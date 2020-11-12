@@ -3,8 +3,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 
-import { IotMapManager } from '../iotMapManager/iotMapManager';
-//import { IotMapManager } from 'iotmapmanager'; // for NPM
+import { IotMapManager } from 'iotmapmanager';
 
 @Component({
   selector: 'map-component',
