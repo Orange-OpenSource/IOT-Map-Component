@@ -1,0 +1,50 @@
+{
+  "_from": "iotmapmanager",
+  "_id": "iotmapmanager@0.2.2",
+  "_inBundle": false,
+  "_integrity": "sha512-Q7PVTJ/WHujDFcuO1B+MGJMXHLlJndJ9JrgDSf0UXdEdbsyf8otVrDBbE7bYZ2J5p4nfbT15ex+x1aTbJxgAMA==",
+  "_location": "/iotmapmanager",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "iotmapmanager",
+    "name": "iotmapmanager",
+    "escapedName": "iotmapmanager",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/iotmapmanager/-/iotmapmanager-0.2.1.tgz",
+  "_shasum": "995e1d21ae3dc138452aa43bfe261e7800e9c2ad",
+  "_spec": "iotmapmanager",
+  "_where": "C:\\PROJETS\\IoTMap\\Source\\IotMap - Copie (2)\\IotMap",
+  "author": {
+    "name": "sandrinegateau"
+  },
+  "bugs": {
+    "url": "https://github.com/Orange-OpenSource/IOT-Map-Component/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Manage markers and clusters on IotMaps",
+  "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
+  "keywords": [
+    "map"
+  ],
+  "license": "MIT",
+  "main": "iotMapManager.ts",
+  "name": "iotmapmanager",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orange-OpenSource/IOT-Map-Component.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.2"
+}
