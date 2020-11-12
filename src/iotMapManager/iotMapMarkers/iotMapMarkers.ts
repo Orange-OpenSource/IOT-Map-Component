@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.1
+* Version: 0.2.2
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -18,38 +18,41 @@ import { IotCircleMarker } from './iotCircleMarker';
 import * as config from '../iotMapManager.json';
 
 export class IotMapMarkers {
-  iotSquareMarker : IotSquareMarker;
-  iotCircleMarker : IotCircleMarker;
+  iotSquareMarker: IotSquareMarker;
+  iotCircleMarker: IotCircleMarker;
 
   constructor() {
     this.iotSquareMarker = new IotSquareMarker();
     this.iotCircleMarker = new IotCircleMarker();
   }
 
-  getMarker(marker, selected = false){
+  getMarker(marker, selected = false) {
     let html = '';
 
     // shape
     if (!marker.shape) {
       marker.shape = config.markers.default;
     }
-    if (marker.shape.shape == 'circle') {
-      html = this.iotCircleMarker.getSvg(marker, selected)
-    } else if (marker.shape.shape == 'poi' || marker.shape.shape == 'square') {
-      html = this.iotSquareMarker.getSvg(marker, selected)
+    if (marker.shape.shape === 'circle') {
+      html = this.iotCircleMarker.getSvg(marker, selected);
+    } else if (marker.shape.shape === 'poi' || marker.shape.shape === 'square') {
+      html = this.iotSquareMarker.getSvg(marker, selected);
     }
 
     // sizing
-    const selectedMarkerSize = config.markers.size.selected;
-    const unselectedMarkerSize = config.markers.size.unselected;
+    const iconSize: L.Point = L.point(100, 100);
 
-    const iconSize = (selected) ? [selectedMarkerSize.width, selectedMarkerSize.height] : [unselectedMarkerSize.width, unselectedMarkerSize.height];
-    const iconAnchor : [number, number] = (marker.shape.anchored) ? [iconSize[0]/2, iconSize[1]] : [iconSize[0]/2, iconSize[1]/2];
-    const popupAnchor : [number, number] = (marker.shape.anchored) ? [0, -iconSize[1]] : [0, -iconSize[1]/2];
+    const iconAnchor: L.Point = (marker.shape.anchored)
+            ? L.point(iconSize.x / 2, iconSize.y)
+            : L.point(iconSize.x / 2, iconSize.y / 2);
+
+    const popupAnchor: L.Point = (marker.shape.anchored)
+            ? L.point(0, -iconSize.y)
+            : L.point(0, -iconSize.y / 2);
 
     // creating icon
     return L.divIcon({
-        className: "my-custom-pin",
+        className: 'my-custom-pin',
         iconSize:     iconSize, // size of the icon
         iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
         popupAnchor:  popupAnchor,

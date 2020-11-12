@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 
 import { IotMapManager } from '../iotMapManager/iotMapManager';
+//import { IotMapManager } from 'iotmapmanager'; // for NPM
 
 @Component({
   selector: 'map-component',
@@ -12,87 +13,87 @@ import { IotMapManager } from '../iotMapManager/iotMapManager';
 })
 
 export class MapComponent implements AfterViewInit {
-  commonIotMap : IotMapManager;
-  title ="IotMap";
+  commonIotMap: IotMapManager;
+  title = 'IotMap';
   markersList = [
-    //square
+    // square
     {
-      id: "s1",
-      location: [44.895,4.870],
+      id: 's1',
+      location: [44.895, 4.870],
       shape: {
         shape: 'square',
         color: '#FFCC00',
         anchored: false
       },
       inner : {
-        icon : "A",
+        label : "H",
         color: "green"
       },
     },
     {
-      id: "s2",
-      location: [44.895,4.875],
+      id: 's2',
+      location: [44.895, 4.875],
       shape: {
         shape : 'square',
-        color: '#32C832',
+        color: '#FFCC00',
         anchored: true,
         plain : true
       },
     },
     {
-      id: "s3",
-      location: [44.895,4.88],
+      id: 's3',
+      location: [44.895, 4.88],
       shape: {
         shape : 'square',
-        color: '#527EDB',
+        color: '#FFCC00',
         anchored: true
       },
     },
     {
-      id: "s4",
-      location: [44.895,4.885],
+      id: 's4',
+      location: [44.895, 4.885],
       shape: {
         shape : 'square',
-        color: '#CCCCCC',
+        color: '#FFCC00',
         anchored: false
       },
       inner: {
-        icon: 'bat',
+        icon: 'accessibility_hearing.svg',
         color: 'black'
       },
     },
     {
-      id: "s5",
-      location: [44.895,4.890],
+      id: 's5',
+      location: [44.895, 4.890],
       shape: {
         shape : 'square',
-        color: '#000000',
+        color: '#FFCC00',
         anchored: true
       },
       inner: {
-        icon: 'temp',
+        icon: 'bluetooth.svg',
         color: 'green'
       },
     },
     {
-      id: "s6",
-      location: [44.895,4.895],
+      id: 's6',
+      location: [44.895, 4.895],
 
       shape: {
         shape : 'square',
-        color: '#CD3C14',
+        color: '#FFCC00',
         anchored: false
       },
       inner: {
-        icon: 'bat',
+        icon: 'family_place.svg',
         color: 'black'
       },
     },
 
     // POI
     {
-      id: "p1",
-      location: [44.890,4.870],
+      id: 'p1',
+      location: [44.890, 4.870],
       shape: {
         shape : 'poi',
         color: '#008080',
@@ -100,8 +101,8 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "p2",
-      location: [44.890,4.875],
+      id: 'p2',
+      location: [44.890, 4.875],
       shape: {
         shape : 'poi',
         color: '#cc6600',
@@ -109,8 +110,8 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "p3",
-      location: [44.888798,4.885407],
+      id: 'p3',
+      location: [44.888798, 4.885407],
       shape: {
         shape : 'poi',
         color: '#d24d50',
@@ -118,62 +119,62 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "p4",
-      location: [44.890,4.885],
+      id: 'p4',
+      location: [44.890, 4.885],
       shape: {
         shape : 'poi',
         color: '#008080',
         anchored: false
       },
       inner: {
-        icon: 'bat',
+        icon: 'games.svg',
         color: 'black'
       },
     },
     {
-      id: "p5",
-      location: [44.890,4.890],
+      id: 'p5',
+      location: [44.890, 4.890],
       shape: {
         shape : 'poi',
-        color: '#cc6600',
+        color: '#d24d50',
         anchored: true
       },
       inner: {
-        icon: 'temp',
+        icon: 'hospital.svg',
         color: 'white'
       },
     },
     {
-      id: "p6",
-      location: [44.890,4.895],
+      id: 'p6',
+      location: [44.890, 4.895],
       shape: {
         shape : 'poi',
         color: '#d24d50',
         anchored: false
       },
       inner: {
-        icon: 'bat',
+        icon: 'map_pin.svg',
         color: 'white'
       },
-    },
+    }];/*,
 
     // circle
     {
-      id: "c1",
-      location: [44.885,4.870],
+      id: 'c1',
+      location: [44.885, 4.870],
       shape: {
         shape : 'circle',
         color: '#CD3C14',
         anchored: false
       },
       inner : {
-        label: "H",
-        color: "black"
+        label: 'H',
+        color: 'black'
       },
     },
     {
-      id: "c2",
-      location: [44.885,4.875],
+      id: 'c2',
+      location: [44.885, 4.875],
       shape: {
         shape : 'circle',
         color: '#000000',
@@ -182,8 +183,8 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "c3",
-      location: [44.885,4.88],
+      id: 'c3',
+      location: [44.885, 4.88],
       shape: {
         shape : 'circle',
         color: '#CC6600',
@@ -195,11 +196,11 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "c4",
-      location: [44.885,4.885],
+      id: 'c4',
+      location: [44.885, 4.885],
       shape: {
         shape : 'circle',
-        color: '#527EDB',
+        color: '#CC6600',
         anchored: false
       },
       inner: {
@@ -208,8 +209,9 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "c5",
-      location: [44.885,4.890],
+      id: 'c5',
+      location: [44.885, 4.890],
+      popup: `<img src='../assets/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
       shape: {
         shape : 'circle',
         color: '#32C832',
@@ -221,24 +223,24 @@ export class MapComponent implements AfterViewInit {
       },
     },
     {
-      id: "c6",
+      id: 'c6',
       location: [44.885, 4.895],
       shape: {
         shape: 'circle',
-        color: '#FFCC00',
+        color: '#CC6600',
         anchored: false
       },
       inner: {
-        label: "A",
-        color: "black",
+        label: 'A',
+        color: 'black',
         icon: 'temp',
       }
-    }];
+    }];*/
 
-  markersIdToRemove = ["p4", "s2", "z2"];
+  markersIdToRemove = ['p4', 's2', 'z2'];
 
   markerToAdd = {
-    id: "toAdd",
+    id: 'toAdd',
     location: [44.886, 4.895],
     shape: {
       shape : 'circle',
@@ -246,13 +248,13 @@ export class MapComponent implements AfterViewInit {
       anchored: true
     },
     inner: {
-      icon: '../assets/4g.svg',
+      icon: '4g.svg',
       color: 'blue'
     }
   };
 
   markerToUpdate = {
-    id: "toUpdate",
+    id: 'toUpdate',
     location: [44.887, 4.895],
     shape : {
       shape: 'circle',
@@ -263,7 +265,7 @@ export class MapComponent implements AfterViewInit {
       color : 'red',
       percent: '10'
     }
-  }
+  };
 
   constructor() {
     this.commonIotMap = new IotMapManager();
@@ -273,22 +275,28 @@ export class MapComponent implements AfterViewInit {
     this.commonIotMap.init('iotMap');
 
     this.commonIotMap.addMarker(this.markerToAdd);
-    this.commonIotMap.removeMarker("toRemove"); // unknown marker
+    this.commonIotMap.removeMarker('toRemove'); // unknown marker
 
     this.commonIotMap.addMarkers(this.markersList);
     this.commonIotMap.removeMarkers(this.markersIdToRemove);
     this.commonIotMap.addMarker(this.markerToUpdate);
 
     // update marker
-    this.commonIotMap.updateMarker("s3", {inner: {icon:'temp', color:'blue'}});
-    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id, {location: [44.887, 4.898], shape : {color: 'blue'}, gauge :{percent: '40'}}) }, 2000);
-    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id, {shape : {shape : 'square', color : 'green'}}) }, 4000);
-    setTimeout(() => { this.commonIotMap.updateMarker("s3", {inner: {label:'green'}})}, 6000);
-    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id, {gauge :{color: 'green'}}) }, 6000);
-
-
-
-    //
+    this.commonIotMap.updateMarker('s3', {inner: {icon:'Orange_garden.svg', color:'blue'}});
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
+      {location: [44.887, 4.898],
+              shape: {color: 'blue'},
+              gauge: {percent: '40'}});
+    }, 2000);
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id,
+      {shape: {shape: 'square', color: 'green'}});
+    }, 4000);
+    setTimeout(() => { this.commonIotMap.updateMarker('s3',
+      {inner: {label: 'green'}});
+    }, 6000);
+    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
+      {gauge: {color: 'green'}});
+    }, 6000);
   }
 }
 

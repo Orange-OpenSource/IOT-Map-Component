@@ -1,6 +1,7 @@
 {
   "map": {
-    "DEFAULT_COORDINATES": [44.8888929,4.8849108],
+    "DEFAULT_LAT": 44.8888929,
+    "DEFAULT_LON": 4.8849108,
     "DEFAULT_ZOOM_LEVEL": 15,
     "CLUSTER_SIZE": 75,
     "geoportailLayer": "https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",

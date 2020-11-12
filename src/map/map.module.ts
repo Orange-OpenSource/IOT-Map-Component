@@ -8,6 +8,9 @@ import { MapComponent } from './map.component';
   declarations: [
     MapComponent
   ],
+  exports: [
+    MapComponent
+  ],
   imports: [
     BrowserModule,
     MapRoutingModule

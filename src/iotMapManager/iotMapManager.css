@@ -100,3 +100,46 @@
   line-height: 40px;
 }
 
+
+.container{
+  position: relative;
+}
+.container > img{
+  position: absolute;
+  top:0px;
+  left:0px;
+}
+
+.container > img:first-child{
+  z-index: 2;
+}
+
+.container .unselected{
+  position: absolute;
+  top:37px;
+  left:37px;
+  width:26px;
+  height:26px;
+}
+
+.container .selected{
+  position: absolute;
+  top:28px;
+  left:28px;
+  width:44px;
+  height:44px;
+}
+
+.container .shadowSelected{
+  position: absolute;
+  top:10px;
+  left:0px;
+}
+
+.container .shadowUnselected{
+  position: absolute;
+  top:0px;
+  left:0px;
+}
+
+

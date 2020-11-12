@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.1
+* Version: 0.2.2
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -16,7 +16,7 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { IotMapMarkers } from './iotMapMarkers/iotMapMarkers';
 import * as config from './iotMapManager.json';
-import * as commonSvg from "./iotMapMarkers/iotMapCommonSvg";
+import * as commonSvg from './iotMapMarkers/iotMapCommonSvg';
 
 export class IotMapManager {
   map: any;
@@ -29,7 +29,7 @@ export class IotMapManager {
   circleMarkersLayer: any = {};
   poiMarkersLayer: any = {};
 
-  selectedMarkerId: string = '';
+  selectedMarkerId = '';
 
 
   constructor() {
@@ -40,17 +40,16 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   init(selector) {
     // init map
-    this.map = L.map(selector).setView(config.map.DEFAULT_COORDINATES, config.map.DEFAULT_ZOOM_LEVEL);
+    this.map = L.map(selector).setView(L.latLng(config.map.DEFAULT_LAT, config.map.DEFAULT_LON), config.map.DEFAULT_ZOOM_LEVEL);
 
     // init base layers
     const defaultLayer = L.tileLayer(config.map.openStreetMapLayer, {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
-    const geoportailLayer = L.tileLayer(config.map.geoportailLayer, {
+    const geoportailLayer = L.tileLayer.wms(config.map.geoportailLayer, {
       attribution: '<a target="_blank" href="https://www.geoportail.gouv.fr/">Geoportail France</a>',
-      apikey: 'choisirgeoportail',
       format: 'image/jpeg',
-      style: 'normal'
+      styles: 'normal'
     }); // .addTo(this.map);
 
     this.baseLayers = {
@@ -66,9 +65,9 @@ export class IotMapManager {
 
   initMarkersLayer(clusterType) {
     // create layer
-    let layer = new L.markerClusterGroup({
+    const layer = L.markerClusterGroup({
       maxClusterRadius: 150,
-      clusterType: clusterType,
+      // clusterType: clusterType,
       showCoverageOnHover: false,
       iconCreateFunction: this.defineClusterIcon
     });
@@ -76,13 +75,11 @@ export class IotMapManager {
 
     // manage events on markers
     layer.on('click', this.onMarkerClick.bind(this));
-    let instance = this;
+    const instance = this;
     layer.on('clustermouseover', this.onClusterMouseOver.bind(this)
-    ).on('clustermouseout',function(c){
-      instance.map.closePopup();
-    }).on('clusterclick',function(c){
-      instance.map.closePopup();
-    });
+    ).on('clustermouseout', c => instance.map.closePopup()
+    ).on('clusterclick', c => instance.map.closePopup()
+    );
 
     return layer;
   }
@@ -107,14 +104,14 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
-  onMarkerClick(event){
+  onMarkerClick(event) {
     // todo add popup management here
     const markerObject = this.markersObjects[event.layer.markerInfo.id];
 
     // select / unselect marker
-    let html = '';
+    let html: L.DivIcon;
     // already selected => unselect it
-    if (this.selectedMarkerId == markerObject.markerInfo.id) {
+    if (this.selectedMarkerId === markerObject.markerInfo.id) {
       // update selected id
       this.selectedMarkerId = '';
 
@@ -124,7 +121,7 @@ export class IotMapManager {
       this.map.closePopup();
     } else {  // new marker selected
       // --- unselect last selected marker ---
-      if (this.selectedMarkerId != '') {  // a marker was already selected
+      if (this.selectedMarkerId !== '') {  // a marker was already selected
         const lastSelectedMarker = this.markersObjects[this.selectedMarkerId];
 
         // get new html and update marker (=> unselect marker)
@@ -145,9 +142,9 @@ export class IotMapManager {
   onClusterMouseOver(cluster) {
     // create popup content
     let content = cluster.layer._childCount + ' ' + cluster.target.options.clusterType + '(s) : <br>';
-    let tabDistribution: any = {};
+    const tabDistribution: any = {};
     const allChildMarkers = cluster.layer.getAllChildMarkers();
-    allChildMarkers.forEach(function(marker) {
+    allChildMarkers.forEach( marker => {
       const markerColor = marker.markerInfo.shape.color;
       if (tabDistribution[markerColor]) {
         tabDistribution[markerColor] += 1;
@@ -161,7 +158,7 @@ export class IotMapManager {
     }
 
     // create popup
-    let popup = L.popup({closeButton: false})
+    const popup = L.popup({closeButton: false})
       .setLatLng(cluster.layer.getLatLng())
       .setContent(content)
       .openOn(this.map);
@@ -177,7 +174,7 @@ export class IotMapManager {
         popupText = marker.id;
         marker.popup = popupText;
       }
-      const newMarker = L.marker(marker.location, {icon: this.iotMapMarkers.getMarker(marker)}).bindPopup(popupText);
+      const newMarker: any = L.marker(marker.location, {icon: this.iotMapMarkers.getMarker(marker)}).bindPopup(popupText);
       newMarker.markerInfo = marker;
 
 
@@ -193,7 +190,7 @@ export class IotMapManager {
   }
 
   removeMarker(markerId: string) {
-    let markerToRemove = this.markersObjects[markerId];
+    const markerToRemove = this.markersObjects[markerId];
     if (markerToRemove) {
       this.getMarkerLayer(markerToRemove.markerInfo.shape.shape).removeLayer(markerToRemove);
       this.markersObjects[markerId] = null;
@@ -209,7 +206,7 @@ export class IotMapManager {
   updateMarker(markerId: string, params: any) {
     const currentMarkerObject = this.markersObjects[markerId];
     const currentMarkerInfos = currentMarkerObject.markerInfo;
-    const currentMarkerIsSelected = (this.selectedMarkerId == currentMarkerInfos.id);
+    const currentMarkerIsSelected = (this.selectedMarkerId === currentMarkerInfos.id);
 
     let htmlModificationNeeded = false;
     let oldMarkershape = null;
@@ -253,10 +250,10 @@ export class IotMapManager {
         if (!currentMarkerInfos.inner) {
           currentMarkerInfos.inner = {};
         }
-        if (params.inner.color){
+        if (params.inner.color) {
           currentMarkerInfos.inner.color = params.inner.color;
         }
-        if (params.inner.icon){
+        if (params.inner.icon) {
           currentMarkerInfos.inner.icon = params.inner.icon;
           currentMarkerInfos.inner.label = '';
         } else if (params.inner.label) {
@@ -298,15 +295,15 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- CLUSTERS ----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
-  defineClusterIcon (cluster) {
+  defineClusterIcon(cluster) {
     const childCount = cluster.getChildCount();
-    let size = config.cluster.iconSize;
+    const size = config.cluster.iconSize;
 
 
     // marker Distribution
-    let tabDistribution: any = {};
+    const tabDistribution: any = {};
     const allChildMarkers = cluster.getAllChildMarkers();
-    allChildMarkers.forEach(function(marker) {
+    allChildMarkers.forEach( marker => {
       const markerColor = marker.markerInfo.shape.color;
       if (tabDistribution[markerColor]) {
         tabDistribution[markerColor] += 1;
@@ -321,15 +318,16 @@ export class IotMapManager {
     let angle = -90.0;
     let arc = 0.0;
     for (const color in tabDistribution) {
-      let n = tabDistribution[color];
+      const n = tabDistribution[color];
       arc = n * 1193 / childCount - (60 / childCount);  // todo I DON'T KNOW WHY !!!
-      svgGauge += commonSvg.circle_gauge + `stroke='` + color + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(`+ angle + ` 225 225)'/>`;
+      svgGauge += commonSvg.circleGauge + `stroke='` + color
+                  + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(` + angle + ` 225 225)'/>`;
       angle += n * 360 / childCount;
     }
 
 
     return new L.DivIcon({
-      html: `<svg xmlns='http://www.w3.org/2000/svg' width='` + size +`' height='`+ size + `' viewBox='0 0 450 545'>`
+      html: `<svg xmlns='http://www.w3.org/2000/svg' width='` + size + `' height='` + size + `' viewBox='0 0 450 545'>`
         + `<path fill='white' d='M197 2.21h46c20.84-.18 51.79 8.71 71 16.94 25.45 10.9 49.03 26.7 69 45.89 12.7 12.21 25.89 29.81 35 44.96 46.3 77.02 41.96 173.09-8.34 247-16.66 24.48-38.69 45.13-63.66 60.95-27.28 17.28-70.4 34-103 34.05h-40c-16.83-.2-44.1-7.57-60-13.58C78.05 413.9 27.77 360.57 7.72 294 4.12 282.06.02 265.38 0 253v-52c.03-16.82 7.04-40.18 12.95-56C33.42 90.25 76.01 45.64 129 21.31c23.6-10.84 42.64-15.06 68-19.1zm17 30.07c-19.58 2.82-31.62 3.77-51 10.23-47.98 16-90.54 52.95-112.74 98.49C39.28 163.52 30.3 195.88 30 221c-1.01 86.54 53.52 165.06 137 190.72 15.49 4.76 35.8 9.09 52 9.28 31.6.37 58.09-5.85 87-18.42 18.54-8.07 40.75-24.35 55-38.58 51.31-51.25 70.58-124.64 49.02-194-3.21-10.35-8.2-23.51-13.33-33-13.66-25.27-31.11-46.02-53.69-63.79-18.95-14.92-39.04-25.1-62-32.23-19.38-6.03-46.79-10.58-67-8.7z'/>`
         + `<path fill='white' d='M200 77.15h41c23.72-.11 54 13.64 73 27.28 70.98 50.95 81.12 153.07 26.39 219.57-13.14 15.96-29.98 28.55-48.39 37.75-16.3 8.16-39.71 15.22-58 15.25h-21c-7.19-.09-18.88-2.39-26-4.13C135.54 360.31 94.8 320.6 79.72 270c-6.46-21.69-4.75-37.81-4.72-60 .02-15.57 6.83-36.12 13.75-50 22.96-46.01 61.12-73.33 111.25-82.85z'/>`
         + `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="160" font-family='arial'>` + childCount + `</text>`
@@ -337,8 +335,7 @@ export class IotMapManager {
         + `</svg>`,
       className: 'my-cluster-class',
       iconSize: [size, size],
-      //popupAnchor: [-size/2,-size/2]
-      popupAnchor: [0,0]
+      popupAnchor: [0, 0]
     });
   }
 }
