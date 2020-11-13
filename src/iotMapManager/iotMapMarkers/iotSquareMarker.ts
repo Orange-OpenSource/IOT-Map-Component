@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.2
+* Version: 0.2.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -22,34 +22,33 @@ export class IotSquareMarker {
     let svgBorder = '';
     let shadowFile = '';
 
-    if (selected) {
-      // todo anchored ?
-      if (marker.shape.shape == 'poi' || marker.shape.plain) {  // STD
-        svgShape = `<path fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelStdColour + `/>`;
+    if (selected) {   // Only anchored markers can be selected
+      if (marker.shape.shape === 'poi' || marker.shape.plain) {  // STD
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelStdColour + `/>`;
       } else {  // FUN
-        svgShape = `<path fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelFunColour + `/>`;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelFunColour + `/>`;
         svgBG = commonSvg.sqrSelFunBg;
       }
       shadowFile = 'assets/img/POI_SQR_SEL_Shadow.png';
-    } else if (marker.shape.shape == 'poi' || marker.shape.plain) {  // STD
+    } else if (marker.shape.shape === 'poi' || marker.shape.plain) {  // STD
       if (marker.shape.anchored) {
         svgBorder = commonSvg.sqrPinBorder;
-        svgShape = `<path fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinStdColour + `/>`;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinStdColour + `/>`;
         shadowFile = 'assets/img/POI_SQR_PIN_Shadow.png';
-      } else {
+      } else { // FUN
         svgBorder = commonSvg.sqrBorder;
-        svgShape = `<rect  fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrStdColour + `/>`;
+        svgShape = `<rect  fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrStdColour + `/>`;
         shadowFile = 'assets/img/POI_SQR_Shadow.png';
       }
     } else {  // FUN
       if (marker.shape.anchored) {
         svgBorder = commonSvg.sqrPinBorder;
-        svgShape = `<path fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinFunColour + `/>`;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinFunColour + `/>`;
         svgBG = `<path fill='white' fill-rule='evenodd' ` + commonSvg.sqrPinFunBg + `/>`;
         shadowFile = 'assets/img/POI_SQR_PIN_Shadow.png';
       } else {
         svgBorder = commonSvg.sqrBorder;
-        svgShape = `<path fill='`+ marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrFunColour + `/>`;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrFunColour + `/>`;
         svgBG = commonSvg.sqrFunBg;
         shadowFile = 'assets/img/POI_SQR_Shadow.png';
       }
@@ -61,7 +60,7 @@ export class IotSquareMarker {
     if (marker.inner) {
       // todo : à revoir pour bien centrer
       svgInnerDesign = (marker.inner.label) ? `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                                                font-size="20" font-family='Arial' fill='` + marker.inner.color + `'>`
+                                                font-size="20" font-family='helvetica neue' fill='` + marker.inner.color + `'>`
                                                 + marker.inner.label[0] + `</text>` : '';
 
       // icon
@@ -73,7 +72,7 @@ export class IotSquareMarker {
 
     // shadow
     const shadowClass = (selected) ? 'shadowSelected' : 'shadowUnselected';
-    const imgShadow = `<img class='` + shadowClass + `' src='`+ shadowFile + `'/>`;
+    const imgShadow = `<img class='` + shadowClass + `' src='` + shadowFile + `'/>`;
 
 
     // result

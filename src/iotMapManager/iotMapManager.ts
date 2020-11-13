@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.2
+* Version: 0.2.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -144,7 +144,7 @@ export class IotMapManager {
     let content = cluster.layer._childCount + ' ' + cluster.target.options.clusterType + '(s) : <br>';
     const tabDistribution: any = {};
     const allChildMarkers = cluster.layer.getAllChildMarkers();
-    allChildMarkers.forEach( marker => {
+    allChildMarkers.forEach(marker => {
       const markerColor = marker.markerInfo.shape.color;
       if (tabDistribution[markerColor]) {
         tabDistribution[markerColor] += 1;
@@ -152,13 +152,16 @@ export class IotMapManager {
         tabDistribution[markerColor] = 1;
       }
     });
+
     for (const color in tabDistribution) {
-      content += '<span style="color:' + color + '; font-size: 30px">&#x25CF;   </span>' +
-        '<span style="color: black">' + tabDistribution[color] + ' marker(s) </span><br>';
+      if (tabDistribution[color]) {
+        content += '<span style="color:' + color + '; font-size: 30px">&#x25CF;   </span>' +
+          '<span style="color: black">' + tabDistribution[color] + ' marker(s) </span><br>';
+      }
     }
 
     // create popup
-    const popup = L.popup({closeButton: false})
+    L.popup({closeButton: false})
       .setLatLng(cluster.layer.getLatLng())
       .setContent(content)
       .openOn(this.map);
@@ -303,7 +306,7 @@ export class IotMapManager {
     // marker Distribution
     const tabDistribution: any = {};
     const allChildMarkers = cluster.getAllChildMarkers();
-    allChildMarkers.forEach( marker => {
+    allChildMarkers.forEach(marker => {
       const markerColor = marker.markerInfo.shape.color;
       if (tabDistribution[markerColor]) {
         tabDistribution[markerColor] += 1;
@@ -318,19 +321,21 @@ export class IotMapManager {
     let angle = -90.0;
     let arc = 0.0;
     for (const color in tabDistribution) {
-      const n = tabDistribution[color];
-      arc = n * 1193 / childCount - (60 / childCount);  // todo I DON'T KNOW WHY !!!
-      svgGauge += commonSvg.circleGauge + `stroke='` + color
-                  + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(` + angle + ` 225 225)'/>`;
-      angle += n * 360 / childCount;
+      if (tabDistribution[color]) {
+        const n = tabDistribution[color];
+        arc = n * 1193 / childCount - (60 / childCount);  // todo I DON'T KNOW WHY !!!
+        svgGauge += commonSvg.circleGauge + `stroke='` + color
+          + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(` + angle + ` 225 225)'/>`;
+        angle += n * 360 / childCount;
+      }
     }
 
-
+  // tslint:disable:max-line-length
     return new L.DivIcon({
       html: `<svg xmlns='http://www.w3.org/2000/svg' width='` + size + `' height='` + size + `' viewBox='0 0 450 545'>`
         + `<path fill='white' d='M197 2.21h46c20.84-.18 51.79 8.71 71 16.94 25.45 10.9 49.03 26.7 69 45.89 12.7 12.21 25.89 29.81 35 44.96 46.3 77.02 41.96 173.09-8.34 247-16.66 24.48-38.69 45.13-63.66 60.95-27.28 17.28-70.4 34-103 34.05h-40c-16.83-.2-44.1-7.57-60-13.58C78.05 413.9 27.77 360.57 7.72 294 4.12 282.06.02 265.38 0 253v-52c.03-16.82 7.04-40.18 12.95-56C33.42 90.25 76.01 45.64 129 21.31c23.6-10.84 42.64-15.06 68-19.1zm17 30.07c-19.58 2.82-31.62 3.77-51 10.23-47.98 16-90.54 52.95-112.74 98.49C39.28 163.52 30.3 195.88 30 221c-1.01 86.54 53.52 165.06 137 190.72 15.49 4.76 35.8 9.09 52 9.28 31.6.37 58.09-5.85 87-18.42 18.54-8.07 40.75-24.35 55-38.58 51.31-51.25 70.58-124.64 49.02-194-3.21-10.35-8.2-23.51-13.33-33-13.66-25.27-31.11-46.02-53.69-63.79-18.95-14.92-39.04-25.1-62-32.23-19.38-6.03-46.79-10.58-67-8.7z'/>`
         + `<path fill='white' d='M200 77.15h41c23.72-.11 54 13.64 73 27.28 70.98 50.95 81.12 153.07 26.39 219.57-13.14 15.96-29.98 28.55-48.39 37.75-16.3 8.16-39.71 15.22-58 15.25h-21c-7.19-.09-18.88-2.39-26-4.13C135.54 360.31 94.8 320.6 79.72 270c-6.46-21.69-4.75-37.81-4.72-60 .02-15.57 6.83-36.12 13.75-50 22.96-46.01 61.12-73.33 111.25-82.85z'/>`
-        + `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="160" font-family='arial'>` + childCount + `</text>`
+        + `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="160" font-family='helvetica neue'>` + childCount + `</text>`
         + svgGauge
         + `</svg>`,
       className: 'my-cluster-class',
@@ -338,4 +343,5 @@ export class IotMapManager {
       popupAnchor: [0, 0]
     });
   }
+  // tslint:enable:max-line-length
 }

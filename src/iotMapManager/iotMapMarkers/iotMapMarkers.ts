@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.2
+* Version: 0.2.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -29,10 +29,16 @@ export class IotMapMarkers {
   getMarker(marker, selected = false) {
     let html = '';
 
-    // shape
+    // default values
     if (!marker.shape) {
       marker.shape = config.markers.default;
     }
+
+    // only anchored markers can be selected
+    if (!marker.shape.anchored) {
+      selected = false;
+    }
+
     if (marker.shape.shape === 'circle') {
       html = this.iotCircleMarker.getSvg(marker, selected);
     } else if (marker.shape.shape === 'poi' || marker.shape.shape === 'square') {
@@ -40,15 +46,18 @@ export class IotMapMarkers {
     }
 
     // sizing
-    const iconSize: L.Point = L.point(100, 100);
+    const size = config.markers.size;
+    const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
 
-    const iconAnchor: L.Point = (marker.shape.anchored)
-            ? L.point(iconSize.x / 2, iconSize.y)
-            : L.point(iconSize.x / 2, iconSize.y / 2);
+    let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center
+    if (marker.shape.anchored) {
+      const height = (size.fullSvgHeight + ((selected) ? size.selectedSvgHeight : size.unselectedSvgHeight)) / 2 + size.anchorHeight;
+      iconAnchor = L.point(size.fullSvgWidth / 2, height);
+    }
 
-    const popupAnchor: L.Point = (marker.shape.anchored)
-            ? L.point(0, -iconSize.y)
-            : L.point(0, -iconSize.y / 2);
+    const popupAnchor: L.Point = (selected)
+            ? L.point(0, - (size.selectedSvgHeight + size.anchorHeight))    // from anchor point
+            : L.point(0, - (size.unselectedSvgHeight / 2));   // from center point
 
     // creating icon
     return L.divIcon({

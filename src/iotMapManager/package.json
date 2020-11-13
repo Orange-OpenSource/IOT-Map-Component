@@ -1,6 +1,6 @@
 {
   "_from": "iotmapmanager",
-  "_id": "iotmapmanager@0.2.2",
+  "_id": "iotmapmanager@0.2.3",
   "_inBundle": false,
   "_integrity": "sha512-Q7PVTJ/WHujDFcuO1B+MGJMXHLlJndJ9JrgDSf0UXdEdbsyf8otVrDBbE7bYZ2J5p4nfbT15ex+x1aTbJxgAMA==",
   "_location": "/iotmapmanager",
@@ -37,7 +37,7 @@
     "map"
   ],
   "license": "MIT",
-  "main": "iotMapManager.ts",
+  "main": "iotMapManager.js",
   "name": "iotmapmanager",
   "repository": {
     "type": "git",

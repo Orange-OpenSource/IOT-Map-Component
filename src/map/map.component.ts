@@ -25,8 +25,8 @@ export class MapComponent implements AfterViewInit {
         anchored: false
       },
       inner : {
-        label : "H",
-        color: "green"
+        label : 'H',
+        color: 'green'
       },
     },
     {
@@ -110,7 +110,7 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p3',
-      location: [44.888798, 4.885407],
+      location: [44.888793, 4.885409],
       shape: {
         shape : 'poi',
         color: '#d24d50',
@@ -155,7 +155,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'map_pin.svg',
         color: 'white'
       },
-    }];/*,
+    }]; /*,
 
     // circle
     {
@@ -281,11 +281,11 @@ export class MapComponent implements AfterViewInit {
     this.commonIotMap.addMarker(this.markerToUpdate);
 
     // update marker
-    this.commonIotMap.updateMarker('s3', {inner: {icon:'Orange_garden.svg', color:'blue'}});
+    this.commonIotMap.updateMarker('s3', {inner: {icon: 'Orange_garden.svg', color: 'blue'}});
     setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
       {location: [44.887, 4.898],
-              shape: {color: 'blue'},
-              gauge: {percent: '40'}});
+        shape: {color: 'blue'},
+        gauge: {percent: '40'}});
     }, 2000);
     setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id,
       {shape: {shape: 'square', color: 'green'}});

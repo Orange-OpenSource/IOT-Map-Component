@@ -14,6 +14,15 @@
       "anchored": true,
       "plain": true
     },
+    "size": {
+      "fullSvgWidth": 100,
+      "fullSvgHeight": 100,
+      "unselectedSvgWidth": 44,
+      "unselectedSvgHeight": 44,
+      "selectedSvgWidth": 64,
+      "selectedSvgHeight": 64,
+      "anchorHeight": 10
+    },
 
     "circles": {
       "borderColor": "white",
@@ -27,21 +36,10 @@
 
     "poi": {
       "borderColor": "white"
-    },
-
-    "size": {
-      "selected": {
-        "width": 100,
-        "height": 100
-      },
-      "unselected": {
-        "width": 40,
-        "height": 40
-      }
     }
   },
   "cluster": {
-    "iconSize": 60,
+    "iconSize": 64,
     "circleLayer": {
     },
     "squareLayer": {
