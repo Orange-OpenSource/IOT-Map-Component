@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.3
+* Version: 0.2.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -12,8 +12,8 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-import * as commonSvg from './iotMapCommonSvg';
-import * as config from '../iotMapManager.json';
+import { IotMapCommonSvg} from './iotMapCommonSvg';
+import { IotMapManagerConfig } from '../iotMapManagerConfig';
 
 export class IotCircleMarker {
 
@@ -30,12 +30,12 @@ export class IotCircleMarker {
     const height = (selected) ? 64 : 44;
 
     // border color
-    const borderColor = (selected) ? marker.shape.color : config.markers.circles.borderColor;
+    const borderColor = (selected) ? marker.shape.color : IotMapManagerConfig.markers.circles.borderColor;
 
     // center color
     const svgCenter = (marker.shape.plain)
-      ? `<path fill='` + marker.shape.color + `' ` + commonSvg.circleCenter + `/>`
-      : `<path fill='` + config.markers.circles.backgroundColor + `' ` + commonSvg.circleCenter + `/>`;
+      ? `<path fill='` + marker.shape.color + `' ` + IotMapCommonSvg.circleCenter + `/>`
+      : `<path fill='` + IotMapManagerConfig.markers.circles.backgroundColor + `' ` + IotMapCommonSvg.circleCenter + `/>`;
 
     if (marker.inner) {
       // label
@@ -61,19 +61,19 @@ export class IotCircleMarker {
     // gauge
     if (marker.gauge) {
       const arc = marker.gauge.percent * 1193 / 100;
-      svgGauge = commonSvg.circleGauge + `stroke='` + marker.gauge.color + `' stroke-dasharray='`
+      svgGauge = IotMapCommonSvg.circleGauge + `stroke='` + marker.gauge.color + `' stroke-dasharray='`
                   + arc + `, 1193' transform='rotate(-90 225 225)'/>`;
     }
 
     // build shape
     const border = `<path fill='` + borderColor + `' `
       + ((marker.shape.anchored)
-        ? commonSvg.circleAnchoredBorder
-        : commonSvg.circleBorder) + `/>`;
+        ? IotMapCommonSvg.circleAnchoredBorder
+        : IotMapCommonSvg.circleBorder) + `/>`;
     const innerColor = `<path fill='` + marker.shape.color + `' `
       + ((marker.shape.anchored)
-        ? commonSvg.circleAnchoredInnerColor
-        : commonSvg.circleInnerColor) + `/>`;
+        ? IotMapCommonSvg.circleAnchoredInnerColor
+        : IotMapCommonSvg.circleInnerColor) + `/>`;
 
     // result
     return `<svg xmlns='http://www.w3.org/2000/svg' width='` + width + `' height='` + height + `' viewBox='0 0 450 545'>`

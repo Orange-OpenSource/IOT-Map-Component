@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.3
+* Version: 0.2.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -15,7 +15,7 @@
 import * as L from 'leaflet';
 import { IotSquareMarker } from './iotSquareMarker';
 import { IotCircleMarker } from './iotCircleMarker';
-import * as config from '../iotMapManager.json';
+import { IotMapManagerConfig } from '../iotMapManagerConfig';
 
 export class IotMapMarkers {
   iotSquareMarker: IotSquareMarker;
@@ -31,7 +31,7 @@ export class IotMapMarkers {
 
     // default values
     if (!marker.shape) {
-      marker.shape = config.markers.default;
+      marker.shape = IotMapManagerConfig.markers.default;
     }
 
     // only anchored markers can be selected
@@ -46,7 +46,7 @@ export class IotMapMarkers {
     }
 
     // sizing
-    const size = config.markers.size;
+    const size = IotMapManagerConfig.markers.size;
     const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
 
     let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center

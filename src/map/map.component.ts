@@ -3,7 +3,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 
-import { IotMapManager } from 'iotmapmanager';
+import { IotMapManager } from '../iotMapManager/iotmapmanager';
 
 @Component({
   selector: 'map-component',
@@ -285,7 +285,8 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
       {location: [44.887, 4.898],
         shape: {color: 'blue'},
-        gauge: {percent: '40'}});
+        gauge: {percent: '40'}
+      });
     }, 2000);
     setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id,
       {shape: {shape: 'square', color: 'green'}});

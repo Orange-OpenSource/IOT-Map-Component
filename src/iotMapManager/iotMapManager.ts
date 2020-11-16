@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.3
+* Version: 0.2.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -15,8 +15,8 @@
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { IotMapMarkers } from './iotMapMarkers/iotMapMarkers';
-import * as config from './iotMapManager.json';
-import * as commonSvg from './iotMapMarkers/iotMapCommonSvg';
+import { IotMapManagerConfig } from './iotMapManagerConfig';
+import { IotMapCommonSvg } from './iotMapMarkers/iotMapCommonSvg';
 
 export class IotMapManager {
   map: any;
@@ -40,13 +40,15 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   init(selector) {
     // init map
-    this.map = L.map(selector).setView(L.latLng(config.map.DEFAULT_LAT, config.map.DEFAULT_LON), config.map.DEFAULT_ZOOM_LEVEL);
+    this.map = L.map(selector).setView(
+      L.latLng(IotMapManagerConfig.map.DEFAULT_LAT, IotMapManagerConfig.map.DEFAULT_LON),
+      IotMapManagerConfig.map.DEFAULT_ZOOM_LEVEL);
 
     // init base layers
-    const defaultLayer = L.tileLayer(config.map.openStreetMapLayer, {
+    const defaultLayer = L.tileLayer(IotMapManagerConfig.map.openStreetMapLayer, {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
-    const geoportailLayer = L.tileLayer.wms(config.map.geoportailLayer, {
+    const geoportailLayer = L.tileLayer.wms(IotMapManagerConfig.map.geoportailLayer, {
       attribution: '<a target="_blank" href="https://www.geoportail.gouv.fr/">Geoportail France</a>',
       format: 'image/jpeg',
       styles: 'normal'
@@ -300,7 +302,7 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   defineClusterIcon(cluster) {
     const childCount = cluster.getChildCount();
-    const size = config.cluster.iconSize;
+    const size = IotMapManagerConfig.cluster.iconSize;
 
 
     // marker Distribution
@@ -324,7 +326,7 @@ export class IotMapManager {
       if (tabDistribution[color]) {
         const n = tabDistribution[color];
         arc = n * 1193 / childCount - (60 / childCount);  // todo I DON'T KNOW WHY !!!
-        svgGauge += commonSvg.circleGauge + `stroke='` + color
+        svgGauge += IotMapCommonSvg.circleGauge + `stroke='` + color
           + `' stroke-dasharray='` + arc + `, 1193' transform='rotate(` + angle + ` 225 225)'/>`;
         angle += n * 360 / childCount;
       }

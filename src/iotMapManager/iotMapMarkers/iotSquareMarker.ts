@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.2.3
+* Version: 0.2.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -12,7 +12,7 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-import * as commonSvg from './iotMapCommonSvg';
+import { IotMapCommonSvg } from './iotMapCommonSvg';
 
 export class IotSquareMarker {
   getSvg(marker, selected = false) {
@@ -24,32 +24,32 @@ export class IotSquareMarker {
 
     if (selected) {   // Only anchored markers can be selected
       if (marker.shape.shape === 'poi' || marker.shape.plain) {  // STD
-        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelStdColour + `/>`;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrSelStdColour + `/>`;
       } else {  // FUN
-        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrSelFunColour + `/>`;
-        svgBG = commonSvg.sqrSelFunBg;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrSelFunColour + `/>`;
+        svgBG = IotMapCommonSvg.sqrSelFunBg;
       }
       shadowFile = 'assets/img/POI_SQR_SEL_Shadow.png';
     } else if (marker.shape.shape === 'poi' || marker.shape.plain) {  // STD
       if (marker.shape.anchored) {
-        svgBorder = commonSvg.sqrPinBorder;
-        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinStdColour + `/>`;
+        svgBorder = IotMapCommonSvg.sqrPinBorder;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrPinStdColour + `/>`;
         shadowFile = 'assets/img/POI_SQR_PIN_Shadow.png';
       } else { // FUN
-        svgBorder = commonSvg.sqrBorder;
-        svgShape = `<rect  fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrStdColour + `/>`;
+        svgBorder = IotMapCommonSvg.sqrBorder;
+        svgShape = `<rect  fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrStdColour + `/>`;
         shadowFile = 'assets/img/POI_SQR_Shadow.png';
       }
     } else {  // FUN
       if (marker.shape.anchored) {
-        svgBorder = commonSvg.sqrPinBorder;
-        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrPinFunColour + `/>`;
-        svgBG = `<path fill='white' fill-rule='evenodd' ` + commonSvg.sqrPinFunBg + `/>`;
+        svgBorder = IotMapCommonSvg.sqrPinBorder;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrPinFunColour + `/>`;
+        svgBG = `<path fill='white' fill-rule='evenodd' ` + IotMapCommonSvg.sqrPinFunBg + `/>`;
         shadowFile = 'assets/img/POI_SQR_PIN_Shadow.png';
       } else {
-        svgBorder = commonSvg.sqrBorder;
-        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + commonSvg.sqrFunColour + `/>`;
-        svgBG = commonSvg.sqrFunBg;
+        svgBorder = IotMapCommonSvg.sqrBorder;
+        svgShape = `<path fill='` + marker.shape.color + `' fill-rule='evenodd' ` + IotMapCommonSvg.sqrFunColour + `/>`;
+        svgBG = IotMapCommonSvg.sqrFunBg;
         shadowFile = 'assets/img/POI_SQR_Shadow.png';
       }
     }
