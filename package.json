@@ -1,0 +1,39 @@
+{
+  "name": "IOT-Map-Component",
+  "version": "1.0.0",
+  "description": "## Table of contents",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orange-OpenSource/IOT-Map-Component.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Orange-OpenSource/IOT-Map-Component/issues"
+  },
+  "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@storybook/addon-actions": "^6.1.0",
+    "@storybook/addon-essentials": "^6.1.0",
+    "@storybook/addon-links": "^6.1.0",
+    "@storybook/html": "^6.1.0",
+    "babel-loader": "^8.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.3.0"
+  },
+  "dependencies": {
+    "@storybook/addon-knobs": "^6.1.0",
+    "leaflet": "^1.7.1",
+    "leaflet.markercluster": "^1.4.1"
+  }
+}
