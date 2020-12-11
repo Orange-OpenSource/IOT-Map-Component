@@ -13,10 +13,11 @@ It provides Orange branded design and User eXperience.
 
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
-<ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
-- Shapes can have a **color**, be **anchored** or not, be **selected** or not.
-- Markers can be displayed also with a **location** and a **inner** design: a **label** or an **icon**, with a **color**. 
-- Square shapes and circle shapes markers can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
+<ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially associated with a **popup** HTML message, bringing, as a string, information of a **status**. In order to modify their display, markers contain: 
+- a **shape** which can be of different **type** (*poi* (Point of Interest), **circle*, *square*), be **anchored** or not, displayed in a **color**, with a **percent** gauge, and with a cicle of **accuracy**. **Circle** and *poi* shapes are **plain**, whereas *square* shapes are not **plain**.
+- an **inner** which can be either an **icon** or a **labe**, in a specific **color**,
+
+Note that only **anchored** shapes appear bigger when selected.
 
 <img src="doc/Image1.png">
 
