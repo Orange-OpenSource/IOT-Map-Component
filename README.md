@@ -27,32 +27,32 @@ Note that only **anchored** shapes appear bigger when selected.
 
 <img src="doc/Image2.png">
 
+3 ways allow to customize markers :
+- Playing with attributes.
+- Defining marker types, with default types implementing Orange design.
+- Defining marker status, that are used for clusterization, with default status implementing Orange design.
+
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
-- Circle, Square and POI markers are grouped in different clusters.
-- Clusters display the number of replaced markers.
-- Clusters can be managed with **mode**:
-    - *all* allow to group all markers in same clusters.
-    - *inner* allow to group makers, depending on their inner label/icon : this label/icon is displayed in a cluster tab.
-- Clusters can be managed **colored**: if true, clusters display in a gauge the repartition of markers of any **shape** **color**.
+Markers are clusterized:
+- by layer (2 markers from 2 different layers will not be clusterized).
+- using **status** attribute for the color repartition on cluster, and information displayed in the cluster popup.
+
+Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 markers. Beyond that, *external* mode allows to manage manually clusters.
 
 <img src="doc/Image7.png">
 
-<ins>User location</ins> to display the current location of the application user, **with direction** (**angle** in degree) or not.
+[NOT IMPLEMENTED YET] <ins>User location</ins> to display the current location of the application user, **with direction** (**angle** in degree) or not.
 
 <img src="doc/Image5.png">
 
-<ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
+[NOT IMPLEMENTED YET] <ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
 
 <img src="doc/Image6.png">
-
-[comment]: <Examples of use can be found in [samples](https://github.com/Orange-OpenSource/IOT-Map-Component/samples).>
-
-[comment]: <TbAdded image of one sample>
 
 ## Quick start
 
 Several quick start options are available:
-- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.1.2.zip), and integrate it in your project,
+- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.3.1.zip), and integrate it in your project,
 - Install with [npm](https://www.npmjs.com/): `npm install iotmapmanager`
 
 Then, display a map by inserting in your page:
