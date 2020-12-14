@@ -13,20 +13,19 @@ It provides Orange branded design and User eXperience.
 
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
-<ins>Markers</ins> of different **shape** : *poi* (point of interest), *square* and *circle* (the last 2 for any elements to be displayed). 
-- Shapes can have a **color**, be **anchored** or not, be **selected** or not.
-- Markers can be displayed also with a **location** and a **inner** design: a **label** or an **icon**, with a **color**. 
-- Square shapes and circle shapes markers can be displayed **with direction** (**angle** in degree) or not, and **plain** colored or not.
+<ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially associated with a **popup** HTML message, bringing, as a string, information of a **status**. In order to modify their display, markers contain: 
+- a **shape** which can be of different **type** (*poi* (Point of Interest), **circle*, *square*), be **anchored** or not, displayed in a **color**, with a **percent** gauge, and with a cicle of **accuracy**. **Circle** and *poi* shapes are **plain**, whereas *square* shapes are not **plain**.
+- an **inner** which can be either an **icon** or a **labe**, in a specific **color**,
+
+Note that only **anchored** shapes appear bigger when selected.
 
 <img src="doc/Image1.png">
 
-- An always visible **tab** can be optionnaly added to every marker, for additionnal information:
+<img src="doc/Image3.png">
+
+- [NOT IMPLEMENTED YET] An always visible **tab** can be optionnaly added to every marker, for additionnal information:
 
 <img src="doc/Image2.png">
-
-- On square and circle shapes, the border color can be used to represent a **gauge**, with a **percent** and a **color**: 
-
-<img src="doc/Image3.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
 - Circle, Square and POI markers are grouped in different clusters.
