@@ -21,13 +21,11 @@ Note that only **anchored** shapes appear bigger when selected.
 
 <img src="doc/Image1.png">
 
-- An always visible **tab** can be optionnaly added to every marker, for additionnal information:
+<img src="doc/Image3.png">
+
+- [NOT IMPLEMENTED YET] An always visible **tab** can be optionnaly added to every marker, for additionnal information:
 
 <img src="doc/Image2.png">
-
-- On square and circle shapes, the border color can be used to represent a **gauge**, with a **percent** and a **color**: 
-
-<img src="doc/Image3.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
 - Circle, Square and POI markers are grouped in different clusters.
