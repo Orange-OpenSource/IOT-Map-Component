@@ -1,4 +1,5 @@
 import { IotMapManager } from '../iotMapManager/iotMapManager';
+import { ShapeType } from "./Test.stories.const";
 import {
   withKnobs,
   object,
@@ -9,6 +10,7 @@ import {
   text
 } from '@storybook/addon-knobs';
 import { MARKER_LIST } from './Test.stories.const';
+import {markerType} from "../iotMapManager/iotMapManagerTypes";
 
 export default {
   title: 'Iot Map Manager',
@@ -41,14 +43,25 @@ export const Inner = () => {
 };
 
 const shapeParams = (id) => ({
-  shape: select(
+  type: select(
     'Shape type',
-    ['square', 'circle', 'poi'],
-    'circle',
+    [ShapeType.circle, ShapeType.square, ShapeType.poi],
+    ShapeType.circle,
     'item ' + id
   ),
   color: color('Shape color', '#FFCC00', 'item ' + id),
   anchored: boolean('With anchor', false, 'item ' + id),
+  accuracy: number(
+    'accuracy value',
+    150,
+    {
+      range: true,
+      min: 0,
+      max: 1000,
+      step: 50,
+    },
+    'item ' + id
+  ),
 });
 
 const innerParams = (id) => ({
@@ -57,7 +70,14 @@ const innerParams = (id) => ({
 });
 
 const gaugeParams = (id) => ({
-  color: color('color', 'red', 'item ' + id),
+  type: select(
+    'Shape type',
+    [ShapeType.circle],
+    ShapeType.circle,
+    'item ' + id
+  ),
+  color: color('Shape color', 'red', 'item ' + id),
+  anchored: boolean('With anchor', false, 'item ' + id),
   percent: number(
     'Gauge value',
     15,
@@ -68,7 +88,7 @@ const gaugeParams = (id) => ({
       step: 1,
     },
     'item ' + id
-  ),
+  )
 });
 
 const locationParams = (id) => [
@@ -108,8 +128,7 @@ export const Gauge = () => {
     {
       id: 's1',
       location: locationParams(0),
-      shape: shapeParams(0),
-      gauge: gaugeParams(0),
+      shape: gaugeParams(0),
     },
   ];
   addEventListener('DOMContentLoaded', init);
@@ -125,8 +144,7 @@ export const GaugeWithInner = () => {
     {
       id: 's1',
       location: locationParams(0),
-      shape: shapeParams(0),
-      gauge: gaugeParams(0),
+      shape: gaugeParams(0),
       inner: innerParams(0),
     },
   ]

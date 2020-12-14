@@ -1,239 +1,356 @@
-export enum ShapeType {
-  'circle' = 'circle',
-  'square' = 'square',
-  'poi' = 'poi',
-}
+import {markerType} from "../iotMapManager/iotMapManagerTypes";
+
+export enum ShapeType {circle, square, poi}
 
 export interface IOTMarker {
   id: string;
-  location: { [0]: number; [1]: number };
+  location: {
+    lat: number;
+    lon: number;
+  };
+  layer?: string;
   popup?: string;
+  status?: string;
   shape?: {
-    shape?: ShapeType;
-    color?: string;
+    type?: markerType;
     anchored?: boolean;
     plain?: boolean;
+    color?: string;
+    percent?: number;
+    accuracy?: number;
   };
   inner?: {
-    color: string;
+    color?: string;
 
-    icon: string;
+    icon?: string;
     // *** OR ***
-    label: string;
-  };
-  gauge?: {
-    color: string;
-    percent: number;
+    label?: string;
   };
 }
 
 export const MARKER_LIST = [
-  //square
   {
     id: 's1',
-    location: [44.895, 4.87],
-    shape: {
-      shape: 'square',
-      color: '#FFCC00',
-      anchored: false,
+    location: {
+      lat: 44.895,
+      lon: 4.870
     },
-    inner: {
-      color: 'green',
+    shape: {
+      type: markerType.square,
+      anchored: false,
+      plain : false
+    },
+    layer: 'Monuments',
+    status : 'Positive',
+    inner : {
+      label : 'H',
+      color: 'green'
     },
   },
   {
     id: 's2',
-    location: [44.895, 4.875],
-    shape: {
-      shape: 'square',
-      color: '#32C832',
-      anchored: true,
-      plain: true,
+    location: {
+      lat: 44.895,
+      lon: 4.875
     },
+    shape: {
+      type : markerType.square,
+      anchored: true
+    },
+    popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
+    inner: {
+      icon: 'School.svg',
+      color: 'green'
+    },
+    layer: 'Etablissements',
+    status : 'Neutral',
   },
   {
     id: 's3',
-    location: [44.895, 4.88],
-    shape: {
-      shape: 'square',
-      color: '#527EDB',
-      anchored: true,
+    location: {
+      lat: 44.895,
+      lon: 4.88
     },
+    popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
+    shape: {
+      type : markerType.square,
+      plain: true,
+      anchored: true
+    },
+    layer: 'Etablissements',
+    inner: {
+      color: 'white',
+      label: 'A'
+    },
+    status : 'Warning',
   },
   {
     id: 's4',
-    location: [44.895, 4.885],
+    location: {
+      lat: 44.895,
+      lon: 4.885
+    },
     shape: {
-      shape: 'square',
-      color: '#CCCCCC',
+      type : markerType.square,
       anchored: false,
+      plain: false
     },
     inner: {
-      color: 'black',
+      icon: 'accessibility_hearing.svg',
+      color: 'black'
     },
+    layer: 'Monuments',
+    status: 'Alert',
   },
   {
     id: 's5',
-    location: [44.895, 4.89],
+    location: {
+      lat: 44.895,
+      lon: 4.890
+    },
     shape: {
-      shape: 'square',
-      color: '#000000',
+      type : markerType.square,
       anchored: true,
+      plain: false,
+      accuracy: 200
     },
     inner: {
-      color: 'green',
+      icon: 'bluetooth.svg',
+      color: 'green'
     },
+    layer: 'Etablissements',
+    status: 'Inactive',
   },
   {
     id: 's6',
-    location: [44.895, 4.895],
+    location: {
+      lat: 44.895,
+      lon: 4.895
+    },
 
     shape: {
-      shape: 'square',
-      color: '#CD3C14',
+      type : markerType.square,
       anchored: false,
+      plain: false
     },
     inner: {
-      color: 'black',
+      icon: 'family_place.svg',
+      color: 'black'
     },
+    layer: 'Monuments'
   },
 
   // POI
   {
     id: 'p1',
-    location: [44.89, 4.87],
-    shape: {
-      shape: 'poi',
-      color: '#008080',
-      anchored: false,
+    location: {
+      lat: 44.890,
+      lon: 4.870
     },
+    shape: {
+      type : markerType.poi,
+      anchored: false,
+      plain: false
+    },
+    layer: 'Etablissements',
+    inner: {
+      icon: 'School.svg',
+      color: 'blue'
+    },
+    status: 'Positive'
   },
   {
     id: 'p2',
-    location: [44.89, 4.875],
-    shape: {
-      shape: 'poi',
-      color: '#cc6600',
-      anchored: true,
+    location: {
+      lat: 44.890,
+      lon: 4.875
     },
+    popup: 'Ecole Simone Veil',
+    shape: {
+      type : markerType.poi,
+      anchored: true
+    },
+    inner: {
+      icon: 'School.svg',
+      color: 'navyblue'
+    },
+    layer: 'Etablissements',
+    status: 'Neutral'
   },
   {
     id: 'p3',
-    location: [44.888798, 4.885407],
-    shape: {
-      shape: 'poi',
-      color: '#d24d50',
-      anchored: true,
+    location: {
+      lat: 44.890,
+      lon: 4.880
     },
+    shape: {
+      type : markerType.poi,
+      anchored: true
+    },
+    layer: 'Monuments',
+    status: 'Warning'
   },
   {
     id: 'p4',
-    location: [44.89, 4.885],
+    location: {
+      lat: 44.890,
+      lon: 4.885
+    },
     shape: {
-      shape: 'poi',
-      color: '#008080',
-      anchored: false,
+      type : markerType.poi,
+      anchored: false
     },
+    layer: 'Monuments',
     inner: {
-      color: 'black',
+      icon: 'games.svg',
+      color: 'black'
     },
+    status: 'Alert'
   },
   {
     id: 'p5',
-    location: [44.89, 4.89],
+    location: {
+      lat: 44.890,
+      lon: 4.890
+    },
     shape: {
-      shape: 'poi',
-      color: '#cc6600',
+      type : markerType.poi,
       anchored: true,
+      accuracy: 300
     },
+    layer: 'Etablissements',
     inner: {
-      color: 'white',
+      icon: 'hospital.svg',
+      color: 'white'
     },
+    status: 'Inactive'
   },
   {
     id: 'p6',
-    location: [44.89, 4.895],
+    location: {
+      lat: 44.890,
+      lon: 4.895
+    },
     shape: {
-      shape: 'poi',
-      color: '#d24d50',
-      anchored: false,
+      type : markerType.poi,
+      anchored: false
     },
+    layer: 'Etablissements',
     inner: {
-      color: 'white',
-    },
+      icon: 'map_pin.svg',
+      color: 'white'
+    }
   },
+
 
   // circle
   {
     id: 'c1',
-    location: [44.885, 4.87],
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.870
+    },
     shape: {
-      shape: 'circle',
-      color: '#CD3C14',
+      type : markerType.circle,
       anchored: false,
+      percent: 100,
+      accuracy: 500
     },
     inner: {
-      label: 'H',
-      color: 'black',
+      icon: 'Car_pooling.svg',
+      color: 'black'
     },
+    status: 'Positive'
   },
   {
     id: 'c2',
-    location: [44.885, 4.875],
-    shape: {
-      shape: 'circle',
-      color: '#000000',
-      anchored: true,
-      plain: true,
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.875
     },
+    shape: {
+      type : markerType.circle,
+      anchored: true,
+      plain : true
+    },
+    status: 'Neutral',
+    inner: {
+      icon: 'Car_pooling.svg',
+      color: 'black'
+    }
   },
   {
     id: 'c3',
-    location: [44.885, 4.88],
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.88
+    },
     shape: {
-      shape: 'circle',
-      color: '#CC6600',
+      type : markerType.circle,
       anchored: true,
+      percent: 95
     },
     inner: {
-      color: 'black',
+      icon: 'Car_pooling.svg',
+      color: 'black'
     },
+    status: 'Warning'
   },
   {
     id: 'c4',
-    location: [44.885, 4.885],
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.885
+    },
     shape: {
-      shape: 'circle',
-      color: '#527EDB',
+      type : markerType.circle,
       anchored: false,
+      percent: 75
     },
     inner: {
-      color: 'black',
+      icon: 'Car_pooling.svg',
+      color: 'black'
     },
+    status: 'Alert'
   },
   {
     id: 'c5',
-    location: [44.885, 4.89],
-    shape: {
-      shape: 'circle',
-      color: '#32C832',
-      anchored: true,
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.890
     },
-    inner: {
-      color: 'green',
-    },
-  },
-  {
-    id: 'c6',
-    location: [44.885, 4.895],
+
     shape: {
-      shape: 'circle',
-      color: '#FFCC00',
+      type : markerType.circle,
       anchored: false,
+      plain: false
     },
     inner: {
       label: 'A',
-      color: 'black',
+      color: 'black'
     },
+    status: 'Inactive'
   },
-];
+  {
+    id: 'c6',
+    layer: 'circles',
+    location: {
+      lat: 44.885,
+      lon: 4.895
+    },
+    popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
+    shape: {
+      type: markerType.circle,
+      anchored: false,
+      percent: 45
+    },
+    inner: {
+      icon : 'temperature.svg',
+      color: 'green'
+    }
+  }];
