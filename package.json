@@ -32,8 +32,18 @@
     "tsconfig-paths-webpack-plugin": "^3.3.0"
   },
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.1100.5",
+    "@angular/common": "^11.0.5",
+    "@angular/compiler": "^11.0.5",
+    "@angular/compiler-cli": "^11.0.5",
+    "@angular/core": "^11.0.5",
+    "@angular/platform-browser": "^11.0.5",
+    "@angular/platform-browser-dynamic": "^11.0.5",
+    "@angular/router": "^11.0.5",
     "@storybook/addon-knobs": "^6.1.0",
+    "iotmapmanager": "^0.3.1",
     "leaflet": "^1.7.1",
-    "leaflet.markercluster": "^1.4.1"
+    "leaflet.markercluster": "^1.4.1",
+    "zone.js": "^0.11.3"
   }
 }

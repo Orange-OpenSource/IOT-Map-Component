@@ -1,0 +1,41 @@
+variables:
+  NODE_IMAGE: node:8.12.0-slim
+
+stages:
+  - check
+  - build
+  - test
+
+
+lint:
+  stage: check
+  image: ${NODE_IMAGE}
+  script:
+    - npm install --silent
+    #- npm run lint
+
+build:
+  stage: build
+  image: ${NODE_IMAGE}
+  script:
+    - npm install --silent
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+        #artifacts:
+        #        name:"${CI_PROJECT_NAME}_job_${CI_JOB_NAME}_${CI_JOB_ID}"
+        #        when: always
+        #        expire_in: 1 week
+        #        paths:
+        #        - surefire-reports/
+
+
+
+test:
+  stage: test
+  image: ${NODE_IMAGE}
+  script:
+    - npm install --silent
+    #- npm run test

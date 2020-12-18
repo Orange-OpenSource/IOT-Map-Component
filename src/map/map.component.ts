@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit {
         plain : false
       },
       layer: 'Monuments',
-      status : 'toto',
+      status : 'Positive',
       inner : {
         label : 'H',
         color: 'green'
@@ -45,7 +45,8 @@ export class MapComponent implements AfterViewInit {
       },
       shape: {
         type : markerType.square,
-        anchored: true
+        anchored: true,
+        plain : false
       },
       popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
       inner: {
@@ -53,7 +54,7 @@ export class MapComponent implements AfterViewInit {
         color: 'green'
       },
       layer: 'Etablissements',
-      status : 'Positive',
+      status : 'Neutral',
     },
     {
       id: 's3',
@@ -64,7 +65,7 @@ export class MapComponent implements AfterViewInit {
       popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
       shape: {
         type : markerType.square,
-        plain: true,
+        plain : false,
         anchored: true
       },
       layer: 'Etablissements',
@@ -72,7 +73,7 @@ export class MapComponent implements AfterViewInit {
         color: 'white',
         label: 'A'
       },
-      status : 'Positive',
+      status : 'Warning',
     },
     {
       id: 's4',
@@ -101,7 +102,8 @@ export class MapComponent implements AfterViewInit {
       shape: {
         type : markerType.square,
         anchored: true,
-        plain: false
+        plain: false,
+        accuracy: 200
       },
       inner: {
         icon: 'bluetooth.svg',
@@ -126,8 +128,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'family_place.svg',
         color: 'black'
       },
-      layer: 'Monuments',
-      status : 'Warning',
+      layer: 'Monuments'
     },
 
     // POI
@@ -146,7 +147,8 @@ export class MapComponent implements AfterViewInit {
       inner: {
         icon: 'School.svg',
         color: 'blue'
-      }
+      },
+      status: 'Positive'
     },
     {
       id: 'p2',
@@ -163,19 +165,21 @@ export class MapComponent implements AfterViewInit {
         icon: 'School.svg',
         color: 'navyblue'
       },
-      layer: 'Etablissements'
+      layer: 'Etablissements',
+      status: 'Neutral'
     },
     {
       id: 'p3',
       location: {
-        lat: 44.888793,
-        lon: 4.885409
+        lat: 44.890,
+        lon: 4.880
       },
       shape: {
         type : markerType.poi,
         anchored: true
       },
-      layer: 'Monuments'
+      layer: 'Monuments',
+      status: 'Warning'
     },
     {
       id: 'p4',
@@ -192,22 +196,25 @@ export class MapComponent implements AfterViewInit {
         icon: 'games.svg',
         color: 'black'
       },
+      status: 'Alert'
     },
     {
       id: 'p5',
       location: {
-        lat: 44.885,
-        lon: 4.9
+        lat: 44.890,
+        lon: 4.890
       },
       shape: {
         type : markerType.poi,
-        anchored: true
+        anchored: true,
+        accuracy: 300
       },
       layer: 'Etablissements',
       inner: {
         icon: 'hospital.svg',
         color: 'white'
       },
+      status: 'Inactive'
     },
     {
       id: 'p6',
@@ -223,7 +230,7 @@ export class MapComponent implements AfterViewInit {
       inner: {
         icon: 'map_pin.svg',
         color: 'white'
-      },
+      }
     },
 
 
@@ -245,7 +252,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'Car_pooling.svg',
         color: 'black'
       },
-      status: 'Neutral'
+      status: 'Positive'
     },
     {
       id: 'c2',
@@ -257,8 +264,7 @@ export class MapComponent implements AfterViewInit {
       shape: {
         type : markerType.circle,
         anchored: true,
-        plain : true,
-        accuracy: 200
+        plain : true
       },
       status: 'Neutral',
       inner: {
@@ -276,13 +282,13 @@ export class MapComponent implements AfterViewInit {
       shape: {
         type : markerType.circle,
         anchored: true,
-        percent: 95,
-        accuracy: 200
+        percent: 75
       },
       inner: {
         icon: 'Car_pooling.svg',
         color: 'black'
-      }
+      },
+      status: 'Warning'
     },
     {
       id: 'c4',
@@ -293,14 +299,13 @@ export class MapComponent implements AfterViewInit {
       },
       shape: {
         type : markerType.circle,
-        anchored: false,
-        percent: 75
+        anchored: false
       },
       inner: {
         icon: 'Car_pooling.svg',
         color: 'black'
       },
-      status: 'Positive'
+      status: 'Alert'
     },
     {
       id: 'c5',
@@ -319,7 +324,7 @@ export class MapComponent implements AfterViewInit {
         label: 'A',
         color: 'black'
       },
-      status: 'Alert'
+      status: 'Inactive'
     },
     {
       id: 'c6',
@@ -337,48 +342,47 @@ export class MapComponent implements AfterViewInit {
       inner: {
         icon : 'temperature.svg',
         color: 'green'
-      },
-      status: 'Warning'
+      }
     }];
+  /*
+    markersIdToRemove = ['p4', 's2', 'z2'];
 
-  markersIdToRemove = ['p4', 's2', 'z2'];
+    markerToAdd: IotMarker = {
+      id: 'toAdd',
+      location: {
+        lat: 44.886,
+        lon: 4.895
+      },
+      layer: 'circles',
+      shape: {
+        type : markerType.circle,
+        anchored: false
+      },
+      inner: {
+        icon: '4g.svg',
+        color: 'blue'
+      },
 
-  markerToAdd: IotMarker = {
-    id: 'toAdd',
-    location: {
-      lat: 44.886,
-      lon: 4.895
-    },
-    layer: 'circles',
-    shape: {
-      type : markerType.circle,
-      anchored: false
-    },
-    inner: {
-      icon: '4g.svg',
-      color: 'blue'
-    },
+    };
 
-  };
-
-  markerToUpdate: IotMarker = {
-    id: 'toUpdate',
-    layer: 'circles',
-    location: {
-      lat: 44.887,
-      lon: 4.895
-    },
-    shape : {
-      type: markerType.circle,
-      anchored: true
-    },
-    status: 'Warning',
-    inner: {
-      label: 'X',
-      color: 'gray'
-    }
-  };
-
+    markerToUpdate: IotMarker = {
+      id: 'toUpdate',
+      layer: 'circles',
+      location: {
+        lat: 44.887,
+        lon: 4.895
+      },
+      shape : {
+        type: markerType.circle,
+        anchored: true
+      },
+      status: 'Warning',
+      inner: {
+        label: 'X',
+        color: 'gray'
+      }
+    };
+  */
   clustersList: IotCluster[] = [
     {
       id: 'cluster1',
@@ -440,21 +444,12 @@ export class MapComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
- /*  IotMapManagerConfig.setConfig({
-      markerStatus: {
-        'Alert': {
-            singularState : 'hello !',
-            pluralState: 'Oranges !',
-            stateColor: 'purple',
-            innerColor: 'yellow'
-        }
-      },
+   /*IotMapManagerConfig.setConfig({
       map: {
-        defaultLon: 4.95,
-        layerControl: false
+        externalClustering: true
       }
-    });
-*/
+    });*/
+
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getBounds();
       console.log('map bounds changed: [' + coord._northEast.lat + ', ' + coord._northEast.lng
@@ -464,37 +459,16 @@ export class MapComponent implements AfterViewInit {
     this.commonIotMap.init('iotMap');
 
 
-    this.commonIotMap.addMarker(this.markerToAdd);
-    this.commonIotMap.removeMarker('toRemove'); // unknown marker
-
     this.commonIotMap.addMarkers(this.markersList);
-    setTimeout  (() => { this.commonIotMap.updateMarker('c2', {shape: {percent: 35, accuracy: 800}}); }, 3000);
 
-
-
-    this.commonIotMap.removeMarkers(this.markersIdToRemove);
-    this.commonIotMap.addMarker(this.markerToUpdate);
-
-    // update marker
-    this.commonIotMap.updateMarker('s3', {inner: {icon: 'Orange_garden.svg', color: 'blue'}});
-    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
-      {gauge : {color: 'red', percent: '90'}
-      });
-    }, 2000);
-   setTimeout(() => { this.commonIotMap.updateMarker(this.markerToAdd.id,
-     {shape: {type: markerType.square, color: 'green'}});
-    }, 4000);
-    setTimeout(() => { this.commonIotMap.updateMarker('s3',
-      {inner: {label: 'Debussy'}});
-    }, 6000);
-    setTimeout(() => { this.commonIotMap.updateMarker(this.markerToUpdate.id,
-      {gauge: {color: 'green'}});
-    }, 6000);
 
     this.commonIotMap.addClusters(this.clustersList);
-    setTimeout(() => { this.commonIotMap.removeCluster('cluster1'); }, 3000);
-    setTimeout(() => { this.commonIotMap.updateMarker('c3', {shape: {accuracy: 0}}); }, 6000);
 
+
+
+    //this.commonIotMap.addUserMarker(this.userMarker);
+
+/*
 
     setTimeout  (() => { IotMapManagerConfig.setConfig({
       markerStatus: {
@@ -507,7 +481,7 @@ export class MapComponent implements AfterViewInit {
       }
     }); }, 5000);
 
-    setTimeout (() => { this.commonIotMap.redrawAll(); }, 8000);
+    setTimeout (() => { this.commonIotMap.redrawAll(); }, 8000);*/
   }
 }
 
