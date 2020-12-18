@@ -57,3 +57,16 @@ export interface IotCluster {
     color: string
   }[];
 }
+
+
+export interface IotUserMarker {
+  id: string;
+  location: {
+    lat: number;
+    lon: number
+  };
+  direction?: {
+    angle: number;
+  };
+  accuracy?: number;
+}

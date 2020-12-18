@@ -128,6 +128,15 @@ export class IotMapManagerConfig {
     }
   };
 
+  userMarker: any = {
+    size: {
+      fullSvgWidth: 100,
+      fullSvgHeight: 100,
+      svgWidth: 68,
+      svgHeight: 68
+    }
+  };
+
   accuracyCircle: any = {
     color: 'none',
     fillColor: '#527EDB',

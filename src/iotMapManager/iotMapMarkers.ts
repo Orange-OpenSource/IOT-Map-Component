@@ -17,6 +17,7 @@ import {IotMapManagerConfig} from './iotMapManagerConfig';
 import {IotMarker, markerType} from './iotMapManagerTypes';
 import {IotMapCommonSvg} from './iotMapCommonSvg';
 
+
 export class IotMapMarkers {
   config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 

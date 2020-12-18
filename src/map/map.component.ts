@@ -1,8 +1,8 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager } from 'iotmapmanager/iotMapManager';
-import { IotCluster, IotMarker, markerType } from 'iotmapmanager/iotMapManagerTypes';
-import { IotMapManagerConfig, Status } from 'iotmapmanager/iotMapManagerConfig';
+import { IotMapManager } from '../iotmapmanager/iotMapManager';
+import {IotCluster, IotMarker, IotUserMarker, markerType} from '../iotmapmanager/iotMapManagerTypes';
+import { IotMapManagerConfig, Status } from '../iotmapmanager/iotMapManagerConfig';
 
 @Component({
   selector: 'map-component',
@@ -441,7 +441,14 @@ export class MapComponent implements AfterViewInit {
         }]
     }
   ];
-
+  userMarker: IotUserMarker = {
+    location: {
+      lat: 44.895,
+      lon: 4.870
+    },
+    id: 'usr1',
+    accuracy: 500
+  }
 
   ngAfterViewInit(): void {
    /*IotMapManagerConfig.setConfig({
@@ -466,7 +473,7 @@ export class MapComponent implements AfterViewInit {
 
 
 
-    //this.commonIotMap.addUserMarker(this.userMarker);
+    this.commonIotMap.addUserMarker(this.userMarker);
 
 /*
 

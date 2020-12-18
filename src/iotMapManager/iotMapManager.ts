@@ -15,22 +15,26 @@
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import { IotMapMarkers } from './iotMapMarkers';
+import { IotMapUserMarker } from './iotMapUserMarkers';
 import { IotMapClusters } from './iotMapClusters';
 import { IotMapManagerConfig } from './iotMapManagerConfig';
-import { IotMarker, IotCluster } from './iotMapManagerTypes';
+import { IotMarker, IotCluster, IotUserMarker } from './iotMapManagerTypes';
 
 
 const CLUSTER_LAYER = 'Clusters';
 const ACCURACY_LAYER = 'Accuracy';
+const USERMARKERS_LAYER = 'UserMarkers';
 
 
 export class IotMapManager {
   private map: L.Map;
   private iotMapMarkers: IotMapMarkers;
   private iotMapClusters: IotMapClusters;
+  private iotMapUserMarkers: IotMapUserMarker;
   private config: IotMapManagerConfig;
   private markersObjects: any = {};
   private accuracyObjects: any = {};
+  private userMarkersObjects: any = {};
 
   private baseLayers: any = {};
   private markersLayers: any = {};
@@ -40,6 +44,7 @@ export class IotMapManager {
   constructor() {
     this.iotMapMarkers = new IotMapMarkers();
     this.iotMapClusters = new IotMapClusters();
+    this.iotMapUserMarkers = new IotMapUserMarker();
     this.config = IotMapManagerConfig.getConfig();
   }
 
@@ -91,6 +96,8 @@ export class IotMapManager {
         showCoverageOnHover: false,
         iconCreateFunction: this.defineClusterIcon.bind(this)
       });
+
+      layer.on('animationend', this.onZoom.bind(this));
     }
     this.map.addLayer(layer);
     this.markersLayers[layerName] = layer;
@@ -101,8 +108,7 @@ export class IotMapManager {
     // manage events
     layer.on('click', this.onMarkerClick.bind(this)
     ).on('clustermouseover', this.onClusterMouseOver.bind(this)
-    ).on('clustermouseout', this.map.closePopup()
-    ).on('clusterclick', this.map.closePopup()
+    ).on('clustermouseout', this.onClusterMouseOut.bind(this)
     );
 
     return layer;
@@ -167,11 +173,54 @@ export class IotMapManager {
       .setContent(this.iotMapClusters.getClusterPopup(currentCluster))
       .openOn(this.map);
   }
+
+  private onClusterMouseOut() {
+    this.map.closePopup();
+  }
+
+  private onZoom() {
+    for (const markerId in this.markersObjects) {
+      if (this.markersObjects[markerId] !== undefined && this.markersObjects[markerId] !== null) {
+        const marker = this.markersObjects[markerId].markerInfo;
+        if (this.map.hasLayer(this.markersObjects[markerId])) { // unclustered
+          if (marker.shape.accuracy !== undefined) {
+            // accuracy circle if needed
+            const accuracy = this.accuracyObjects[markerId];
+            if (!accuracy) {  // create accuracy circle
+              const newCircle = L.circle(marker.location, {
+                color: this.config.accuracyCircle.color,
+                fillColor: this.config.accuracyCircle.fillColor,
+                fillOpacity: this.config.accuracyCircle.fillOpacity,
+                radius: marker.shape.accuracy
+              });
+              this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
+              this.accuracyObjects[markerId] = newCircle;
+            }
+          }
+        } else {  // clustered
+          if (marker.shape.accuracy !== undefined) {
+            // accuracy circle if needed
+            const accuracyToRemove: L.Circle = this.accuracyObjects[markerId];
+            if (accuracyToRemove) {
+              this.getMarkerLayer(ACCURACY_LAYER).removeLayer(accuracyToRemove);
+              this.accuracyObjects[markerId] = null;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- MARKERS -----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
   public addMarker(marker: IotMarker) {
     if (marker.id && marker.location) {
+      // does id already exist ?
+      if (this.markersObjects[marker.id] !== undefined) {
+        this.removeMarker(marker.id);
+      }
+
       // popup
       let popupText = marker.popup;
       if (!popupText) {
@@ -206,7 +255,6 @@ export class IotMapManager {
         this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
         this.accuracyObjects[marker.id] = newCircle;
       }
-
     }
   }
 
@@ -572,5 +620,39 @@ export class IotMapManager {
     }
 
     return currentCluster;
+  }
+
+
+  /***
+   * USER MARKER
+   */
+
+  public addUserMarker(userMarker: IotUserMarker) {
+    if (userMarker.id && userMarker.location) {
+      // does id already exist ?
+      /*if (this.userMarkersObjects[userMarker.id] !== undefined) {
+        this.removeUserMarker(userMarker.id);
+      }*/
+
+      const newUserMarker: L.Marker = L.marker(userMarker.location, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
+      newUserMarker.markerInfo = userMarker;
+
+      this.getMarkerLayer(USERMARKERS_LAYER).addLayer(newUserMarker);
+      this.userMarkersObjects[userMarker.id] = newUserMarker;
+
+      // accuracy circle if needed
+      if (userMarker.accuracy !== undefined) {
+        const newCircle = L.circle(userMarker.location, {
+          color: this.config.accuracyCircle.color,
+          fillColor: this.config.accuracyCircle.fillColor,
+          fillOpacity: this.config.accuracyCircle.fillOpacity,
+          radius: userMarker.accuracy
+        });
+        this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
+        this.accuracyObjects[userMarker.id] = newCircle;
+      }
+
+    }
+    this.iotMapUserMarkers.getMarker(userMarker);
   }
 }

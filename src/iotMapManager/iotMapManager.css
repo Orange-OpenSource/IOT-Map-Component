@@ -118,12 +118,20 @@
 .container{
   position: relative;
 }
-.container > img{
+/*.container > svg{
   position: absolute;
   top:0px;
   left:0px;
-}
+}*/
+/*.container > img{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 25;
+}*/
+/*
 
+*/
 /*.container > img:first-child{
   z-index: 10;
 }*/
@@ -164,5 +172,12 @@
   left:0px;
   z-index: -1;
 }
+
+.container .arrow{
+  position: absolute;
+  top:24px;
+  left:24px;
+}
+
 
 
