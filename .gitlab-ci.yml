@@ -19,6 +19,7 @@ build:
   image: ${NODE_IMAGE}
   script:
     - npm install --silent
+    - npm i -g @angular/cli
     - npm run build
   artifacts:
     paths:
