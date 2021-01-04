@@ -19,7 +19,7 @@ build:
   image: ${NODE_IMAGE}
   script:
     - npm install --silent
-    - npm run build
+    - npm run ng build
   artifacts:
     paths:
       - dist/
