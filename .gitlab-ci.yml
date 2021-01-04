@@ -1,5 +1,5 @@
 variables:
-  NODE_IMAGE: node:8.12.0-slim
+  NODE_IMAGE: node:12.19.1
 
 stages:
   - check
@@ -19,6 +19,7 @@ build:
   image: ${NODE_IMAGE}
   script:
     - npm install --silent
+    - npm i -g @angular/cli
     - npm run build
   artifacts:
     paths:
