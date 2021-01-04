@@ -1,4 +1,4 @@
-import {markerType} from "../iotmapmanager/iotMapManagerTypes";
+import {markerType} from "../iotMapManager/iotMapManagerTypes";
 
 export enum ShapeType {circle, square, poi}
 
