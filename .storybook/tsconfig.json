@@ -10,6 +10,6 @@
     "sourceMap": true
   },
   "include": [
-    "../src/iotMapManager/**/*"
+    "../src/iotmapmanager/**/*"
   ]
 }

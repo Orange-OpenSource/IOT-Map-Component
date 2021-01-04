@@ -1,4 +1,4 @@
-import { IotMapManager } from '../iotMapManager/iotMapManager';
+import { IotMapManager } from '../iotmapmanager/iotMapManager';
 import { ShapeType } from "./Test.stories.const";
 import {
   withKnobs,
@@ -10,7 +10,7 @@ import {
   text
 } from '@storybook/addon-knobs';
 import { MARKER_LIST } from './Test.stories.const';
-import {markerType} from "../iotMapManager/iotMapManagerTypes";
+import {markerType} from "../iotmapmanager/iotMapManagerTypes";
 
 export default {
   title: 'Iot Map Manager',
