@@ -1,0 +1,9 @@
+{
+  "files": ["iotMapManager.ts"],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "CommonJS",
+    "declaration": true,
+    "outDir": "dist"
+  }
+}
