@@ -2,10 +2,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "dist",
     "sourceMap": true,
-    "declaration": false,
-    "module": "es2015",
+    "declaration": true,
+    "module": "CommonJS",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

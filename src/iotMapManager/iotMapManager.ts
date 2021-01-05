@@ -18,7 +18,7 @@ import { IotMapMarkers } from './iotMapMarkers';
 import { IotMapUserMarker } from './iotMapUserMarkers';
 import { IotMapClusters } from './iotMapClusters';
 import { IotMapManagerConfig } from './iotMapManagerConfig';
-import { IotMarker, IotCluster, IotUserMarker } from './iotMapManagerTypes';
+import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iotMapManagerTypes';
 
 
 const CLUSTER_LAYER = 'Clusters';
@@ -34,13 +34,13 @@ export class IotMapManager {
   private config: IotMapManagerConfig;
   private markersObjects: any = {};
   private accuracyObjects: any = {};
-  private userMarkerObject: L.Marker;   // only one user marker
+  private userMarkerObject: CustomDataMarker;   // only one user marker
   private userMarkerAccuracy: L.Circle;
 
   private baseLayers: any = {};
   private markersLayers: any = {};
   private selectedMarkerId = '';
-  private layerControl: L.Control.Layer;
+  private layerControl: L.Control;
 
   constructor() {
     this.iotMapMarkers = new IotMapMarkers();
@@ -88,7 +88,7 @@ export class IotMapManager {
       this.map.removeControl(this.layerControl);
     }
     // create layer
-    let layer: L.markerClusterGroup | L.FeatureGroup;
+    let layer: L.MarkerClusterGroup | L.FeatureGroup;
     if (this.config.map.externalClustering || layerName === ACCURACY_LAYER) {
       layer = new L.FeatureGroup();
     } else {
@@ -115,8 +115,8 @@ export class IotMapManager {
     return layer;
   }
 
-  private getMarkerLayer(layerName): L.markerClusterGroup | L.FeatureGroup {
-    let layer: L.markerClusterGroup | L.FeatureGroup = this.markersLayers[layerName];
+  private getMarkerLayer(layerName): L.MarkerClusterGroup | L.FeatureGroup {
+    let layer: L.MarkerClusterGroup | L.FeatureGroup = this.markersLayers[layerName];
     if (!layer) {
       layer = this.initMarkerLayer(layerName);
     }
@@ -241,8 +241,7 @@ export class IotMapManager {
         marker.layer = this.config.map.defaultLayerName;
       }
 
-      const newMarker: L.Marker = L.marker(marker.location, {icon: this.iotMapMarkers.getMarker(marker)}).bindPopup(popupText);
-      newMarker.markerInfo = marker;
+      const newMarker: CustomDataMarker = new CustomDataMarker(marker,{icon: this.iotMapMarkers.getMarker(marker)}).bindPopup(popupText);
 
       this.getMarkerLayer(marker.layer).addLayer(newMarker);
       this.markersObjects[marker.id] = newMarker;
@@ -268,9 +267,9 @@ export class IotMapManager {
   }
 
   public removeMarker(markerId: string) {
-    const markerToRemove: L.Marker = this.markersObjects[markerId];
+    const markerToRemove: CustomDataMarker = this.markersObjects[markerId];
     if (markerToRemove) {
-      this.getMarkerLayer(markerToRemove.markerInfo.layer).removeLayer(markerToRemove);
+      this.getMarkerLayer(markerToRemove.getData().layer).removeLayer(markerToRemove);
       this.markersObjects[markerId] = null;
 
       const accuracyToRemove: L.Circle = this.accuracyObjects[markerId];
@@ -288,14 +287,14 @@ export class IotMapManager {
   }
 
   public updateMarker(markerId: string, params: any) {
-    const currentMarkerObject: L.Marker  = this.markersObjects[markerId];
+    const currentMarkerObject: CustomDataMarker  = this.markersObjects[markerId];
 
     if (currentMarkerObject) {
-      const currentMarkerInfos: IotMarker = currentMarkerObject.markerInfo;
+      const currentMarkerInfos: IotMarker = currentMarkerObject.getData();
       const currentMarkerIsSelected: boolean = (this.selectedMarkerId === currentMarkerInfos.id);
 
       let htmlModificationNeeded = false;
-      let oldLayer: L.markerClusterGroup = null;
+      let oldLayerName: string = null;
 
       // location modified
       if (params.location) {
@@ -340,7 +339,7 @@ export class IotMapManager {
 
       // layer modified
       if (params.layer) {
-        oldLayer = currentMarkerInfos.layer;
+        oldLayerName = currentMarkerInfos.layer;
         currentMarkerInfos.layer = params.layer;
       }
 
@@ -377,9 +376,9 @@ export class IotMapManager {
         currentMarkerObject.setIcon(html);
       }
 
-      if (oldLayer) {
+      if (oldLayerName != null) {
         // remove  marker from previous layer
-        this.getMarkerLayer(oldLayer).removeLayer(currentMarkerObject);
+        this.getMarkerLayer(oldLayerName).removeLayer(currentMarkerObject);
         // add marker to new layer
         this.getMarkerLayer(currentMarkerInfos.layer).addLayer(currentMarkerObject);
       }
@@ -455,7 +454,7 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- CLUSTERS ----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
-  public getBounds(): L.latLngBounds {
+  public getBounds(): L.LatLngBounds {
     return this.map.getBounds();
   }
 
@@ -470,10 +469,10 @@ export class IotMapManager {
       if (cluster.id && cluster.location) {
         // popup
         const popupText = this.iotMapClusters.getClusterPopup(cluster);
-        const newCluster: L.Marker = L.marker(cluster.location,
+        const newCluster: CustomDataMarker = new CustomDataMarker(
+          cluster,
           {icon: this.iotMapClusters.getClusterIcon(cluster)}
         ).bindPopup(popupText);
-        newCluster.markerInfo = cluster;
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;
@@ -491,7 +490,7 @@ export class IotMapManager {
 
   public removeCluster(id: string) {
     if (this.config.map.externalClustering) {
-      const clusterToRemove: L.Marker = this.markersObjects[id];
+      const clusterToRemove: CustomDataMarker = this.markersObjects[id];
       if (clusterToRemove) {
         this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove);
         this.markersObjects[id] = null;
@@ -509,10 +508,10 @@ export class IotMapManager {
 
   public updateCluster(clusterId: string, params: any) {
     if (this.config.map.externalClustering) {
-      const currentClusterObject: L.Marker = this.markersObjects[clusterId];
+      const currentClusterObject: CustomDataMarker = this.markersObjects[clusterId];
 
       if (currentClusterObject) {
-        const currentClusterInfos: IotCluster = currentClusterObject.markerInfo;
+        const currentClusterInfos: IotCluster = currentClusterObject.getData();
 
         let htmlModificationNeeded = false;
 
@@ -604,7 +603,7 @@ export class IotMapManager {
 
     const currentCluster: IotCluster = {
       id: '',   // unused in automatic mode
-      location: {lat: 0, lon: 0 }, // unused in automatic mode
+      location: {lat: 0, lng: 0 }, // unused in automatic mode
       contentLabel: layer, // unused in automatic mode
       childCount: leafletCluster.getChildCount(),
       aggregation: []
@@ -632,9 +631,7 @@ export class IotMapManager {
 
   public addUserMarker(userMarker: IotUserMarker) {
     if (userMarker.location) {
-      this.userMarkerObject = L.marker(userMarker.location, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
-      this.userMarkerObject.markerInfo = userMarker;
-
+      this.userMarkerObject = new CustomDataMarker(userMarker, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
       this.getMarkerLayer(USERMARKERS_LAYER).addLayer(this.userMarkerObject);
 
       // accuracy circle if needed

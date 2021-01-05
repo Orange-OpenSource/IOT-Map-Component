@@ -20,7 +20,7 @@ import { IotMapCommonSvg } from './iotMapCommonSvg';
 export class IotMapClusters {
   config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
-  public getClusterIcon(cluster: IotCluster): L.divIcon {
+  public getClusterIcon(cluster: IotCluster): L.DivIcon {
     // Gauge design
     let svgGauge = ``;
     let angle = this.config.clusters.gauge.startAngle;

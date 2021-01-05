@@ -23,7 +23,7 @@ export class MapComponent implements AfterViewInit {
       id: 's1',
       location: {
         lat: 44.895,
-        lon: 4.870
+        lng: 4.870
       },
       shape: {
         type: markerType.square,
@@ -41,7 +41,7 @@ export class MapComponent implements AfterViewInit {
       id: 's2',
       location: {
         lat: 44.895,
-        lon: 4.875
+        lng: 4.875
       },
       shape: {
         type : markerType.square,
@@ -60,7 +60,7 @@ export class MapComponent implements AfterViewInit {
       id: 's3',
       location: {
         lat: 44.895,
-        lon: 4.88
+        lng: 4.88
       },
       popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
       shape: {
@@ -79,7 +79,7 @@ export class MapComponent implements AfterViewInit {
       id: 's4',
       location: {
         lat: 44.895,
-        lon: 4.885
+        lng: 4.885
       },
       shape: {
         type : markerType.square,
@@ -97,7 +97,7 @@ export class MapComponent implements AfterViewInit {
       id: 's5',
       location: {
         lat: 44.895,
-        lon: 4.890
+        lng: 4.890
       },
       shape: {
         type : markerType.square,
@@ -116,7 +116,7 @@ export class MapComponent implements AfterViewInit {
       id: 's6',
       location: {
         lat: 44.895,
-        lon: 4.895
+        lng: 4.895
       },
 
       shape: {
@@ -136,7 +136,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p1',
       location: {
         lat: 44.890,
-        lon: 4.870
+        lng: 4.870
       },
       shape: {
         type : markerType.poi,
@@ -154,7 +154,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p2',
       location: {
         lat: 44.890,
-        lon: 4.875
+        lng: 4.875
       },
       popup: 'Ecole Simone Veil',
       shape: {
@@ -172,7 +172,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p3',
       location: {
         lat: 44.890,
-        lon: 4.880
+        lng: 4.880
       },
       shape: {
         type : markerType.poi,
@@ -185,7 +185,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p4',
       location: {
         lat: 44.890,
-        lon: 4.885
+        lng: 4.885
       },
       shape: {
         type : markerType.poi,
@@ -202,7 +202,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p5',
       location: {
         lat: 44.890,
-        lon: 4.890
+        lng: 4.890
       },
       shape: {
         type : markerType.poi,
@@ -220,7 +220,7 @@ export class MapComponent implements AfterViewInit {
       id: 'p6',
       location: {
         lat: 44.890,
-        lon: 4.895
+        lng: 4.895
       },
       shape: {
         type : markerType.poi,
@@ -240,7 +240,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.870
+        lng: 4.870
       },
       shape: {
         type : markerType.circle,
@@ -259,7 +259,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.875
+        lng: 4.875
       },
       shape: {
         type : markerType.circle,
@@ -277,7 +277,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.88
+        lng: 4.88
       },
       shape: {
         type : markerType.circle,
@@ -295,7 +295,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.885
+        lng: 4.885
       },
       shape: {
         type : markerType.circle,
@@ -312,7 +312,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.890
+        lng: 4.890
       },
 
       shape: {
@@ -331,7 +331,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.885,
-        lon: 4.895
+        lng: 4.895
       },
       popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
       shape: {
@@ -351,7 +351,7 @@ export class MapComponent implements AfterViewInit {
       id: 'toAdd',
       location: {
         lat: 44.886,
-        lon: 4.895
+        lng: 4.895
       },
       layer: 'circles',
       shape: {
@@ -370,7 +370,7 @@ export class MapComponent implements AfterViewInit {
       layer: 'circles',
       location: {
         lat: 44.887,
-        lon: 4.895
+        lng: 4.895
       },
       shape : {
         type: markerType.circle,
@@ -388,7 +388,7 @@ export class MapComponent implements AfterViewInit {
       id: 'cluster1',
       location: {
         lat: 44.89,
-        lon: 4.895
+        lng: 4.895
       },
       contentLabel: 'clésCluster1',
       childCount: 40,
@@ -416,7 +416,7 @@ export class MapComponent implements AfterViewInit {
       id: 'cluster2',
       location: {
         lat: 44.89,
-        lon: 4.89
+        lng: 4.89
       },
       contentLabel: 'clésCluster2',
       childCount: 90,
@@ -444,7 +444,7 @@ export class MapComponent implements AfterViewInit {
   userMarker: IotUserMarker = {
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     },
     //id: 'usr1',
     accuracy: 500,
@@ -456,7 +456,7 @@ export class MapComponent implements AfterViewInit {
   userMarker2: IotUserMarker = {
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     },
     //id: 'usr1',
     accuracy: 500,
@@ -468,7 +468,7 @@ export class MapComponent implements AfterViewInit {
   userMarker3: IotUserMarker = {
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     },
     //id: 'usr1',
     accuracy: 500,
@@ -480,7 +480,7 @@ export class MapComponent implements AfterViewInit {
   userMarker4: IotUserMarker = {
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     },
     //id: 'usr1',
     accuracy: 500
@@ -489,7 +489,7 @@ export class MapComponent implements AfterViewInit {
   userMarker5: IotUserMarker = {
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     }
   }
 */
@@ -504,8 +504,8 @@ export class MapComponent implements AfterViewInit {
 
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getBounds();
-      console.log('map bounds changed: [' + coord._northEast.lat + ', ' + coord._northEast.lng
-                                    + '] / [' + coord._southWest.lat + ', ' + coord._southWest.lng + ']');
+      console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
+                                    + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']');
     };
 
     this.commonIotMap.init('iotMap');

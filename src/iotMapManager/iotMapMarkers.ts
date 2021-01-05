@@ -21,7 +21,7 @@ import {IotMapCommonSvg} from './iotMapCommonSvg';
 export class IotMapMarkers {
   config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
-  getMarker(marker: IotMarker, selected = false): L.divIcon {
+  getMarker(marker: IotMarker, selected = false): L.DivIcon {
     let html: string;
 
     // default values
@@ -62,7 +62,7 @@ export class IotMapMarkers {
             : L.point(0, - (markerSize.svgHeight / 2));   // from center point
 
     // creating icon
-    return L.divIcon({
+    return new L.DivIcon({
         className: 'my-custom-pin',
         iconSize:     iconSize, // size of the icon
         iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location

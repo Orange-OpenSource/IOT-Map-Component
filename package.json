@@ -45,8 +45,9 @@
     "@angular/platform-browser-dynamic": "^11.0.5",
     "@angular/router": "^11.0.5",
     "@storybook/addon-knobs": "^6.1.0",
-    "iotmapmanager": "^0.3.1",
-    "leaflet": "^1.7.1",
+    "@types/leaflet": "^1.5.19",
+    "@types/leaflet.markercluster": "^1.4.3",
+    "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "zone.js": "^0.11.3"
   }

@@ -12,13 +12,32 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
+import * as L from 'leaflet';
+
 export enum markerType { circle, square, poi}
+
+export class CustomDataMarker extends L.Marker {
+  data: any;
+
+  constructor(data: any, options?: L.MarkerOptions) {
+    super(data.location, options);
+    this.setData(data);
+  }
+
+  getData() {
+    return this.data;
+  }
+
+  setData(data: any) {
+    this.data = data;
+  }
+}
 
 export interface IotMarker {
   id: string;
   location: {
     lat: number;
-    lon: number;
+    lng: number;
   };
   layer?: string;
   popup?: string;
@@ -46,7 +65,7 @@ export interface IotCluster {
   id: string;
   location: {
     lat: number;
-    lon: number
+    lng: number
   };
   contentLabel: string;
   childCount: number;
@@ -63,7 +82,7 @@ export interface IotUserMarker {
   //id: string;
   location: {
     lat: number;
-    lon: number
+    lng: number
   };
   direction?: {
     angle: number;

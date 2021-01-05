@@ -9,7 +9,7 @@ A marker is defined as follow *(description will evoluate in the futur)* :
        id: string;
        location: {
          lat: number;
-         lon: number;
+         lng: number;
        };
        layer?: string;
        popup?: string;
@@ -61,7 +61,7 @@ More options will arrive soon.
       id: string;
       location: {
         lat: number;
-        lon: number
+        lng: number
       };
       contentLabel: string;
       childCount: number;
