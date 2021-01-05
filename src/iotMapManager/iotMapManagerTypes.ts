@@ -60,7 +60,7 @@ export interface IotCluster {
 
 
 export interface IotUserMarker {
-  id: string;
+  //id: string;
   location: {
     lat: number;
     lon: number

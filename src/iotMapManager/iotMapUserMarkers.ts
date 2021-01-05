@@ -25,12 +25,6 @@ export class IotMapUserMarker {
     const userSvg = IotMapCommonSvg.user;
     let svgInner: string;
 
-    // todo: inner arrow
-    if (userMarker.direction !== undefined) {
-      svgInner = userSvg.arrow;
-    } else {
-      svgInner = userSvg.inner;
-    }
 
     //const imgIcon = `<img class='arrow' src='/assets/icons/geolocation.svg' />`;
 
@@ -38,18 +32,24 @@ export class IotMapUserMarker {
     // const shadowFile = '/assets/img/';
     // const imgShadow = `<img class='shadowSelected' src='` + shadowFile + `'/>`;
 
-    const html = `<div class='container'>`
-        // + imgShadow
+    let html : string;
+    if (userMarker.direction !== undefined) {
+      html = `<div class='container'>`
         + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
-        + userSvg.border + svgInner
+        + userSvg.border
         + `</svg>`
-
-        /*+ `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-10 -10 42 42">`
-        + svgInnerArrow
-        + `</svg>`*/
-      //+ imgIcon
-      + `</div>`;
-
+        +`<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                              width="80"
+                              height="80"
+                              viewBox="-10 -10 42 42">`
+        + userSvg.arrow + `transform='rotate(`+ (userMarker.direction.angle - 45) + ` 16 16)'/>`;
+        + `</svg>`
+    } else {
+      html = `<div class='container'>`
+        + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
+        + userSvg.border + userSvg.inner
+        + `</svg>`
+    }
     const size = this.config.userMarker.size;
 
     // creating icon

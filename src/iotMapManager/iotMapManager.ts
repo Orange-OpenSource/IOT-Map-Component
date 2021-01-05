@@ -23,7 +23,7 @@ import { IotMarker, IotCluster, IotUserMarker } from './iotMapManagerTypes';
 
 const CLUSTER_LAYER = 'Clusters';
 const ACCURACY_LAYER = 'Accuracy';
-const USERMARKERS_LAYER = 'UserMarkers';
+const USERMARKERS_LAYER = 'UserMarker';
 
 
 export class IotMapManager {
@@ -34,7 +34,8 @@ export class IotMapManager {
   private config: IotMapManagerConfig;
   private markersObjects: any = {};
   private accuracyObjects: any = {};
-  private userMarkersObjects: any = {};
+  private userMarkerObject: L.Marker;   // only one user marker
+  private userMarkerAccuracy: L.Circle;
 
   private baseLayers: any = {};
   private markersLayers: any = {};
@@ -165,7 +166,9 @@ export class IotMapManager {
   }
 
   private onClusterMouseOver(cluster) {
-     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
+    console.log("ici ?");
+    const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
+
 
     // create popup
     L.popup({closeButton: false})
@@ -628,31 +631,35 @@ export class IotMapManager {
    */
 
   public addUserMarker(userMarker: IotUserMarker) {
-    if (userMarker.id && userMarker.location) {
-      // does id already exist ?
-      /*if (this.userMarkersObjects[userMarker.id] !== undefined) {
-        this.removeUserMarker(userMarker.id);
-      }*/
+    if (userMarker.location) {
+      this.userMarkerObject = L.marker(userMarker.location, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
+      this.userMarkerObject.markerInfo = userMarker;
 
-      const newUserMarker: L.Marker = L.marker(userMarker.location, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
-      newUserMarker.markerInfo = userMarker;
-
-      this.getMarkerLayer(USERMARKERS_LAYER).addLayer(newUserMarker);
-      this.userMarkersObjects[userMarker.id] = newUserMarker;
+      this.getMarkerLayer(USERMARKERS_LAYER).addLayer(this.userMarkerObject);
 
       // accuracy circle if needed
       if (userMarker.accuracy !== undefined) {
-        const newCircle = L.circle(userMarker.location, {
+        this.userMarkerAccuracy = L.circle(userMarker.location, {
           color: this.config.accuracyCircle.color,
           fillColor: this.config.accuracyCircle.fillColor,
           fillOpacity: this.config.accuracyCircle.fillOpacity,
           radius: userMarker.accuracy
         });
-        this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
-        this.accuracyObjects[userMarker.id] = newCircle;
+        this.getMarkerLayer(USERMARKERS_LAYER).addLayer(this.userMarkerAccuracy);
       }
-
     }
-    this.iotMapUserMarkers.getMarker(userMarker);
+  }
+
+  public removeUserMarker() {
+    this.getMarkerLayer(USERMARKERS_LAYER).removeLayer(this.userMarkerObject);
+    this.userMarkerObject = null;
+
+    this.getMarkerLayer(USERMARKERS_LAYER).removeLayer(this.userMarkerAccuracy);
+    this.userMarkerAccuracy = null;
+  }
+
+  public updateUserMarker(userMarker: IotUserMarker) {
+    this.removeUserMarker();
+    this.addUserMarker(userMarker);
   }
 }

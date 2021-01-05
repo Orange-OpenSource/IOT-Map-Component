@@ -118,17 +118,18 @@
 .container{
   position: relative;
 }
-/*.container > svg{
+.container > svg{
   position: absolute;
   top:0px;
   left:0px;
-}*/
-/*.container > img{
+  z-index: 10;
+}
+.container > img{
   position: absolute;
   top:0px;
   left:0px;
   z-index: 25;
-}*/
+}
 /*
 
 */
