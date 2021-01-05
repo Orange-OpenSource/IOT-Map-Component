@@ -130,17 +130,17 @@ export class IotMapManager {
 
   private onMarkerClick(event) {
 
-    const markerObject = this.markersObjects[event.layer.markerInfo.id];
+    const markerObject = this.markersObjects[event.layer.getData().id];
 
     // select / unselect marker
     let html: L.DivIcon;
     // already selected => unselect it
-    if (this.selectedMarkerId === markerObject.markerInfo.id) {
+    if (this.selectedMarkerId === markerObject.getData().id) {
       // update selected id
       this.selectedMarkerId = '';
 
       // get new html and update marker (=> unselect marker)
-      html = this.iotMapMarkers.getMarker(markerObject.markerInfo, false);
+      html = this.iotMapMarkers.getMarker(markerObject.getData(), false);
       markerObject.setIcon(html);
       this.map.closePopup();
     } else {  // new marker selected
@@ -149,18 +149,18 @@ export class IotMapManager {
         const lastSelectedMarker = this.markersObjects[this.selectedMarkerId];
 
         // get new html and update marker (=> unselect marker)
-        html = this.iotMapMarkers.getMarker(lastSelectedMarker.markerInfo, false);
+        html = this.iotMapMarkers.getMarker(lastSelectedMarker.getData(), false);
         lastSelectedMarker.setIcon(html);
       }
 
       // --- select new marker ---
-      if (event.layer.markerInfo.aggregation === undefined) {  // not a manual cluster
+      if (event.layer.getData().aggregation === undefined) {  // not a manual cluster
         // update selected id
-        this.selectedMarkerId = markerObject.markerInfo.id;
+        this.selectedMarkerId = markerObject.getData().id;
 
         // get new html and update marker (=> select marker)
-        html = this.iotMapMarkers.getMarker(markerObject.markerInfo, true);
-        markerObject.setIcon(html).bindPopup(markerObject.markerInfo.popup);
+        html = this.iotMapMarkers.getMarker(markerObject.getData(), true);
+        markerObject.setIcon(html).bindPopup(markerObject.getData().popup);
       }
     }
   }
@@ -184,7 +184,7 @@ export class IotMapManager {
   private onZoom() {
     for (const markerId in this.markersObjects) {
       if (this.markersObjects[markerId] !== undefined && this.markersObjects[markerId] !== null) {
-        const marker = this.markersObjects[markerId].markerInfo;
+        const marker = this.markersObjects[markerId].getData();
         if (this.map.hasLayer(this.markersObjects[markerId])) { // unclustered
           if (marker.shape.accuracy !== undefined) {
             // accuracy circle if needed
@@ -441,7 +441,7 @@ export class IotMapManager {
 
     for (const markerId in this.markersObjects) {
       if (this.markersObjects[markerId] != null) {
-        const marker = this.markersObjects[markerId].markerInfo;
+        const marker = this.markersObjects[markerId].getData();
         if (marker.childCount !== undefined) {   // marker is a manual cluster
           this.addCluster(marker);
         } else {
@@ -581,25 +581,25 @@ export class IotMapManager {
 
     const allChildMarkers = leafletCluster.getAllChildMarkers();
     allChildMarkers.forEach(marker => {
-      const state = (marker.markerInfo.status) ? marker.markerInfo.status : 'stateless';
+      const state = (marker.getData().status) ? marker.getData().status : 'stateless';
       if (tabDistribution[state]) {
         tabDistribution[state] = {
           count: tabDistribution[state].count + 1,
-          label: (marker.markerInfo.status)
-            ? this.config.markerStatus[marker.markerInfo.status].pluralState
+          label: (marker.getData().status)
+            ? this.config.markerStatus[marker.getData().status].pluralState
             : 'stateless'
         };
       } else {
         tabDistribution[state] = {
           count: 1,
-          label: (marker.markerInfo.status)
-            ? this.config.markerStatus[marker.markerInfo.status].singularState
+          label: (marker.getData().status)
+            ? this.config.markerStatus[marker.getData().status].singularState
             : 'stateless'
         };
       }
     });
 
-    const layer = allChildMarkers[0].markerInfo.layer;
+    const layer = allChildMarkers[0].getData().layer;
 
     const currentCluster: IotCluster = {
       id: '',   // unused in automatic mode
@@ -642,17 +642,17 @@ export class IotMapManager {
           fillOpacity: this.config.accuracyCircle.fillOpacity,
           radius: userMarker.accuracy
         });
-        this.getMarkerLayer(USERMARKERS_LAYER).addLayer(this.userMarkerAccuracy);
+        this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
       }
     }
   }
 
   public removeUserMarker() {
     this.getMarkerLayer(USERMARKERS_LAYER).removeLayer(this.userMarkerObject);
-    this.userMarkerObject = null;
+    delete this.userMarkerObject;
 
-    this.getMarkerLayer(USERMARKERS_LAYER).removeLayer(this.userMarkerAccuracy);
-    this.userMarkerAccuracy = null;
+    this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy);
+    delete this.userMarkerAccuracy;
   }
 
   public updateUserMarker(userMarker: IotUserMarker) {
