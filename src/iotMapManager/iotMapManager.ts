@@ -219,41 +219,44 @@ export class IotMapManager {
     if (marker.id && marker.location) {
       // does id already exist ?
       if (this.markersObjects[marker.id] !== undefined) {
-        this.removeMarker(marker.id);
-      }
-
-      // popup
-      let popupText = marker.popup;
-      if (!popupText) {
-        popupText = `<span style="color: ` + this.config.popupFont.color + `;
+        this.updateMarker(marker.id, marker);
+      } else {
+        // popup
+        let popupText = marker.popup;
+        if (!popupText) {
+          popupText = `<span style="color: ` + this.config.popupFont.color + `;
                                   font-size: ` + this.config.popupFont.bodySize + `;
                                   font-family: ` + this.config.popupFont.fontFamily + `;
                                   font-weight: ` + this.config.popupFont.fontWeight + `;">`
-                    + marker.id + ((marker.status !== undefined) ? (' - ' + marker.status) : '')
-                + `</span><br>`;
-        marker.popup = popupText;
-      }
+            + marker.id + ((marker.status !== undefined) ? (' - ' + marker.status) : '')
+            + `</span><br>`;
+          marker.popup = popupText;
+        }
 
-      // force layer name if not present
-      if (marker.layer === undefined) {
-        marker.layer = this.config.map.defaultLayerName;
-      }
+        // force layer name if not present
+        if (marker.layer === undefined) {
+          marker.layer = this.config.map.defaultLayerName;
+        }
 
-      const newMarker: CustomDataMarker = new CustomDataMarker(marker,{icon: this.iotMapMarkers.getMarker(marker)}).bindPopup(popupText);
+        const newMarker: CustomDataMarker = new CustomDataMarker(
+                                                      marker,
+                                                      {icon: this.iotMapMarkers.getMarker(marker)}
+                                                      ).bindPopup(popupText);
 
-      this.getMarkerLayer(marker.layer).addLayer(newMarker);
-      this.markersObjects[marker.id] = newMarker;
+        this.getMarkerLayer(marker.layer).addLayer(newMarker);
+        this.markersObjects[marker.id] = newMarker;
 
-      // accuracy circle if needed
-      if (marker.shape.accuracy !== undefined) {
-        const newCircle = L.circle(marker.location, {
-          color: this.config.accuracyCircle.color,
-          fillColor: this.config.accuracyCircle.fillColor,
-          fillOpacity: this.config.accuracyCircle.fillOpacity,
-          radius: marker.shape.accuracy
-        });
-        this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
-        this.accuracyObjects[marker.id] = newCircle;
+        // accuracy circle if needed
+        if (marker.shape.accuracy !== undefined) {
+          const newCircle = L.circle(marker.location, {
+            color: this.config.accuracyCircle.color,
+            fillColor: this.config.accuracyCircle.fillColor,
+            fillOpacity: this.config.accuracyCircle.fillOpacity,
+            radius: marker.shape.accuracy
+          });
+          this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
+          this.accuracyObjects[marker.id] = newCircle;
+        }
       }
     }
   }
@@ -460,7 +463,6 @@ export class IotMapManager {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster);
     return this.iotMapClusters.getClusterIcon(currentCluster);
   }
-
 
   public addCluster(cluster: IotCluster) {
     if (this.config.map.externalClustering) {
