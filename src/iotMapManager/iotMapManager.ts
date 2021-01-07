@@ -166,9 +166,7 @@ export class IotMapManager {
   }
 
   private onClusterMouseOver(cluster) {
-    console.log("ici ?");
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
-
 
     // create popup
     L.popup({closeButton: false})
