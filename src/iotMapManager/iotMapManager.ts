@@ -300,7 +300,7 @@ export class IotMapManager {
       if (params.location) {
         currentMarkerInfos.location = params.location;
 
-        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lon);
+        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng);
         currentMarkerObject.setLatLng(newLatLng);
 
         // update accuracy circle
@@ -519,7 +519,7 @@ export class IotMapManager {
         if (params.location) {
           currentClusterInfos.location = params.location;
 
-          const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lon);
+          const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng);
           currentClusterObject.setLatLng(newLatLng);
         }
 
