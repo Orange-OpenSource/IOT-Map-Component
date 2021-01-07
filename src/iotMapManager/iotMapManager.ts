@@ -258,6 +258,8 @@ export class IotMapManager {
           this.accuracyObjects[marker.id] = newCircle;
         }
       }
+    } else {
+      console.log ("No id and/or no location defined for new marker. Unable to display");
     }
   }
 
@@ -476,6 +478,8 @@ export class IotMapManager {
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;
+      } else {
+        console.log ("No id and/or no location defined for new cluster. Unable to display");
       }
     }
   }
@@ -644,6 +648,8 @@ export class IotMapManager {
         });
         this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
       }
+    } else {
+      console.log ("No location defined for userMarker. Unable to display");
     }
   }
 
@@ -655,8 +661,41 @@ export class IotMapManager {
     delete this.userMarkerAccuracy;
   }
 
-  public updateUserMarker(userMarker: IotUserMarker) {
-    this.removeUserMarker();
-    this.addUserMarker(userMarker);
+  public updateUserMarker(params: any) {
+    if (this.userMarkerObject !== null) {
+      let userMarkerInfo = this.userMarkerObject.getData();
+      if (params.location !== undefined) {
+        userMarkerInfo.location = params.location;
+
+        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng);
+        this.userMarkerObject.setLatLng(newLatLng);
+        this.userMarkerAccuracy.setLatLng(newLatLng);
+      }
+
+      if (params.direction !== undefined || (userMarkerInfo.direction !== undefined && params.direction === undefined)) {
+        userMarkerInfo.direction = params.direction;
+
+        // update icon
+        const html = this.iotMapUserMarkers.getMarker(userMarkerInfo);
+        this.userMarkerObject.setIcon(html);
+      }
+
+      if (params.accuracy !== undefined) {
+        userMarkerInfo.accuracy = params.accuracy;
+        if (this.userMarkerAccuracy === null) {  // create
+          this.userMarkerAccuracy = L.circle(userMarkerInfo.location, {
+            color: this.config.accuracyCircle.color,
+            fillColor: this.config.accuracyCircle.fillColor,
+            fillOpacity: this.config.accuracyCircle.fillOpacity,
+            radius: userMarkerInfo.accuracy
+          });
+          this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
+        } else {  // update
+          this.userMarkerAccuracy.setRadius(userMarkerInfo.accuracy);
+        }
+      }
+    } else {
+      this.addUserMarker(params);
+    }
   }
 }

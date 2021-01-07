@@ -42,7 +42,7 @@ export class IotMapUserMarker {
                               width="80"
                               height="80"
                               viewBox="-10 -10 42 42">`
-        + userSvg.arrow + `transform='rotate(`+ (userMarker.direction.angle - 45) + ` 16 16)'/>`;
+        + userSvg.arrow + `transform='rotate(`+ (userMarker.direction - 45) + ` 16 16)'/>`;
         + `</svg>`
     } else {
       html = `<div class='container'>`

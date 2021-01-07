@@ -79,13 +79,10 @@ export interface IotCluster {
 
 
 export interface IotUserMarker {
-  //id: string;
   location: {
     lat: number;
     lng: number
   };
-  direction?: {
-    angle: number;
-  };
+  direction?: number;
   accuracy?: number;
 }

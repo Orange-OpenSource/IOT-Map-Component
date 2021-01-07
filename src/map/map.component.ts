@@ -441,58 +441,35 @@ export class MapComponent implements AfterViewInit {
         }]
     }
   ];
-  userMarker: IotUserMarker = {
+  userMarker: any = {
     location: {
       lat: 44.890,
       lng: 4.870
     },
-    //id: 'usr1',
     accuracy: 500,
-    direction: {
-      angle: 45
-    }
+    direction: 45
   }
-/*
-  userMarker2: IotUserMarker = {
+
+  userMarker2: any = {
+    direction: 60
+  }
+
+  userMarker3: any = {
+    accuracy: 250
+  }
+
+  userMarker4: any = {
+    direction: -90,
+    accuracy: null
+  }
+
+  userMarker5: any = {
     location: {
       lat: 44.890,
-      lng: 4.870
-    },
-    //id: 'usr1',
-    accuracy: 500,
-    direction: {
-      angle: 60
+      lng: 4.875
     }
   }
 
-  userMarker3: IotUserMarker = {
-    location: {
-      lat: 44.890,
-      lng: 4.870
-    },
-    //id: 'usr1',
-    accuracy: 500,
-    direction: {
-      angle: 90
-    }
-  }
-
-  userMarker4: IotUserMarker = {
-    location: {
-      lat: 44.890,
-      lng: 4.870
-    },
-    //id: 'usr1',
-    accuracy: 500
-  }
-
-  userMarker5: IotUserMarker = {
-    location: {
-      lat: 44.890,
-      lng: 4.870
-    }
-  }
-*/
 
 
   ngAfterViewInit(): void {
@@ -519,13 +496,13 @@ export class MapComponent implements AfterViewInit {
 
 
     this.commonIotMap.addUserMarker(this.userMarker);
-    /*setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker2);}, 2000);
+    setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker2);}, 2000);
     setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker3);}, 3000);
     setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker4);}, 4000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker5);}, 5000);*/
+    setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker5);}, 5000);
 
 
-
+setTimeout(() => { this.commonIotMap.updateMarker("c1", {shape: { accuracy: null}});}, 3000);
 /*
 
     setTimeout  (() => { IotMapManagerConfig.setConfig({
