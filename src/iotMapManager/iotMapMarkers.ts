@@ -36,13 +36,7 @@ export class IotMapMarkers {
       }
     }
 
-    // only anchored markers can be selected
-    /*if (!marker.shape.anchored) {
-      selected = false;
-    }*/
-
     html = this.getSvg(marker, selected);
-
 
     // sizing
     const size = this.config.markers.size;
@@ -52,7 +46,7 @@ export class IotMapMarkers {
     const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
 
     let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center
-    if (marker.shape.anchored) {
+    if (marker.shape.anchored || selected) {
       const height = (size.fullSvgHeight + markerSize.svgHeight) / 2 + markerSize.anchoredHeight;
       iconAnchor = L.point(size.fullSvgWidth / 2, height);
     }
@@ -77,7 +71,7 @@ export class IotMapMarkers {
     let svgBG: string;
     let svgBorder: string;
     let svgGauge: string;
-    let shadowFile = '/assets/img/';
+    let shadowFile = 'assets/img/';
 
     const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.status === undefined && marker.shape.color === undefined) {
