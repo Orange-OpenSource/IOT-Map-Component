@@ -115,8 +115,7 @@ export class IotMapMarkers {
     }
 
     // inner
-    let svgInnerDesign = '';
-    let imgIcon = '';
+    let innerDesign = '';
     const conf = (selected)
       ? this.config.markers.size.selected
       : ((marker.shape.type === markerType.circle)
@@ -130,11 +129,11 @@ export class IotMapMarkers {
 
       if (marker.inner.icon) {  // icon
         const iconClass = (selected) ? ' iconSelected' : ' iconUnselected';
-        imgIcon = `<span class="` + marker.inner.icon + iconClass + ` " style="color: ` + innerColor + `" />`;
+        innerDesign = `<span class="` + marker.inner.icon + iconClass + ` " style="color: ` + innerColor + `" />`;
 
       } else if (marker.inner.label) {  // label
         const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
-        imgIcon = `<span class="` + labelClass + ` " style="color: ` + innerColor + `" >` + marker.inner.label[0] + `</span>`;
+        innerDesign = `<span class="` + labelClass + ` " style="color: ` + innerColor + `" >` + marker.inner.label[0] + `</span>`;
       }
     }
 
@@ -161,9 +160,9 @@ export class IotMapMarkers {
     return  `<div class='container'>`
               + imgShadow
               + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
-                + svgBorder + svgShape + svgBG /*+ svgInnerDesign*/ + svgGauge
+                + svgBorder + svgShape + svgBG + svgGauge
               + `</svg>`
-              + imgIcon
+              + innerDesign
           + `</div>`;
 
   }

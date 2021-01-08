@@ -259,7 +259,7 @@ export class IotMapManager {
         }
       }
     } else {
-      console.log ("No id and/or no location defined for new marker. Unable to display");
+      console.log ('No id and/or no location defined for new marker. Unable to display');
     }
   }
 
@@ -479,7 +479,7 @@ export class IotMapManager {
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;
       } else {
-        console.log ("No id and/or no location defined for new cluster. Unable to display");
+        console.log ('No id and/or no location defined for new cluster. Unable to display');
       }
     }
   }
@@ -649,7 +649,7 @@ export class IotMapManager {
         this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
       }
     } else {
-      console.log ("No location defined for userMarker. Unable to display");
+      console.log ('No location defined for userMarker. Unable to display');
     }
   }
 
@@ -663,7 +663,7 @@ export class IotMapManager {
 
   public updateUserMarker(params: any) {
     if (this.userMarkerObject !== null) {
-      let userMarkerInfo = this.userMarkerObject.getData();
+      const userMarkerInfo = this.userMarkerObject.getData();
       if (params.location !== undefined) {
         userMarkerInfo.location = params.location;
 

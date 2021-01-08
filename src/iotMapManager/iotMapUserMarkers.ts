@@ -23,10 +23,6 @@ export class IotMapUserMarker {
 
   getMarker(userMarker: IotUserMarker): L.DivIcon {
     const userSvg = IotMapCommonSvg.user;
-    let svgInner: string;
-
-
-    //const imgIcon = `<img class='arrow' src='/assets/icons/geolocation.svg' />`;
 
     // todo: shadow file
     // const shadowFile = '/assets/img/';
@@ -38,17 +34,17 @@ export class IotMapUserMarker {
         + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
         + userSvg.border
         + `</svg>`
-        +`<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+        + `<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                               width="80"
                               height="80"
                               viewBox="-10 -10 42 42">`
-        + userSvg.arrow + `transform='rotate(`+ (userMarker.direction - 45) + ` 16 16)'/>`;
-        + `</svg>`
+        + userSvg.arrow + `transform='rotate(` + (userMarker.direction - 45) + ` 16 16)'/>`
+        + `</svg>`;
     } else {
       html = `<div class='container'>`
         + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
         + userSvg.border + userSvg.inner
-        + `</svg>`
+        + `</svg>`;
     }
     const size = this.config.userMarker.size;
 
