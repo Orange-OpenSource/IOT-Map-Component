@@ -617,7 +617,7 @@ export class IotMapManager {
       if (tabDistribution[state]) {
         currentCluster.aggregation[i] = {
           count: tabDistribution[state].count,
-          color: (state === 'stateless') ? 'lightgray' : this.config.markerStatus[state].stateColor,
+          color: (state === 'stateless') ? this.config.clusters.defaultColor : this.config.markerStatus[state].stateColor,
           singularState: tabDistribution[state].label,
           pluralState: tabDistribution[state].label
         };

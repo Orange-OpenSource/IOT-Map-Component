@@ -125,7 +125,8 @@ export class IotMapManagerConfig {
     gauge: {
       startAngle: -90,
       radius: 62
-    }
+    },
+    defaultColor: 'black'
   };
 
   userMarker: any = {

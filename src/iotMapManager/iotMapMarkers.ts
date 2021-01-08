@@ -37,9 +37,9 @@ export class IotMapMarkers {
     }
 
     // only anchored markers can be selected
-    if (!marker.shape.anchored) {
+    /*if (!marker.shape.anchored) {
       selected = false;
-    }
+    }*/
 
     html = this.getSvg(marker, selected);
 
