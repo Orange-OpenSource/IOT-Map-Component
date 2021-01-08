@@ -1,6 +1,6 @@
 {
   "_from": "iotmapmanager",
-  "_id": "iotmapmanager@0.4.2",
+  "_id": "iotmapmanager@0.4.3",
   "_inBundle": false,
   "_integrity": "sha512-Q7PVTJ/WHujDFcuO1B+MGJMXHLlJndJ9JrgDSf0UXdEdbsyf8otVrDBbE7bYZ2J5p4nfbT15ex+x1aTbJxgAMA==",
   "_location": "/iotmapmanager",
@@ -53,5 +53,5 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm i && tsc"
   },
-  "version": "0.4.2"
+  "version": "0.4.3"
 }
