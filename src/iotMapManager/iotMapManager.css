@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.4.2
+* Version: 0.4.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -124,7 +124,7 @@
   left:0px;
   z-index: 10;
 }
-.container > img{
+.container > span{
   position: absolute;
   top:0px;
   left:0px;
@@ -137,20 +137,37 @@
   z-index: 10;
 }*/
 
-.container .unselected{
+.container .iconUnselected{
   position: absolute;
-  top:37px;
-  left:37px;
-  width:26px;
-  height:26px;
+  top:35px;
+  left:35px;
+  font-size:30px;
 }
 
-.container .selected{
+.container .labelUnselected{
   position: absolute;
-  top:28px;
-  left:28px;
-  width:44px;
-  height:44px;
+  top:22px;
+  left:36px;
+  font-size:36px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+}
+
+
+.container .iconSelected{
+  position: absolute;
+  top:30px;
+  left:30px;
+  font-size:40px;
+}
+
+.container .labelSelected{
+  position: absolute;
+  top:16px;
+  left:34px;
+  font-size:44px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
 }
 
 .container .shadowSelected{

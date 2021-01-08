@@ -50,7 +50,7 @@ export class MapComponent implements AfterViewInit {
       },
       popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
       inner: {
-        icon: 'School.svg',
+        icon: 'iotmap-icons-School',
         color: 'green'
       },
       layer: 'Etablissements',
@@ -87,8 +87,8 @@ export class MapComponent implements AfterViewInit {
         plain: false
       },
       inner: {
-        icon: 'accessibility_hearing.svg',
-        color: 'black'
+        icon: 'iotmap-icons-accessibility_hearing',
+        color: 'blue'
       },
       layer: 'Monuments',
       status: 'Alert',
@@ -106,7 +106,7 @@ export class MapComponent implements AfterViewInit {
         accuracy: 200
       },
       inner: {
-        icon: 'bluetooth.svg',
+        icon: 'iotmap-icons-bluetooth',
         color: 'green'
       },
       layer: 'Etablissements',
@@ -125,7 +125,7 @@ export class MapComponent implements AfterViewInit {
         plain: false
       },
       inner: {
-        icon: 'family_place.svg',
+        icon: 'iotmap-icons-family_place',
         color: 'black'
       },
       layer: 'Monuments'
@@ -145,7 +145,7 @@ export class MapComponent implements AfterViewInit {
       },
       layer: 'Etablissements',
       inner: {
-        icon: 'School.svg',
+        icon: 'iotmap-icons-School',
         color: 'blue'
       },
       status: 'Positive'
@@ -162,7 +162,7 @@ export class MapComponent implements AfterViewInit {
         anchored: true
       },
       inner: {
-        icon: 'School.svg',
+        icon: 'iotmap-icons-School',
         color: 'navyblue'
       },
       layer: 'Etablissements',
@@ -193,7 +193,7 @@ export class MapComponent implements AfterViewInit {
       },
       layer: 'Monuments',
       inner: {
-        icon: 'games.svg',
+        icon: 'iotmap-icons-games',
         color: 'black'
       },
       status: 'Alert'
@@ -211,7 +211,7 @@ export class MapComponent implements AfterViewInit {
       },
       layer: 'Etablissements',
       inner: {
-        icon: 'hospital.svg',
+        icon: 'iotmap-icons-hospital',
         color: 'white'
       },
       status: 'Inactive'
@@ -228,7 +228,7 @@ export class MapComponent implements AfterViewInit {
       },
       layer: 'Etablissements',
       inner: {
-        icon: 'map_pin.svg',
+        icon: 'iotmap-icons-map_pin',
         color: 'white'
       }
     },
@@ -249,7 +249,7 @@ export class MapComponent implements AfterViewInit {
         accuracy: 500
       },
       inner: {
-        icon: 'Car_pooling.svg',
+        icon: 'iotmap-icons-Car_pooling',
         color: 'black'
       },
       status: 'Positive'
@@ -268,7 +268,7 @@ export class MapComponent implements AfterViewInit {
       },
       status: 'Neutral',
       inner: {
-        icon: 'Car_pooling.svg',
+        icon: 'iotmap-icons-Car_pooling',
         color: 'black'
       }
     },
@@ -285,7 +285,7 @@ export class MapComponent implements AfterViewInit {
         percent: 75
       },
       inner: {
-        icon: 'Car_pooling.svg',
+        icon: 'iotmap-icons-Car_pooling',
         color: 'black'
       },
       status: 'Warning'
@@ -302,7 +302,7 @@ export class MapComponent implements AfterViewInit {
         anchored: false
       },
       inner: {
-        icon: 'Car_pooling.svg',
+        icon: 'iotmap-icons-Car_pooling',
         color: 'black'
       },
       status: 'Alert'
@@ -317,11 +317,11 @@ export class MapComponent implements AfterViewInit {
 
       shape: {
         type : markerType.circle,
-        anchored: false,
+        anchored: true,
         plain: false
       },
       inner: {
-        label: 'A',
+        label: 'O',
         color: 'black'
       },
       status: 'Inactive'
@@ -340,7 +340,7 @@ export class MapComponent implements AfterViewInit {
         percent: 45
       },
       inner: {
-        icon : 'temperature.svg',
+        icon : 'iotmap-icons-temperature',
         color: 'green'
       }
     }];
@@ -359,7 +359,7 @@ export class MapComponent implements AfterViewInit {
         anchored: false
       },
       inner: {
-        icon: '4g.svg',
+        icon: 'iotmap-icons-4g',
         color: 'blue'
       },
 
@@ -502,7 +502,7 @@ export class MapComponent implements AfterViewInit {
     setTimeout (() => { this.commonIotMap.updateUserMarker(this.userMarker5);}, 5000);
 
 
-setTimeout(() => { this.commonIotMap.updateMarker("c1", {shape: { accuracy: null}});}, 3000);
+//setTimeout(() => { this.commonIotMap.updateMarker("c1", {shape: { accuracy: null}});}, 3000);
 /*
 
     setTimeout  (() => { IotMapManagerConfig.setConfig({

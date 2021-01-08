@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.4.2
+* Version: 0.4.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -52,6 +52,10 @@ export class IotMapManagerConfig {
     },
 
     // *** Private conf: not modified by SetConfig ***
+    font: {
+      family: 'Helvetica Neue',
+      weight: 'bold'
+    },
     size: {
       fullSvgWidth: 100,
       fullSvgHeight: 100,
@@ -83,31 +87,31 @@ export class IotMapManagerConfig {
   markerStatus = {
     'Positive': {
       stateColor: '#32C832',
-      innerColor: 'black',
+      innerColor: '#527EDB',
       singularState: 'Positive',
       pluralState: 'Positives'
     },
     'Neutral': {
       stateColor: '#527EDB',
-      innerColor: 'black',
+      innerColor: '#FFCC00',
       singularState: 'Neutral',
       pluralState: 'Neutrals'
     },
     'Warning': {
       stateColor: '#FFCC00',
-      innerColor: 'black',
+      innerColor: '#CD3C14',
       singularState: 'Warning',
       pluralState: 'Warnings'
     },
     'Alert': {
       stateColor: '#CD3C14',
-      innerColor: 'black',
+      innerColor: '#CCCCCC',
       singularState: 'Alert',
       pluralState: 'Alerts'
     },
     'Inactive': {
       stateColor: '#CCCCCC',
-      innerColor: 'black',
+      innerColor: '#32C832',
       singularState: 'Inactive',
       pluralState: 'Inactives'
     }

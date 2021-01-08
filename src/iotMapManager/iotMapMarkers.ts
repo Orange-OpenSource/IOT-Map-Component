@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.4.2
+* Version: 0.4.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -135,19 +135,12 @@ export class IotMapMarkers {
         : ((marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.innerColor);
 
       if (marker.inner.icon) {  // icon
-        const iconClass = (selected) ? 'selected' : 'unselected';
-        imgIcon = `<img class='` + iconClass + `' src='/assets/icons/` + marker.inner.icon + `' />`;
+        const iconClass = (selected) ? ' iconSelected' : ' iconUnselected';
+        imgIcon = `<span class="` + marker.inner.icon + iconClass + ` " style="color: ` + innerColor + `" />`;
+
       } else if (marker.inner.label) {  // label
-        svgInnerDesign = `<text x='` + this.config.markers.size.fullSvgWidth / 2
-                           + `' y='` + this.config.markers.size.fullSvgHeight / 2
-                           + `' dominant-baseline='central'
-                                text-anchor='middle'
-                                font-size='` + conf.fontSize + `'
-                                font-family='Helvetica Neue'
-                                font-weight='bold'
-                                fill='` + innerColor
-                           + `'>`
-          + marker.inner.label[0] + `</text>`;
+        const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
+        imgIcon = `<span class="` + labelClass + ` " style="color: ` + innerColor + `" >` + marker.inner.label[0] + `</span>`;
       }
     }
 
@@ -174,7 +167,7 @@ export class IotMapMarkers {
     return  `<div class='container'>`
               + imgShadow
               + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
-                + svgBorder + svgShape + svgBG + svgInnerDesign + svgGauge
+                + svgBorder + svgShape + svgBG /*+ svgInnerDesign*/ + svgGauge
               + `</svg>`
               + imgIcon
           + `</div>`;
