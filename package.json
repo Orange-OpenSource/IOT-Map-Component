@@ -47,7 +47,7 @@
     "@storybook/addon-knobs": "^6.1.0",
     "@types/leaflet": "^1.5.19",
     "@types/leaflet.markercluster": "^1.4.3",
-    "iotmapmanager": "^0.4.3",
+    "iotmapmanager": "^0.4.4",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "zone.js": "^0.11.3"
