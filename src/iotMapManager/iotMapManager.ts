@@ -218,7 +218,7 @@ export class IotMapManager {
   public addMarker(marker: IotMarker) {
     if (marker.id && marker.location) {
       // does id already exist ?
-      if (this.markersObjects[marker.id] !== undefined) {
+      if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
         this.updateMarker(marker.id, marker);
       } else {
         // popup
