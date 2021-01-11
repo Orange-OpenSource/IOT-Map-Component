@@ -57,7 +57,7 @@ export class IotMapManager {
 
   public init(selector) {
     // init map
-    this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLon),
+    this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
       this.config.map.defaultZoomLevel);
 
     // init base layers

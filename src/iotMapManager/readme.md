@@ -98,7 +98,7 @@ You can modify several values by calling :
 Editable values :
 * map:
   * defaultLat: map center latitude
-  * defaultLon: map center longitude
+  * defaultLng: map center longitude
   * defaultZoomLevel: zoom level
   * defaultLayerName: layer name if no layer specified in marker info
   * clusterRadius: radius used to cluster markers

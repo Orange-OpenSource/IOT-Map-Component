@@ -6,7 +6,7 @@ export interface IOTMarker {
   id: string;
   location: {
     lat: number;
-    lon: number;
+    lng: number;
   };
   layer?: string;
   popup?: string;
@@ -33,7 +33,7 @@ export const MARKER_LIST = [
     id: 's1',
     location: {
       lat: 44.895,
-      lon: 4.870
+      lng: 4.870
     },
     shape: {
       type: markerType.square,
@@ -51,7 +51,7 @@ export const MARKER_LIST = [
     id: 's2',
     location: {
       lat: 44.895,
-      lon: 4.875
+      lng: 4.875
     },
     shape: {
       type : markerType.square,
@@ -69,7 +69,7 @@ export const MARKER_LIST = [
     id: 's3',
     location: {
       lat: 44.895,
-      lon: 4.88
+      lng: 4.88
     },
     popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
     shape: {
@@ -88,7 +88,7 @@ export const MARKER_LIST = [
     id: 's4',
     location: {
       lat: 44.895,
-      lon: 4.885
+      lng: 4.885
     },
     shape: {
       type : markerType.square,
@@ -106,7 +106,7 @@ export const MARKER_LIST = [
     id: 's5',
     location: {
       lat: 44.895,
-      lon: 4.890
+      lng: 4.890
     },
     shape: {
       type : markerType.square,
@@ -125,7 +125,7 @@ export const MARKER_LIST = [
     id: 's6',
     location: {
       lat: 44.895,
-      lon: 4.895
+      lng: 4.895
     },
 
     shape: {
@@ -145,7 +145,7 @@ export const MARKER_LIST = [
     id: 'p1',
     location: {
       lat: 44.890,
-      lon: 4.870
+      lng: 4.870
     },
     shape: {
       type : markerType.poi,
@@ -163,7 +163,7 @@ export const MARKER_LIST = [
     id: 'p2',
     location: {
       lat: 44.890,
-      lon: 4.875
+      lng: 4.875
     },
     popup: 'Ecole Simone Veil',
     shape: {
@@ -181,7 +181,7 @@ export const MARKER_LIST = [
     id: 'p3',
     location: {
       lat: 44.890,
-      lon: 4.880
+      lng: 4.880
     },
     shape: {
       type : markerType.poi,
@@ -194,7 +194,7 @@ export const MARKER_LIST = [
     id: 'p4',
     location: {
       lat: 44.890,
-      lon: 4.885
+      lng: 4.885
     },
     shape: {
       type : markerType.poi,
@@ -211,7 +211,7 @@ export const MARKER_LIST = [
     id: 'p5',
     location: {
       lat: 44.890,
-      lon: 4.890
+      lng: 4.890
     },
     shape: {
       type : markerType.poi,
@@ -229,7 +229,7 @@ export const MARKER_LIST = [
     id: 'p6',
     location: {
       lat: 44.890,
-      lon: 4.895
+      lng: 4.895
     },
     shape: {
       type : markerType.poi,
@@ -249,7 +249,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.870
+      lng: 4.870
     },
     shape: {
       type : markerType.circle,
@@ -268,7 +268,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.875
+      lng: 4.875
     },
     shape: {
       type : markerType.circle,
@@ -286,7 +286,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.88
+      lng: 4.88
     },
     shape: {
       type : markerType.circle,
@@ -304,7 +304,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.885
+      lng: 4.885
     },
     shape: {
       type : markerType.circle,
@@ -322,7 +322,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.890
+      lng: 4.890
     },
 
     shape: {
@@ -341,7 +341,7 @@ export const MARKER_LIST = [
     layer: 'circles',
     location: {
       lat: 44.885,
-      lon: 4.895
+      lng: 4.895
     },
     popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
     shape: {

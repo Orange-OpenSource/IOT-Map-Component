@@ -29,11 +29,11 @@ export class IotMapManagerConfig {
    */
   map: any = {
     defaultLat: 44.8888929,
-    defaultLon: 4.8849108,
+    defaultLng: 4.8849108,
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 75,
-    externalClustering: false,
+    externalClustering: true,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***
