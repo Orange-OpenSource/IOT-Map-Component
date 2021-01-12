@@ -52,7 +52,7 @@ Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 ma
 ## Quick start
 
 Several quick start options are available:
-- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/v0.4.5.zip), and integrate it in your project,
+- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/V0.4.5.zip), and integrate it in your project,
 - Install with [npm](https://www.npmjs.com/): `npm install iotmapmanager`
 
 Then, display a map by inserting in your page:
