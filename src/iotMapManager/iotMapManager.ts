@@ -441,6 +441,7 @@ export class IotMapManager {
       }
     }
 
+    // redraw markers and manual clusters
     for (const markerId in this.markersObjects) {
       if (this.markersObjects[markerId] != null) {
         const marker = this.markersObjects[markerId].getData();
@@ -451,6 +452,9 @@ export class IotMapManager {
         }
       }
     }
+
+    // redraw usermarker
+    this.addUserMarker(this.userMarkerObject.getData());
   }
 
   // ------------------------------------------------------------------------------------------------------------------
