@@ -1,6 +1,6 @@
 import {markerType} from "../iotMapManager/iotMapManagerTypes";
 
-export enum ShapeType {circle, square, poi}
+export enum ShapeType {circle, square, poi }
 
 export interface IOTMarker {
   id: string;
@@ -29,6 +29,7 @@ export interface IOTMarker {
 }
 
 export const MARKER_LIST = [
+  // square
   {
     id: 's1',
     location: {
@@ -55,11 +56,12 @@ export const MARKER_LIST = [
     },
     shape: {
       type : markerType.square,
-      anchored: true
+      anchored: true,
+      plain : false
     },
     popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
     inner: {
-      icon: 'School.svg',
+      icon: 'iotmap-icons-School',
       color: 'green'
     },
     layer: 'Etablissements',
@@ -74,7 +76,7 @@ export const MARKER_LIST = [
     popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
     shape: {
       type : markerType.square,
-      plain: true,
+      plain : false,
       anchored: true
     },
     layer: 'Etablissements',
@@ -96,8 +98,8 @@ export const MARKER_LIST = [
       plain: false
     },
     inner: {
-      icon: 'accessibility_hearing.svg',
-      color: 'black'
+      icon: 'iotmap-icons-accessibility_hearing',
+      color: 'blue'
     },
     layer: 'Monuments',
     status: 'Alert',
@@ -115,7 +117,7 @@ export const MARKER_LIST = [
       accuracy: 200
     },
     inner: {
-      icon: 'bluetooth.svg',
+      icon: 'iotmap-icons-bluetooth',
       color: 'green'
     },
     layer: 'Etablissements',
@@ -134,7 +136,7 @@ export const MARKER_LIST = [
       plain: false
     },
     inner: {
-      icon: 'family_place.svg',
+      icon: 'iotmap-icons-family_place',
       color: 'black'
     },
     layer: 'Monuments'
@@ -154,7 +156,7 @@ export const MARKER_LIST = [
     },
     layer: 'Etablissements',
     inner: {
-      icon: 'School.svg',
+      icon: 'iotmap-icons-School',
       color: 'blue'
     },
     status: 'Positive'
@@ -171,7 +173,7 @@ export const MARKER_LIST = [
       anchored: true
     },
     inner: {
-      icon: 'School.svg',
+      icon: 'iotmap-icons-School',
       color: 'navyblue'
     },
     layer: 'Etablissements',
@@ -202,7 +204,7 @@ export const MARKER_LIST = [
     },
     layer: 'Monuments',
     inner: {
-      icon: 'games.svg',
+      icon: 'iotmap-icons-games',
       color: 'black'
     },
     status: 'Alert'
@@ -220,7 +222,7 @@ export const MARKER_LIST = [
     },
     layer: 'Etablissements',
     inner: {
-      icon: 'hospital.svg',
+      icon: 'iotmap-icons-hospital',
       color: 'white'
     },
     status: 'Inactive'
@@ -237,7 +239,7 @@ export const MARKER_LIST = [
     },
     layer: 'Etablissements',
     inner: {
-      icon: 'map_pin.svg',
+      icon: 'iotmap-icons-map_pin',
       color: 'white'
     }
   },
@@ -258,7 +260,7 @@ export const MARKER_LIST = [
       accuracy: 500
     },
     inner: {
-      icon: 'Car_pooling.svg',
+      icon: 'iotmap-icons-Car_pooling',
       color: 'black'
     },
     status: 'Positive'
@@ -277,7 +279,7 @@ export const MARKER_LIST = [
     },
     status: 'Neutral',
     inner: {
-      icon: 'Car_pooling.svg',
+      icon: 'iotmap-icons-Car_pooling',
       color: 'black'
     }
   },
@@ -291,10 +293,10 @@ export const MARKER_LIST = [
     shape: {
       type : markerType.circle,
       anchored: true,
-      percent: 95
+      percent: 75
     },
     inner: {
-      icon: 'Car_pooling.svg',
+      icon: 'iotmap-icons-Car_pooling',
       color: 'black'
     },
     status: 'Warning'
@@ -308,11 +310,10 @@ export const MARKER_LIST = [
     },
     shape: {
       type : markerType.circle,
-      anchored: false,
-      percent: 75
+      anchored: false
     },
     inner: {
-      icon: 'Car_pooling.svg',
+      icon: 'iotmap-icons-Car_pooling',
       color: 'black'
     },
     status: 'Alert'
@@ -327,11 +328,11 @@ export const MARKER_LIST = [
 
     shape: {
       type : markerType.circle,
-      anchored: false,
+      anchored: true,
       plain: false
     },
     inner: {
-      label: 'A',
+      label: 'O',
       color: 'black'
     },
     status: 'Inactive'
@@ -350,7 +351,7 @@ export const MARKER_LIST = [
       percent: 45
     },
     inner: {
-      icon : 'temperature.svg',
+      icon : 'iotmap-icons-temperature',
       color: 'green'
     }
   }];
