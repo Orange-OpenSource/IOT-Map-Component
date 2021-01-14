@@ -27,6 +27,8 @@ export class IotMapMarkers {
     // default values
     if (!marker.shape) {
       marker.shape = this.config.markers.default;
+    } else if (!marker.shape.plain) {
+      marker.shape.plain = true;
     }
 
     // is status valid ?
@@ -71,7 +73,7 @@ export class IotMapMarkers {
     let svgBG: string;
     let svgBorder: string;
     let svgGauge: string;
-    let shadowFile = 'assets/img/';
+    let shadowFile = './assets/img/';
 
     const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.status === undefined && marker.shape.color === undefined) {
@@ -90,7 +92,7 @@ export class IotMapMarkers {
         svgBG = commonSvg.selFunBg;
       }
       shadowFile += commonSvg.selShadow;
-    } else if (marker.shape.type === markerType.poi || marker.shape.plain || marker.shape.plain === undefined) {  // STD
+    } else if (marker.shape.type === markerType.poi || marker.shape.plain) {  // STD
       if (marker.shape.anchored) {
         svgBorder = commonSvg.pinBorder;
         svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`;
