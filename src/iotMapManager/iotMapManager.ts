@@ -23,7 +23,7 @@ import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iotMap
 
 const CLUSTER_LAYER = 'Clusters';
 const ACCURACY_LAYER = 'Accuracy';
-const USERMARKERS_LAYER = 'UserMarker';
+const USERMARKER_LAYER = 'UserMarker';
 
 
 export class IotMapManager {
@@ -81,7 +81,6 @@ export class IotMapManager {
 
     this.map.on('moveend', this.onMove);
   }
-
 
   private initMarkerLayer(layerName) {
     if (this.config.map.layerControl) {
@@ -635,8 +634,12 @@ export class IotMapManager {
 
   public addUserMarker(userMarker: IotUserMarker) {
     if (userMarker.location) {
+      if (this.userMarkerObject != null) {
+        this.getMarkerLayer(USERMARKER_LAYER).clearLayers();
+        this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy);
+      }
       this.userMarkerObject = new CustomDataMarker(userMarker, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
-      this.getMarkerLayer(USERMARKERS_LAYER).addLayer(this.userMarkerObject);
+      this.getMarkerLayer(USERMARKER_LAYER).addLayer(this.userMarkerObject);
 
       // accuracy circle if needed
       if (userMarker.accuracy !== undefined) {
@@ -654,7 +657,7 @@ export class IotMapManager {
   }
 
   public removeUserMarker() {
-    this.getMarkerLayer(USERMARKERS_LAYER).removeLayer(this.userMarkerObject);
+    this.getMarkerLayer(USERMARKER_LAYER).removeLayer(this.userMarkerObject);
     delete this.userMarkerObject;
 
     this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy);
