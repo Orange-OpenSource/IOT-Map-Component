@@ -25,7 +25,7 @@ export class IotMapUserMarker {
     const userSvg = IotMapCommonSvg.user;
 
     // todo: shadow file
-    // const shadowFile = '/assets/img/';
+    // const shadowFile = './img/';
     // const imgShadow = `<img class='shadowSelected' src='` + shadowFile + `'/>`;
 
     let html : string;

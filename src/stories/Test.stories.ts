@@ -1,4 +1,4 @@
-import { IotMapManager } from '../iotMapManager/iotMapManager';
+import { IotMapManager } from '../iotMapManager/src/iotMapManager';
 import { ShapeType } from "./Test.stories.const";
 import './Test.stories.css';
 import {

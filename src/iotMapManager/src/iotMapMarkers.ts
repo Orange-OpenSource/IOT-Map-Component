@@ -120,7 +120,7 @@ export class IotMapMarkers {
     let svgBG: string;
     let svgBorder: string;
     let svgGauge: string;
-    let shadowFile = './assets/img/';
+    let shadowFile = './img/';
 
     const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.shape.color === undefined) {

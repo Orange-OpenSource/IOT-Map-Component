@@ -47,7 +47,7 @@ export class IotMapClusters {
                             text-anchor='middle'
                             font-size='` + this.config.clusters.size.fontSize + `'
                             font-family='Helvetica Neue' font-weight='bold'>` + cluster.childCount + `</text>`;
-    const imgShadow = `<img class='clusterShadow' src='/assets/img/` + IotMapCommonSvg.cluster.shadow + `'/>`;
+    const imgShadow = `<img class='clusterShadow' src='./img/` + IotMapCommonSvg.cluster.shadow + `'/>`;
     const html = `<div class='container'>`
                   + imgShadow
                   + IotMapCommonSvg.cluster.svgDefinitionStart
