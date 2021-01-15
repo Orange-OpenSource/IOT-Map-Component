@@ -349,7 +349,7 @@ export class IotMapManager {
       if (params.inner) {
         if (!currentMarkerInfos.inner) {
           currentMarkerInfos.inner = {
-            color: this.config.markers.default.innerColor,
+            color: this.config.markers.default.inner.color,
             label: ''}; // Default values
         }
         if (params.inner.color) {
@@ -369,6 +369,12 @@ export class IotMapManager {
       if (params.status) {
         currentMarkerInfos.status = params.status;
 
+        htmlModificationNeeded = true;
+      }
+
+      // template modified
+      if (params.template) {
+        currentMarkerInfos.template = params.template;
         htmlModificationNeeded = true;
       }
 

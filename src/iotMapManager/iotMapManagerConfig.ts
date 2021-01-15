@@ -11,13 +11,34 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-export interface Status {
+import {markerType} from "./iotMapManagerTypes";
+
+export interface MarkerStatus {
   [state: string]: {
     stateColor: string;
     innerColor: string;
     singularState: string;
     pluralState: string;
   };
+}
+
+export interface MarkerTemplate {
+  [template: string]: {
+    layer?: string;
+    shape?: {
+      type?: markerType;
+      anchored?: boolean;
+      plain?: boolean;
+      color?: string;
+    };
+    inner?: {
+      color?: string;
+
+      icon?: string;
+      // *** OR ***
+      label?: string;
+    };
+  }
 }
 
 export class IotMapManagerConfig {
@@ -44,11 +65,15 @@ export class IotMapManagerConfig {
 
   markers: any = {
     default: {
-      shape: 'circle',
-      funColor: 'black',
-      innerColor: 'white',
-      anchored: true,
-      plain: true
+      shape: {
+        type: markerType.circle,
+        anchored: true,
+        plain: true,
+        color: 'black',
+      },
+      inner: {
+        color: 'white'
+      }
     },
 
     // *** Private conf: not modified by SetConfig ***
@@ -117,6 +142,40 @@ export class IotMapManagerConfig {
     }
   };
 
+  markerTemplates = {
+    'Temperature': {
+      layer: 'temperature',
+      shape: {
+        type: markerType.circle,
+        anchored: true,
+        plain: true
+      },
+      inner: {
+        icon: 'iotmap-icons-temperature'
+      }
+    },
+    'Monument': {
+      layer: 'Monument',
+      shape: {
+        type: markerType.poi,
+        anchored: true
+      },
+      inner: {
+        icon: 'iotmap-icons-School'
+      }
+    },
+    'Vehicle': {
+      layer: 'Vehicle',
+      shape: {
+        type: markerType.circle,
+        anchored: true
+      },
+      inner: {
+        icon: 'iotmap-icons-Car_pooling'
+      }
+    }
+
+  }
   // *** Private conf: not modified by SetConfig ***
   clusters: any = {
     size: {
@@ -199,19 +258,23 @@ export class IotMapManagerConfig {
     if (newConfig.markers !== undefined) {
       if (newConfig.markers.default !== undefined) {
         if (newConfig.markers.default.shape !== undefined) {
-          this.instance.markers.default.shape = newConfig.markers.default.shape;
+          if (newConfig.markers.default.shape.type != undefined) {
+            this.instance.markers.default.shape.type = newConfig.markers.default.shape.type;
+          }
+          if (newConfig.markers.default.shape.anchored != undefined) {
+            this.instance.markers.default.shape.anchored = newConfig.markers.default.shape.anchored;
+          }
+          if (newConfig.markers.default.shape.plain != undefined) {
+            this.instance.markers.default.shape.plain = newConfig.markers.default.shape.plain;
+          }
+          if (newConfig.markers.default.shape.color != undefined) {
+            this.instance.markers.default.shape.color = newConfig.markers.default.shape.color;
+          }
         }
-        if (newConfig.markers.default.funColor !== undefined) {
-          this.instance.markers.default.funColor = newConfig.markers.default.funColor;
-        }
-        if (newConfig.markers.default.innerColor !== undefined) {
-          this.instance.markers.default.innerColor = newConfig.markers.default.innerColor;
-        }
-        if (newConfig.markers.default.anchored !== undefined) {
-          this.instance.markers.default.anchored = newConfig.markers.default.anchored;
-        }
-        if (newConfig.markers.default.plain !== undefined) {
-          this.instance.markers.default.plain = newConfig.markers.default.plain;
+        if (newConfig.markers.default.inner !== undefined) {
+          if (newConfig.markers.default.inner.color != undefined) {
+            this.instance.markers.default.inner.color = newConfig.markers.default.inner.color;
+          }
         }
       }
     }
@@ -223,6 +286,17 @@ export class IotMapManagerConfig {
       for (const state in newConfig.markerStatus) {
         if (newConfig.markerStatus[state] !== undefined) {
           this.instance.markerStatus[state] = newConfig.markerStatus[state];
+        }
+      }
+    }
+
+    /*
+     *** MARKER TEMPLATES
+     */
+    if (newConfig.markerTemplates !== undefined) {
+      for (const template in newConfig.markerTemplates) {
+        if (newConfig.markerTemplates[template] !== undefined) {
+          this.instance.markerTemplates[template] = newConfig.markerTemplates[template];
         }
       }
     }

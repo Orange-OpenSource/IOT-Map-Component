@@ -57,7 +57,7 @@ export interface IotMarker {
     // *** OR ***
     label?: string;
   };
-
+  template?: string;
 }
 
 

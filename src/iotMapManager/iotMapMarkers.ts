@@ -23,10 +23,11 @@ export class IotMapMarkers {
 
   getMarker(marker: IotMarker, selected = false): L.DivIcon {
     let html: string;
+    //let updatedMarker = JSON.parse(JSON.stringify(marker));
 
     // default values
     if (!marker.shape) {
-      marker.shape = this.config.markers.default;
+      marker.shape = JSON.parse(JSON.stringify(this.config.markers.default.shape));
     } else if (!marker.shape.plain) {
       marker.shape.plain = true;
     }
@@ -35,6 +36,52 @@ export class IotMapMarkers {
     if (marker.status !== undefined) {
       if (this.config.markerStatus[marker.status] === undefined) {
         marker.status = undefined;
+      } else {  // update marker with status info
+        marker.shape.color = this.config.markerStatus[marker.status].stateColor;
+        if (!marker.inner) {
+          marker.inner = {};
+        }
+        marker.inner.color = this.config.markerStatus[marker.status].innerColor;
+      }
+    }
+
+    // is template valid ?
+    if (marker.template !== undefined) {
+      if (this.config.markerTemplates[marker.template] === undefined) {
+        marker.template = undefined;
+      } else {  // update marker with template info
+        let template = this.config.markerTemplates[marker.template];
+        if (!marker.inner) {
+          marker.inner = {};
+        }
+        if (template.layer) {
+          marker.layer = template.layer;
+        }
+        if (template.shape) {
+          if (template.shape.type !== undefined) {
+            marker.shape.type = template.shape.type;
+          }
+          if (template.shape.anchored) {
+            marker.shape.anchored = template.shape.anchored;
+          }
+          if (template.shape.plain) {
+            marker.shape.plain = template.shape.plain;
+          }
+          if (template.shape.color) {
+            marker.shape.color = template.shape.color;
+          }
+        }
+
+        if (template.inner) {
+          if (template.inner.color) {
+            marker.inner.color = template.inner.color;
+          }
+          if (template.inner.icon) {
+            marker.inner.icon = template.inner.icon;
+          } else if (template.inner.label) {
+            marker.inner.label = template.inner.label;
+          }
+        }
       }
     }
 
@@ -76,12 +123,10 @@ export class IotMapMarkers {
     let shadowFile = './assets/img/';
 
     const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
-    if (marker.status === undefined && marker.shape.color === undefined) {
-      marker.shape.color = this.config.markers.default.funColor;
+    if (marker.shape.color === undefined) {
+      marker.shape.color = this.config.markers.default.shape.color;
     }
-    const funColor = (marker.shape.percent !== undefined)
-      ? 'white'
-      : ((marker.status !== undefined) ? this.config.markerStatus[marker.status].stateColor : marker.shape.color);
+    const funColor = (marker.shape.percent !== undefined) ? 'white' : marker.shape.color;
 
     // shape
     if (selected) {   // Only anchored markers can be selected
@@ -125,9 +170,7 @@ export class IotMapMarkers {
             : this.config.markers.size.unselectedSquare);
 
     if (marker.inner) {
-      const innerColor = (marker.status !== undefined)
-        ? this.config.markerStatus[marker.status].innerColor
-        : ((marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.innerColor);
+      const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color;
 
       if (marker.inner.icon) {  // icon
         const iconClass = (selected) ? ' iconSelected' : ' iconUnselected';
@@ -135,13 +178,17 @@ export class IotMapMarkers {
 
       } else if (marker.inner.label) {  // label
         const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
-        innerDesign = `<span class="` + labelClass + ` " style="color: ` + innerColor + `" >` + marker.inner.label[0] + `</span>`;
+        innerDesign = `<span class="` + labelClass
+          + ` " style="color: ` + innerColor
+          + `; font-family: `+ this.config.markers.font.family
+          + `; font-weight: ` + this.config.markers.font.weight
+          + `" >` + marker.inner.label[0] + `</span>`;
       }
     }
 
     // state / gauge
     if (marker.shape.percent && marker.shape.type === markerType.circle) {
-      const gaugeColor = (marker.status !== undefined) ? this.config.markerStatus[marker.status].stateColor : marker.shape.color;
+      const gaugeColor = marker.shape.color;
 
       const perimeter = 2 * 3.14 * conf.gaugeRadius;
       const arc = marker.shape.percent * perimeter / 100;
