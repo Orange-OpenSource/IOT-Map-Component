@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.4.5
+* Version: 0.5.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -53,8 +53,8 @@ export class IotMapManagerConfig {
     defaultLng: 4.8849108,
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
-    clusterRadius: 75,
-    externalClustering: true,
+    clusterRadius: 150,
+    externalClustering: false,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***

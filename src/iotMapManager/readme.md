@@ -1,6 +1,39 @@
-# IotMapManager
+# IotMapManager V0.5.3
 
 This library provides management of markers dedicated to projects using mapping.
+## use
+In your project file :
+
+    import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
+
+In your css file:
+
+    @import 'iotmapmanager/iotMapManager.css';
+
+
+this library provides following functions :
+* **addMarker / addMarkers** : send an IotMarker or a list of IotMarkers
+* **updateMarker** : send a marker id and a structure containing modified parameters
+* **updateAllMarkers** : send a list of IotMarkers:
+    - new markers will be created
+    - existing markers will be updated
+    - existing markers not present in sent list will be deleted
+* **deleteMarker / deleteMarkers**  : send a marker id or a list of marker ids
+* **redrawAll**: used to redraw all markers after a configuration modification for exemple
+
+* **addCluster / addClusters** : send an IotCluster or a list of IotCluster
+* **updateCluster** : send a cluster id and a structure containing modified parameters
+* **updateAllClusters** : send a list of IotClusters:
+    - new clusters will be created
+    - existing clusters will be updated
+    - existing clusters not present in sent list will be deleted
+* **deleteCluster / deleteClusters**  : send a cluster id or a list of marker ids
+
+* **addUserMarker**: send a IotUserMarker
+* **updateUserMarker**: send a structure containing modified parameters
+* **removeUserMarker** 
+
+
 
 ## marker definition
 A marker is defined as follow *(description will evoluate in the futur)* :
@@ -14,6 +47,7 @@ A marker is defined as follow *(description will evoluate in the futur)* :
        layer?: string;
        popup?: string;
        status?: string;
+       template? : string;
        shape?: {
          type?: markerType;
          anchored?: boolean;
@@ -32,11 +66,11 @@ A marker is defined as follow *(description will evoluate in the futur)* :
     }
 
 * id is displayer by default in popup (with status if one)
-* location is (lat, long) of the marker
-* layer (optionnal) : you can sort your markers in different layers. A tool allow you to display specific layers (see configuration)
+* location is (lat, lng) of the marker
+* layer (optionnal): you can sort your markers in different layers. A tool allow you to display specific layers (see configuration)
 * popup (optionnal) is a string displayed in a popup when marker is clicked. (html format)
-* status (optionnal) : see configuration
-
+* status (optionnal): see configuration
+* template (optionnal): see configuration
 * shape:
   * type (optionnal) is:
 
@@ -49,10 +83,10 @@ A marker is defined as follow *(description will evoluate in the futur)* :
   * accuracy (optionnal): display a precision zone around the marker. Defined in meters
 
 * inner: 
-  * icon is not completely implemented. you can specify a svg file containt in '/asset/icon' folder.
+  * icon from a font icon. Here, set the class name.
   * label is only one character. If string is sent, first character will be displayed
 label and icon cannot be defined simultaneously : you can display only one of them. If both are defined, icon is displayed
-More options will arrive soon.
+  * color defines the icon or label color
 
 
 
@@ -114,18 +148,22 @@ Editable values :
     * plain: plain state selected if no state is specified in marker info
     
 * markerStatus:
-  * for each status:
+  * for each status (defined by a name as string):
     * stateColor: functionnal color for each marker define with this status,
     * innerColor: icon or label color for each marker define with this status,
     * singularState: singular state name
     * pluralState: plural state name
     
-
-## using iotMapManager
-
-this library provides following functions :
-* **addMarker / addMarkers** : send a marker structure or a list of marker structures
-* **updateMarker** : send a marker id and a structure containing modified parameters
-* **deleteMarker / deleteMarkers**  : send a marker id or a list of marker ids
-
+* markerTemplate: agregates all display parameters (colors, shape, icon...)
+  * for each template (defined by a name as string):
+    * layer
+    * shape
+        * type
+        * anchored
+        * plain
+        * color
+    * inner
+        * color
+        * icon
+        * label
 

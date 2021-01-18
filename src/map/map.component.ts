@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager/index';
+import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
 
 
 @Component({
