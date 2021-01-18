@@ -1,0 +1,103 @@
+/*
+* Software Name : IotMapManager
+* Version: 0.5.3
+* SPDX-FileCopyrightText: Copyright (c) 2020 Orange
+* SPDX-License-Identifier: MIT
+*
+* This software is distributed under the MIT License,
+* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/LICENSE
+* or see the "license.txt" file for more details.
+*
+* Author: S. Gateau
+* Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
+*/
+
+/* markers.css */
+
+
+.markericon{
+  position: relative;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+}
+.markericon > svg{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 10;
+
+}
+.markericon > span{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 25;
+}
+
+.markericon .iconUnselected{
+  position: absolute;
+  top:35px;
+  left:35px;
+  width:30px;
+  height:30px;
+  font-size:30px;
+}
+
+.markericon .labelUnselected{
+  position: absolute;
+  top:32px;
+  left:32px;
+  width:36px;
+  height:36px;
+  font-size:36px;
+  line-height:36px;
+}
+
+
+.markericon .iconSelected{
+  position: absolute;
+  top:30px;
+  left:30px;
+  width:40px;
+  height:40px;
+  font-size:40px;
+  line-height:40px;
+}
+
+.markericon .labelSelected{
+  position: absolute;
+  top:28px;
+  left:28px;
+  width:44px;
+  height:44px;
+  font-size:44px;
+  line-height:44px;
+}
+
+.markericon .shadowSelected{
+  position: absolute;
+  top:10px;
+  left:0px;
+  z-index: -1;
+}
+
+.markericon .shadowUnselected{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: -1;
+}
+
+.clustericon .clusterShadow{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: -1;
+}
+
+.usermarkericon .arrow{
+  position: absolute;
+  top:24px;
+  left:24px;
+}

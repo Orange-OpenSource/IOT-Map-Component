@@ -40,7 +40,10 @@ export interface IotMarker {
     lng: number;
   };
   layer?: string;
-  popup?: string;
+  popup?: {
+    title?: string;
+    body?: string;
+  };
   status?: string;
   shape?: {
     type?: markerType;

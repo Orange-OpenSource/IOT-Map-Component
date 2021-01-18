@@ -1,0 +1,214 @@
+/*
+* Software Name : IotMapManager
+* Version: 0.5.3
+* SPDX-FileCopyrightText: Copyright (c) 2020 Orange
+* SPDX-License-Identifier: MIT
+*
+* This software is distributed under the MIT License,
+* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/LICENSE
+* or see the "license.txt" file for more details.
+*
+* Author: S. Gateau
+* Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
+*/
+
+/* popup.css */
+
+/*html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100%;
+  width: 100%;
+
+  font-family: Verdana, arial, serif;
+  background: url("https://lh3.googleusercontent.com/-bQzIWFMAYus/WXy3WDcphBI/AAAAAAAAAMs/unOi6HiEoi4VWaM0WiP5q32q9zDbIhUvwCLcBGAs/s1600/7-29-2017%2B11-14-59%2BAM.jpg") no-repeat;
+}*/
+
+/*#lamap {
+
+  padding: 40px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 920px;
+  min-width: 1200px;
+}
+
+h1 {
+  color: #111;
+  font-weight: 900;
+  text-shadow: 0 4px 4px rgba(42, 42, 42, 0.4);
+}
+
+.map-marker {
+  position: absolute;
+  font-style: normal;
+  font-weight: 900;
+  color: white;
+
+  text-align: center;
+  box-shadow: 0 10px 8px -2px rgba(42, 42, 42, 0.4);
+  background-color: #FFFFFF;
+  z-index: 2;
+}
+.map-marker > .label {
+  margin: 2px;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  z-index: 10;
+  position: relative;
+}
+
+.map-marker-square > .label {
+  margin: 0;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+}
+
+.map-marker-circle, .map-marker-circle > .label {
+  border-radius: 50%;
+}
+.map-marker-circle > .label {
+  background-color: #FF6600;
+}
+
+.map-marker-square, .map-marker-square > .label {
+  border-radius: 4px;
+}
+.map-marker-square > .label {
+  background-color: #088A3F;
+}*/
+
+/* TABS */
+/*.map-marker > .tab-top {
+  background-color: white;
+  position: absolute;
+  float: left;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -25px;
+  border-radius: 6px 6px calc(46px / 2) calc(46px / 2);
+  z-index: 1;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  color: #111;
+  padding: 3px;
+  font-size: 18px;
+  transform: rotate(0deg);
+  transform-origin: 24px calc(24px + 25px);
+}
+.map-marker > .tab-top,
+.map-marker > .tab-top > .sub-tab {
+  transition: all 1500ms ease-in-out 1s;*/
+  /*transition: all 750ms ease-in-out 10s;*/
+/*}
+.map-marker:hover > .tab-top,
+.map-marker:hover > .tab-top > .sub-tab {
+  transition: all 1000ms ease-in-out 300ms;
+}
+.map-marker:hover > .tab-top:nth-child(2) {
+  transform: rotate(90deg);
+}
+.map-marker:hover > .tab-top:nth-child(2) > .sub-tab {
+  transform: rotate(-90deg);
+}
+.map-marker:hover > .tab-top:nth-child(3) {
+  transform: rotate(180deg);
+}
+.map-marker:hover > .tab-top:nth-child(3) > .sub-tab {
+  transform: rotate(-180deg);
+}
+.map-marker:hover > .tab-top:nth-child(4) {
+  transform: rotate(270deg);
+}
+.map-marker:hover > .tab-top:nth-child(4) > .sub-tab {
+  transform: rotate(-270deg);
+}
+
+.map-marker > .tab-top-big {
+  background-color: white;
+  position: absolute;
+  float: left;
+  left: -8px;
+  right: -8px;
+  top: -27px;
+  border-radius: 6px 6px 0 0;
+  z-index: 2;
+  box-shadow: 0 -4px 8px -4px rgba(42, 42, 42, 0.4);
+  color: #111;
+  padding: 3px;
+  font-size: 18px;
+}
+.map-marker > .tab-top-big-left {
+  width: 46px;
+  height: 56px;
+  position: absolute;
+  transform: rotate(-18deg);
+  float: right;
+  transform-origin: bottom;
+  border-radius: 0 0 23px 23px;
+  bottom: 1px;
+  left: 8px;
+  box-shadow: -4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  background-color: white;
+  z-index: 1;
+}
+.map-marker > .tab-top-big-right {*/
+  /* le trapèze */
+/*  width: 46px;
+  height: 56px;
+  position: absolute;
+  transform: rotate(18deg);
+  float: right;
+  transform-origin: bottom;
+  border-radius: 0 0 23px 23px;
+  bottom: 1px;
+  right: 8px;
+  box-shadow: 4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  background-color: white;
+  z-index: 1;
+}
+*/
+/* POP-UP */
+.markericon > .pop-up {
+  position: absolute;
+  bottom:50px;
+  left: calc(50% - 15px);
+  background-color: rgba(255, 255, 255, 0.90);
+  border-radius: 0;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
+  padding: 10px 0px 30px 0px;
+  opacity: 0;
+  overflow: hidden;
+  min-height: 10px;
+  width: 10px;
+  font-size: 1px;
+  z-index: 10;
+}
+.markericon:hover > .pop-up {
+  position: absolute;
+  width: 250px;
+  max-height: 600px;
+  left:-75px;
+  border-radius: 10px;
+  opacity: 1;
+}
+
+.markericon:hover > .pop-up .pop-up-title {
+  font-size: 20px;
+}
+
+.markericon:hover > .pop-up .pop-up-body {
+  font-size: 14px;
+}
+
+.markericon:hover > .pop-up:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+

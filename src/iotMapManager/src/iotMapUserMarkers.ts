@@ -25,12 +25,12 @@ export class IotMapUserMarker {
     const userSvg = IotMapCommonSvg.user;
 
     // todo: shadow file
-    // const shadowFile = './img/';
+    // const shadowFile = './assets/img/';
     // const imgShadow = `<img class='shadowSelected' src='` + shadowFile + `'/>`;
 
-    let html : string;
+    let html : string = `<div class='markericon usermarkericon'>`;
     if (userMarker.direction !== undefined) {
-      html = `<div class='container'>`
+      html = html
         + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
         + userSvg.border
         + `</svg>`
@@ -41,7 +41,7 @@ export class IotMapUserMarker {
         + userSvg.arrow + `transform='rotate(` + (userMarker.direction - 45) + ` 16 16)'/>`
         + `</svg>`;
     } else {
-      html = `<div class='container'>`
+      html = html
         + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
         + userSvg.border + userSvg.inner
         + `</svg>`;

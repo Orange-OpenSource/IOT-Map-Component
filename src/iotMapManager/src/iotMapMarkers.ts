@@ -23,7 +23,6 @@ export class IotMapMarkers {
 
   getMarker(marker: IotMarker, selected = false): L.DivIcon {
     let html: string;
-    //let updatedMarker = JSON.parse(JSON.stringify(marker));
 
     // default values
     if (!marker.shape) {
@@ -120,7 +119,7 @@ export class IotMapMarkers {
     let svgBG: string;
     let svgBorder: string;
     let svgGauge: string;
-    let shadowFile = './img/';
+    let shadowFile = './assets/img/';
 
     const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.shape.color === undefined) {
@@ -174,15 +173,15 @@ export class IotMapMarkers {
 
       if (marker.inner.icon) {  // icon
         const iconClass = (selected) ? ' iconSelected' : ' iconUnselected';
-        innerDesign = `<span class="` + marker.inner.icon + iconClass + ` " style="color: ` + innerColor + `" />`;
+        innerDesign = `<span class='` + marker.inner.icon + iconClass + ` ' style='color: ` + innerColor + `' />`;
 
       } else if (marker.inner.label) {  // label
         const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
-        innerDesign = `<span class="` + labelClass
-          + ` " style="color: ` + innerColor
+        innerDesign = `<span class='` + labelClass
+          + ` ' style='color: ` + innerColor
           + `; font-family: `+ this.config.markers.font.family
           + `; font-weight: ` + this.config.markers.font.weight
-          + `" >` + marker.inner.label[0] + `</span>`;
+          + `' >` + marker.inner.label[0] + `</span>`;
       }
     }
 
@@ -204,15 +203,32 @@ export class IotMapMarkers {
     const shadowClass = (selected) ? 'shadowSelected' : 'shadowUnselected';
     const imgShadow = `<img class='` + shadowClass + `' src='` + shadowFile + `'/>`;
 
+    // popup
+    let popup : string = '';
+      popup += `<div class='pop-up'>`;
+      if (marker.popup) {
+        if (marker.popup.title) {
+          popup += `<p class='pop-up-title'>` + marker.popup.title + `</p>`;
+        }
+        if (marker.popup.body) {
+          popup += `<p class='pop-up-body'>` + marker.popup.body + `</p>`;
+        }
+      } else {
+        popup += `<p class='pop-up-title'>` + marker.id + `</p>`;
+      }
+      popup += `</div>`;
 
     // result
-    return  `<div class='container'>`
+    return  `<div class='markericon'>`
+              + popup
               + imgShadow
               + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
                 + svgBorder + svgShape + svgBG + svgGauge
               + `</svg>`
               + innerDesign
-          + `</div>`;
+
+
+            + `</div>`      ;
 
   }
 }

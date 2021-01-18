@@ -107,8 +107,8 @@ export class IotMapManager {
 
     // manage events
     layer.on('click', this.onMarkerClick.bind(this)
-    ).on('clustermouseover', this.onClusterMouseOver.bind(this)
-    ).on('clustermouseout', this.onClusterMouseOut.bind(this)
+    //).on('clustermouseover', this.onClusterMouseOver.bind(this)
+    //).on('clustermouseout', this.onClusterMouseOut.bind(this)
     );
 
     return layer;
@@ -141,7 +141,7 @@ export class IotMapManager {
       // get new html and update marker (=> unselect marker)
       html = this.iotMapMarkers.getMarker(markerObject.getData(), false);
       markerObject.setIcon(html);
-      this.map.closePopup();
+      //this.map.closePopup();
     } else {  // new marker selected
       // --- unselect last selected marker ---
       if (this.selectedMarkerId !== '') {  // a marker was already selected
@@ -159,12 +159,12 @@ export class IotMapManager {
 
         // get new html and update marker (=> select marker)
         html = this.iotMapMarkers.getMarker(markerObject.getData(), true);
-        markerObject.setIcon(html).bindPopup(markerObject.getData().popup);
+        markerObject.setIcon(html);//.bindPopup(markerObject.getData().popup);
       }
     }
   }
 
-  private onClusterMouseOver(cluster) {
+  /*private onClusterMouseOver(cluster) {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
 
     // create popup
@@ -172,11 +172,11 @@ export class IotMapManager {
       .setLatLng(cluster.layer.getLatLng())
       .setContent(this.iotMapClusters.getClusterPopup(currentCluster))
       .openOn(this.map);
-  }
+  }*/
 
-  private onClusterMouseOut() {
+  /*private onClusterMouseOut() {
     this.map.closePopup();
-  }
+  }*/
 
   private onZoom() {
     for (const markerId in this.markersObjects) {
@@ -220,7 +220,7 @@ export class IotMapManager {
       if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
         this.updateMarker(marker.id, marker);
       } else {
-        // popup
+/*        // popup
         let popupText = marker.popup;
         if (!popupText) {
           popupText = `<span style="color: ` + this.config.popupFont.color + `;
@@ -230,7 +230,7 @@ export class IotMapManager {
             + marker.id + ((marker.status !== undefined) ? (' - ' + marker.status) : '')
             + `</span><br>`;
           marker.popup = popupText;
-        }
+        }*/
 
         // force layer name if not present
         if (marker.layer === undefined) {
@@ -240,7 +240,7 @@ export class IotMapManager {
         const newMarker: CustomDataMarker = new CustomDataMarker(
                                                       marker,
                                                       {icon: this.iotMapMarkers.getMarker(marker)}
-                                                      ).bindPopup(popupText);
+                                                      );//.bindPopup(popupText);
 
         this.getMarkerLayer(marker.layer).addLayer(newMarker);
         this.markersObjects[marker.id] = newMarker;
@@ -315,7 +315,7 @@ export class IotMapManager {
       // popup modified
       if (params.popup) {
         currentMarkerInfos.popup = params.popup;
-        currentMarkerObject.bindPopup(currentMarkerInfos.popup);
+        htmlModificationNeeded = true;
       }
 
       // shape modified
@@ -479,11 +479,11 @@ export class IotMapManager {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
         // popup
-        const popupText = this.iotMapClusters.getClusterPopup(cluster);
+        //const popupText = this.iotMapClusters.getClusterPopup(cluster);
         const newCluster: CustomDataMarker = new CustomDataMarker(
           cluster,
           {icon: this.iotMapClusters.getClusterIcon(cluster)}
-        ).bindPopup(popupText);
+        );//.bindPopup(popupText);
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;
@@ -551,9 +551,6 @@ export class IotMapManager {
           const html = this.iotMapClusters.getClusterIcon(currentClusterInfos);
           currentClusterObject.setIcon(html);
         }
-
-        // update popup
-        currentClusterObject.bindPopup(this.iotMapClusters.getClusterPopup(currentClusterInfos));
       }
     }
   }
