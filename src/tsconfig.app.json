@@ -8,6 +8,7 @@
     "test.ts",
     "**/*.spec.ts",
     "**/*.prod.ts",
-    "stories/*"
+    "stories/*",
+    "iotMapManager/*"
   ]
 }
