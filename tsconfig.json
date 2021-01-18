@@ -22,8 +22,5 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/iotMapManager/*"
   ]
 }
