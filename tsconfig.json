@@ -21,8 +21,6 @@
     "resolveJsonModule": true
   },
   "include": [
-    "src/**/*.ts",
-    "node_modules/angular-bootstrap-md/**/*.ts",
-    "node_modules/iotmapmanager/**/*.ts"
+    "src/**/*.ts"
   ]
 }
