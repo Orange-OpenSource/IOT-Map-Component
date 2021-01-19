@@ -358,7 +358,7 @@ export class MapComponent implements AfterViewInit {
       popup: {
         title: `<img src='../assets/icons/temperature.svg'><br>`,
         body: `La <i>température</i><br><b>de 18°C</b>`,
-      },
+      },/*
       inner: {
         icon : 'iotmap-icons-temperature',
         color: 'green'
