@@ -49,7 +49,10 @@ export class MapComponent implements AfterViewInit {
         anchored: true,
         plain : false
       },*/
-      popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
+      popup: {
+        title: 'Ecole Jean Rostand : ',
+        body: `<a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`
+      },
       /*inner: {
         icon: 'iotmap-icons-School',
         color: 'green'
@@ -64,7 +67,10 @@ export class MapComponent implements AfterViewInit {
         lat: 44.895,
         lng: 4.88
       },
-      popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
+      popup: {
+        title: `<img src='assets/icons/School.svg'/>`,
+        body: 'Collège Debussy'
+      },
       /*shape: {
         type : markerType.square,
         plain : false,
@@ -161,7 +167,10 @@ export class MapComponent implements AfterViewInit {
         lat: 44.890,
         lng: 4.875
       },
-      popup: 'Ecole Simone Veil',
+      popup: {
+        title: 'Title',
+        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.'
+      },
       shape: {
         type : markerType.poi,
         anchored: true
@@ -346,11 +355,9 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.895
       },
-      popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
-      /*shape: {
-        type: markerType.circle,
-        anchored: false,
-        percent: 45
+      popup: {
+        title: `<img src='../assets/icons/temperature.svg'><br>`,
+        body: `La <i>température</i><br><b>de 18°C</b>`,
       },
       inner: {
         icon : 'iotmap-icons-temperature',

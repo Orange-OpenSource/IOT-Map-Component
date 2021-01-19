@@ -11,7 +11,7 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-import {markerType} from "./iotMapManagerTypes";
+import {markerType} from './iotMapManagerTypes';
 
 export interface MarkerStatus {
   [state: string]: {
@@ -161,7 +161,7 @@ export class IotMapManagerConfig {
         anchored: true
       },
       inner: {
-        icon: 'iotmap-icons-School'
+        label: 'M'
       }
     },
     'Vehicle': {
@@ -258,21 +258,21 @@ export class IotMapManagerConfig {
     if (newConfig.markers !== undefined) {
       if (newConfig.markers.default !== undefined) {
         if (newConfig.markers.default.shape !== undefined) {
-          if (newConfig.markers.default.shape.type != undefined) {
+          if (newConfig.markers.default.shape.type !== undefined) {
             this.instance.markers.default.shape.type = newConfig.markers.default.shape.type;
           }
-          if (newConfig.markers.default.shape.anchored != undefined) {
+          if (newConfig.markers.default.shape.anchored !== undefined) {
             this.instance.markers.default.shape.anchored = newConfig.markers.default.shape.anchored;
           }
-          if (newConfig.markers.default.shape.plain != undefined) {
+          if (newConfig.markers.default.shape.plain !== undefined) {
             this.instance.markers.default.shape.plain = newConfig.markers.default.shape.plain;
           }
-          if (newConfig.markers.default.shape.color != undefined) {
+          if (newConfig.markers.default.shape.color !== undefined) {
             this.instance.markers.default.shape.color = newConfig.markers.default.shape.color;
           }
         }
         if (newConfig.markers.default.inner !== undefined) {
-          if (newConfig.markers.default.inner.color != undefined) {
+          if (newConfig.markers.default.inner.color !== undefined) {
             this.instance.markers.default.inner.color = newConfig.markers.default.inner.color;
           }
         }

@@ -183,29 +183,34 @@ h1 {
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 0;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
-  padding: 10px 0px 30px 0px;
   opacity: 0;
   overflow: hidden;
   min-height: 10px;
   width: 10px;
   font-size: 1px;
-  z-index: 10;
+
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
 }
 .markericon:hover > .pop-up {
   position: absolute;
-  width: 250px;
+  width: 220px;
   max-height: 600px;
   left:-75px;
   border-radius: 10px;
   opacity: 1;
+
+  padding: 10px 15px 30px;
 }
 
 .markericon:hover > .pop-up .pop-up-title {
   font-size: 20px;
+  text-align: left;
 }
 
 .markericon:hover > .pop-up .pop-up-body {
   font-size: 14px;
+  text-align: left;
 }
 
 .markericon:hover > .pop-up:hover {

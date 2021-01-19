@@ -49,7 +49,7 @@ export class IotMapMarkers {
       if (this.config.markerTemplates[marker.template] === undefined) {
         marker.template = undefined;
       } else {  // update marker with template info
-        let template = this.config.markerTemplates[marker.template];
+        const template = this.config.markerTemplates[marker.template];
         if (!marker.inner) {
           marker.inner = {};
         }
@@ -179,7 +179,7 @@ export class IotMapMarkers {
         const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
         innerDesign = `<span class='` + labelClass
           + ` ' style='color: ` + innerColor
-          + `; font-family: `+ this.config.markers.font.family
+          + `; font-family: ` + this.config.markers.font.family
           + `; font-weight: ` + this.config.markers.font.weight
           + `' >` + marker.inner.label[0] + `</span>`;
       }
@@ -204,19 +204,18 @@ export class IotMapMarkers {
     const imgShadow = `<img class='` + shadowClass + `' src='` + shadowFile + `'/>`;
 
     // popup
-    let popup : string = '';
-      popup += `<div class='pop-up'>`;
-      if (marker.popup) {
-        if (marker.popup.title) {
-          popup += `<p class='pop-up-title'>` + marker.popup.title + `</p>`;
-        }
-        if (marker.popup.body) {
-          popup += `<p class='pop-up-body'>` + marker.popup.body + `</p>`;
-        }
-      } else {
-        popup += `<p class='pop-up-title'>` + marker.id + `</p>`;
+    let popup = `<div class='pop-up'>`;
+    if (marker.popup) {
+      if (marker.popup.title) {
+        popup += `<div class='pop-up-title'>` + marker.popup.title + `</div>`;
       }
-      popup += `</div>`;
+      if (marker.popup.body) {
+        popup += `<div class='pop-up-body'>` + marker.popup.body + `</div>`;
+      }
+    } else {
+      popup += `<div class='pop-up-title'>` + marker.id + `</div>`;
+    }
+    popup += `</div>`;
 
     // result
     return  `<div class='markericon'>`

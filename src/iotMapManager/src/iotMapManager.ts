@@ -107,6 +107,8 @@ export class IotMapManager {
 
     // manage events
     layer.on('click', this.onMarkerClick.bind(this)
+    ).on('mouseover', this.onMarkerMouseOver.bind(this)
+    ).on('mouseout', this.onMarkerMouseOut.bind(this)
     //).on('clustermouseover', this.onClusterMouseOver.bind(this)
     //).on('clustermouseout', this.onClusterMouseOut.bind(this)
     );
@@ -141,6 +143,7 @@ export class IotMapManager {
       // get new html and update marker (=> unselect marker)
       html = this.iotMapMarkers.getMarker(markerObject.getData(), false);
       markerObject.setIcon(html);
+      markerObject.setZIndexOffset(0);
       //this.map.closePopup();
     } else {  // new marker selected
       // --- unselect last selected marker ---
@@ -150,6 +153,7 @@ export class IotMapManager {
         // get new html and update marker (=> unselect marker)
         html = this.iotMapMarkers.getMarker(lastSelectedMarker.getData(), false);
         lastSelectedMarker.setIcon(html);
+        lastSelectedMarker.setZIndexOffset(0);
       }
 
       // --- select new marker ---
@@ -160,7 +164,22 @@ export class IotMapManager {
         // get new html and update marker (=> select marker)
         html = this.iotMapMarkers.getMarker(markerObject.getData(), true);
         markerObject.setIcon(html);//.bindPopup(markerObject.getData().popup);
+        markerObject.setZIndexOffset(100);
       }
+    }
+  }
+
+  private onMarkerMouseOver(event) {
+    const markerObject = event.layer;
+    if (markerObject && markerObject.data) {
+      markerObject.setZIndexOffset(100);
+    }
+  }
+
+  private onMarkerMouseOut(event) {
+    const markerObject = event.layer;
+    if (markerObject && markerObject.data) {
+      markerObject.setZIndexOffset(0);
     }
   }
 
