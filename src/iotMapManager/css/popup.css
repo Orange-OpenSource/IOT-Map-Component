@@ -176,7 +176,7 @@ h1 {
 }
 */
 /* POP-UP */
-.markericon > .pop-up {
+.markericon > .popupunselected{
   position: absolute;
   bottom:50px;
   left: calc(50% - 15px);
@@ -192,28 +192,29 @@ h1 {
   font-family: 'Helvetica Neue';
   font-weight: bold;
 }
-.markericon:hover > .pop-up {
+.markericon > .popupselected {
   position: absolute;
+  bottom:50px;
+  left:-75px;
   width: 220px;
   max-height: 600px;
-  left:-75px;
   border-radius: 10px;
   opacity: 1;
 
+  background-color: white;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
+  overflow: hidden;
+  min-height: 10px;
   padding: 10px 15px 30px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  text-align: left;
 }
 
-.markericon:hover > .pop-up .pop-up-title {
+.markericon > .popupselected .pop-up-title {
   font-size: 20px;
-  text-align: left;
 }
 
-.markericon:hover > .pop-up .pop-up-body {
+.markericon > .popupselected .pop-up-body {
   font-size: 14px;
-  text-align: left;
 }
-
-.markericon:hover > .pop-up:hover {
-  background-color: rgba(255, 255, 255, 1);
-}
-

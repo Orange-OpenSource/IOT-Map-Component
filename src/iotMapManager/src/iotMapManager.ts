@@ -107,8 +107,8 @@ export class IotMapManager {
 
     // manage events
     layer.on('click', this.onMarkerClick.bind(this)
-    ).on('mouseover', this.onMarkerMouseOver.bind(this)
-    ).on('mouseout', this.onMarkerMouseOut.bind(this)
+    //).on('mouseover', this.onMarkerMouseOver.bind(this)
+    //).on('mouseout', this.onMarkerMouseOut.bind(this)
     //).on('clustermouseover', this.onClusterMouseOver.bind(this)
     //).on('clustermouseout', this.onClusterMouseOut.bind(this)
     );
@@ -123,6 +123,7 @@ export class IotMapManager {
     }
     return layer;
   }
+
 
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
@@ -169,7 +170,7 @@ export class IotMapManager {
     }
   }
 
-  private onMarkerMouseOver(event) {
+ /*private onMarkerMouseOver(event) {
     const markerObject = event.layer;
     if (markerObject && markerObject.data) {
       markerObject.setZIndexOffset(100);
@@ -181,7 +182,7 @@ export class IotMapManager {
     if (markerObject && markerObject.data) {
       markerObject.setZIndexOffset(0);
     }
-  }
+  }*/
 
   /*private onClusterMouseOver(cluster) {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);

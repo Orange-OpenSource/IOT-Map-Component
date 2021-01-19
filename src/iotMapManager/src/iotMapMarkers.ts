@@ -172,12 +172,11 @@ export class IotMapMarkers {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color;
 
       if (marker.inner.icon) {  // icon
-        const iconClass = (selected) ? ' iconSelected' : ' iconUnselected';
-        innerDesign = `<span class='` + marker.inner.icon + iconClass + ` ' style='color: ` + innerColor + `' />`;
+        innerDesign = `<span class='` + marker.inner.icon + ((selected) ? ' iconSelected' : ' iconUnselected')
+          + ` ' style='color: ` + innerColor + `' />`;
 
       } else if (marker.inner.label) {  // label
-        const labelClass = (selected) ? ' labelSelected' : ' labelUnselected';
-        innerDesign = `<span class='` + labelClass
+        innerDesign = `<span class='` + ((selected) ? ' labelSelected' : ' labelUnselected')
           + ` ' style='color: ` + innerColor
           + `; font-family: ` + this.config.markers.font.family
           + `; font-weight: ` + this.config.markers.font.weight
@@ -200,11 +199,11 @@ export class IotMapMarkers {
     }
 
     // shadow
-    const shadowClass = (selected) ? 'shadowSelected' : 'shadowUnselected';
-    const imgShadow = `<img class='` + shadowClass + `' src='` + shadowFile + `'/>`;
+    const imgShadow = `<img class='` + ((selected) ? 'shadowSelected' : 'shadowUnselected')
+      + `' src='` + shadowFile + `'/>`;
 
     // popup
-    let popup = `<div class='pop-up'>`;
+    let popup = `<div class='` + ((selected) ? 'popupselected' : 'popupunselected') + `'>`;
     if (marker.popup) {
       if (marker.popup.title) {
         popup += `<div class='pop-up-title'>` + marker.popup.title + `</div>`;
