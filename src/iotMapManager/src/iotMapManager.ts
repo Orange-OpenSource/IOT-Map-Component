@@ -107,10 +107,8 @@ export class IotMapManager {
 
     // manage events
     layer.on('click', this.onMarkerClick.bind(this)
-    //).on('mouseover', this.onMarkerMouseOver.bind(this)
-    //).on('mouseout', this.onMarkerMouseOut.bind(this)
-    //).on('clustermouseover', this.onClusterMouseOver.bind(this)
-    //).on('clustermouseout', this.onClusterMouseOut.bind(this)
+    ).on('clustermouseover', this.onClusterMouseOver.bind(this)
+    ).on('clustermouseout', this.onClusterMouseOut.bind(this)
     );
 
     return layer;
@@ -170,21 +168,7 @@ export class IotMapManager {
     }
   }
 
- /*private onMarkerMouseOver(event) {
-    const markerObject = event.layer;
-    if (markerObject && markerObject.data) {
-      markerObject.setZIndexOffset(100);
-    }
-  }
-
-  private onMarkerMouseOut(event) {
-    const markerObject = event.layer;
-    if (markerObject && markerObject.data) {
-      markerObject.setZIndexOffset(0);
-    }
-  }*/
-
-  /*private onClusterMouseOver(cluster) {
+  private onClusterMouseOver(cluster) {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
 
     // create popup
@@ -192,11 +176,11 @@ export class IotMapManager {
       .setLatLng(cluster.layer.getLatLng())
       .setContent(this.iotMapClusters.getClusterPopup(currentCluster))
       .openOn(this.map);
-  }*/
+  }
 
-  /*private onClusterMouseOut() {
+  private onClusterMouseOut() {
     this.map.closePopup();
-  }*/
+  }
 
   private onZoom() {
     for (const markerId in this.markersObjects) {
@@ -499,11 +483,11 @@ export class IotMapManager {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
         // popup
-        //const popupText = this.iotMapClusters.getClusterPopup(cluster);
+        const popupText = this.iotMapClusters.getClusterPopup(cluster);
         const newCluster: CustomDataMarker = new CustomDataMarker(
           cluster,
           {icon: this.iotMapClusters.getClusterIcon(cluster)}
-        );//.bindPopup(popupText);
+        ).bindPopup(popupText);
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;
