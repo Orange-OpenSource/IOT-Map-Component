@@ -27,8 +27,18 @@ export class IotMapMarkers {
     // default values
     if (!marker.shape) {
       marker.shape = JSON.parse(JSON.stringify(this.config.markers.default.shape));
-    } else if (!marker.shape.plain) {
-      marker.shape.plain = true;
+    }
+    if (marker.shape.type === undefined) {
+      marker.shape.type = this.config.markers.default.shape.type;
+    }
+    if (marker.shape.plain === undefined) {
+      marker.shape.plain = this.config.markers.default.shape.plain;
+    }
+    if (marker.shape.anchored === undefined) {
+      marker.shape.anchored = this.config.markers.default.shape.anchored;
+    }
+    if (marker.shape.color === undefined) {
+      marker.shape.color = this.config.markers.default.shape.color;
     }
 
     // is status valid ?
