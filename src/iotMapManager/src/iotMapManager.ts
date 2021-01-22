@@ -143,7 +143,6 @@ export class IotMapManager {
       html = this.iotMapMarkers.getMarker(markerObject.getData(), false);
       markerObject.setIcon(html);
       markerObject.setZIndexOffset(0);
-      //this.map.closePopup();
     } else {  // new marker selected
       // --- unselect last selected marker ---
       if (this.selectedMarkerId !== '') {  // a marker was already selected
@@ -162,24 +161,18 @@ export class IotMapManager {
 
         // get new html and update marker (=> select marker)
         html = this.iotMapMarkers.getMarker(markerObject.getData(), true);
-        markerObject.setIcon(html);//.bindPopup(markerObject.getData().popup);
+        markerObject.setIcon(html);
         markerObject.setZIndexOffset(100);
       }
     }
   }
 
   private onClusterMouseOver(cluster) {
-    const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster.layer);
-
-    // create popup
-    L.popup({closeButton: false})
-      .setLatLng(cluster.layer.getLatLng())
-      .setContent(this.iotMapClusters.getClusterPopup(currentCluster))
-      .openOn(this.map);
+    cluster.layer.setZIndexOffset(100);
   }
 
-  private onClusterMouseOut() {
-    this.map.closePopup();
+  private onClusterMouseOut(cluster) {
+    cluster.layer.setZIndexOffset(0);
   }
 
   private onZoom() {
@@ -224,18 +217,6 @@ export class IotMapManager {
       if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
         this.updateMarker(marker.id, marker);
       } else {
-/*        // popup
-        let popupText = marker.popup;
-        if (!popupText) {
-          popupText = `<span style="color: ` + this.config.popupFont.color + `;
-                                  font-size: ` + this.config.popupFont.bodySize + `;
-                                  font-family: ` + this.config.popupFont.fontFamily + `;
-                                  font-weight: ` + this.config.popupFont.fontWeight + `;">`
-            + marker.id + ((marker.status !== undefined) ? (' - ' + marker.status) : '')
-            + `</span><br>`;
-          marker.popup = popupText;
-        }*/
-
         // force layer name if not present
         if (marker.layer === undefined) {
           marker.layer = this.config.map.defaultLayerName;
@@ -244,7 +225,7 @@ export class IotMapManager {
         const newMarker: CustomDataMarker = new CustomDataMarker(
                                                       marker,
                                                       {icon: this.iotMapMarkers.getMarker(marker)}
-                                                      );//.bindPopup(popupText);
+                                                      );
 
         this.getMarkerLayer(marker.layer).addLayer(newMarker);
         this.markersObjects[marker.id] = newMarker;
@@ -482,12 +463,10 @@ export class IotMapManager {
   public addCluster(cluster: IotCluster) {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
-        // popup
-        const popupText = this.iotMapClusters.getClusterPopup(cluster);
         const newCluster: CustomDataMarker = new CustomDataMarker(
           cluster,
           {icon: this.iotMapClusters.getClusterIcon(cluster)}
-        ).bindPopup(popupText);
+        );
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);
         this.markersObjects[cluster.id] = newCluster;

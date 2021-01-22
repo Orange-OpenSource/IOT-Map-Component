@@ -79,21 +79,56 @@
   position: absolute;
   top:10px;
   left:0px;
-  z-index: -1;
+  z-index: 5;
 }
 
 .markericon .shadowUnselected{
   position: absolute;
   top:0px;
   left:0px;
-  z-index: -1;
+  z-index: 5;
 }
 
+
+
+.clustericon{
+  position: relative;
+  text-align: center;
+  width: 150px;
+  height: 150px;
+}
+.clustericon > svg{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 10;
+  dominant-baseline: central;
+  text-anchor: middle;
+  font-size: 44px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+
+
+}
+.clustericon > span{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 25;
+}
 .clustericon .clusterShadow{
   position: absolute;
   top:0px;
   left:0px;
-  z-index: -1;
+  z-index: 5;
+}
+
+.clusteropacity {
+  fill-opacity: 0.5;
+}
+
+.clustericon:hover > .clusteropacity{
+  fill-opacity: 1;
 }
 
 .usermarkericon .arrow{

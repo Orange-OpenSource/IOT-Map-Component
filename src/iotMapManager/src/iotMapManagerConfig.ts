@@ -182,8 +182,7 @@ export class IotMapManagerConfig {
       fullSvgWidth: 200,
       fullSvgHeight: 200,
       svgWidth: 150,
-      svgHeight: 150,
-      fontSize: 44
+      svgHeight: 150
     },
     gauge: {
       startAngle: -90,
@@ -206,14 +205,14 @@ export class IotMapManagerConfig {
     fillColor: '#527EDB',
     fillOpacity: 0.15
   };
-
+/*
   popupFont: any = {
     color: 'black',
     titleSize: '20px',
     bodySize: '14px',
     fontFamily: 'Helvetica Neue',
     fontWeight: 'bold'
-  };
+  };*/
 
 
   /***

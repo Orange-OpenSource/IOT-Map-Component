@@ -41,15 +41,28 @@ export class IotMapClusters {
     }
 
     // label design
-    const svgLabel = `<text x=` + this.config.clusters.size.fullSvgWidth / 2
+    const svgLabel = `<text fill-opacity='1' x=` + this.config.clusters.size.fullSvgWidth / 2
                         + ` y=` + this.config.clusters.size.fullSvgHeight / 2
-                        + ` dominant-baseline='central'
-                            text-anchor='middle'
-                            font-size='` + this.config.clusters.size.fontSize + `'
-                            font-family='Helvetica Neue' font-weight='bold'>` + cluster.childCount + `</text>`;
+                        + ` >` + cluster.childCount + `</text>`;
     const imgShadow = `<img class='clusterShadow' src='./assets/img/` + IotMapCommonSvg.cluster.shadow + `'/>`;
-    const html = `<div class='markericon clustericon'>`
+
+
+    // popup
+    let popup = `<div class='popup'>`;
+    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + ` : <br>`;
+
+    for (const aggr of cluster.aggregation) {
+      popup += `<span class='pop-up-bullet' style="text-shadow: 0 0 0 ` + aggr.color + `"> &#x26ab;  </span>
+                <span class='pop-up-body'>`
+        + aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState)
+        + `</span><br>`;
+    }
+
+    popup += `</div>`;
+
+    const html = `<div class='clustericon'>`
                   + imgShadow
+                  + popup
                   + IotMapCommonSvg.cluster.svgDefinitionStart
                   + IotMapCommonSvg.cluster.clusterBG
                   + svgLabel
@@ -64,24 +77,5 @@ export class IotMapClusters {
       iconSize: [this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight],
       popupAnchor: [0, 0]
     });
-  }
-
-  public getClusterPopup(cluster: IotCluster): string {
-    const conf = this.config.popupFont;
-
-    let popup = `<span style="font-size:` + conf.titleSize + `;
-                              font-family:` + conf.fontFamily + `;
-                              font-weight:` + conf.fontWeight + `;">` + cluster.childCount + ` ` + cluster.contentLabel + ' : <br>';
-
-    for (const aggr of cluster.aggregation) {
-      popup += `<span style="color:` + aggr.color + `;">&#x25CF;   </span>
-                <span style="color: ` + conf.color + `;
-                             font-size: ` + conf.bodySize + `;
-                             font-family: ` + conf.fontFamily + `;
-                             font-weight: ` + conf.fontWeight + `;">`
-                      + aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState)
-              + `</span><br>`;
-    }
-    return popup;
   }
 }
