@@ -272,6 +272,11 @@ export class IotMapManager {
         this.getMarkerLayer(ACCURACY_LAYER).removeLayer(accuracyToRemove);
         this.accuracyObjects[markerId] = null;
       }
+
+      // deselect marker if selected
+      if (this.selectedMarkerId === markerId) {
+        this.selectedMarkerId = '';
+      }
     }
   }
 
@@ -498,6 +503,11 @@ export class IotMapManager {
       if (clusterToRemove) {
         this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove);
         this.markersObjects[id] = null;
+
+        // deselect cluster if selected
+        if (this.selectedMarkerId === id) {
+          this.selectedMarkerId = '';
+        }
       }
     }
   }
