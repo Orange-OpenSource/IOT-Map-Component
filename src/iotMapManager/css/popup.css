@@ -61,8 +61,8 @@
 }
 
 
-
-.clustericon > .popup {
+/* MANUAL POPUP */
+.clustericon > .popupunselected {
   position: absolute;
   bottom:50px;
   left: calc(50% - 15px);
@@ -79,7 +79,7 @@
   font-weight: bold;
 }
 
-.clustericon:hover > .popup {
+.clustericon > .popupselected {
   position: absolute;
   bottom:50px;
   left:-50px;
@@ -99,15 +99,89 @@
   z-index: 0;
 }
 
-.clustericon:hover > .popup .pop-up-title {
+.clustericon:hover > .popupauto {
+  position: absolute;
+  bottom:50px;
+  left:-50px;
+  width: 270px;
+  max-height: 600px;
+  border-radius: 10px;
+  opacity: 1;
+
+  background-color: white;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
+  overflow: hidden;
+  min-height: 10px;
+  padding: 10px 15px 80px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  text-align: left;
+  z-index: 0;
+}
+
+.clustericon > .popupselected .pop-up-title {
   font-size: 20px;
 }
-.clustericon:hover > .popup .pop-up-bullet {
+.clustericon > .popupselected .pop-up-bullet {
   font-size: 14px;
   color: transparent;
 }
 
-.clustericon:hover > .popup .pop-up-body {
+.clustericon > .popupselected .pop-up-body {
+  font-size: 14px;
+}
+
+
+
+
+/* AUTO POPUP */
+.clustericon > .popupauto {
+  position: absolute;
+  bottom:50px;
+  left: calc(50% - 15px);
+  background-color: rgba(255, 255, 255, 0.90);
+  border-radius: 0;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
+  opacity: 0;
+  overflow: hidden;
+  min-height: 10px;
+  width: 10px;
+  font-size: 1px;
+
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+}
+
+
+.clustericon:hover > .popupauto {
+  position: absolute;
+  bottom:50px;
+  left:-50px;
+  width: 270px;
+  max-height: 600px;
+  border-radius: 10px;
+  opacity: 1;
+
+  background-color: white;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
+  overflow: hidden;
+  min-height: 10px;
+  padding: 10px 15px 80px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  text-align: left;
+  z-index: 0;
+}
+
+.clustericon:hover > .popupauto .pop-up-title {
+  font-size: 20px;
+}
+.clustericon:hover > .popupauto .pop-up-bullet {
+  font-size: 14px;
+  color: transparent;
+}
+
+.clustericon:hover > .popupauto .pop-up-body {
   font-size: 14px;
 }
 

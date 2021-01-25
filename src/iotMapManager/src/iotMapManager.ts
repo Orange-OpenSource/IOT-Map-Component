@@ -88,28 +88,31 @@ export class IotMapManager {
     }
     // create layer
     let layer: L.MarkerClusterGroup | L.FeatureGroup;
-    if (this.config.map.externalClustering || layerName === ACCURACY_LAYER) {
+    if (this.config.map.externalClustering){  // manual clustering
       layer = new L.FeatureGroup();
-    } else {
+      layer.on('click', this.onMarkerClick.bind(this));
+    } else if (layerName === ACCURACY_LAYER) {  // accuracy zones
+      layer = new L.FeatureGroup();
+    } else {  // clusterables marker
       layer = L.markerClusterGroup({
         maxClusterRadius: this.config.map.clusterRadius,
         showCoverageOnHover: false,
         iconCreateFunction: this.defineClusterIcon.bind(this)
       });
 
-      layer.on('animationend', this.onZoom.bind(this));
+      layer.on('animationend', this.onZoom.bind(this)
+        ).on('clustermouseover', this.onClusterMouseOver.bind(this)
+        ).on('clustermouseout', this.onClusterMouseOut.bind(this)
+        ).on('click', this.onMarkerClick.bind(this)
+        );
     }
+
+    // add layer to map
     this.map.addLayer(layer);
     this.markersLayers[layerName] = layer;
     if (this.config.map.layerControl) {
       this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map);
     }
-
-    // manage events
-    layer.on('click', this.onMarkerClick.bind(this)
-    ).on('clustermouseover', this.onClusterMouseOver.bind(this)
-    ).on('clustermouseout', this.onClusterMouseOut.bind(this)
-    );
 
     return layer;
   }
@@ -129,8 +132,8 @@ export class IotMapManager {
 
 
   private onMarkerClick(event) {
-
-    const markerObject = this.markersObjects[event.layer.getData().id];
+    const markerObject = event.layer;
+    const isManualCluster = (markerObject.getData().childCount !== undefined);
 
     // select / unselect marker
     let html: L.DivIcon;
@@ -140,7 +143,9 @@ export class IotMapManager {
       this.selectedMarkerId = '';
 
       // get new html and update marker (=> unselect marker)
-      html = this.iotMapMarkers.getMarker(markerObject.getData(), false);
+      html = (isManualCluster)
+        ? this.iotMapClusters.getClusterIcon(markerObject.getData(), false, false)
+        : this.iotMapMarkers.getMarker(markerObject.getData(), false);
       markerObject.setIcon(html);
       markerObject.setZIndexOffset(0);
     } else {  // new marker selected
@@ -149,30 +154,33 @@ export class IotMapManager {
         const lastSelectedMarker = this.markersObjects[this.selectedMarkerId];
 
         // get new html and update marker (=> unselect marker)
-        html = this.iotMapMarkers.getMarker(lastSelectedMarker.getData(), false);
+        html = (lastSelectedMarker.getData().childCount !== undefined)
+          ? this.iotMapClusters.getClusterIcon(lastSelectedMarker.getData(), false, false)
+          : this.iotMapMarkers.getMarker(lastSelectedMarker.getData(), false);
         lastSelectedMarker.setIcon(html);
         lastSelectedMarker.setZIndexOffset(0);
       }
 
       // --- select new marker ---
-      if (event.layer.getData().aggregation === undefined) {  // not a manual cluster
-        // update selected id
-        this.selectedMarkerId = markerObject.getData().id;
+      // update selected id
+      this.selectedMarkerId = markerObject.getData().id;
 
-        // get new html and update marker (=> select marker)
-        html = this.iotMapMarkers.getMarker(markerObject.getData(), true);
-        markerObject.setIcon(html);
-        markerObject.setZIndexOffset(100);
-      }
+      // get new html and update marker (=> select marker)
+      html = (isManualCluster)
+        ? this.iotMapClusters.getClusterIcon(markerObject.getData(), true, false)
+        : this.iotMapMarkers.getMarker(markerObject.getData(), true);
+      markerObject.setIcon(html);
+      markerObject.setZIndexOffset(100);
     }
+
   }
 
-  private onClusterMouseOver(cluster) {
-    cluster.layer.setZIndexOffset(100);
+  private onClusterMouseOver(event) {
+    event.layer.setZIndexOffset(100);
   }
 
-  private onClusterMouseOut(cluster) {
-    cluster.layer.setZIndexOffset(0);
+  private onClusterMouseOut(event) {
+    event.layer.setZIndexOffset(0);
   }
 
   private onZoom() {
@@ -457,7 +465,7 @@ export class IotMapManager {
 
   private defineClusterIcon(cluster) {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster);
-    return this.iotMapClusters.getClusterIcon(currentCluster);
+    return this.iotMapClusters.getClusterIcon(currentCluster, false, true); // automatic cluster
   }
 
   public addCluster(cluster: IotCluster) {
@@ -465,7 +473,7 @@ export class IotMapManager {
       if (cluster.id && cluster.location) {
         const newCluster: CustomDataMarker = new CustomDataMarker(
           cluster,
-          {icon: this.iotMapClusters.getClusterIcon(cluster)}
+          {icon: this.iotMapClusters.getClusterIcon(cluster, false, false)} // manual cluster
         );
 
         this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster);

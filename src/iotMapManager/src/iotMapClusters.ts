@@ -20,7 +20,7 @@ import { IotMapCommonSvg } from './iotMapCommonSvg';
 export class IotMapClusters {
   config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
-  public getClusterIcon(cluster: IotCluster): L.DivIcon {
+  public getClusterIcon(cluster: IotCluster, selected = false, automatic = true): L.DivIcon {
     // Gauge design
     let svgGauge = ``;
     let angle = this.config.clusters.gauge.startAngle;
@@ -48,7 +48,7 @@ export class IotMapClusters {
 
 
     // popup
-    let popup = `<div class='popup'>`;
+    let popup = `<div class='` + ((automatic ? 'popupauto' : (selected) ? 'popupselected' : 'popupunselected')) + `'>`;
     popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + ` : <br>`;
 
     for (const aggr of cluster.aggregation) {
