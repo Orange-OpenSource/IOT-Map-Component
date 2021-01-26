@@ -14,7 +14,7 @@
 
 import * as L from 'leaflet';
 import {IotMapManagerConfig} from './iotMapManagerConfig';
-import {IotMarker, markerType} from './iotMapManagerTypes';
+import {IotMarker, ShapeType} from './iotMapManagerTypes';
 import {IotMapCommonSvg} from './iotMapCommonSvg';
 
 
@@ -41,30 +41,25 @@ export class IotMapMarkers {
       marker.shape.color = this.config.markers.default.shape.color;
     }
 
-    // is status valid ?
-    if (marker.status !== undefined) {
-      if (this.config.markerStatus[marker.status] === undefined) {
-        marker.status = undefined;
-      } else {  // update marker with status info
-        marker.shape.color = this.config.markerStatus[marker.status].stateColor;
-        if (!marker.inner) {
-          marker.inner = {};
-        }
-        marker.inner.color = this.config.markerStatus[marker.status].innerColor;
-      }
-    }
-
     // is template valid ?
     if (marker.template !== undefined) {
-      if (this.config.markerTemplates[marker.template] === undefined) {
+      const template = this.config.markerTemplates[marker.template];
+      if (template === undefined) {
         marker.template = undefined;
       } else {  // update marker with template info
-        const template = this.config.markerTemplates[marker.template];
-        if (!marker.inner) {
-          marker.inner = {};
-        }
         if (template.layer) {
           marker.layer = template.layer;
+        }
+        if (template.popup) {
+          if (!marker.popup) {
+            marker.popup = {};
+          }
+          if (template.popup.title) {
+            marker.popup.title = template.popup.title;
+          }
+          if (template.popup.body) {
+            marker.popup.body = template.popup.body;
+          }
         }
         if (template.shape) {
           if (template.shape.type !== undefined) {
@@ -79,9 +74,17 @@ export class IotMapMarkers {
           if (template.shape.color) {
             marker.shape.color = template.shape.color;
           }
+          if (template.shape.percent) {
+            marker.shape.percent = template.shape.percent;
+          }
+          if (template.shape.accuracy) {
+            marker.shape.accuracy = template.shape.accuracy;
+          }
         }
-
         if (template.inner) {
+          if (!marker.inner) {
+            marker.inner = {};
+          }
           if (template.inner.color) {
             marker.inner.color = template.inner.color;
           }
@@ -94,13 +97,69 @@ export class IotMapMarkers {
       }
     }
 
+    // is status valid ?
+    if (marker.status !== undefined) {
+      const status = this.config.markerStatus[marker.status];
+      if (status === undefined) {
+        marker.status = undefined;
+      } else {  // update marker with status info
+        if (status.layer) {
+          marker.layer = status.layer;
+        }
+        if (status.popup) {
+          if (!marker.popup) {
+            marker.popup = {};
+          }
+          if (status.popup.title) {
+            marker.popup.title = status.popup.title;
+          }
+          if (status.popup.body) {
+            marker.popup.body = status.popup.body;
+          }
+        }
+        if (status.shape) {
+          if (status.shape.type !== undefined) {
+            marker.shape.type = status.shape.type;
+          }
+          if (status.shape.anchored) {
+            marker.shape.anchored = status.shape.anchored;
+          }
+          if (status.shape.plain) {
+            marker.shape.plain = status.shape.plain;
+          }
+          if (status.shape.color) {
+            marker.shape.color = status.shape.color;
+          }
+          if (status.shape.percent) {
+            marker.shape.percent = status.shape.percent;
+          }
+          if (status.shape.accuracy) {
+            marker.shape.accuracy = status.shape.accuracy;
+          }
+        }
+        if (status.inner) {
+          if (!marker.inner) {
+            marker.inner = {};
+          }
+          if (status.inner.color) {
+            marker.inner.color = status.inner.color;
+          }
+          if (status.inner.icon) {
+            marker.inner.icon = status.inner.icon;
+          } else if (status.inner.label) {
+            marker.inner.label = status.inner.label;
+          }
+        }
+      }
+    }
+
     html = this.getSvg(marker, selected);
 
     // sizing
     const size = this.config.markers.size;
     const markerSize = (selected)
       ? size.selected
-      : ((marker.shape.type === markerType.circle) ? size.unselectedCircle : size.unselectedSquare);
+      : ((marker.shape.type === ShapeType.circle) ? size.unselectedCircle : size.unselectedSquare);
     const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
 
     let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center
@@ -108,10 +167,6 @@ export class IotMapMarkers {
       const height = (size.fullSvgHeight + markerSize.svgHeight) / 2 + markerSize.anchoredHeight;
       iconAnchor = L.point(size.fullSvgWidth / 2, height);
     }
-
-    const popupAnchor: L.Point = (selected)
-            ? L.point(0, - (markerSize.svgHeight + markerSize.anchoredHeight))    // from anchor point
-            : L.point(0, - (markerSize.svgHeight / 2));   // from center point
 
     // creating icon
     return new L.DivIcon({
@@ -130,7 +185,7 @@ export class IotMapMarkers {
     let svgGauge: string;
     let shadowFile = './assets/img/';
 
-    const commonSvg = (marker.shape.type === markerType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
+    const commonSvg = (marker.shape.type === ShapeType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.shape.color === undefined) {
       marker.shape.color = this.config.markers.default.shape.color;
     }
@@ -138,14 +193,14 @@ export class IotMapMarkers {
 
     // shape
     if (selected) {   // Only anchored markers can be selected
-      if (marker.shape.type === markerType.poi || marker.shape.plain) {  // STD
+      if (marker.shape.type === ShapeType.poi || marker.shape.plain) {  // STD
         svgShape = commonSvg.selStdColour + ` fill='` + funColor + `'/>`;
       } else {  // FUN
         svgShape = commonSvg.selFunColour + ` fill='` + funColor + `'/>`;
         svgBG = commonSvg.selFunBg;
       }
       shadowFile += commonSvg.selShadow;
-    } else if (marker.shape.type === markerType.poi || marker.shape.plain) {  // STD
+    } else if (marker.shape.type === ShapeType.poi || marker.shape.plain) {  // STD
       if (marker.shape.anchored) {
         svgBorder = commonSvg.pinBorder;
         svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`;
@@ -173,7 +228,7 @@ export class IotMapMarkers {
     let innerDesign = '';
     const conf = (selected)
       ? this.config.markers.size.selected
-      : ((marker.shape.type === markerType.circle)
+      : ((marker.shape.type === ShapeType.circle)
             ? this.config.markers.size.unselectedCircle
             : this.config.markers.size.unselectedSquare);
 
@@ -194,7 +249,7 @@ export class IotMapMarkers {
     }
 
     // state / gauge
-    if (marker.shape.percent && marker.shape.type === markerType.circle) {
+    if (marker.shape.percent && marker.shape.type === ShapeType.circle) {
       const gaugeColor = marker.shape.color;
 
       const perimeter = 2 * 3.14 * conf.gaugeRadius;
@@ -234,8 +289,6 @@ export class IotMapMarkers {
                 + svgBorder + svgShape + svgBG + svgGauge
               + `</svg>`
               + innerDesign
-
-
             + `</div>`      ;
 
   }

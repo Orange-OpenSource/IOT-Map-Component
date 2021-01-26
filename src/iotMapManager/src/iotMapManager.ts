@@ -197,14 +197,14 @@ export class IotMapManager {
                 fillColor: this.config.accuracyCircle.fillColor,
                 fillOpacity: this.config.accuracyCircle.fillOpacity,
                 radius: marker.shape.accuracy,
-                interactive: false
+                interactive: false  // not clickable
               });
               this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
               this.accuracyObjects[markerId] = newCircle;
             }
           }
         } else {  // clustered
-          if (marker.shape.accuracy !== undefined) {
+          if (marker.location.accuracy !== undefined) {
             // accuracy circle if needed
             const accuracyToRemove: L.Circle = this.accuracyObjects[markerId];
             if (accuracyToRemove) {
@@ -231,10 +231,11 @@ export class IotMapManager {
           marker.layer = this.config.map.defaultLayerName;
         }
 
-        const newMarker: CustomDataMarker = new CustomDataMarker(
-                                                      marker,
-                                                      {icon: this.iotMapMarkers.getMarkerIcon(marker)}
-                                                      );
+        const newMarker: CustomDataMarker =
+          new CustomDataMarker(
+            marker,
+            {icon: this.iotMapMarkers.getMarkerIcon(marker)}
+            );
 
         this.getMarkerLayer(marker.layer).addLayer(newMarker);
         this.markersObjects[marker.id] = newMarker;
@@ -246,7 +247,7 @@ export class IotMapManager {
             fillColor: this.config.accuracyCircle.fillColor,
             fillOpacity: this.config.accuracyCircle.fillOpacity,
             radius: marker.shape.accuracy,
-            interactive: false
+            interactive: false  // not clickable
           });
           this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
           this.accuracyObjects[marker.id] = newCircle;
@@ -392,7 +393,7 @@ export class IotMapManager {
       }
 
       // accuracy
-      if (params.shape) {
+      if (params.location) {
         if (params.shape.accuracy !== undefined) {
           // update marker info
           currentMarkerInfos.shape.accuracy = params.shape.accuracy;
@@ -407,7 +408,7 @@ export class IotMapManager {
               fillColor: this.config.accuracyCircle.fillColor,
               fillOpacity: this.config.accuracyCircle.fillOpacity,
               radius: currentMarkerInfos.shape.accuracy,
-              interactive: false
+              interactive: false // not clickable
             });
             this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle);
             this.accuracyObjects[currentMarkerInfos.id] = newCircle;
@@ -601,14 +602,14 @@ export class IotMapManager {
         tabDistribution[state] = {
           count: tabDistribution[state].count + 1,
           label: (marker.getData().status)
-            ? this.config.markerStatus[marker.getData().status].pluralState
+            ? this.config.markerStatus[marker.getData().status].name.plural
             : 'stateless'
         };
       } else {
         tabDistribution[state] = {
           count: 1,
           label: (marker.getData().status)
-            ? this.config.markerStatus[marker.getData().status].singularState
+            ? this.config.markerStatus[marker.getData().status].name.singular
             : 'stateless'
         };
       }
@@ -628,7 +629,7 @@ export class IotMapManager {
       if (tabDistribution[state]) {
         currentCluster.aggregation[i] = {
           count: tabDistribution[state].count,
-          color: (state === 'stateless') ? this.config.clusters.defaultColor : this.config.markerStatus[state].stateColor,
+          color: (state === 'stateless') ? this.config.clusters.defaultColor : this.config.markerStatus[state].shape.color,
           singularState: tabDistribution[state].label,
           pluralState: tabDistribution[state].label
         };
@@ -652,8 +653,9 @@ export class IotMapManager {
       }
       this.userMarkerObject = new CustomDataMarker(userMarker,{
         icon: this.iotMapUserMarkers.getUserMarkerIcon(userMarker),
-        interactive: false});
+        interactive: false});   // not clickable
       this.getMarkerLayer(USERMARKER_LAYER).addLayer(this.userMarkerObject);
+      this.userMarkerObject.setZIndexOffset(75);
 
       // accuracy circle if needed
       if (userMarker.accuracy !== undefined) {
@@ -662,7 +664,7 @@ export class IotMapManager {
           fillColor: this.config.accuracyCircle.fillColor,
           fillOpacity: this.config.accuracyCircle.fillOpacity,
           radius: userMarker.accuracy,
-          interactive: false
+          interactive: false // not clickable
         });
         this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
       }
@@ -706,7 +708,7 @@ export class IotMapManager {
             fillColor: this.config.accuracyCircle.fillColor,
             fillOpacity: this.config.accuracyCircle.fillOpacity,
             radius: userMarkerInfo.accuracy,
-            interactive: false
+            interactive: false  // not clickable
           });
           this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy);
         } else {  // update

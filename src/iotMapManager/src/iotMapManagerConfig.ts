@@ -11,35 +11,7 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-import {markerType} from './iotMapManagerTypes';
-
-export interface MarkerStatus {
-  [state: string]: {
-    stateColor: string;
-    innerColor: string;
-    singularState: string;
-    pluralState: string;
-  };
-}
-
-export interface MarkerTemplate {
-  [template: string]: {
-    layer?: string;
-    shape?: {
-      type?: markerType;
-      anchored?: boolean;
-      plain?: boolean;
-      color?: string;
-    };
-    inner?: {
-      color?: string;
-
-      icon?: string;
-      // *** OR ***
-      label?: string;
-    };
-  }
-}
+import {MarkerStatus, MarkerTemplate, ShapeType} from './iotMapManagerTypes';
 
 export class IotMapManagerConfig {
   private static instance: IotMapManagerConfig;
@@ -66,7 +38,7 @@ export class IotMapManagerConfig {
   markers: any = {
     default: {
       shape: {
-        type: markerType.circle,
+        type: ShapeType.circle,
         anchored: true,
         plain: true,
         color: 'black',
@@ -109,72 +81,196 @@ export class IotMapManagerConfig {
     }
   };
 
-  markerStatus = {
+  markerStatus: MarkerStatus = {
     'Positive': {
-      stateColor: '#32C832',
-      innerColor: '#527EDB',
-      singularState: 'Positive',
-      pluralState: 'Positives'
+      shape: {
+        color: '#32C832'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'positive',
+        plural: 'positive'
+      }
     },
     'Neutral': {
-      stateColor: '#527EDB',
-      innerColor: '#FFCC00',
-      singularState: 'Neutral',
-      pluralState: 'Neutrals'
+      shape: {
+        color: '#527EDB'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'neutral',
+        plural: 'neutral'
+      }
     },
     'Warning': {
-      stateColor: '#FFCC00',
-      innerColor: '#CD3C14',
-      singularState: 'Warning',
-      pluralState: 'Warnings'
+      shape: {
+        color: '#FFCC00'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'in warning',
+        plural: 'in warning'
+      }
     },
     'Alert': {
-      stateColor: '#CD3C14',
-      innerColor: '#CCCCCC',
-      singularState: 'Alert',
-      pluralState: 'Alerts'
+      shape: {
+        color: '#CD3C14'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'in alert',
+        plural: 'in alert'
+      }
     },
     'Inactive': {
-      stateColor: '#CCCCCC',
-      innerColor: '#32C832',
-      singularState: 'Inactive',
-      pluralState: 'Inactives'
+      shape: {
+        color: '#CCCCCC'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'inactive',
+        plural: 'inactive'
+      }
+    },
+    'FoodAndDrink': {
+      shape: {
+        color: '#467e74'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'food and drink',
+        plural: 'food and drink'
+      }
+    },
+    'Shopping': {
+      shape: {
+        color: '#b8860b'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'shopping',
+        plural: 'shopping'
+      }
+    },
+    'Health': {
+      shape: {
+        color: '#d24d57'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'health',
+        plural: 'health'
+      }
+    },
+    'Entertainment': {
+      shape: {
+        color: '#886288'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'entertainment',
+        plural: 'entertainment'
+      }
+    },
+    'Services': {
+      shape: {
+        color: '#526e91'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'service',
+        plural: 'services'
+      }
+    },
+    'CivilServiceWorship': {
+      shape: {
+        color: '#874b0e'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'civil service / worship',
+        plural: 'civil service / worship'
+      }
+    },
+    'Outdoor': {
+      shape: {
+        color: '#176129'
+      },
+      inner: {
+        color: 'white'
+      },
+      name: {
+        singular: 'outdoor',
+        plural: 'outdoor'
+      }
+    },
+    'Transport': {
+      shape: {
+        color: '#19a0b8'
+      },
+      inner: {
+        color: 'black'
+      },
+      name: {
+        singular: 'transport',
+        plural: 'transports'
+      }
     }
   };
 
-  markerTemplates = {
-    'Temperature': {
-      layer: 'temperature',
+  markerTemplates: MarkerTemplate = {
+    'circle': {
       shape: {
-        type: markerType.circle,
+        type: ShapeType.circle,
         anchored: true,
-        plain: true
+        color: '#477ddf'
       },
       inner: {
-        icon: 'iotmap-icons-temperature'
+        color: 'white'
       }
     },
-    'Monuments': {
-      layer: 'Monuments',
+    'square': {
       shape: {
-        type: markerType.poi,
-        anchored: true
+        type: ShapeType.square,
+        plain: false,
+        color: '#477ddf'
       },
       inner: {
-        label: 'M'
+        color: 'white'
       }
     },
-    'Vehicles': {
-      layer: 'Vehicles',
+    'poi': {
       shape: {
-        type: markerType.circle,
-        anchored: true
+        type: ShapeType.square,
+        plain: true,
+        color: '#6180a2'
       },
       inner: {
-        icon: 'iotmap-icons-Car_pooling'
+        color: 'white'
       }
     }
-
   }
   // *** Private conf: not modified by SetConfig ***
   clusters: any = {
@@ -205,14 +301,7 @@ export class IotMapManagerConfig {
     fillColor: '#527EDB',
     fillOpacity: 0.15
   };
-/*
-  popupFont: any = {
-    color: 'black',
-    titleSize: '20px',
-    bodySize: '14px',
-    fontFamily: 'Helvetica Neue',
-    fontWeight: 'bold'
-  };*/
+
 
 
   /***
@@ -282,9 +371,9 @@ export class IotMapManagerConfig {
      *** MARKER STATUS
     */
     if (newConfig.markerStatus !== undefined) {
-      for (const state in newConfig.markerStatus) {
-        if (newConfig.markerStatus[state] !== undefined) {
-          this.instance.markerStatus[state] = newConfig.markerStatus[state];
+      for (const status in newConfig.markerStatus) {
+        if (newConfig.markerStatus[status] !== undefined) {
+          this.instance.markerStatus[status] = newConfig.markerStatus[status];
         }
       }
     }

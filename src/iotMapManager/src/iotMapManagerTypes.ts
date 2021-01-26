@@ -14,7 +14,7 @@
 
 import * as L from 'leaflet';
 
-export enum markerType { circle, square, poi}
+export enum ShapeType { circle, square, poi}
 
 export class CustomDataMarker extends L.Marker {
   data: any;
@@ -44,9 +44,8 @@ export interface IotMarker {
     title?: string;
     body?: string;
   };
-  status?: string;
   shape?: {
-    type?: markerType;
+    type?: ShapeType;
     anchored?: boolean;
     plain?: boolean;
     color?: string;
@@ -61,6 +60,7 @@ export interface IotMarker {
     label?: string;
   };
   template?: string;
+  status?: string;
 }
 
 
@@ -88,4 +88,59 @@ export interface IotUserMarker {
   };
   direction?: number;
   accuracy?: number;
+}
+
+export interface MarkerStatus {
+  [state: string]: {
+    name: {
+      singular: string;
+      plural: string;
+    },
+    layer?: string;
+    popup?: {
+      title?: string;
+      body?: string;
+    };
+    shape?: {
+      type?: ShapeType;
+      anchored?: boolean;
+      plain?: boolean;
+      color?: string;
+      percent?: number;
+      accuracy?: number;
+    };
+    inner?: {
+      color?: string;
+
+      icon?: string;
+      // *** OR ***
+      label?: string;
+    };
+  };
+}
+
+export interface MarkerTemplate {
+  [template: string]: {
+    layer?: string;
+    popup?: {
+      title?: string;
+      body?: string;
+    };
+    shape?: {
+      type?: ShapeType;
+      anchored?: boolean;
+      plain?: boolean;
+      color?: string;
+      percent?: number;
+      accuracy?: number;
+    };
+    inner?: {
+      color?: string;
+
+      icon?: string;
+      // *** OR ***
+      label?: string;
+    };
+
+  }
 }
