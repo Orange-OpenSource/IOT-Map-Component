@@ -1,4 +1,4 @@
-# IotMapManager V0.5.6
+# IotMapManager V0.5.7
 
 This library provides management of markers dedicated to projects using mapping.
 ## use

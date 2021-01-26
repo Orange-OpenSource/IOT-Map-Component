@@ -1,6 +1,6 @@
 /*
 * Software Name: IotMapManager
-* Version: 0.5.6
+* Version: 0.5.7
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *

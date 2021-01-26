@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
+import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
 
 
 @Component({
@@ -110,7 +110,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.890
       },
       shape: {
-        type : markerType.square,
+        type : ShapeType.square,
         anchored: true,
         plain: false,
         accuracy: 200
@@ -150,7 +150,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.870
       },
       shape: {
-        type : markerType.poi,
+        type : ShapeType.poi,
         anchored: false,
         plain: false
       },
@@ -172,7 +172,7 @@ export class MapComponent implements AfterViewInit {
         body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.'
       },
       shape: {
-        type : markerType.poi,
+        type : ShapeType.poi,
         anchored: true
       },
       inner: {
@@ -221,7 +221,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.890
       },
       shape: {
-        type : markerType.poi,
+        type : ShapeType.poi,
         anchored: true,
         accuracy: 300
       },
@@ -239,7 +239,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.895
       },
       shape: {
-        type : markerType.poi,
+        type : ShapeType.poi,
         anchored: false
       },
       layer: 'Etablissements',
