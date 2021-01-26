@@ -8,7 +8,7 @@ In your project file :
 
 In your css file:
 
-    @import 'iotmapmanager/iotMapManager.css';
+    @import 'iotmapmanager/iotMapManager.css'; 
 
 
 this library provides following functions :
