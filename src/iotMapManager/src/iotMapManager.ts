@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.5
+* Version: 0.5.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -145,7 +145,7 @@ export class IotMapManager {
       // get new html and update marker (=> unselect marker)
       html = (isManualCluster)
         ? this.iotMapClusters.getClusterIcon(markerObject.getData(), false, false)
-        : this.iotMapMarkers.getMarker(markerObject.getData(), false);
+        : this.iotMapMarkers.getMarkerIcon(markerObject.getData(), false);
       markerObject.setIcon(html);
       markerObject.setZIndexOffset(0);
     } else {  // new marker selected
@@ -156,7 +156,7 @@ export class IotMapManager {
         // get new html and update marker (=> unselect marker)
         html = (lastSelectedMarker.getData().childCount !== undefined)
           ? this.iotMapClusters.getClusterIcon(lastSelectedMarker.getData(), false, false)
-          : this.iotMapMarkers.getMarker(lastSelectedMarker.getData(), false);
+          : this.iotMapMarkers.getMarkerIcon(lastSelectedMarker.getData(), false);
         lastSelectedMarker.setIcon(html);
         lastSelectedMarker.setZIndexOffset(0);
       }
@@ -168,7 +168,7 @@ export class IotMapManager {
       // get new html and update marker (=> select marker)
       html = (isManualCluster)
         ? this.iotMapClusters.getClusterIcon(markerObject.getData(), true, false)
-        : this.iotMapMarkers.getMarker(markerObject.getData(), true);
+        : this.iotMapMarkers.getMarkerIcon(markerObject.getData(), true);
       markerObject.setIcon(html);
       markerObject.setZIndexOffset(100);
     }
@@ -232,7 +232,7 @@ export class IotMapManager {
 
         const newMarker: CustomDataMarker = new CustomDataMarker(
                                                       marker,
-                                                      {icon: this.iotMapMarkers.getMarker(marker)}
+                                                      {icon: this.iotMapMarkers.getMarkerIcon(marker)}
                                                       );
 
         this.getMarkerLayer(marker.layer).addLayer(newMarker);
@@ -378,7 +378,7 @@ export class IotMapManager {
 
       // update marker icon
       if (htmlModificationNeeded) {
-        const html = this.iotMapMarkers.getMarker(currentMarkerInfos, currentMarkerIsSelected);
+        const html = this.iotMapMarkers.getMarkerIcon(currentMarkerInfos, currentMarkerIsSelected);
         currentMarkerObject.setIcon(html);
       }
 
@@ -647,7 +647,7 @@ export class IotMapManager {
         this.getMarkerLayer(USERMARKER_LAYER).clearLayers();
         this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy);
       }
-      this.userMarkerObject = new CustomDataMarker(userMarker, {icon: this.iotMapUserMarkers.getMarker(userMarker)});
+      this.userMarkerObject = new CustomDataMarker(userMarker, {icon: this.iotMapUserMarkers.getUserMarkerIcon(userMarker)});
       this.getMarkerLayer(USERMARKER_LAYER).addLayer(this.userMarkerObject);
 
       // accuracy circle if needed
@@ -688,7 +688,7 @@ export class IotMapManager {
         userMarkerInfo.direction = params.direction;
 
         // update icon
-        const html = this.iotMapUserMarkers.getMarker(userMarkerInfo);
+        const html = this.iotMapUserMarkers.getUserMarkerIcon(userMarkerInfo);
         this.userMarkerObject.setIcon(html);
       }
 

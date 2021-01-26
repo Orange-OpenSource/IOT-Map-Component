@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.5
+* Version: 0.5.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -19,9 +19,9 @@ import {IotMapCommonSvg} from './iotMapCommonSvg';
 
 
 export class IotMapUserMarker {
-  config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
+  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
-  getMarker(userMarker: IotUserMarker): L.DivIcon {
+  public getUserMarkerIcon(userMarker: IotUserMarker): L.DivIcon {
     const userSvg = IotMapCommonSvg.user;
 
     // todo: shadow file

@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.5
+* Version: 0.5.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -18,7 +18,7 @@ import { IotMapManagerConfig } from './iotMapManagerConfig';
 import { IotMapCommonSvg } from './iotMapCommonSvg';
 
 export class IotMapClusters {
-  config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
+  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
   public getClusterIcon(cluster: IotCluster, selected = false, automatic = true): L.DivIcon {
     // Gauge design
@@ -76,8 +76,7 @@ export class IotMapClusters {
     return new L.DivIcon({
       html: html,
       className: 'my-cluster-class',
-      iconSize: [this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight],
-      popupAnchor: [0, 0]
+      iconSize: [this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight]
     });
   }
 }

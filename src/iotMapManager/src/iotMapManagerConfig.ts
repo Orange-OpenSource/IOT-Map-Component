@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.5
+* Version: 0.5.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -154,8 +154,8 @@ export class IotMapManagerConfig {
         icon: 'iotmap-icons-temperature'
       }
     },
-    'Monument': {
-      layer: 'Monument',
+    'Monuments': {
+      layer: 'Monuments',
       shape: {
         type: markerType.poi,
         anchored: true
@@ -164,8 +164,8 @@ export class IotMapManagerConfig {
         label: 'M'
       }
     },
-    'Vehicle': {
-      layer: 'Vehicle',
+    'Vehicles': {
+      layer: 'Vehicles',
       shape: {
         type: markerType.circle,
         anchored: true

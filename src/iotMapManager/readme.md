@@ -1,4 +1,4 @@
-# IotMapManager V0.5.5
+# IotMapManager V0.5.6
 
 This library provides management of markers dedicated to projects using mapping.
 ## use
@@ -167,3 +167,21 @@ Editable values :
         * icon
         * label
 
+
+## Use only design features
+You can get markerIcons, clusterIcons and UserMarkerIcons and there sizing and position to use them with an other map.
+
+    getMarkerIcon(marker: IotMarker, selected = false): L.DivIcon
+    getClusterIcon(cluster: IotCluster, selected = false, automatic = true): L.DivIcon
+    getUserMarkerIcon(userMarker: IotUserMarker): L.DivIcon
+
+Each function takes:
+
+    - a marker / cluster / userMarker according to define type
+    - selected: boolean. Set selected to 'false' to get a 'normal' icon and to 'true' to get a 'selected' icon (bigger for markers, popup visible for clusters)
+    - automatic: boolean. Set to true if you use automatic clustering, false otherwise. 
+returned L.DivIcon contains:
+
+    - html:         icon design containing shape, inner (label/icon), shadow and popup (hidden or visible)
+    - iconSize:     size of the icon
+    - iconAnchor:   point of the icon which corresponds to the marker location (the anchor end position in the marker icon, or icon center if no anchor)

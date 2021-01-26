@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.5
+* Version: 0.5.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -19,9 +19,9 @@ import {IotMapCommonSvg} from './iotMapCommonSvg';
 
 
 export class IotMapMarkers {
-  config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
+  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
-  getMarker(marker: IotMarker, selected = false): L.DivIcon {
+  public getMarkerIcon(marker: IotMarker, selected = false): L.DivIcon {
     let html: string;
 
     // default values
@@ -118,7 +118,6 @@ export class IotMapMarkers {
         className: 'my-custom-pin',
         iconSize:     iconSize, // size of the icon
         iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
-        popupAnchor:  popupAnchor,
         html: html
       });
   }
