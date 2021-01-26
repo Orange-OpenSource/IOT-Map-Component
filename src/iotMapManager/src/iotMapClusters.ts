@@ -48,7 +48,9 @@ export class IotMapClusters {
 
 
     // popup
-    let popup = `<div class='` + ((automatic ? 'popupauto' : (selected) ? 'popupselected' : 'popupunselected')) + `'>`;
+    const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected';
+
+    let popup = `<div class='` + (automatic ? 'automatic-cluster' : 'manual-cluster') + `'>`;
     popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + ` : <br>`;
 
     for (const aggr of cluster.aggregation) {
@@ -60,7 +62,7 @@ export class IotMapClusters {
 
     popup += `</div>`;
 
-    const html = `<div class='clustericon'>`
+    const html = `<div class='clustericon ` + clusterSelectionClass + `'>`
                   + imgShadow
                   + popup
                   + IotMapCommonSvg.cluster.svgDefinitionStart

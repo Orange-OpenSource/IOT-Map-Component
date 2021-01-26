@@ -91,7 +91,7 @@ export class IotMapManager {
     if (this.config.map.externalClustering){  // manual clustering
       layer = new L.FeatureGroup();
       layer.on('click', this.onMarkerClick.bind(this));
-    } else if (layerName === ACCURACY_LAYER) {  // accuracy zones
+    } else if (layerName === ACCURACY_LAYER || layerName === USERMARKER_LAYER) {  // accuracy zones or user marker = no clustering
       layer = new L.FeatureGroup();
     } else {  // clusterables marker
       layer = L.markerClusterGroup({
@@ -271,6 +271,11 @@ export class IotMapManager {
       if (accuracyToRemove) {
         this.getMarkerLayer(ACCURACY_LAYER).removeLayer(accuracyToRemove);
         this.accuracyObjects[markerId] = null;
+      }
+
+      // deselect marker if selected
+      if (this.selectedMarkerId === markerId) {
+        this.selectedMarkerId = '';
       }
     }
   }
@@ -498,6 +503,11 @@ export class IotMapManager {
       if (clusterToRemove) {
         this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove);
         this.markersObjects[id] = null;
+
+        // deselect cluster if selected
+        if (this.selectedMarkerId === id) {
+          this.selectedMarkerId = '';
+        }
       }
     }
   }
@@ -539,7 +549,8 @@ export class IotMapManager {
 
         // update cluster icon
         if (htmlModificationNeeded) {
-          const html = this.iotMapClusters.getClusterIcon(currentClusterInfos);
+          const selected = (this.selectedMarkerId === currentClusterInfos.id);
+          const html = this.iotMapClusters.getClusterIcon(currentClusterInfos, selected, !this.config.map.externalClustering);
           currentClusterObject.setIcon(html);
         }
       }
