@@ -549,7 +549,8 @@ export class IotMapManager {
 
         // update cluster icon
         if (htmlModificationNeeded) {
-          const html = this.iotMapClusters.getClusterIcon(currentClusterInfos);
+          const selected = (this.selectedMarkerId === currentClusterInfos.id);
+          const html = this.iotMapClusters.getClusterIcon(currentClusterInfos, selected, !this.config.map.externalClustering);
           currentClusterObject.setIcon(html);
         }
       }
