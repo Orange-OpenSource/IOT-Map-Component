@@ -213,7 +213,7 @@ export class IotMapMarkers {
       + `' src='` + shadowFile + `'/>`;
 
     // popup
-    let popup = `<div class='` + ((selected) ? 'popupselected' : 'popupunselected') + `'>`;
+    let popup = `<div class='popup'>`;
     if (marker.popup) {
       if (marker.popup.title) {
         popup += `<div class='pop-up-title'>` + marker.popup.title + `</div>`;
@@ -227,7 +227,8 @@ export class IotMapMarkers {
     popup += `</div>`;
 
     // result
-    return  `<div class='markericon'>`
+    const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected';
+    return  `<div class='markericon ` + markerSelectionClass + `'>`
               + popup
               + imgShadow
               + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`

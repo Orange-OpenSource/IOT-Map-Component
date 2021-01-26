@@ -15,7 +15,7 @@
 /* popup.css */
 
 /* POP-UP */
-.markericon > .popupunselected{
+.marker-unselected > .popup{
   position: absolute;
   bottom:50px;
   left: calc(50% - 15px);
@@ -31,7 +31,7 @@
   font-family: 'Helvetica Neue';
   font-weight: bold;
 }
-.markericon > .popupselected {
+.marker-selected > .popup {
   position: absolute;
   bottom:50px;
   left:-75px;
@@ -51,18 +51,18 @@
   z-index: 0;
 }
 
-.markericon > .popupselected .pop-up-title {
+.marker-selected > .popup .pop-up-title {
   font-size: 20px;
 
 }
 
-.markericon > .popupselected .pop-up-body {
+.marker-selected > .popup .pop-up-body {
   font-size: 14px;
 }
 
 
 /* MANUAL POPUP */
-.clustericon > .popupunselected {
+.cluster-unselected > .manual-cluster {
   position: absolute;
   bottom:50px;
   left: calc(50% - 15px);
@@ -79,7 +79,7 @@
   font-weight: bold;
 }
 
-.clustericon > .popupselected {
+.cluster-selected > .manual-cluster {
   position: absolute;
   bottom:50px;
   left:-50px;
@@ -99,43 +99,25 @@
   z-index: 0;
 }
 
-.clustericon:hover > .popupauto {
-  position: absolute;
-  bottom:50px;
-  left:-50px;
-  width: 270px;
-  max-height: 600px;
-  border-radius: 10px;
-  opacity: 1;
-
-  background-color: white;
-  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
-  overflow: hidden;
-  min-height: 10px;
-  padding: 10px 15px 80px;
-  font-family: 'Helvetica Neue';
-  font-weight: bold;
-  text-align: left;
-  z-index: 0;
-}
-
-.clustericon > .popupselected .pop-up-title {
+.cluster-selected > .manual-cluster .pop-up-title {
   font-size: 20px;
 }
-.clustericon > .popupselected .pop-up-bullet {
+.cluster-selected > .manual-cluster .pop-up-bullet {
   font-size: 14px;
   color: transparent;
 }
 
-.clustericon > .popupselected .pop-up-body {
+.cluster-selected > .manual-cluster .pop-up-body {
   font-size: 14px;
 }
 
-
+.cluster-selected> .clusteropacity {
+  fill-opacity: 1;
+}
 
 
 /* AUTO POPUP */
-.clustericon > .popupauto {
+.clustericon > .automatic-cluster {
   position: absolute;
   bottom:50px;
   left: calc(50% - 15px);
@@ -153,7 +135,7 @@
 }
 
 
-.clustericon:hover > .popupauto {
+.clustericon:hover > .automatic-cluster {
   position: absolute;
   bottom:50px;
   left:-50px;
@@ -173,17 +155,19 @@
   z-index: 0;
 }
 
-.clustericon:hover > .popupauto .pop-up-title {
+.clustericon:hover > .automatic-cluster .pop-up-title {
   font-size: 20px;
 }
-.clustericon:hover > .popupauto .pop-up-bullet {
+.clustericon:hover > .automatic-cluster .pop-up-bullet {
   font-size: 14px;
   color: transparent;
 }
 
-.clustericon:hover > .popupauto .pop-up-body {
+.clustericon:hover > .automatic-cluster .pop-up-body {
   font-size: 14px;
 }
+
+
 
 
 
