@@ -1,5 +1,6 @@
 import { IotMapManager } from '../iotMapManager/src/iotMapManager';
-import { ShapeType } from "./Test.stories.const";
+import { ShapeType } from "../iotMapManager/src/iotMapManagerTypes";
+
 import './Test.stories.css';
 import {
   withKnobs,
