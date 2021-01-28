@@ -472,7 +472,15 @@ export class IotMapManager {
     return this.map.getBounds();
   }
 
-  private defineClusterIcon(cluster) {
+  public setBounds(bounds: L.LatLngBounds) {
+    this.map.fitBounds(bounds);
+  }
+
+  public fitBounds(bounds: L.LatLngBounds, options = null) {
+    this.map.fitBounds(bounds, options);
+  }
+
+  private defineClusterIcon(cluster): L.DivIcon {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster);
     return this.iotMapClusters.getClusterIcon(currentCluster, false, true); // automatic cluster
   }
