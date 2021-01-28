@@ -82,7 +82,7 @@ export class IotMapManagerConfig {
   };
 
   markerStatus: MarkerStatus = {
-    'Positive': {
+    'positive': {
       shape: {
         color: '#32C832'
       },
@@ -94,7 +94,7 @@ export class IotMapManagerConfig {
         plural: 'positive'
       }
     },
-    'Neutral': {
+    'neutral': {
       shape: {
         color: '#527EDB'
       },
@@ -106,7 +106,7 @@ export class IotMapManagerConfig {
         plural: 'neutral'
       }
     },
-    'Warning': {
+    'warning': {
       shape: {
         color: '#FFCC00'
       },
@@ -118,7 +118,7 @@ export class IotMapManagerConfig {
         plural: 'in warning'
       }
     },
-    'Alert': {
+    'alert': {
       shape: {
         color: '#CD3C14'
       },
@@ -130,7 +130,7 @@ export class IotMapManagerConfig {
         plural: 'in alert'
       }
     },
-    'Inactive': {
+    'inactive': {
       shape: {
         color: '#CCCCCC'
       },
@@ -142,7 +142,7 @@ export class IotMapManagerConfig {
         plural: 'inactive'
       }
     },
-    'FoodAndDrink': {
+    'foodAndDrink': {
       shape: {
         color: '#467e74'
       },
@@ -154,7 +154,7 @@ export class IotMapManagerConfig {
         plural: 'food and drink'
       }
     },
-    'Shopping': {
+    'shopping': {
       shape: {
         color: '#b8860b'
       },
@@ -166,7 +166,7 @@ export class IotMapManagerConfig {
         plural: 'shopping'
       }
     },
-    'Health': {
+    'health': {
       shape: {
         color: '#d24d57'
       },
@@ -178,7 +178,7 @@ export class IotMapManagerConfig {
         plural: 'health'
       }
     },
-    'Entertainment': {
+    'entertainment': {
       shape: {
         color: '#886288'
       },
@@ -190,7 +190,7 @@ export class IotMapManagerConfig {
         plural: 'entertainment'
       }
     },
-    'Services': {
+    'services': {
       shape: {
         color: '#526e91'
       },
@@ -202,7 +202,7 @@ export class IotMapManagerConfig {
         plural: 'services'
       }
     },
-    'CivilServiceWorship': {
+    'civilServiceWorship': {
       shape: {
         color: '#874b0e'
       },
@@ -214,7 +214,7 @@ export class IotMapManagerConfig {
         plural: 'civil service / worship'
       }
     },
-    'Outdoor': {
+    'outdoor': {
       shape: {
         color: '#176129'
       },
@@ -226,7 +226,7 @@ export class IotMapManagerConfig {
         plural: 'outdoor'
       }
     },
-    'Transport': {
+    'transport': {
       shape: {
         color: '#19a0b8'
       },
