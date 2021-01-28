@@ -47,50 +47,50 @@ export class IotMapMarkers {
       if (template === undefined) {
         marker.template = undefined;
       } else {  // update marker with template info
-        if (template.layer) {
+        if (template.layer !== undefined) {
           marker.layer = template.layer;
         }
-        if (template.popup) {
-          if (!marker.popup) {
+        if (template.popup !== undefined) {
+          if (!marker.popup !== undefined) {
             marker.popup = {};
           }
-          if (template.popup.title) {
+          if (template.popup.title !== undefined) {
             marker.popup.title = template.popup.title;
           }
-          if (template.popup.body) {
+          if (template.popup.body !== undefined) {
             marker.popup.body = template.popup.body;
           }
         }
-        if (template.shape) {
+        if (template.shape !== undefined) {
           if (template.shape.type !== undefined) {
             marker.shape.type = template.shape.type;
           }
-          if (template.shape.anchored) {
+          if (template.shape.anchored !== undefined) {
             marker.shape.anchored = template.shape.anchored;
           }
-          if (template.shape.plain) {
+          if (template.shape.plain !== undefined) {
             marker.shape.plain = template.shape.plain;
           }
-          if (template.shape.color) {
+          if (template.shape.color !== undefined) {
             marker.shape.color = template.shape.color;
           }
-          if (template.shape.percent) {
+          if (template.shape.percent !== undefined) {
             marker.shape.percent = template.shape.percent;
           }
-          if (template.shape.accuracy) {
+          if (template.shape.accuracy !== undefined) {
             marker.shape.accuracy = template.shape.accuracy;
           }
         }
-        if (template.inner) {
-          if (!marker.inner) {
+        if (template.inner !== undefined) {
+          if (marker.inner === undefined) {
             marker.inner = {};
           }
-          if (template.inner.color) {
+          if (template.inner.color !== undefined) {
             marker.inner.color = template.inner.color;
           }
-          if (template.inner.icon) {
+          if (template.inner.icon !== undefined) {
             marker.inner.icon = template.inner.icon;
-          } else if (template.inner.label) {
+          } else if (template.inner.label !== undefined) {
             marker.inner.label = template.inner.label;
           }
         }
@@ -103,50 +103,50 @@ export class IotMapMarkers {
       if (status === undefined) {
         marker.status = undefined;
       } else {  // update marker with status info
-        if (status.layer) {
+        if (status.layer !== undefined) {
           marker.layer = status.layer;
         }
-        if (status.popup) {
-          if (!marker.popup) {
+        if (status.popup !== undefined) {
+          if (marker.popup === undefined) {
             marker.popup = {};
           }
-          if (status.popup.title) {
+          if (status.popup.title !== undefined) {
             marker.popup.title = status.popup.title;
           }
-          if (status.popup.body) {
+          if (status.popup.body !== undefined) {
             marker.popup.body = status.popup.body;
           }
         }
-        if (status.shape) {
+        if (status.shape !== undefined) {
           if (status.shape.type !== undefined) {
             marker.shape.type = status.shape.type;
           }
-          if (status.shape.anchored) {
+          if (status.shape.anchored !== undefined) {
             marker.shape.anchored = status.shape.anchored;
           }
-          if (status.shape.plain) {
+          if (status.shape.plain !== undefined) {
             marker.shape.plain = status.shape.plain;
           }
-          if (status.shape.color) {
+          if (status.shape.color !== undefined) {
             marker.shape.color = status.shape.color;
           }
-          if (status.shape.percent) {
+          if (status.shape.percent !== undefined) {
             marker.shape.percent = status.shape.percent;
           }
-          if (status.shape.accuracy) {
+          if (status.shape.accuracy !== undefined) {
             marker.shape.accuracy = status.shape.accuracy;
           }
         }
-        if (status.inner) {
-          if (!marker.inner) {
+        if (status.inner !== undefined) {
+          if (marker.inner === undefined) {
             marker.inner = {};
           }
-          if (status.inner.color) {
+          if (status.inner.color !== undefined) {
             marker.inner.color = status.inner.color;
           }
-          if (status.inner.icon) {
+          if (status.inner.icon !== undefined) {
             marker.inner.icon = status.inner.icon;
-          } else if (status.inner.label) {
+          } else if (status.inner.label !== undefined) {
             marker.inner.label = status.inner.label;
           }
         }
