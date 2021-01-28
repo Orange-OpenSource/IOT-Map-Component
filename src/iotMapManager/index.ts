@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 0.5.8
+* Version: 0.5.9
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -12,10 +12,10 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-export * from './dist/iotMapManagerConfig';
-export * from './dist/iotMapManagerTypes';
-export * from './dist/iotMapManager';
+export * from './src/iotMapManagerConfig';
+export * from './src/iotMapManagerTypes';
+export * from './src/iotMapManager';
 
-export * from './dist/iotMapUserMarkers';
-export * from './dist/iotMapClusters';
-export * from './dist/iotMapMarkers';
+export * from './src/iotMapUserMarkers';
+export * from './src/iotMapClusters';
+export * from './src/iotMapMarkers';
