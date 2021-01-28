@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager/index';
+import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
 
 
 @Component({
@@ -495,24 +495,22 @@ export class MapComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
- /*  IotMapManagerConfig.setConfig({
-      map: {
-        externalClustering: false
-      },
+   IotMapManagerConfig.setConfig({
      markerTemplates: {
 
-       'Hopital': {
-         layer: 'Monument',
+       'Vehicle': {
+         layer: 'Vehicles',
          shape: {
-           type: markerType.poi,
-           anchored: true
+           type: ShapeType.circle,
+           anchored: true,
+           plain: true
          },
          inner: {
-           label: 'H'
+           icon: 'iotmap-icons-vehicle'
          }
        }
      }
-    });*/
+    });
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getBounds();
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng

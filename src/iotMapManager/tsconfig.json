@@ -1,12 +1,19 @@
 {
-  "files": ["index.ts"],
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2015",
+
+    "target": "es5",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom", "es5"],
+    "sourceMap": true, // Creates *.js.map files
+    "jsx": "react", // Causes inline XML (JSX code) to be expanded
+    "strict": false, // Strict types, eg. prohibits `var x=0; x=null`
+    "alwaysStrict": true, // Enable JavaScript's "use strict" mode
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./lib",
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["index.ts"],
+  "exclude": [ "lib", "**/*.test.ts"],
+  "strict": false, // Strict types, eg. prohibits `var x=0; x=null`
+  "alwaysStrict": true // Enable JavaScript's "use strict" mode
 }
