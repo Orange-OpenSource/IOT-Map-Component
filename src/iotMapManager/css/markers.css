@@ -137,8 +137,25 @@
   fill-opacity: 1;
 }
 
-.usermarkericon .arrow{
+
+.usermarkericon{
+  position: relative;
+  width: 22px;
+  height: 22px;
+}
+
+.usermarkericon > svg{
   position: absolute;
-  top:24px;
-  left:24px;
+  top:0px;
+  left:0px;
+  z-index: 10;
+}
+
+.usermarkericon .usermarkershadow {
+  position: absolute;
+  top:-17px;
+  left:-17px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
 }
