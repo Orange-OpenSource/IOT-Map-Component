@@ -17,9 +17,6 @@
 
 .markericon{
   position: relative;
-  text-align: center;
-  width: 100px;
-  height: 100px;
 }
 .markericon > svg{
   position: absolute;
@@ -37,55 +34,64 @@
 
 .markericon .iconUnselected{
   position: absolute;
-  top:35px;
-  left:35px;
-  width:30px;
-  height:30px;
-  font-size:30px;
+  top:5px;
+  left:5px;
+  width:20px;
+  height:20px;
+  font-size:20px;
+  line-height:20px;
+  text-align: center;
 }
 
 .markericon .labelUnselected{
   position: absolute;
-  top:32px;
-  left:32px;
-  width:36px;
-  height:36px;
-  font-size:36px;
-  line-height:36px;
+  top:5px;
+  left:5px;
+  width:20px;
+  height:20px;
+  font-size:20px;
+  line-height:20px;
+  text-align: center;
 }
 
 
 .markericon .iconSelected{
   position: absolute;
-  top:30px;
-  left:30px;
-  width:40px;
-  height:40px;
-  font-size:40px;
-  line-height:40px;
+  top:12px;
+  left:12px;
+  width:26px;
+  height:26px;
+  font-size:26px;
+  line-height:26px;
+  text-align: center;
 }
 
 .markericon .labelSelected{
   position: absolute;
-  top:28px;
-  left:28px;
-  width:44px;
-  height:44px;
-  font-size:44px;
-  line-height:44px;
+  top:7px;
+  left:7px;
+  width:36px;
+  height:36px;
+  font-size:36px;
+  line-height:36px;
+  text-align: center;
 }
 
 .markericon .shadowSelected{
   position: absolute;
-  top:10px;
-  left:0px;
+  top:0px;
+  left:-10px;
+  width:70px;
+  height: 70px;
   z-index: 5;
 }
 
 .markericon .shadowUnselected{
   position: absolute;
-  top:0px;
-  left:0px;
+  top:-20px;
+  left:-20px;
+  width:70px;
+  height: 70px;
   z-index: 5;
 }
 

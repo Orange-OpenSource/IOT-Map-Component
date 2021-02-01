@@ -153,37 +153,19 @@ export class IotMapMarkers {
       }
     }
 
-    html = this.getSvg(marker, selected);
-
-    // sizing
-    const size = this.config.markers.size;
-    const markerSize = (selected)
-      ? size.selected
-      : ((marker.shape.type === ShapeType.circle) ? size.unselectedCircle : size.unselectedSquare);
-    const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
-
-    let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center
-    if (marker.shape.anchored || selected) {
-      const height = (size.fullSvgHeight + markerSize.svgHeight) / 2 + markerSize.anchoredHeight;
-      iconAnchor = L.point(size.fullSvgWidth / 2, height);
-    }
-
-    // creating icon
-    return new L.DivIcon({
-        className: 'my-custom-pin',
-        iconSize:     iconSize, // size of the icon
-        iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
-        html: html
-      });
+    return this.getDivIcon(marker, selected);
   }
 
-  private getSvg(marker: IotMarker, selected: boolean): string {
+  private getDivIcon(marker: IotMarker, selected: boolean): L.DivIcon {
     // shape
     let svgShape: string;
     let svgBG: string;
     let svgBorder: string;
     let svgGauge: string;
     let shadowFile = './assets/img/';
+
+    let iconSize, iconAnchorHeight = 0;
+    let realIconSize, realIconAnchorHeight = 0;
 
     const commonSvg = (marker.shape.type === ShapeType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square;
     if (marker.shape.color === undefined) {
@@ -193,44 +175,71 @@ export class IotMapMarkers {
 
     // shape
     if (selected) {   // Only anchored markers can be selected
-      if (marker.shape.type === ShapeType.poi || marker.shape.plain) {  // STD
+      iconSize = 66;
+      iconAnchorHeight = 8;
+      realIconSize = 50;
+      realIconAnchorHeight = 5;
+      if (marker.shape.plain) {  // STD
         svgShape = commonSvg.selStdColour + ` fill='` + funColor + `'/>`;
       } else {  // FUN
         svgShape = commonSvg.selFunColour + ` fill='` + funColor + `'/>`;
         svgBG = commonSvg.selFunBg;
       }
       shadowFile += commonSvg.selShadow;
-    } else if (marker.shape.type === ShapeType.poi || marker.shape.plain) {  // STD
+    } else if (marker.shape.type === ShapeType.circle) {
+      iconSize = 46;
+      realIconSize = 30;
       if (marker.shape.anchored) {
+        iconAnchorHeight = 8;
+        realIconAnchorHeight = 6;
         svgBorder = commonSvg.pinBorder;
         svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`;
         shadowFile += commonSvg.pinShadow;
-      } else { // FUN
+      } else {
         svgBorder = commonSvg.border;
         svgShape = commonSvg.stdColour + ` fill='` + funColor + `'/>`;
         shadowFile += commonSvg.shadow;
       }
-    } else {  // FUN
-      if (marker.shape.anchored) {
-        svgBorder = commonSvg.pinBorder;
-        svgShape = commonSvg.pinFunColour + ` fill='` + funColor + `'/>`;
-        svgBG = commonSvg.pinFunBg;
-        shadowFile += commonSvg.pinShadow;
+
+    } else if (marker.shape.type === ShapeType.square) {
+      iconSize = 44;
+      realIconSize = 30;
+      if( marker.shape.anchored) {
+        iconAnchorHeight = 10;
+        realIconAnchorHeight = 7;
+        if (marker.shape.plain) {
+          svgBorder = commonSvg.pinBorder;
+          svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`;
+          shadowFile += commonSvg.pinShadow;
+        } else {
+          svgBorder = commonSvg.pinBorder;
+          svgShape = commonSvg.pinFunColour + ` fill='` + funColor + `'/>`;
+          svgBG = commonSvg.pinFunBg;
+          shadowFile += commonSvg.pinShadow;
+        }
       } else {
-        svgBorder = commonSvg.border;
-        svgShape = commonSvg.funColour + funColor + `'/>`;
-        shadowFile += commonSvg.shadow;
-        svgBG = commonSvg.funBg;
+        if (marker.shape.plain) {
+          svgBorder = commonSvg.border;
+          svgShape = commonSvg.stdColour + ` fill='` + funColor + `'/>`;
+          shadowFile += commonSvg.shadow;
+        } else {
+          svgBorder = commonSvg.border;
+          svgShape = commonSvg.funColour + funColor + `'/>`;
+          shadowFile += commonSvg.shadow;
+          svgBG = commonSvg.funBg;
+        }
       }
     }
 
+    // calculate ViewBox
+    const x = (100 - iconSize) / 2;
+    const y = (100 - iconSize) / 2;
+    const w = iconSize;
+    const h = iconSize + iconAnchorHeight;
+    const viewBox = `'` + x + ` ` + y + ` ` + w + ` ` + h + `'`;
+
     // inner
     let innerDesign = '';
-    const conf = (selected)
-      ? this.config.markers.size.selected
-      : ((marker.shape.type === ShapeType.circle)
-            ? this.config.markers.size.unselectedCircle
-            : this.config.markers.size.unselectedSquare);
 
     if (marker.inner) {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color;
@@ -250,6 +259,12 @@ export class IotMapMarkers {
 
     // state / gauge
     if (marker.shape.percent && marker.shape.type === ShapeType.circle) {
+      const conf = (selected)
+        ? this.config.markers.size.selected
+        : ((marker.shape.type === ShapeType.circle)
+          ? this.config.markers.size.unselectedCircle
+          : this.config.markers.size.unselectedSquare);
+
       const gaugeColor = marker.shape.color;
 
       const perimeter = 2 * 3.14 * conf.gaugeRadius;
@@ -282,14 +297,44 @@ export class IotMapMarkers {
 
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected';
-    return  `<div class='markericon ` + markerSelectionClass + `'>`
+    let html =   `<div class='markericon ` + markerSelectionClass + `'>`
               + popup
               + imgShadow
-              + `<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>`
+              + `<svg xmlns='http://www.w3.org/2000/svg' width='`+ realIconSize + `' height='` + (realIconSize + realIconAnchorHeight) + `' viewBox=` + viewBox + `>`
                 + svgBorder + svgShape + svgBG + svgGauge
               + `</svg>`
               + innerDesign
             + `</div>`      ;
+
+
+
+ /*   const size = this.config.markers.size;
+    const markerSize = (selected)
+      ? size.selected
+      : ((marker.shape.type === ShapeType.circle) ? size.unselectedCircle : size.unselectedSquare);
+    const iconSize: L.Point = L.point(size.fullSvgWidth, size.fullSvgHeight);
+
+    let iconAnchor: L.Point = L.point(size.fullSvgWidth / 2, size.fullSvgHeight / 2); // by default = center
+    if (marker.shape.anchored || selected) {
+      const height = (size.fullSvgHeight + markerSize.svgHeight) / 2 + markerSize.anchoredHeight;
+      iconAnchor = L.point(size.fullSvgWidth / 2, height);
+    }
+*/
+    const iconRealSize : L.Point = L.point(realIconSize, realIconSize + realIconAnchorHeight);
+    const iconAnchorX = realIconSize / 2 ;
+    const iconAnchorY = (realIconAnchorHeight == 0)
+      ? realIconSize / 2
+      : realIconSize + realIconAnchorHeight;
+    const iconAnchor : L.Point = L.point(iconAnchorX, iconAnchorY);
+    // creating icon
+    return new L.DivIcon({
+      className: 'my-custom-pin',
+      iconSize:     iconSize, // size of the icon
+      iconAnchor:   iconAnchor, // point of the icon which will correspond to marker's location
+      html: html
+    });
+
+
 
   }
 }

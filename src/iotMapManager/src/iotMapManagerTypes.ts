@@ -14,7 +14,7 @@
 
 import * as L from 'leaflet';
 
-export enum ShapeType { circle, square, poi}
+export enum ShapeType { circle, square}
 
 export class CustomDataMarker extends L.Marker {
   data: any;
