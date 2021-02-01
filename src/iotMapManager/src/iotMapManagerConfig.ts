@@ -26,7 +26,7 @@ export class IotMapManagerConfig {
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 100,
-    externalClustering: true,
+    externalClustering: false,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***

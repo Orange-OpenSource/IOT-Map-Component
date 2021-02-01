@@ -82,8 +82,8 @@
 .cluster-selected > .manual-cluster {
   position: absolute;
   bottom:25px;
-  left:-125px;
-  width: 270px;
+  left:-100px;
+  width: 220px;
   max-height: 600px;
   border-radius: 10px;
   opacity: 1;
@@ -138,8 +138,8 @@
 .clustericon:hover > .automatic-cluster {
   position: absolute;
   bottom:25px;
-  left:-125px;
-  width: 270px;
+  left:-100px;
+  width: 220px;
   max-height: 600px;
   border-radius: 10px;
   opacity: 1;
