@@ -36,15 +36,22 @@ export class IotMapClusters {
         + ` r='` + radius
         + `' stroke='` + color
         + `' stroke-dasharray='` + arc + `, ` + perimeter
-        + `' transform='rotate(` + angle + ` 100 100)'/>`;
+        + `' transform='rotate(` + angle + ` 25 25)'/>`;
       angle += n * 360 / cluster.childCount;
     }
 
     // label design
-    const svgLabel = `<text fill-opacity='1' x=` + this.config.clusters.size.fullSvgWidth / 2
+    /*const svgLabel = `<text fill-opacity='1' x=` + this.config.clusters.size.fullSvgWidth / 2
                         + ` y=` + this.config.clusters.size.fullSvgHeight / 2
-                        + ` >` + cluster.childCount + `</text>`;
+                        + ` >` + cluster.childCount + `</text>`;*/
     const imgShadow = `<img class='clusterShadow' src='./assets/img/` + IotMapCommonSvg.cluster.shadow + `'/>`;
+
+
+
+    const innerLabel = `<span class='clusterLabel' style='color: ` + this.config.markers.font.color
+      + `; font-family: ` + this.config.markers.font.family
+      + `; font-weight: ` + this.config.markers.font.weight
+      + `' >` + cluster.childCount + `</span>`;
 
 
     // popup
@@ -67,16 +74,18 @@ export class IotMapClusters {
                   + popup
                   + IotMapCommonSvg.cluster.svgDefinitionStart
                   + IotMapCommonSvg.cluster.clusterBG
-                  + svgLabel
                   + svgGauge
                   + IotMapCommonSvg.cluster.svgDefinitionEnd
+
+                  + innerLabel
                 + `</div>`;
 
     // tslint:disable:max-line-length
     return new L.DivIcon({
       html: html,
       className: 'my-cluster-class',
-      iconSize: [this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight]
+      iconSize: L.point(50, 50),
+      iconAnchor: L.point(25, 25)//[this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight]
     });
   }
 }

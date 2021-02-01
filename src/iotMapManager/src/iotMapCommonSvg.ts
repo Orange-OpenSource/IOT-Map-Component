@@ -16,10 +16,10 @@ export class IotMapCommonSvg {
 // tslint:disable:max-line-length
 // clusters
   static cluster: any = {
-    svgDefinitionStart: `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200' class='clusteropacity'>`,
+    svgDefinitionStart: `<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' class='clusteropacity'>`,
     svgDefinitionEnd: `</svg>`,
-    gauge: `<circle fill-opacity='1' cx='100' cy='100' stroke-width='18' stroke-linecap='butt' fill='none'`,
-    clusterBG: `<circle  r='75' cx='100' cy='100' fill='white'/>`,
+    gauge: `<circle fill-opacity='1' cx='25' cy='25' stroke-width='6' stroke-linecap='butt' fill='none'`,
+    clusterBG: `<circle  r='25' cx='25' cy='25' fill='white'/>`,
     shadow: `CLU_Shadow.png`,
   };
 

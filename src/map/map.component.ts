@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
+import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from '../iotMapManager/index';
 
 
 @Component({
@@ -24,19 +24,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.895,
         lng: 4.870
       },
-      /*shape: {
-        type: markerType.square,
-        anchored: false,
-        plain : false
-      },
-      layer: 'Monument',
-      status : 'Positive',
-      inner : {
-        label : 'h',
-        color: 'green'
-      },*/
-      template: 'Temperature',
-      status : 'Positive'
+      template: 'square',
+      status : 'positive'
     },
     {
       id: 's2',
@@ -44,22 +33,12 @@ export class MapComponent implements AfterViewInit {
         lat: 44.895,
         lng: 4.875
       },
-      /*shape: {
-        type : markerType.square,
-        anchored: true,
-        plain : false
-      },*/
       popup: {
         title: 'Ecole Jean Rostand : ',
         body: `<a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`
       },
-      /*inner: {
-        icon: 'iotmap-icons-School',
-        color: 'green'
-      },
-      layer: 'Etablissements',*/
-      template: 'Monument',
-      status : 'Neutral',
+      template: 'square',
+      status : 'neutral',
     },
     {
       id: 's3',
@@ -71,18 +50,8 @@ export class MapComponent implements AfterViewInit {
         title: `<img src='assets/icons/School.svg'/>`,
         body: 'Collège Debussy'
       },
-      /*shape: {
-        type : markerType.square,
-        plain : false,
-        anchored: true
-      },
-      layer: 'Etablissements',
-      inner: {
-        color: 'white',
-        label: 'a'
-      },*/
-      template: 'Monument',
-      status : 'Warning',
+      template: 'square',
+      status : 'warning',
     },
     {
       id: 's4',
@@ -90,18 +59,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.895,
         lng: 4.885
       },
-      /*shape: {
-        type : markerType.square,
-        anchored: false,
-        plain: false
-      },
-      inner: {
-        icon: 'iotmap-icons-accessibility_hearing',
-        color: 'blue'
-      },
-      layer: 'Monument',*/
-      template: 'Monument',
-      status: 'Alert',
+      template: 'square',
+      status: 'alert',
     },
     {
       id: 's5',
@@ -120,37 +79,26 @@ export class MapComponent implements AfterViewInit {
         color: 'green'
       },
       layer: 'Etablissements',
-      status: 'Inactive',
+      status: 'inactive',
     },
     {
       id: 's6',
-    location: {
+      location: {
         lat: 44.895,
         lng: 4.895
       },
-
-      /*shape: {
-        type : markerType.square,
-        anchored: false,
-        plain: false
-      },
-      inner: {
-        icon: 'iotmap-icons-family_place',
-        color: 'black'
-      },
-      layer: 'Monument'*/
-      template: 'Monument',
+      template: 'square',
     },
 
     // POI
     {
       id: 'p1',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.870
       },
       shape: {
-        type : ShapeType.poi,
+        type : ShapeType.square,
         anchored: false,
         plain: false
       },
@@ -159,7 +107,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'iotmap-icons-School',
         color: 'blue'
       },
-      status: 'Positive'
+      status: 'positive'
     },
     {
       id: 'p2',
@@ -172,15 +120,16 @@ export class MapComponent implements AfterViewInit {
         body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.'
       },
       shape: {
-        type : ShapeType.poi,
-        anchored: true
+        type : ShapeType.square,
+        anchored: true,
+        plain: true
       },
       inner: {
         icon: 'iotmap-icons-School',
         color: 'navyblue'
       },
       layer: 'Etablissements',
-      status: 'Neutral'
+      status: 'neutral'
     },
     {
       id: 'p3',
@@ -188,13 +137,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.890,
         lng: 4.880
       },
-      /*shape: {
-        type : markerType.poi,
-        anchored: true
-      },
-      layer: 'Monument',*/
-      template: 'Monument',
-      status: 'Warning'
+      template: 'monument',
+      status: 'warning'
     },
     {
       id: 'p4',
@@ -202,17 +146,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.890,
         lng: 4.885
       },
-      /*shape: {
-        type : markerType.poi,
-        anchored: false
-      },
-      layer: 'Monument',
-      inner: {
-        icon: 'iotmap-icons-games',
-        color: 'black'
-      },*/
-      template: 'Monument',
-      status: 'Alert'
+      template: 'monument',
+      status: 'alert'
     },
     {
       id: 'p5',
@@ -221,8 +156,9 @@ export class MapComponent implements AfterViewInit {
         lng: 4.890
       },
       shape: {
-        type : ShapeType.poi,
+        type : ShapeType.square,
         anchored: true,
+        plain: true,
         accuracy: 300
       },
       layer: 'Etablissements',
@@ -230,7 +166,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'iotmap-icons-hospital',
         color: 'white'
       },
-      status: 'Inactive'
+      status: 'inactive'
     },
     {
       id: 'p6',
@@ -239,7 +175,8 @@ export class MapComponent implements AfterViewInit {
         lng: 4.895
       },
       shape: {
-        type : ShapeType.poi,
+        type : ShapeType.square,
+        plain: true,
         anchored: false
       },
       layer: 'Etablissements',
@@ -254,42 +191,32 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'c1',
       layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.870
       },
-      /*shape: {
-        type : markerType.circle,
-        anchored: false,
-        percent: 100,
-        accuracy: 500
+      shape: {
+        type: ShapeType.circle,
+        percent: 75,
+        anchored: false
       },
+      status: 'positive',
       inner: {
-        icon: 'iotmap-icons-Car_pooling',
+        icon: 'iotmap-icons-vehicle',
         color: 'black'
-      },*/
-      template: 'Vehicle',
-      status: 'Positive'
+      }
+      /*template: 'vehicle',
+      status: 'positive'*/
     },
     {
       id: 'c2',
       layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.875
       },
-      /*shape: {
-        type : markerType.circle,
-        anchored: true,
-        plain : true
-      },
-      status: 'Neutral',
-      inner: {
-        icon: 'iotmap-icons-Car_pooling',
-        color: 'black'
-      }*/
-      template: 'Vehicle',
-      status: 'Neutral',
+      template: 'vehicle',
+      status: 'neutral',
     },
     {
       id: 'c3',
@@ -298,17 +225,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.88
       },
-      /*shape: {
-        type : markerType.circle,
-        anchored: true,
-        percent: 75
-      },
-      inner: {
-        icon: 'iotmap-icons-Car_pooling',
-        color: 'black'
-      },*/
-      template: 'Vehicle',
-      status: 'Warning'
+      template: 'vehicle',
+      status: 'warning'
     },
     {
       id: 'c4',
@@ -317,16 +235,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.885
       },
-      /*shape: {
-        type : markerType.circle,
-        anchored: false
-      },
-      inner: {
-        icon: 'iotmap-icons-Car_pooling',
-        color: 'black'
-      },*/
-      template: 'Vehicle',
-      status: 'Alert'
+      template: 'vehicle',
+      status: 'alert'
     },
     {
       id: 'c5',
@@ -335,76 +245,27 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.890
       },
-
-     /* shape: {
-        type : markerType.circle,
-        anchored: true,
-        plain: false
-      },
-      inner: {
-        label: 'O',
-        color: 'black'
-      },*/
-      template: 'Vehicle',
-      status: 'Inactive'
+      template: 'vehicle',
+      status: 'inactive'
     },
     {
       id: 'c6',
-      //layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.895
       },
       popup: {
         title: `<img src='../assets/icons/temperature.svg'><br>`,
         body: `La <i>température</i><br><b>de 18°C</b>`,
-      },/*
+      },
+      template: 'square',
+      status: 'warning',
       inner: {
-        icon : 'iotmap-icons-temperature',
-        color: 'green'
-      }*/
-      template: 'Vehicle',
-      //status: 'Inactive'
-    }];
-  /*
-    markersIdToRemove = ['p4', 's2', 'z2'];
-
-    markerToAdd: IotMarker = {
-      id: 'toAdd',
-      location: {
-        lat: 44.886,
-        lng: 4.895
-      },
-      layer: 'circles',
-      shape: {
-        type : markerType.circle,
-        anchored: false
-      },
-      inner: {
-        icon: 'iotmap-icons-4g',
-        color: 'blue'
-      },
-
-    };
-
-    markerToUpdate: IotMarker = {
-      id: 'toUpdate',
-      layer: 'circles',
-      location: {
-        lat: 44.887,
-        lng: 4.895
-      },
-      shape : {
-        type: markerType.circle,
-        anchored: true
-      },
-      status: 'Warning',
-      inner: {
-        label: 'X',
-        color: 'gray'
+        label: "H",
+        color: 'black'
       }
-    };
-  */
+    }];
+
   clustersList: IotCluster[] = [
     {
       id: 'cluster1',
@@ -498,7 +359,7 @@ export class MapComponent implements AfterViewInit {
    IotMapManagerConfig.setConfig({
      markerTemplates: {
 
-       'Vehicle': {
+       'vehicle': {
          layer: 'Vehicles',
          shape: {
            type: ShapeType.circle,
@@ -528,6 +389,21 @@ export class MapComponent implements AfterViewInit {
 
 
     this.commonIotMap.addUserMarker(this.userMarker);
+
+    setTimeout(() => { this.commonIotMap.updateMarker('s6', {template : 'Temperature'});}, 3000);
+
+
+    // setBounds
+
+
+    /*setTimeout(() => {
+      const currentCoord = this.commonIotMap.getBounds();
+      let southWest = L.latLng(currentCoord.getSouth() + 0.02, currentCoord.getWest() + 0.02);
+      let northEast = L.latLng(currentCoord.getNorth() + 0.02, currentCoord.getEast() + 0.02);
+      let newCoord = L.latLngBounds(southWest, northEast);
+      this.commonIotMap.setBounds(newCoord);
+      }, 5000);*/
+    /*
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.9, lng: 4.8818 }, direction: 180});}, 1000);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.899, lng: 4.8816 }, direction: 180});}, 1500);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.898, lng: 4.8814 }, direction: 180});}, 2000);
@@ -563,9 +439,9 @@ export class MapComponent implements AfterViewInit {
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 330});}, 10100);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 340});}, 10200);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 350});}, 10300);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);
+    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);*/
 
-    setTimeout(() => { this.commonIotMap.updateMarker('s6', {template : 'Temperature'});}, 11000);
+
 
 
 

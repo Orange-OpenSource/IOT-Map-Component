@@ -26,7 +26,7 @@ export class IotMapManagerConfig {
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 100,
-    externalClustering: false,
+    externalClustering: true,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***
@@ -51,7 +51,8 @@ export class IotMapManagerConfig {
     // *** Private conf: not modified by SetConfig ***
     font: {
       family: 'Helvetica Neue',
-      weight: 'bold'
+      weight: 'bold',
+      color: 'black'
     },
     size: {
       fullSvgWidth: 100,
@@ -282,7 +283,7 @@ export class IotMapManagerConfig {
     },
     gauge: {
       startAngle: -90,
-      radius: 62
+      radius: 20
     },
     defaultColor: 'black'
   };

@@ -64,7 +64,7 @@
 /* MANUAL POPUP */
 .cluster-unselected > .manual-cluster {
   position: absolute;
-  bottom:50px;
+  bottom:25px;
   left: calc(50% - 15px);
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 0;
@@ -81,8 +81,8 @@
 
 .cluster-selected > .manual-cluster {
   position: absolute;
-  bottom:50px;
-  left:-50px;
+  bottom:25px;
+  left:-125px;
   width: 270px;
   max-height: 600px;
   border-radius: 10px;
@@ -92,7 +92,7 @@
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
   overflow: hidden;
   min-height: 10px;
-  padding: 10px 15px 80px;
+  padding: 10px 15px 40px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
   text-align: left;
@@ -119,7 +119,7 @@
 /* AUTO POPUP */
 .clustericon > .automatic-cluster {
   position: absolute;
-  bottom:50px;
+  bottom:25px;
   left: calc(50% - 15px);
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 0;
@@ -137,8 +137,8 @@
 
 .clustericon:hover > .automatic-cluster {
   position: absolute;
-  bottom:50px;
-  left:-50px;
+  bottom:25px;
+  left:-125px;
   width: 270px;
   max-height: 600px;
   border-radius: 10px;
@@ -148,7 +148,7 @@
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
   overflow: hidden;
   min-height: 10px;
-  padding: 10px 15px 80px;
+  padding: 10px 15px 40px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
   text-align: left;
