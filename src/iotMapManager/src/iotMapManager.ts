@@ -226,17 +226,11 @@ export class IotMapManager {
       if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
         this.updateMarker(marker.id, marker);
       } else {
-        // force layer name if not present
-        if (marker.layer === undefined) {
-          marker.layer = this.config.map.defaultLayerName;
-        }
-
         const newMarker: CustomDataMarker =
           new CustomDataMarker(
             marker,
             {icon: this.iotMapMarkers.getMarkerIcon(marker)}
             );
-
         this.getMarkerLayer(marker.layer).addLayer(newMarker);
         this.markersObjects[marker.id] = newMarker;
 

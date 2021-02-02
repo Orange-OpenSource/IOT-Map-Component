@@ -40,14 +40,10 @@ export class IotMapClusters {
       angle += n * 360 / cluster.childCount;
     }
 
-    // label design
-    /*const svgLabel = `<text fill-opacity='1' x=` + this.config.clusters.size.fullSvgWidth / 2
-                        + ` y=` + this.config.clusters.size.fullSvgHeight / 2
-                        + ` >` + cluster.childCount + `</text>`;*/
+    // shadow
     const imgShadow = `<img class='clusterShadow' src='./assets/img/` + IotMapCommonSvg.cluster.shadow + `'/>`;
 
-
-
+    // label
     const innerLabel = `<span class='clusterLabel' style='color: ` + this.config.markers.font.color
       + `; font-family: ` + this.config.markers.font.family
       + `; font-weight: ` + this.config.markers.font.weight
@@ -58,7 +54,7 @@ export class IotMapClusters {
     const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected';
 
     let popup = `<div class='` + (automatic ? 'automatic-cluster' : 'manual-cluster') + `'>`;
-    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + ` : <br>`;
+    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + `<br>`;
 
     for (const aggr of cluster.aggregation) {
       popup += `<span class='pop-up-bullet' style="text-shadow: 0 0 0 ` + aggr.color + `"> &#x26ab;  </span>
