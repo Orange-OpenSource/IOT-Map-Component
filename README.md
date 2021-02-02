@@ -61,7 +61,7 @@ Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 ma
 
 [NOT IMPLEMENTED YET] <ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
 
-<img src="doc/Image6.png">
+<img src="doc/paths.png">
 
 ## Quick start
 
