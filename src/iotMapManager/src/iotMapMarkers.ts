@@ -92,6 +92,7 @@ export class IotMapMarkers {
             marker.inner.icon = template.inner.icon;
           } else if (template.inner.label !== undefined) {
             marker.inner.label = template.inner.label;
+            marker.inner.icon = undefined;
           }
         }
       }
@@ -148,6 +149,7 @@ export class IotMapMarkers {
             marker.inner.icon = status.inner.icon;
           } else if (status.inner.label !== undefined) {
             marker.inner.label = status.inner.label;
+            marker.inner.icon = undefined;
           }
         }
       }
