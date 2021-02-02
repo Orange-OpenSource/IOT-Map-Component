@@ -24,9 +24,9 @@ Note that shapes appear bigger when selected, and with an anchor for a better ac
 <ins>Templates</ins> can be used to define marker templates, setting one or several markers attributes. By setting **template** attribute, marker inherits template attributes.
 
 3 templates are defined:
-- ‘circle’ for objects,  
-- ‘square’ for a second representation of objects,
-- ‘poi‘ for points of interest.
+- *circle* for objects,  
+- *square* for a second representation of objects,
+- *poi* for points of interest.
 
 <img src="doc/templates.png">
 
