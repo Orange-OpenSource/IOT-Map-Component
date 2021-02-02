@@ -37,6 +37,8 @@ Status is also used by clusterization: repartition of clusterized markers is bas
 Note that order of priority concerning attribute value is : status, then template, then attributes.
 
 Several status are defined: 
+- *positive*, *neutral*, *warning*, *alert*, *inactive*, 
+- *foodAndDrink*, *shopping*, *health*, *entertainment*, *services*, *civilServiceWorship*, *outdoor*, *transport*, 
 
 <img src="doc/status.png">
 
