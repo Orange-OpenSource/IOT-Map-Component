@@ -13,41 +13,55 @@ It provides Orange branded design and User eXperience.
 
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
-<ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially associated with a **popup** HTML message, bringing, as a string, information of a **status**. In order to modify their display, markers contain: 
-- a **shape** which can be of different **type** (*poi* (Point of Interest), **circle*, *square*), be **anchored** or not, displayed in a **color**, with a **percent** gauge, and with a cicle of **accuracy**. **Circle** and *poi* shapes are **plain**, whereas *square* shapes are not **plain**.
+<ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially described by a **popup**, with **title** and **body** HTML messages displayed on click. Markers contain also: 
+- a **shape** with a **type** (can be *circle* or *square*), **anchored** or not, **plain** or not, displayed in a **color**, with a **percent** gauge (only for *circle* shapes), and with a circle of **accuracy**.
 - an **inner** which can be either an **icon** or a **label**, in a specific **color**,
 
-Note that shapes appear bigger when selected, and with an anchor for a better accuracy.
+Note that shapes appear bigger when selected, and always with an anchor for a better accuracy.
 
-<img src="doc/Image1.png">
+<img src="doc/markers.png">
 
-<img src="doc/Image3.png">
+<ins>Templates</ins> can be used to define marker templates, setting one or several markers attributes. By setting **template** attribute, marker inherits template attributes.
+
+3 templates are defined:
+- *circle* for objects,  
+- *square* for a second representation of objects,
+- *poi* for points of interest.
+
+<img src="doc/templates.png">
+
+<ins>Status</ins> can be used, in the same way, to define marker status, setting on or several markers attributes. By setting **status** attribute, marker inherits status attributes.
+
+Status is also used by clusterization: repartition of clusterized markers is based on status **color**, and cluster popup displays **singular** or **plural** status **name**.
+
+Note that order of priority concerning attribute value is : status, then template, then attributes.
+
+Several status are defined: 
+- *positive*, *neutral*, *warning*, *alert*, *inactive*, 
+- *foodAndDrink*, *shopping*, *health*, *entertainment*, *services*, *civilServiceWorship*, *outdoor*, *transport*, 
+
+<img src="doc/status.png">
 
 - [NOT IMPLEMENTED YET] An always visible **tab** can be optionnaly added to every marker, for additionnal information:
 
-<img src="doc/Image2.png">
-
-3 ways allow to customize markers :
-- Playing with attributes.
-- Defining marker types, with default types implementing Orange design.
-- Defining marker status, that are used for clusterization, with default status implementing Orange design.
+<img src="doc/tabs.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
 Markers are clusterized:
-- by layer (2 markers from 2 different layers will not be clusterized).
+- by layer (2 markers from 2 different layers will not be clusterized together).
 - using **status** attribute for the color repartition on cluster, and information displayed in the cluster popup.
 
 Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 markers. Beyond that, *external* mode allows to manage manually clusters.
 
-<img src="doc/Image7.png">
+<img src="doc/clusters.png">
 
 <ins>User marker</ins> to display the current location of the application user, with an optionnal **direction** (in degree) and **accuracy**.
 
-<img src="doc/Image5.png">
+<img src="doc/usermarker.png">
 
 [NOT IMPLEMENTED YET] <ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
 
-<img src="doc/Image6.png">
+<img src="doc/paths.png">
 
 ## Quick start
 
