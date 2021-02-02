@@ -1,6 +1,4 @@
-import {markerType} from "../iotMapManager/src/iotMapManagerTypes";
-
-export enum ShapeType {circle, square, poi }
+import { ShapeType } from "../iotMapManager/src/iotMapManagerTypes";
 
 export interface IOTMarker {
   id: string;
@@ -12,7 +10,7 @@ export interface IOTMarker {
   popup?: string;
   status?: string;
   shape?: {
-    type?: markerType;
+    type?: ShapeType;
     anchored?: boolean;
     plain?: boolean;
     color?: string;
@@ -37,7 +35,7 @@ export const MARKER_LIST = [
       lng: 4.870
     },
     shape: {
-      type: markerType.square,
+      type: ShapeType.square,
       anchored: false,
       plain : false
     },
@@ -55,7 +53,7 @@ export const MARKER_LIST = [
       lng: 4.875
     },
     shape: {
-      type : markerType.square,
+      type : ShapeType.square,
       anchored: true,
       plain : false
     },
@@ -75,7 +73,7 @@ export const MARKER_LIST = [
     },
     popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
     shape: {
-      type : markerType.square,
+      type : ShapeType.square,
       plain : false,
       anchored: true
     },
@@ -93,7 +91,7 @@ export const MARKER_LIST = [
       lng: 4.885
     },
     shape: {
-      type : markerType.square,
+      type : ShapeType.square,
       anchored: false,
       plain: false
     },
@@ -111,7 +109,7 @@ export const MARKER_LIST = [
       lng: 4.890
     },
     shape: {
-      type : markerType.square,
+      type : ShapeType.square,
       anchored: true,
       plain: false,
       accuracy: 200
@@ -131,7 +129,7 @@ export const MARKER_LIST = [
     },
 
     shape: {
-      type : markerType.square,
+      type : ShapeType.square,
       anchored: false,
       plain: false
     },
@@ -150,7 +148,7 @@ export const MARKER_LIST = [
       lng: 4.870
     },
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: false,
       plain: false
     },
@@ -169,7 +167,7 @@ export const MARKER_LIST = [
     },
     popup: 'Ecole Simone Veil',
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: true
     },
     inner: {
@@ -186,7 +184,7 @@ export const MARKER_LIST = [
       lng: 4.880
     },
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: true
     },
     layer: 'Monuments',
@@ -199,7 +197,7 @@ export const MARKER_LIST = [
       lng: 4.885
     },
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: false
     },
     layer: 'Monuments',
@@ -216,7 +214,7 @@ export const MARKER_LIST = [
       lng: 4.890
     },
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: true,
       accuracy: 300
     },
@@ -234,7 +232,7 @@ export const MARKER_LIST = [
       lng: 4.895
     },
     shape: {
-      type : markerType.poi,
+      type : ShapeType.poi,
       anchored: false
     },
     layer: 'Etablissements',
@@ -254,7 +252,7 @@ export const MARKER_LIST = [
       lng: 4.870
     },
     shape: {
-      type : markerType.circle,
+      type : ShapeType.circle,
       anchored: false,
       percent: 100,
       accuracy: 500
@@ -273,7 +271,7 @@ export const MARKER_LIST = [
       lng: 4.875
     },
     shape: {
-      type : markerType.circle,
+      type : ShapeType.circle,
       anchored: true,
       plain : true
     },
@@ -291,7 +289,7 @@ export const MARKER_LIST = [
       lng: 4.88
     },
     shape: {
-      type : markerType.circle,
+      type : ShapeType.circle,
       anchored: true,
       percent: 75
     },
@@ -309,7 +307,7 @@ export const MARKER_LIST = [
       lng: 4.885
     },
     shape: {
-      type : markerType.circle,
+      type : ShapeType.circle,
       anchored: false
     },
     inner: {
@@ -327,7 +325,7 @@ export const MARKER_LIST = [
     },
 
     shape: {
-      type : markerType.circle,
+      type : ShapeType.circle,
       anchored: true,
       plain: false
     },
@@ -346,7 +344,7 @@ export const MARKER_LIST = [
     },
     popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
     shape: {
-      type: markerType.circle,
+      type: ShapeType.circle,
       anchored: false,
       percent: 45
     },
