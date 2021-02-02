@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from '../iotMapManager/index';
+import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
 
 
 @Component({
@@ -204,9 +204,8 @@ export class MapComponent implements AfterViewInit {
       inner: {
         icon: 'iotmap-icons-vehicle',
         color: 'black'
-      }
-      /*template: 'vehicle',
-      status: 'positive'*/
+      },
+      template: 'vehicle'
     },
     {
       id: 'c2',
@@ -393,7 +392,7 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => { this.commonIotMap.updateMarker('s6', {template : 'Temperature'});}, 3000);
 
 
-    // setBounds
+// setBounds
 
 
     /*setTimeout(() => {
@@ -403,7 +402,7 @@ export class MapComponent implements AfterViewInit {
       let newCoord = L.latLngBounds(southWest, northEast);
       this.commonIotMap.setBounds(newCoord);
       }, 5000);*/
-    /*
+
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.9, lng: 4.8818 }, direction: 180});}, 1000);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.899, lng: 4.8816 }, direction: 180});}, 1500);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.898, lng: 4.8814 }, direction: 180});}, 2000);
@@ -439,7 +438,7 @@ export class MapComponent implements AfterViewInit {
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 330});}, 10100);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 340});}, 10200);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 350});}, 10300);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);*/
+    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);
 
 
 
