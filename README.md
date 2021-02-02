@@ -28,7 +28,7 @@ Note that shapes appear bigger when selected, and with an anchor for a better ac
 - ‘square’ for a second representation of objects,
 - ‘poi‘ for points of interest.
 
-<img src="doc/templates.png>
+<img src="doc/templates.png">
 
 <ins>Status</ins> can be used, in the same way, to define marker status, setting on or several markers attributes. By setting **status** attribute, marker inherits status attributes.
 
