@@ -160,10 +160,10 @@ export class IotMapMarkers {
 
   private getDivIcon(marker: IotMarker, selected: boolean): L.DivIcon {
     // shape
-    let svgShape: string;
-    let svgBG: string;
-    let svgBorder: string;
-    let svgGauge: string;
+    let svgShape: string = ``;
+    let svgBG: string = ``;
+    let svgBorder: string = ``;
+    let svgGauge: string = ``;
     let shadowFile = './assets/img/';
 
     let iconSize, iconAnchorHeight = 0;
@@ -247,11 +247,11 @@ export class IotMapMarkers {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color;
 
       if (marker.inner.icon) {  // icon
-        innerDesign = `<span class='` + marker.inner.icon + ((selected) ? ' iconSelected' : ' iconUnselected')
-          + ` ' style='color: ` + innerColor + `' />`;
+        innerDesign = `<span class='innerspan ` + marker.inner.icon + ((selected) ? ' iconSelected' : ' iconUnselected')
+          + ` ' style='color: ` + innerColor + `'></span>`;
 
       } else if (marker.inner.label) {  // label
-        innerDesign = `<span class='` + ((selected) ? ' labelSelected' : ' labelUnselected')
+        innerDesign = `<span class='innerspan ` + ((selected) ? ' labelSelected' : ' labelUnselected')
           + ` ' style='color: ` + innerColor
           + `; font-family: ` + this.config.markers.font.family
           + `; font-weight: ` + this.config.markers.font.weight
@@ -297,15 +297,37 @@ export class IotMapMarkers {
     }
     popup += `</div>`;
 
+    // tabs
+    let tab = ``;
+    if (marker.tab !== undefined) {
+      //tab += `<div class='tab-top'>`;
+      if (marker.tab.icon !== undefined) {  // simple tab
+        tab = `<span class='tab-top ` + marker.tab.icon +  `'/>`;
+      }
+      if (marker.tab.text != undefined) {
+        if (marker.tab.text.length < 3) { // simple tab
+          tab = `<span class='tab-top' >` + marker.tab.text + `</span>`;
+        } else {  // big tab
+          tab = `<span class='tab-top-big' >` + marker.tab.text + `</span>`;
+        }
+        tab += `</span>`;
+      }
+
+    }
+
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected';
     let html =   `<div class='markericon ` + markerSelectionClass + `'>`
               + popup
+      //
               + imgShadow
               + `<svg xmlns='http://www.w3.org/2000/svg' width='`+ realIconSize + `' height='` + (realIconSize + realIconAnchorHeight) + `' viewBox=` + viewBox + `>`
                 + svgBorder + svgShape + svgBG + svgGauge
               + `</svg>`
-              + innerDesign
+
+
+      + innerDesign
+      + tab
             + `</div>`      ;
 
 

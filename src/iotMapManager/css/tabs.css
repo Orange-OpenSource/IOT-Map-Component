@@ -1,0 +1,88 @@
+/*
+* Software Name : IotMapManager
+* Version: 1.0.0
+* SPDX-FileCopyrightText: Copyright (c) 2020 Orange
+* SPDX-License-Identifier: MIT
+*
+* This software is distributed under the MIT License,
+* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/LICENSE
+* or see the "license.txt" file for more details.
+*
+* Author: S. Gateau
+* Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
+*/
+
+/* tabs.css */
+
+/* TABS */
+.marker-unselected > .tab-top {
+  position: absolute;
+  background-color: white;
+  /*float: left;*/
+  left: 0px;
+  top: -20px;
+  width: 30px;
+  height: 35px;
+  border-radius: 6px 6px 0px 0px; /*calc(46px / 2) calc(46px / 2);*/
+  z-index: 1;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  /*color: #111;*/
+  /*padding: 3px;*/
+  font-size: 18px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  line-height:20px;
+  text-align: center;
+  /*transform: rotate(0deg);*/
+  /*transform-origin: 24px calc(24px + 25px);*/
+/*
+  border-style: solid;
+  border-color: #e74c3c;*/
+}
+
+
+/*
+.map-marker > .tab-top-big {
+  background-color: white;
+  position: absolute;
+  float: left;
+  left: -8px;
+  right: -8px;
+  top: -27px;
+  border-radius: 6px 6px 0 0;
+  z-index: 2;
+  box-shadow: 0 -4px 8px -4px rgba(42, 42, 42, 0.4);
+  color: #111;
+  padding: 3px;
+  font-size: 18px;
+}
+.map-marker > .tab-top-big-left {
+  width: 46px;
+  height: 56px;
+  position: absolute;
+  transform: rotate(-18deg);
+  float: right;
+  transform-origin: bottom;
+  border-radius: 0 0 23px 23px;
+  bottom: 1px;
+  left: 8px;
+  box-shadow: -4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  background-color: white;
+  z-index: 1;
+}
+.map-marker > .tab-top-big-right {
+   le trapèze
+  width: 46px;
+  height: 56px;
+  position: absolute;
+  transform: rotate(18deg);
+  float: right;
+  transform-origin: bottom;
+  border-radius: 0 0 23px 23px;
+  bottom: 1px;
+  right: 8px;
+  box-shadow: 4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  background-color: white;
+  z-index: 1;
+}
+*/

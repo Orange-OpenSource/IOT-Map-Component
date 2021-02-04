@@ -35,30 +35,12 @@ export class CustomDataMarker extends L.Marker {
 
 export interface IotMarker {
   id: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
+  location: Location;
   layer?: string;
-  popup?: {
-    title?: string;
-    body?: string;
-  };
-  shape?: {
-    type?: ShapeType;
-    anchored?: boolean;
-    plain?: boolean;
-    color?: string;
-    percent?: number;
-    accuracy?: number;
-  };
-  inner?: {
-    color?: string;
-
-    icon?: string;
-    // *** OR ***
-    label?: string;
-  };
+  popup?: Popup;
+  tab?: Tab;
+  shape?: Shape;
+  inner?: Inner;
   template?: string;
   status?: string;
 }
@@ -66,10 +48,7 @@ export interface IotMarker {
 
 export interface IotCluster {
   id: string;
-  location: {
-    lat: number;
-    lng: number
-  };
+  location: Location;
   contentLabel: string;
   childCount: number;
   aggregation: {
@@ -82,10 +61,7 @@ export interface IotCluster {
 
 
 export interface IotUserMarker {
-  location: {
-    lat: number;
-    lng: number
-  };
+  location: Location;
   direction?: number;
   accuracy?: number;
 }
@@ -97,50 +73,54 @@ export interface MarkerStatus {
       plural: string;
     },
     layer?: string;
-    popup?: {
-      title?: string;
-      body?: string;
-    };
-    shape?: {
-      type?: ShapeType;
-      anchored?: boolean;
-      plain?: boolean;
-      color?: string;
-      percent?: number;
-      accuracy?: number;
-    };
-    inner?: {
-      color?: string;
-
-      icon?: string;
-      // *** OR ***
-      label?: string;
-    };
+    popup?: Popup;
+    tab?: Tab;
+    shape?: Shape;
+    inner?: Inner;
   };
 }
 
 export interface MarkerTemplate {
   [template: string]: {
     layer?: string;
-    popup?: {
-      title?: string;
-      body?: string;
-    };
-    shape?: {
-      type?: ShapeType;
-      anchored?: boolean;
-      plain?: boolean;
-      color?: string;
-      percent?: number;
-      accuracy?: number;
-    };
-    inner?: {
-      color?: string;
-
-      icon?: string;
-      // *** OR ***
-      label?: string;
-    };
-
+    popup?: Popup;
+    tab?: Tab;
+    shape?: Shape;
+    inner?: Inner;
   }
 }
+
+interface Location {
+  lat: number;
+  lng: number;
+};
+
+interface Popup {
+  title?: string;
+  body?: string;
+};
+
+interface Tab {
+  icon?: string;
+  text?: string;
+  color?: string;
+}
+
+interface Shape {
+  type?: ShapeType;
+  anchored?: boolean;
+  plain?: boolean;
+  color?: string;
+  percent?: number;
+  accuracy?: number;
+};
+
+interface Inner {
+  color?: string;
+
+  icon?: string;
+  // *** OR ***
+  label?: string;
+};
+
+
