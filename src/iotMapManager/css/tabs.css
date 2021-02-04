@@ -15,74 +15,67 @@
 /* tabs.css */
 
 /* TABS */
+
+
 .marker-unselected > .tab-top {
   position: absolute;
   background-color: white;
-  /*float: left;*/
   left: 0px;
-  top: -20px;
+  bottom: -15px;
   width: 30px;
   height: 35px;
-  border-radius: 6px 6px 0px 0px; /*calc(46px / 2) calc(46px / 2);*/
+  border-radius: 6px 6px 0px 0px;
   z-index: 1;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
-  /*color: #111;*/
-  /*padding: 3px;*/
-  font-size: 18px;
+  color: black;
+  font-size: 16px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
   line-height:20px;
   text-align: center;
-  /*transform: rotate(0deg);*/
-  /*transform-origin: 24px calc(24px + 25px);*/
-/*
-  border-style: solid;
-  border-color: #e74c3c;*/
+}
+
+.marker-unselected > .tab-top-big {
+  position: absolute;
+  background-color: white;
+  left: -5px;
+  top: -20px;
+  width: 40px;
+  height: 20px;
+  border-radius: 6px 6px 0px 0px;
+  font-size: 16px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  line-height:20px;
+  text-align: center;
+  z-index: 30;
 }
 
 
-/*
-.map-marker > .tab-top-big {
-  background-color: white;
+.marker-unselected > .tab-top-big-left {
+  width: 20px;
+  height: 20px;
   position: absolute;
-  float: left;
-  left: -8px;
-  right: -8px;
-  top: -27px;
-  border-radius: 6px 6px 0 0;
-  z-index: 2;
-  box-shadow: 0 -4px 8px -4px rgba(42, 42, 42, 0.4);
-  color: #111;
-  padding: 3px;
-  font-size: 18px;
-}
-.map-marker > .tab-top-big-left {
-  width: 46px;
-  height: 56px;
-  position: absolute;
-  transform: rotate(-18deg);
-  float: right;
-  transform-origin: bottom;
-  border-radius: 0 0 23px 23px;
-  bottom: 1px;
-  left: 8px;
-  box-shadow: -4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  transform: rotate(-18.44deg);
+  transform-origin: left bottom;
+  left: 0px;
+  top: -5px;
+  border-radius: 5px 0px 0px 1px;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
   background-color: white;
-  z-index: 1;
+  z-index: 7;
 }
-.map-marker > .tab-top-big-right {
-   le trapèze
-  width: 46px;
-  height: 56px;
+.marker-unselected > .tab-top-big-right {
+  width: 20px;
+  height: 20px;
   position: absolute;
-  transform: rotate(18deg);
-  float: right;
-  transform-origin: bottom;
-  border-radius: 0 0 23px 23px;
-  bottom: 1px;
-  right: 8px;
-  box-shadow: 4px -4px 8px -4px rgba(42, 42, 42, 0.4);
+  transform: rotate(18.44deg);
+  transform-origin: right bottom;
+  top: -5px;
+  left: 10px;
+  border-radius: 0px 5px 1px 0px;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
   background-color: white;
-  z-index: 1;
+  z-index: 7;
 }
-*/
+

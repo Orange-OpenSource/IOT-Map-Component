@@ -300,15 +300,20 @@ export class IotMapMarkers {
     // tabs
     let tab = ``;
     if (marker.tab !== undefined) {
-      //tab += `<div class='tab-top'>`;
+      // color
+      const tabColor = (marker.tab.color ==  undefined) ? 'black' : marker.tab.color;
+
       if (marker.tab.icon !== undefined) {  // simple tab
-        tab = `<span class='tab-top ` + marker.tab.icon +  `'/>`;
+        tab = `<span class='tab-top ` + marker.tab.icon +  `' style='color: `+ tabColor + `'/>`;
       }
       if (marker.tab.text != undefined) {
         if (marker.tab.text.length < 3) { // simple tab
-          tab = `<span class='tab-top' >` + marker.tab.text + `</span>`;
+          tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + marker.tab.text + `</span>`;
         } else {  // big tab
-          tab = `<span class='tab-top-big' >` + marker.tab.text + `</span>`;
+          tab = `<span class='tab-top-big' style='color: ` + tabColor + `'>` + marker.tab.text + `</span>`;
+          tab += `<span class='tab-top-big-left'></span>`;
+          tab += `<span class='tab-top-big-right'></span>`;
+          //tab +=
         }
         tab += `</span>`;
       }

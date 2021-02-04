@@ -31,12 +31,7 @@
   left:0px;
   z-index: 25;
 }
-/*.markericon .innerIcon {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 25;
-}*/
+
 
 .markericon .iconUnselected{
   position: absolute;
