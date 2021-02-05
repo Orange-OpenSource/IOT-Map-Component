@@ -11,7 +11,7 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-import {MarkerStatus, MarkerTemplate, ShapeType} from './iotMapManagerTypes';
+import {MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate} from './iotMapManagerTypes';
 
 export class IotMapManagerConfig {
   private static instance: IotMapManagerConfig;
@@ -26,7 +26,7 @@ export class IotMapManagerConfig {
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 100,
-    externalClustering: false,
+    externalClustering: true,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***
@@ -273,6 +273,16 @@ export class IotMapManagerConfig {
       }
     }
   }
+
+  // layers template
+  layerTemplates: LayerTemplate = {
+    'vehicle' : {
+      icon: 'iotmap-icons-vehicle',
+      color: 'black'
+    }
+
+  };
+
   // *** Private conf: not modified by SetConfig ***
   clusters: any = {
     size: {

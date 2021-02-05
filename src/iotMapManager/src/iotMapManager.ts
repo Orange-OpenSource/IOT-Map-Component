@@ -623,6 +623,7 @@ export class IotMapManager {
       id: '',   // unused in automatic mode
       location: {lat: 0, lng: 0 }, // unused in automatic mode
       contentLabel: layer, // unused in automatic mode
+      layer: layer,
       childCount: leafletCluster.getChildCount(),
       aggregation: []
     };

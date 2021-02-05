@@ -40,6 +40,9 @@ export class IotMapMarkers {
     if (marker.shape.color === undefined) {
       marker.shape.color = this.config.markers.default.shape.color;
     }
+    if (marker.layer === undefined) {
+      marker.layer = 'default';
+    }
 
     // is template valid ?
     if (marker.template !== undefined) {
@@ -317,7 +320,6 @@ export class IotMapMarkers {
         }
         tab += `</span>`;
       }
-
     }
 
     // result

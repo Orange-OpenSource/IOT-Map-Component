@@ -49,6 +49,7 @@ export interface IotMarker {
 export interface IotCluster {
   id: string;
   location: Location;
+  layer?: string;
   contentLabel: string;
   childCount: number;
   aggregation: {
@@ -90,6 +91,14 @@ export interface MarkerTemplate {
   }
 }
 
+export interface LayerTemplate {
+  [layerName: string]: {
+    icon?: string;
+    label?: string;
+    color?: string;
+  }
+}
+
 interface Location {
   lat: number;
   lng: number;
@@ -122,5 +131,6 @@ interface Inner {
   // *** OR ***
   label?: string;
 };
+
 
 

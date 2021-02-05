@@ -62,8 +62,33 @@ export class IotMapClusters {
         + aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState)
         + `</span><br>`;
     }
-
     popup += `</div>`;
+
+    // tab
+    let tab = ``;
+    if (cluster.layer === undefined) {
+      cluster.layer = 'default';
+    } else {
+      const layerTemp = this.config.layerTemplates[cluster.layer];
+      if (layerTemp !== undefined) {
+        // color
+        const tabColor = (layerTemp.color ==  undefined) ? 'black' : layerTemp.color;
+
+        if (layerTemp.icon !== undefined) {  // simple tab
+          tab = `<span class='tab-top ` + layerTemp.icon +  `' style='color: `+ tabColor + `'/>`;
+        }
+        if (layerTemp.label != undefined) {
+          if (layerTemp.label.length < 3) { // simple tab
+            tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
+          } else {  // big tab
+            tab = `<span class='tab-top-big' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
+            tab += `<span class='tab-top-big-left'></span>`;
+            tab += `<span class='tab-top-big-right'></span>`;
+          }
+          tab += `</span>`;
+        }
+      }
+    }
 
     const html = `<div class='clustericon ` + clusterSelectionClass + `'>`
                   + imgShadow
@@ -74,6 +99,7 @@ export class IotMapClusters {
                   + IotMapCommonSvg.cluster.svgDefinitionEnd
 
                   + innerLabel
+      + tab
                 + `</div>`;
 
     // tslint:disable:max-line-length
