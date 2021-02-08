@@ -49,23 +49,9 @@ export class IotMapClusters {
       + `; font-weight: ` + this.config.markers.font.weight
       + `' >` + cluster.childCount + `</span>`;
 
-
-    // popup
-    const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected';
-
-    let popup = `<div class='` + (automatic ? 'automatic-cluster' : 'manual-cluster') + `'>`;
-    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + `<br>`;
-
-    for (const aggr of cluster.aggregation) {
-      popup += `<span class='pop-up-bullet' style="text-shadow: 0 0 0 ` + aggr.color + `"> &#x26ab;  </span>
-                <span class='pop-up-body'>`
-        + aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState)
-        + `</span><br>`;
-    }
-    popup += `</div>`;
-
     // tab
     let tab = ``;
+    let tabIcon = ``;
     if (cluster.layer === undefined) {
       cluster.layer = 'default';
     } else {
@@ -76,12 +62,30 @@ export class IotMapClusters {
 
         if (layerTemp.icon !== undefined) {  // simple tab
           tab = `<span class='tab-top ` + layerTemp.icon +  `' style='color: `+ tabColor + `'></span>`;
+          tabIcon = `<span class='pop-up-title-icon ` + layerTemp.icon +  `'></span>`;
         }
         if (layerTemp.label != undefined) {
           tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
         }
       }
     }
+
+    // popup
+    const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected';
+
+    let popup = `<div class='` + (automatic ? 'automatic-cluster' : 'manual-cluster') + `'>`;
+    popup += tabIcon;
+    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + `<br>`;
+
+    for (const aggr of cluster.aggregation) {
+      popup += `<span class='pop-up-bullet' style="text-shadow: 0 0 0 ` + aggr.color + `"> &#x26ab;  </span>
+                <span class='pop-up-body'>`
+        + aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState)
+        + `</span><br>`;
+    }
+    popup += `</div>`;
+
+
 
     const html = `<div class='clustericon ` + clusterSelectionClass + `'>`
                   + imgShadow

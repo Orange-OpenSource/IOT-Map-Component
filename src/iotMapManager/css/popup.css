@@ -105,6 +105,12 @@
 .cluster-selected > .manual-cluster .pop-up-title {
   font-size: 20px;
 }
+
+.cluster-selected > .manual-cluster .pop-up-title-icon {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
 .cluster-selected > .manual-cluster .pop-up-bullet {
   font-size: 14px;
   color: transparent;
@@ -161,6 +167,12 @@
 .clustericon:hover > .automatic-cluster .pop-up-title {
   font-size: 20px;
 }
+
+.clustericon:hover > .automatic-cluster .pop-up-title-icon {
+  font-size: 20px;
+  margin-right: 20px;
+}
+
 .clustericon:hover > .automatic-cluster .pop-up-bullet {
   font-size: 14px;
   color: transparent;
