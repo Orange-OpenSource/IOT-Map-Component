@@ -13,9 +13,9 @@
 */
 
 import * as L from 'leaflet';
-import {IotMapManagerConfig} from './iotMapManagerConfig';
-import {IotMarker, ShapeType} from './iotMapManagerTypes';
-import {IotMapCommonSvg} from './iotMapCommonSvg';
+import {IotMapManagerConfig} from './iot-map-manager-config';
+import {IotMarker, ShapeType} from './iot-map-manager-types';
+import {IotMapCommonSvg} from './iot-map-common-svg';
 
 
 export class IotMapMarkers {

@@ -12,7 +12,7 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-/* iotMapManager.css */
+/* iot-map-manager.css */
 @import './css/markers.css';
 @import './css/popup.css';
 @import './css/tabs.css';

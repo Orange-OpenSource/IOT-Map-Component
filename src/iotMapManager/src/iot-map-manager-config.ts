@@ -11,7 +11,7 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-import {MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate} from './iotMapManagerTypes';
+import {MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate} from './iot-map-manager-types';
 import {fakeAsync} from "@angular/core/testing";
 
 export class IotMapManagerConfig {

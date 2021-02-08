@@ -12,10 +12,10 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-export * from './src/iotMapManagerConfig';
-export * from './src/iotMapManagerTypes';
-export * from './src/iotMapManager';
+export * from './src/iot-map-manager-config';
+export * from './src/iot-map-manager-types';
+export * from './src/iot-map-manager';
 
-export * from './src/iotMapUserMarkers';
-export * from './src/iotMapClusters';
-export * from './src/iotMapMarkers';
+export * from './src/iot-map-user-markers';
+export * from './src/iot-map-clusters';
+export * from './src/iot-map-markers';

@@ -13,9 +13,9 @@
 */
 
 import * as L from 'leaflet';
-import { IotCluster } from './iotMapManagerTypes';
-import { IotMapManagerConfig } from './iotMapManagerConfig';
-import { IotMapCommonSvg } from './iotMapCommonSvg';
+import { IotCluster } from './iot-map-manager-types';
+import { IotMapManagerConfig } from './iot-map-manager-config';
+import { IotMapCommonSvg } from './iot-map-common-svg';
 
 export class IotMapClusters {
   private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();

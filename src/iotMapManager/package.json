@@ -15,7 +15,7 @@
     "lib/*/*.d.ts",
     "css/*",
     "img/*",
-    "iotmapmanager.css",
+    "iot-map-manager.css",
     "license.txt",
     "package.json",
     "readme.md"

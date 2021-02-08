@@ -14,11 +14,11 @@
 
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
-import { IotMapMarkers } from './iotMapMarkers';
-import { IotMapUserMarker } from './iotMapUserMarkers';
-import { IotMapClusters } from './iotMapClusters';
-import { IotMapManagerConfig } from './iotMapManagerConfig';
-import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iotMapManagerTypes';
+import { IotMapMarkers } from './iot-map-markers';
+import { IotMapUserMarker } from './iot-map-user-markers';
+import { IotMapClusters } from './iot-map-clusters';
+import { IotMapManagerConfig } from './iot-map-manager-config';
+import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types';
 
 
 const CLUSTER_LAYER = 'Clusters';
