@@ -26,20 +26,16 @@ export class IotMapUserMarker {
 
     // shadow file
     const shadowFile = './assets/img/' + userSvg.shadow
-    const imgShadow = `<img class='usermarkershadow' src='` + shadowFile + `'/>`
+    const imgShadow = `<img class='usermarkershadow' src='${shadowFile}'/>`
 
     let html = `<div class='usermarkericon'>`
     if (userMarker.direction !== undefined) {
-      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'>` +
-        userSvg.border +
-        `</svg>` +
-        `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='-3 -3 38 38'>` +
-        userSvg.arrow + `transform='rotate(` + (userMarker.direction - 45) + ` 16 16)'/>` +
-        `</svg>`
+      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'>${userSvg.border}</svg>
+               <svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='-3 -3 38 38'>
+                <path ${userSvg.arrow} transform='rotate(` + (userMarker.direction - 45) + ` 16 16)'/>
+                </svg>`
     } else {
-      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'>` +
-        userSvg.border + userSvg.inner +
-        `</svg>`
+      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'> ${userSvg.border} ${userSvg.inner}</svg>`
     }
     html += imgShadow
 

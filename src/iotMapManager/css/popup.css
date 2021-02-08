@@ -49,9 +49,6 @@
   font-weight: bold;
   text-align: left;
   z-index: 0;
-
-  border-color: #449fdb;
-  border-style: dashed;
 }
 
 .marker-selected > .popup .pop-up-title {

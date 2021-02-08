@@ -185,9 +185,9 @@ export class IotMapMarkers {
       realIconSize = 50
       realIconAnchorHeight = 5
       if (marker.shape.plain) { // STD
-        svgShape = commonSvg.selStdColour + ` fill='` + funColor + `'/>`
+        svgShape = `<path ${commonSvg.selStdColour}  fill='${funColor}'/>`
       } else { // FUN
-        svgShape = commonSvg.selFunColour + ` fill='` + funColor + `'/>`
+        svgShape = `<path ${commonSvg.selFunColour} fill='${funColor}'/>`
         svgBG = commonSvg.selFunBg
       }
       shadowFile += commonSvg.selShadow
@@ -198,11 +198,11 @@ export class IotMapMarkers {
         iconAnchorHeight = 8
         realIconAnchorHeight = 6
         svgBorder = commonSvg.pinBorder
-        svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`
+        svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
         shadowFile += commonSvg.pinShadow
       } else {
         svgBorder = commonSvg.border
-        svgShape = commonSvg.stdColour + ` fill='` + funColor + `'/>`
+        svgShape = `<circle ${commonSvg.stdColour} fill='${funColor}'/>`
         shadowFile += commonSvg.shadow
       }
     } else if (marker.shape.type === ShapeType.square) {
@@ -213,34 +213,27 @@ export class IotMapMarkers {
         realIconAnchorHeight = 7
         if (marker.shape.plain) {
           svgBorder = commonSvg.pinBorder
-          svgShape = commonSvg.pinStdColour + ` fill='` + funColor + `'/>`
+          svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
           shadowFile += commonSvg.pinShadow
         } else {
           svgBorder = commonSvg.pinBorder
-          svgShape = commonSvg.pinFunColour + ` fill='` + funColor + `'/>`
+          svgShape = `<path ${commonSvg.pinFunColour} fill='${funColor}'/>`
           svgBG = commonSvg.pinFunBg
           shadowFile += commonSvg.pinShadow
         }
       } else {
         if (marker.shape.plain) {
           svgBorder = commonSvg.border
-          svgShape = commonSvg.stdColour + ` fill='` + funColor + `'/>`
+          svgShape = `<rect ${commonSvg.stdColour} fill='${funColor}'/>`
           shadowFile += commonSvg.shadow
         } else {
           svgBorder = commonSvg.border
-          svgShape = commonSvg.funColour + funColor + `'/>`
+          svgShape = `<rect ${commonSvg.funColour} fill='${funColor}'/>`
           shadowFile += commonSvg.shadow
           svgBG = commonSvg.funBg
         }
       }
     }
-
-    // calculate ViewBox
-    const x = (100 - iconSize) / 2
-    const y = (100 - iconSize) / 2
-    const w = iconSize
-    const h = iconSize + iconAnchorHeight
-    const viewBox = `'` + x + ` ` + y + ` ` + w + ` ` + h + `'`
 
     // inner
     let innerDesign = ''
@@ -249,14 +242,12 @@ export class IotMapMarkers {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color
 
       if (marker.inner.icon) { // icon
-        innerDesign = `<span class='innerspan ` + marker.inner.icon + ((selected) ? ' iconSelected' : ' iconUnselected') +
-          ` ' style='color: ` + innerColor + `'></span>`
+        innerDesign = `<span class='innerspan ${marker.inner.icon} ${((selected) ? ' iconSelected' : ' iconUnselected')}' style='color: ${innerColor}'></span>`
       } else if (marker.inner.label) { // label
-        innerDesign = `<span class='innerspan ` + ((selected) ? ' labelSelected' : ' labelUnselected') +
-          ` ' style='color: ` + innerColor +
-          ` font-family: ` + this.config.markers.font.family +
-          ` font-weight: ` + this.config.markers.font.weight +
-          `' >` + marker.inner.label[0] + `</span>`
+        innerDesign = `<span class='innerspan ${((selected) ? ' labelSelected' : ' labelUnselected')}'
+          style='color: ${innerColor}
+          font-family: ${this.config.markers.font.family}
+          font-weight: ${this.config.markers.font.weight}'>${marker.inner.label[0]}</span>`
       }
     }
 
@@ -273,28 +264,27 @@ export class IotMapMarkers {
 
       const perimeter = 2 * 3.14 * conf.gaugeRadius
       const arc = marker.shape.percent * perimeter / 100
-      svgGauge = commonSvg.gauge +
-        ` r=` + conf.gaugeRadius +
-        ` stroke-width=` + conf.gaugeWidth +
-        ` stroke='` + gaugeColor +
-        `' stroke-dasharray='` + arc + `, ` + perimeter +
-        `' transform='rotate(-90 50 50)'/>`
+      svgGauge = `${commonSvg.gauge}
+        r='${conf.gaugeRadius}'
+        stroke-width='${conf.gaugeWidth}'
+        stroke='${gaugeColor}'
+        stroke-dasharray='${arc}, ${perimeter}' transform='rotate(-90 50 50)'/>`
     }
 
     // shadow
-    const imgShadow = `<img class='` + ((selected) ? 'shadowSelected' : 'shadowUnselected') + `' src='` + shadowFile + `'/>`
+    const imgShadow = `<img class='${((selected) ? 'shadowSelected' : 'shadowUnselected')}' src='${shadowFile}'/>`
 
     // popup
     let popup = `<div class='popup'>`
     if (marker.popup) {
       if (marker.popup.title) {
-        popup += `<div class='pop-up-title'>` + marker.popup.title + `</div>`
+        popup += `<div class='pop-up-title'>${marker.popup.title}</div>`
       }
       if (marker.popup.body) {
-        popup += `<div class='pop-up-body'>` + marker.popup.body + `</div>`
+        popup += `<div class='pop-up-body'>${marker.popup.body}</div>`
       }
     } else {
-      popup += `<div class='pop-up-title'>` + marker.id + `</div>`
+      popup += `<div class='pop-up-title'>${marker.id}</div>`
     }
     popup += `</div>`
 
@@ -305,13 +295,13 @@ export class IotMapMarkers {
       const tabColor = (marker.tab.color === undefined) ? 'black' : marker.tab.color
 
       if (marker.tab.icon !== undefined) { // simple tab
-        tab = `<span class='tab-top ` + marker.tab.icon + `' style='color: ` + tabColor + `'/>`
+        tab = `<span class='tab-top ${marker.tab.icon}' style='color: ${tabColor}'/>`
       }
       if (marker.tab.text !== undefined) {
         if (marker.tab.text.length < 3) { // simple tab
-          tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + marker.tab.text + `</span>`
+          tab = `<span class='tab-top' style='color: ${tabColor}'>${marker.tab.text}</span>`
         } else { // big tab
-          tab = `<span class='tab-top-big' style='color: ` + tabColor + `'>` + marker.tab.text + `</span>`
+          tab = `<span class='tab-top-big' style='color: ${tabColor}'>${marker.tab.text}</span>`
           tab += `<span class='tab-top-big-left'></span>`
           tab += `<span class='tab-top-big-right'></span>`
         }
@@ -319,17 +309,23 @@ export class IotMapMarkers {
       }
     }
 
+    // calculate ViewBox
+    const x = (100 - iconSize) / 2
+    const y = (100 - iconSize) / 2
+    const w = iconSize
+    const h = iconSize + iconAnchorHeight
+
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected'
-    const html = `<div class='markericon ` + markerSelectionClass + `'>` +
-      popup +
-      imgShadow +
-      `<svg xmlns='http://www.w3.org/2000/svg' width='` + realIconSize + `' height='` + (realIconSize + realIconAnchorHeight) + `' viewBox=` + viewBox + `>` +
-      svgBorder + svgShape + svgBG + svgGauge +
-      `</svg>` +
-      innerDesign +
-      tab +
-      `</div>`
+    const html = `<div class='markericon ${markerSelectionClass}'>
+        ${popup}
+        ${imgShadow}
+        <svg xmlns='http://www.w3.org/2000/svg' width='${realIconSize}' height='${(realIconSize + realIconAnchorHeight)}' viewBox='${x} ${y} ${w} ${h}'>
+        ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
+        </svg>
+        ${innerDesign}
+        ${tab}
+    </div>`
 
     const iconRealSize : L.Point = L.point(realIconSize, realIconSize + realIconAnchorHeight)
     const iconAnchorX = realIconSize / 2

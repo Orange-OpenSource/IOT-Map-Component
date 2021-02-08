@@ -33,22 +33,21 @@ export class IotMapClusters {
       const color = aggr.color
 
       arc = n * perimeter / cluster.childCount
-      svgGauge += IotMapCommonSvg.cluster.gauge +
-        ` r='` + radius +
-        `' stroke='` + color +
-        `' stroke-dasharray='` + arc + `, ` + perimeter +
-        `' transform='rotate(` + angle + ` 25 25)'/>`
+      svgGauge += `${IotMapCommonSvg.cluster.gauge}
+        r='${radius}'
+        stroke='${color}'
+        stroke-dasharray='${arc}, ${perimeter}'
+        transform='rotate(${angle} 25 25)'/>`
       angle += n * 360 / cluster.childCount
     }
 
     // shadow
-    const imgShadow = `<img class='clusterShadow' src='./assets/img/` + IotMapCommonSvg.cluster.shadow + `'/>`
+    const imgShadow = `<img class='clusterShadow' src='./assets/img/${IotMapCommonSvg.cluster.shadow}'/>`
 
     // label
-    const innerLabel = `<span class='clusterLabel' style='color: ` + this.config.markers.font.color +
-      ` font-family: ` + this.config.markers.font.family +
-      ` font-weight: ` + this.config.markers.font.weight +
-      `' >` + cluster.childCount + `</span>`
+    const innerLabel = `<span class='clusterLabel' style='color: ${this.config.markers.font.color}
+      font-family: ${this.config.markers.font.family}
+      font-weight: ${this.config.markers.font.weight}'>${cluster.childCount}</span>`
 
     // tab
     let tab = ``
@@ -62,11 +61,11 @@ export class IotMapClusters {
         const tabColor = (layerTemp.color === undefined) ? 'black' : layerTemp.color
 
         if (layerTemp.icon !== undefined) { // simple tab
-          tab = `<span class='tab-top ` + layerTemp.icon + `' style='color: ` + tabColor + `'></span>`
-          tabIcon = `<span class='pop-up-title-icon ` + layerTemp.icon + `'></span>`
+          tab = `<span class='tab-top ${layerTemp.icon}' style='color: ${tabColor}'></span>`
+          tabIcon = `<span class='pop-up-title-icon ${layerTemp.icon}'></span>`
         }
         if (layerTemp.label !== undefined) {
-          tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`
+          tab = `<span class='tab-top' style='color: ${tabColor}'>${layerTemp.label}</span>`
         }
       }
     }
@@ -74,28 +73,26 @@ export class IotMapClusters {
     // popup
     const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected'
 
-    let popup = `<div class='` + (automatic ? 'automatic-cluster' : 'manual-cluster') + `'>`
+    let popup = `<div class='${(automatic ? 'automatic-cluster' : 'manual-cluster')}'>`
     popup += tabIcon
-    popup += `<span class='pop-up-title'>` + cluster.childCount + ` ` + cluster.contentLabel + `<br>`
+    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}<br>`
 
     for (const aggr of cluster.aggregation) {
-      popup += `<span class='pop-up-bullet' style="text-shadow: 0 0 0 ` + aggr.color + `"> &#x26ab  </span>
-                <span class='pop-up-body'>` +
-        aggr.count + ` ` + ((aggr.count === 1) ? aggr.singularState : aggr.pluralState) +
-        `</span><br>`
+      popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
+                <span class='pop-up-body'>${aggr.count} ${((aggr.count === 1) ? aggr.singularState : aggr.pluralState)}</span><br>`
     }
     popup += `</div>`
 
-    const html = `<div class='clustericon ` + clusterSelectionClass + `'>` +
-                    imgShadow +
-                    popup +
-                    IotMapCommonSvg.cluster.svgDefinitionStart +
-                    IotMapCommonSvg.cluster.clusterBG +
-                    svgGauge +
-                    IotMapCommonSvg.cluster.svgDefinitionEnd +
-                    innerLabel +
-                    tab +
-                  `</div>`
+    const html = `<div class='clustericon ${clusterSelectionClass}'>
+                    ${imgShadow}
+                    ${popup}
+                    ${IotMapCommonSvg.cluster.svgDefinitionStart}
+                    ${IotMapCommonSvg.cluster.clusterBG}
+                    ${svgGauge}
+                    ${IotMapCommonSvg.cluster.svgDefinitionEnd}
+                    ${innerLabel}
+                    ${tab}
+                  </div>`
 
     // tslint:disable:max-line-length
     return new L.DivIcon({
