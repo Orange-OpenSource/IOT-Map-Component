@@ -12,6 +12,7 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 import {MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate} from './iotMapManagerTypes';
+import {fakeAsync} from "@angular/core/testing";
 
 export class IotMapManagerConfig {
   private static instance: IotMapManagerConfig;
@@ -26,7 +27,7 @@ export class IotMapManagerConfig {
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 100,
-    externalClustering: true,
+    externalClustering: false,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***

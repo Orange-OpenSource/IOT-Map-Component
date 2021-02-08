@@ -81,7 +81,29 @@
 
 
 
-.automatic-cluster, .cluster-unselected > .tab-top {
+.cluster-unselected > .tab-top {
+  position: absolute;
+  background-color: white;
+  left: 10px;
+  top: -20px;
+  width: 30px;
+  height: 25px;
+  border-radius: 6px 6px 0px 0px;
+  z-index: 7;
+  box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  color: black;
+  font-size: 16px;
+  font-family: 'Helvetica Neue';
+  font-weight: bold;
+  line-height:20px;
+  text-align: center;
+}
+.cluster-selected > .tab-top {
+  visibility: hidden;
+}
+
+
+.clustericon > .tab-top {
   position: absolute;
   background-color: white;
   left: 10px;
@@ -99,7 +121,7 @@
   text-align: center;
 }
 
-.automatic-cluster:hover, .cluster-selected > .tab-top {
+.clustericon:hover  > .tab-top {
   visibility: hidden;
 }
 

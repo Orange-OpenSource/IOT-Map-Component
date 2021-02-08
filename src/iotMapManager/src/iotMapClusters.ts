@@ -75,17 +75,10 @@ export class IotMapClusters {
         const tabColor = (layerTemp.color ==  undefined) ? 'black' : layerTemp.color;
 
         if (layerTemp.icon !== undefined) {  // simple tab
-          tab = `<span class='tab-top ` + layerTemp.icon +  `' style='color: `+ tabColor + `'/>`;
+          tab = `<span class='tab-top ` + layerTemp.icon +  `' style='color: `+ tabColor + `'></span>`;
         }
         if (layerTemp.label != undefined) {
-          if (layerTemp.label.length < 3) { // simple tab
-            tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
-          } else {  // big tab
-            tab = `<span class='tab-top-big' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
-            tab += `<span class='tab-top-big-left'></span>`;
-            tab += `<span class='tab-top-big-right'></span>`;
-          }
-          tab += `</span>`;
+          tab = `<span class='tab-top' style='color: ` + tabColor + `'>` + layerTemp.label + `</span>`;
         }
       }
     }
