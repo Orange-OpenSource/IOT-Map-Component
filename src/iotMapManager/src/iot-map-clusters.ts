@@ -28,16 +28,17 @@ export class IotMapClusters {
     let arc = 0.0
     const radius = this.config.clusters.gauge.radius
     const perimeter = 2 * 3.14 * radius
+    const clusterSize = this.config.clusters.size
     for (const aggr of cluster.aggregation) {
       const n = aggr.count
       const color = aggr.color
 
       arc = n * perimeter / cluster.childCount
-      svgGauge += `${IotMapCommonSvg.cluster.gauge}
+      svgGauge += `<circle ${IotMapCommonSvg.cluster.gauge}
         r='${radius}'
         stroke='${color}'
         stroke-dasharray='${arc}, ${perimeter}'
-        transform='rotate(${angle} 25 25)'/>`
+        transform='rotate(${angle} ${clusterSize / 2} ${clusterSize / 2})'/>`
       angle += n * 360 / cluster.childCount
     }
 
@@ -98,8 +99,8 @@ export class IotMapClusters {
     return new L.DivIcon({
       html: html,
       className: 'my-cluster-class',
-      iconSize: L.point(50, 50),
-      iconAnchor: L.point(25, 25) // [this.config.clusters.size.fullSvgWidth, this.config.clusters.size.fullSvgHeight]
+      iconSize: L.point(clusterSize, clusterSize),
+      iconAnchor: L.point(clusterSize / 2, clusterSize / 2)
     })
   }
 }

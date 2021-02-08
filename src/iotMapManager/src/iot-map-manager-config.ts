@@ -54,29 +54,54 @@ export class IotMapManagerConfig {
       color: 'black'
     },
     size: {
-      fullSvgWidth: 100,
-      fullSvgHeight: 100,
       selected: {
-        svgWidth: 66,
-        svgHeight: 66,
-        anchoredHeight: 8,
-        fontSize: 44,
-        gaugeRadius: 27,
-        gaugeWidth: 6
+        origin: {
+          fullWidth: 100,
+          fullHeight: 100,
+          width: 66,
+          height: 66,
+          anchorHeight: 8,
+          gauge: {
+            radius: 27,
+            width: 6,
+            startAngle: -90
+          }
+        },
+        width: 50,
+        height: 50,
+        anchorHeight: 5,
+        fontSize: 26
       },
       unselectedSquare: {
-        svgWidth: 44,
-        svgHeight: 44,
-        anchoredHeight: 10,
-        fontSize: 30
+        origin: {
+          fullWidth: 100,
+          fullHeight: 100,
+          width: 44,
+          height: 44,
+          anchorHeight: 10
+        },
+        width: 30,
+        height: 30,
+        anchorHeight: 7,
+        fontSize: 20
       },
       unselectedCircle: {
-        svgWidth: 46,
-        svgHeight: 46,
-        anchoredHeight: 8,
-        fontSize: 30,
-        gaugeRadius: 19,
-        gaugeWidth: 4
+        origin: {
+          fullWidth: 100,
+          fullHeight: 100,
+          width: 46,
+          height: 46,
+          anchorHeight: 8,
+          gauge: {
+            radius: 18,
+            width: 4,
+            startAngle: -90
+          }
+        },
+        width: 30,
+        height: 30,
+        anchorHeight: 6,
+        fontSize: 18
       }
     }
   }
@@ -284,12 +309,7 @@ export class IotMapManagerConfig {
 
   // *** Private conf: not modified by SetConfig ***
   clusters: any = {
-    size: {
-      fullSvgWidth: 200,
-      fullSvgHeight: 200,
-      svgWidth: 150,
-      svgHeight: 150
-    },
+    size: 50,
     gauge: {
       startAngle: -90,
       radius: 20
@@ -298,11 +318,10 @@ export class IotMapManagerConfig {
   }
 
   userMarker: any = {
-    size: {
-      fullSvgWidth: 100,
-      fullSvgHeight: 100,
-      svgWidth: 68,
-      svgHeight: 68
+    size: 22,
+    arrow: {
+      size: 32,
+      startAngle: -45
     }
   }
 

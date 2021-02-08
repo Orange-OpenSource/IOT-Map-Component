@@ -17,14 +17,14 @@ export class IotMapCommonSvg {
   static cluster: any = {
     svgDefinitionStart: `<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' class='clusteropacity'>`,
     svgDefinitionEnd: `</svg>`,
-    gauge: `<circle fill-opacity='1' cx='25' cy='25' stroke-width='6' stroke-linecap='butt' fill='none'`,
+    gauge: `fill-opacity='1' cx='25' cy='25' stroke-width='6' stroke-linecap='butt' fill='none'`,
     clusterBG: `<circle  r='25' cx='25' cy='25' fill='white'/>`,
     shadow: `CLU_Shadow.png`
   };
 
   // circle
   static circle: any = {
-    gauge: `<circle cx='50' cy='50' stroke-linecap='butt' fill='none'`,
+    gauge: `cx='50' cy='50' stroke-linecap='butt' fill='none'`,
 
     stdColour: `r='21' cx='50' cy='50' `,
     funColour: `r='19' cx='50' cy='50' fill='none' stroke-width='4' stroke='`,

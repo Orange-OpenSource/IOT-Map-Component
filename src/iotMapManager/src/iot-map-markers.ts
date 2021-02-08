@@ -167,10 +167,12 @@ export class IotMapMarkers {
     let svgGauge: string = ``
     let shadowFile = './assets/img/'
 
-    let iconSize = 0
-    let iconAnchorHeight = 0
-    let realIconSize = 0
-    let realIconAnchorHeight = 0
+    const markerConfig = (selected)
+      ? this.config.markers.size.selected
+      : ((marker.shape.type === ShapeType.circle)
+          ? this.config.markers.size.unselectedCircle
+          : this.config.markers.size.unselectedSquare
+        )
 
     const commonSvg = (marker.shape.type === ShapeType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square
     if (marker.shape.color === undefined) {
@@ -180,10 +182,6 @@ export class IotMapMarkers {
 
     // shape
     if (selected) { // Only anchored markers can be selected
-      iconSize = 66
-      iconAnchorHeight = 8
-      realIconSize = 50
-      realIconAnchorHeight = 5
       if (marker.shape.plain) { // STD
         svgShape = `<path ${commonSvg.selStdColour}  fill='${funColor}'/>`
       } else { // FUN
@@ -192,11 +190,7 @@ export class IotMapMarkers {
       }
       shadowFile += commonSvg.selShadow
     } else if (marker.shape.type === ShapeType.circle) {
-      iconSize = 46
-      realIconSize = 30
       if (marker.shape.anchored) {
-        iconAnchorHeight = 8
-        realIconAnchorHeight = 6
         svgBorder = commonSvg.pinBorder
         svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
         shadowFile += commonSvg.pinShadow
@@ -206,11 +200,7 @@ export class IotMapMarkers {
         shadowFile += commonSvg.shadow
       }
     } else if (marker.shape.type === ShapeType.square) {
-      iconSize = 44
-      realIconSize = 30
       if (marker.shape.anchored) {
-        iconAnchorHeight = 10
-        realIconAnchorHeight = 7
         if (marker.shape.plain) {
           svgBorder = commonSvg.pinBorder
           svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
@@ -253,22 +243,18 @@ export class IotMapMarkers {
 
     // state / gauge
     if (marker.shape.percent && marker.shape.type === ShapeType.circle) {
-      const conf = (selected)
-        ? this.config.markers.size.selected
-        : ((marker.shape.type === ShapeType.circle)
-            ? this.config.markers.size.unselectedCircle
-            : this.config.markers.size.unselectedSquare
-          )
-
       const gaugeColor = marker.shape.color
-
-      const perimeter = 2 * 3.14 * conf.gaugeRadius
+      const perimeter = 2 * 3.14 * markerConfig.origin.gauge.radius
       const arc = marker.shape.percent * perimeter / 100
-      svgGauge = `${commonSvg.gauge}
-        r='${conf.gaugeRadius}'
-        stroke-width='${conf.gaugeWidth}'
+
+      svgGauge = `<circle ${commonSvg.gauge}
+        r='${markerConfig.origin.gauge.radius}'
+        stroke-width='${markerConfig.origin.gauge.width}'
         stroke='${gaugeColor}'
-        stroke-dasharray='${arc}, ${perimeter}' transform='rotate(-90 50 50)'/>`
+        stroke-dasharray='${arc}, ${perimeter}'
+        transform='rotate(${markerConfig.origin.gauge.startAngle}
+                          ${markerConfig.origin.fullWidth / 2}
+                          ${markerConfig.origin.fullHeight / 2})'/>`
     }
 
     // shadow
@@ -310,33 +296,33 @@ export class IotMapMarkers {
     }
 
     // calculate ViewBox
-    const x = (100 - iconSize) / 2
-    const y = (100 - iconSize) / 2
-    const w = iconSize
-    const h = iconSize + iconAnchorHeight
+    const x = (markerConfig.origin.fullWidth - markerConfig.origin.width) / 2
+    const y = (markerConfig.origin.fullHeight - markerConfig.origin.height) / 2
+    const w = markerConfig.origin.width
+    const h = markerConfig.origin.height + (marker.shape.anchored ? markerConfig.origin.anchorHeight : 0)
 
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected'
     const html = `<div class='markericon ${markerSelectionClass}'>
         ${popup}
         ${imgShadow}
-        <svg xmlns='http://www.w3.org/2000/svg' width='${realIconSize}' height='${(realIconSize + realIconAnchorHeight)}' viewBox='${x} ${y} ${w} ${h}'>
+        <svg xmlns='http://www.w3.org/2000/svg'
+             width='${markerConfig.width}'
+             height='${markerConfig.height + (marker.shape.anchored ? markerConfig.anchorHeight : 0)}'
+             viewBox='${x} ${y} ${w} ${h}'>
         ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
         </svg>
         ${innerDesign}
         ${tab}
     </div>`
 
-    const iconRealSize : L.Point = L.point(realIconSize, realIconSize + realIconAnchorHeight)
-    const iconAnchorX = realIconSize / 2
-    const iconAnchorY = (realIconAnchorHeight === 0)
-      ? realIconSize / 2
-      : realIconSize + realIconAnchorHeight
-    const iconAnchor : L.Point = L.point(iconAnchorX, iconAnchorY)
+    const iconSize : L.Point = L.point(markerConfig.width, markerConfig.height + (marker.shape.anchored ? markerConfig.anchorHeight : 0))
+    const iconAnchor : L.Point = L.point(iconSize.x / 2, (!marker.shape.anchored) ? iconSize.y / 2 : iconSize.y)
+
     // creating icon
     return new L.DivIcon({
       className: 'my-custom-pin',
-      iconSize: iconRealSize, // size of the icon
+      iconSize: iconSize, // size of the icon
       iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
       html: html
     })

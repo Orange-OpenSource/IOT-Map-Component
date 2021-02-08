@@ -19,31 +19,43 @@ import { IotMapCommonSvg } from './iot-map-common-svg'
 
 /* eslint-disable quotes */
 export class IotMapUserMarker {
-  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
+  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
   public getUserMarkerIcon (userMarker: IotUserMarker): L.DivIcon {
     const userSvg = IotMapCommonSvg.user
+    const userMarkerSize = this.config.userMarker.size
+    const arrowConfig = this.config.userMarker.arrow
 
     // shadow file
-    const shadowFile = './assets/img/' + userSvg.shadow
-    const imgShadow = `<img class='usermarkershadow' src='${shadowFile}'/>`
+    const imgShadow = `<img class='usermarkershadow' src='./assets/img/${userSvg.shadow}'/>`
 
     let html = `<div class='usermarkericon'>`
     if (userMarker.direction !== undefined) {
-      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'>${userSvg.border}</svg>
-               <svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='-3 -3 38 38'>
-                <path ${userSvg.arrow} transform='rotate(` + (userMarker.direction - 45) + ` 16 16)'/>
+      html += `<svg xmlns='http://www.w3.org/2000/svg'
+                    width='${userMarkerSize}'
+                    height='${userMarkerSize}'
+                    viewBox='0 0 ${userMarkerSize} ${userMarkerSize}'>${userSvg.border}</svg>
+               <svg xmlns='http://www.w3.org/2000/svg'
+                    width='${userMarkerSize}'
+                    height='${userMarkerSize}'
+                    viewBox='-3 -3 38 38'>
+                <path ${userSvg.arrow} transform='rotate(${(userMarker.direction + arrowConfig.startAngle)}
+                                                         ${arrowConfig.size / 2}
+                                                         ${arrowConfig.size / 2})'/>
                 </svg>`
     } else {
-      html += `<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'> ${userSvg.border} ${userSvg.inner}</svg>`
+      html += `<svg xmlns='http://www.w3.org/2000/svg'
+                    width='${userMarkerSize}'
+                    height='${userMarkerSize}'
+                    viewBox='0 0 ${userMarkerSize} ${userMarkerSize}'> ${userSvg.border} ${userSvg.inner}</svg>`
     }
     html += imgShadow
 
     // creating icon
     return new L.DivIcon({
       className: 'my-custom-pin',
-      iconSize: L.point(22, 22), // size of the icon
-      iconAnchor: L.point(11, 11), // point of the icon which will correspond to marker's location
+      iconSize: L.point(userMarkerSize, userMarkerSize), // size of the icon
+      iconAnchor: L.point(userMarkerSize / 2, userMarkerSize / 2), // point of the icon which will correspond to marker's location
       html: html
     })
   }
