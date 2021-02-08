@@ -11,12 +11,10 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
-import {MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate} from './iot-map-manager-types';
-import {fakeAsync} from "@angular/core/testing";
+import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate } from './iot-map-manager-types'
 
 export class IotMapManagerConfig {
-  private static instance: IotMapManagerConfig;
-  private constructor() { }
+  private static instance: IotMapManagerConfig
 
   /*
    *** Default configuration definition :
@@ -34,7 +32,7 @@ export class IotMapManagerConfig {
     // tslint:disable-next-line:max-line-length
     geoportailLayer: 'https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
     openStreetMapLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-  };
+  }
 
   markers: any = {
     default: {
@@ -42,7 +40,7 @@ export class IotMapManagerConfig {
         type: ShapeType.circle,
         anchored: true,
         plain: true,
-        color: 'black',
+        color: 'black'
       },
       inner: {
         color: 'white'
@@ -81,10 +79,10 @@ export class IotMapManagerConfig {
         gaugeWidth: 4
       }
     }
-  };
+  }
 
   markerStatus: MarkerStatus = {
-    'positive': {
+    'positive': { // eslint-disable-line quote-props
       shape: {
         color: '#32C832'
       },
@@ -96,7 +94,7 @@ export class IotMapManagerConfig {
         plural: 'positive'
       }
     },
-    'neutral': {
+    'neutral': { // eslint-disable-line quote-props
       shape: {
         color: '#527EDB'
       },
@@ -108,7 +106,7 @@ export class IotMapManagerConfig {
         plural: 'neutral'
       }
     },
-    'warning': {
+    'warning': { // eslint-disable-line quote-props
       shape: {
         color: '#FFCC00'
       },
@@ -120,7 +118,7 @@ export class IotMapManagerConfig {
         plural: 'in warning'
       }
     },
-    'alert': {
+    'alert': { // eslint-disable-line quote-props
       shape: {
         color: '#CD3C14'
       },
@@ -132,7 +130,7 @@ export class IotMapManagerConfig {
         plural: 'in alert'
       }
     },
-    'inactive': {
+    'inactive': { // eslint-disable-line quote-props
       shape: {
         color: '#CCCCCC'
       },
@@ -144,7 +142,7 @@ export class IotMapManagerConfig {
         plural: 'inactive'
       }
     },
-    'foodAndDrink': {
+    'foodAndDrink': { // eslint-disable-line quote-props
       shape: {
         color: '#467e74'
       },
@@ -156,7 +154,7 @@ export class IotMapManagerConfig {
         plural: 'food and drink'
       }
     },
-    'shopping': {
+    'shopping': { // eslint-disable-line quote-props
       shape: {
         color: '#b8860b'
       },
@@ -168,7 +166,7 @@ export class IotMapManagerConfig {
         plural: 'shopping'
       }
     },
-    'health': {
+    'health': { // eslint-disable-line quote-props
       shape: {
         color: '#d24d57'
       },
@@ -180,7 +178,7 @@ export class IotMapManagerConfig {
         plural: 'health'
       }
     },
-    'entertainment': {
+    'entertainment': { // eslint-disable-line quote-props
       shape: {
         color: '#886288'
       },
@@ -192,7 +190,7 @@ export class IotMapManagerConfig {
         plural: 'entertainment'
       }
     },
-    'services': {
+    'services': { // eslint-disable-line quote-props
       shape: {
         color: '#526e91'
       },
@@ -204,7 +202,7 @@ export class IotMapManagerConfig {
         plural: 'services'
       }
     },
-    'civilServiceWorship': {
+    'civilServiceWorship': { // eslint-disable-line quote-props
       shape: {
         color: '#874b0e'
       },
@@ -216,7 +214,7 @@ export class IotMapManagerConfig {
         plural: 'civil service / worship'
       }
     },
-    'outdoor': {
+    'outdoor': { // eslint-disable-line quote-props
       shape: {
         color: '#176129'
       },
@@ -228,7 +226,7 @@ export class IotMapManagerConfig {
         plural: 'outdoor'
       }
     },
-    'transport': {
+    'transport': { // eslint-disable-line quote-props
       shape: {
         color: '#19a0b8'
       },
@@ -240,10 +238,10 @@ export class IotMapManagerConfig {
         plural: 'transports'
       }
     }
-  };
+  }
 
   markerTemplates: MarkerTemplate = {
-    'circle': {
+    'circle': { // eslint-disable-line quote-props
       shape: {
         type: ShapeType.circle,
         anchored: true,
@@ -253,7 +251,7 @@ export class IotMapManagerConfig {
         color: 'white'
       }
     },
-    'square': {
+    'square': { // eslint-disable-line quote-props
       shape: {
         type: ShapeType.square,
         plain: false,
@@ -263,7 +261,7 @@ export class IotMapManagerConfig {
         color: 'white'
       }
     },
-    'poi': {
+    'poi': { // eslint-disable-line quote-props
       shape: {
         type: ShapeType.square,
         plain: true,
@@ -277,12 +275,12 @@ export class IotMapManagerConfig {
 
   // layers template
   layerTemplates: LayerTemplate = {
-    'vehicle' : {
+    'vehicle': { // eslint-disable-line quote-props
       icon: 'iotmap-icons-vehicle',
       color: 'black'
     }
 
-  };
+  }
 
   // *** Private conf: not modified by SetConfig ***
   clusters: any = {
@@ -297,7 +295,7 @@ export class IotMapManagerConfig {
       radius: 20
     },
     defaultColor: 'black'
-  };
+  }
 
   userMarker: any = {
     size: {
@@ -306,49 +304,47 @@ export class IotMapManagerConfig {
       svgWidth: 68,
       svgHeight: 68
     }
-  };
+  }
 
   accuracyCircle: any = {
     color: 'none',
     fillColor: '#527EDB',
     fillOpacity: 0.15
-  };
-
-
+  }
 
   /***
    * Functions
    */
-  public static getConfig(): IotMapManagerConfig {
+  public static getConfig (): IotMapManagerConfig {
     if (!IotMapManagerConfig.instance) {
-      IotMapManagerConfig.instance = new IotMapManagerConfig();
+      IotMapManagerConfig.instance = new IotMapManagerConfig()
     }
 
-    return IotMapManagerConfig.instance;
+    return IotMapManagerConfig.instance
   }
 
-  public static setConfig(newConfig: any) {
+  public static setConfig (newConfig: any) {
     /*
      *** MAP ***
     */
     if (newConfig.map !== undefined) {
       if (newConfig.map.defaultLat !== undefined) {
-        this.instance.map.defaultLat = newConfig.map.defaultLat;
+        this.instance.map.defaultLat = newConfig.map.defaultLat
       }
       if (newConfig.map.defaultLon !== undefined) {
-        this.instance.map.defaultLon = newConfig.map.defaultLon;
+        this.instance.map.defaultLon = newConfig.map.defaultLon
       }
       if (newConfig.map.defaultZoomLevel !== undefined) {
-        this.instance.map.defaultZoomLevel = newConfig.map.defaultZoomLevel;
+        this.instance.map.defaultZoomLevel = newConfig.map.defaultZoomLevel
       }
       if (newConfig.map.clusterRadius !== undefined) {
-        this.instance.map.clusterRadius = newConfig.map.clusterRadius;
+        this.instance.map.clusterRadius = newConfig.map.clusterRadius
       }
       if (newConfig.map.externalClustering !== undefined) {
-        this.instance.map.externalClustering = newConfig.map.externalClustering;
+        this.instance.map.externalClustering = newConfig.map.externalClustering
       }
       if (newConfig.map.layerControl !== undefined) {
-        this.instance.map.layerControl = newConfig.map.layerControl;
+        this.instance.map.layerControl = newConfig.map.layerControl
       }
     }
 
@@ -359,21 +355,21 @@ export class IotMapManagerConfig {
       if (newConfig.markers.default !== undefined) {
         if (newConfig.markers.default.shape !== undefined) {
           if (newConfig.markers.default.shape.type !== undefined) {
-            this.instance.markers.default.shape.type = newConfig.markers.default.shape.type;
+            this.instance.markers.default.shape.type = newConfig.markers.default.shape.type
           }
           if (newConfig.markers.default.shape.anchored !== undefined) {
-            this.instance.markers.default.shape.anchored = newConfig.markers.default.shape.anchored;
+            this.instance.markers.default.shape.anchored = newConfig.markers.default.shape.anchored
           }
           if (newConfig.markers.default.shape.plain !== undefined) {
-            this.instance.markers.default.shape.plain = newConfig.markers.default.shape.plain;
+            this.instance.markers.default.shape.plain = newConfig.markers.default.shape.plain
           }
           if (newConfig.markers.default.shape.color !== undefined) {
-            this.instance.markers.default.shape.color = newConfig.markers.default.shape.color;
+            this.instance.markers.default.shape.color = newConfig.markers.default.shape.color
           }
         }
         if (newConfig.markers.default.inner !== undefined) {
           if (newConfig.markers.default.inner.color !== undefined) {
-            this.instance.markers.default.inner.color = newConfig.markers.default.inner.color;
+            this.instance.markers.default.inner.color = newConfig.markers.default.inner.color
           }
         }
       }
@@ -385,7 +381,7 @@ export class IotMapManagerConfig {
     if (newConfig.markerStatus !== undefined) {
       for (const status in newConfig.markerStatus) {
         if (newConfig.markerStatus[status] !== undefined) {
-          this.instance.markerStatus[status] = newConfig.markerStatus[status];
+          this.instance.markerStatus[status] = newConfig.markerStatus[status]
         }
       }
     }
@@ -396,7 +392,7 @@ export class IotMapManagerConfig {
     if (newConfig.markerTemplates !== undefined) {
       for (const template in newConfig.markerTemplates) {
         if (newConfig.markerTemplates[template] !== undefined) {
-          this.instance.markerTemplates[template] = newConfig.markerTemplates[template];
+          this.instance.markerTemplates[template] = newConfig.markerTemplates[template]
         }
       }
     }
@@ -406,13 +402,13 @@ export class IotMapManagerConfig {
      */
     if (newConfig.accuracyCircle !== undefined) {
       if (newConfig.accuracyCircle.color !== undefined) {
-        this.instance.accuracyCircle.color = newConfig.accuracyCircle.color;
+        this.instance.accuracyCircle.color = newConfig.accuracyCircle.color
       }
       if (newConfig.accuracyCircle.fillColor !== undefined) {
-        this.instance.accuracyCircle.fillColor = newConfig.accuracyCircle.fillColor;
+        this.instance.accuracyCircle.fillColor = newConfig.accuracyCircle.fillColor
       }
       if (newConfig.accuracyCircle.fillOpacity !== undefined) {
-        this.instance.accuracyCircle.fillOpacity = newConfig.accuracyCircle.fillOpacity;
+        this.instance.accuracyCircle.fillOpacity = newConfig.accuracyCircle.fillOpacity
       }
     }
   }
