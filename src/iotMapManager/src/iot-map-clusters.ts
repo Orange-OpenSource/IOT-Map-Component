@@ -62,7 +62,7 @@ export class IotMapClusters {
         const tabColor = (layerTemp.color === undefined) ? 'black' : layerTemp.color
 
         if (layerTemp.icon !== undefined) { // simple tab
-          tab = `<span class='tab-top ${layerTemp.icon}' style='color: ${tabColor}'></span>`
+          tab = `<span class='tab-top ${layerTemp.icon}' style='color: ${tabColor}'/>`
           tabIcon = `<span class='pop-up-title-icon ${layerTemp.icon}'></span>`
         }
         if (layerTemp.label !== undefined) {
@@ -72,11 +72,11 @@ export class IotMapClusters {
     }
 
     // popup
-    const clusterSelectionClass = selected ? 'cluster-selected' : 'cluster-unselected'
+    const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
 
-    let popup = `<div class='${(automatic ? 'automatic-cluster' : 'manual-cluster')}'>`
+    let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
     popup += tabIcon
-    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}<br>`
+    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
 
     for (const aggr of cluster.aggregation) {
       popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>

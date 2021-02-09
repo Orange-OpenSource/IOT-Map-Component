@@ -14,18 +14,16 @@
 
 /* tabs.css */
 
-/* TABS */
-
-
+/* Markers TABS */
 .marker-unselected > .tab-top {
   position: absolute;
   background-color: white;
   left: 0px;
-  bottom: -15px;
+  top: -20px;
   width: 30px;
   height: 35px;
   border-radius: 6px 6px 0px 0px;
-  z-index: 1;
+  z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
   color: black;
   font-size: 16px;
@@ -53,9 +51,9 @@
 
 
 .marker-unselected > .tab-top-big-left {
+  position: absolute;
   width: 20px;
   height: 20px;
-  position: absolute;
   transform: rotate(-18.44deg);
   transform-origin: left bottom;
   left: 0px;
@@ -78,9 +76,16 @@
   background-color: white;
   z-index: 7;
 }
+.marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
+
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  overflow: hidden;
+}
 
 
-
+/* Clusters TABS */
 .cluster-unselected > .tab-top {
   position: absolute;
   background-color: white;
@@ -121,7 +126,7 @@
   text-align: center;
 }
 
-.clustericon:hover  > .tab-top {
+.automatic-cluster:hover > .tab-top {
   visibility: hidden;
 }
 

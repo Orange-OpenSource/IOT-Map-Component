@@ -62,6 +62,20 @@ export class IotMapMarkers {
             marker.popup.body = template.popup.body
           }
         }
+        if (template.tab !== undefined) {
+          if (!marker.tab) {
+            marker.tab = {}
+          }
+          if (template.tab.icon !== undefined) {
+            marker.tab.icon = template.tab.icon
+          }
+          if (template.tab.text !== undefined) {
+            marker.tab.text = template.tab.text
+          }
+          if (template.tab.color !== undefined) {
+            marker.tab.color = template.tab.color
+          }
+        }
         if (template.shape !== undefined) {
           if (template.shape.type !== undefined) {
             marker.shape.type = template.shape.type
@@ -117,6 +131,20 @@ export class IotMapMarkers {
           }
           if (status.popup.body !== undefined) {
             marker.popup.body = status.popup.body
+          }
+        }
+        if (status.tab !== undefined) {
+          if (!marker.tab) {
+            marker.tab = {}
+          }
+          if (status.tab.icon !== undefined) {
+            marker.tab.icon = status.tab.icon
+          }
+          if (status.tab.text !== undefined) {
+            marker.tab.text = status.tab.text
+          }
+          if (status.tab.color !== undefined) {
+            marker.tab.color = status.tab.color
           }
         }
         if (status.shape !== undefined) {
@@ -227,7 +255,6 @@ export class IotMapMarkers {
 
     // inner
     let innerDesign = ''
-
     if (marker.inner) {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color
 
@@ -236,8 +263,8 @@ export class IotMapMarkers {
       } else if (marker.inner.label) { // label
         innerDesign = `<span class='innerspan ${((selected) ? ' labelSelected' : ' labelUnselected')}'
           style='color: ${innerColor}
-          font-family: ${this.config.markers.font.family}
-          font-weight: ${this.config.markers.font.weight}'>${marker.inner.label[0]}</span>`
+                 font-family: ${this.config.markers.font.family}
+                 font-weight: ${this.config.markers.font.weight}'>${marker.inner.label[0]}</span>`
       }
     }
 
@@ -260,20 +287,6 @@ export class IotMapMarkers {
     // shadow
     const imgShadow = `<img class='${((selected) ? 'shadowSelected' : 'shadowUnselected')}' src='${shadowFile}'/>`
 
-    // popup
-    let popup = `<div class='popup'>`
-    if (marker.popup) {
-      if (marker.popup.title) {
-        popup += `<div class='pop-up-title'>${marker.popup.title}</div>`
-      }
-      if (marker.popup.body) {
-        popup += `<div class='pop-up-body'>${marker.popup.body}</div>`
-      }
-    } else {
-      popup += `<div class='pop-up-title'>${marker.id}</div>`
-    }
-    popup += `</div>`
-
     // tabs
     let tab = ``
     if (marker.tab !== undefined) {
@@ -291,33 +304,46 @@ export class IotMapMarkers {
           tab += `<span class='tab-top-big-left'></span>`
           tab += `<span class='tab-top-big-right'></span>`
         }
-        tab += `</span>`
       }
     }
+
+    // popup
+    let popup = `<div class='marker-popup'>`
+    if (marker.popup) {
+      if (marker.popup.title) {
+        popup += `<span class='pop-up-title'>${marker.popup.title}</span><br>`
+      }
+      if (marker.popup.body) {
+        popup += `<span class='pop-up-body'>${marker.popup.body}</span><br>`
+      }
+    } else {
+      popup += `<span class='pop-up-title'>${marker.id}</span>`
+    }
+    popup += `</div>`
 
     // calculate ViewBox
     const x = (markerConfig.origin.fullWidth - markerConfig.origin.width) / 2
     const y = (markerConfig.origin.fullHeight - markerConfig.origin.height) / 2
     const w = markerConfig.origin.width
-    const h = markerConfig.origin.height + (marker.shape.anchored ? markerConfig.origin.anchorHeight : 0)
+    const h = markerConfig.origin.height + ((marker.shape.anchored || selected) ? markerConfig.origin.anchorHeight : 0)
 
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected'
     const html = `<div class='markericon ${markerSelectionClass}'>
-        ${popup}
         ${imgShadow}
+        ${popup}
         <svg xmlns='http://www.w3.org/2000/svg'
              width='${markerConfig.width}'
-             height='${markerConfig.height + (marker.shape.anchored ? markerConfig.anchorHeight : 0)}'
+             height='${markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0)}'
              viewBox='${x} ${y} ${w} ${h}'>
-        ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
+            ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
         </svg>
         ${innerDesign}
         ${tab}
     </div>`
 
-    const iconSize : L.Point = L.point(markerConfig.width, markerConfig.height + (marker.shape.anchored ? markerConfig.anchorHeight : 0))
-    const iconAnchor : L.Point = L.point(iconSize.x / 2, (!marker.shape.anchored) ? iconSize.y / 2 : iconSize.y)
+    const iconSize : L.Point = L.point(markerConfig.width, markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0))
+    const iconAnchor : L.Point = L.point(iconSize.x / 2, (!(marker.shape.anchored || selected)) ? iconSize.y / 2 : iconSize.y)
 
     // creating icon
     return new L.DivIcon({
