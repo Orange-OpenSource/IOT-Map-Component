@@ -19,13 +19,13 @@ export class IotMapManagerConfig {
   /*
    *** Default configuration definition :
    */
-  map: any = {
+  map = {
     defaultLat: 44.8888929,
     defaultLng: 4.8849108,
     defaultZoomLevel: 15,
     defaultLayerName: 'default',
     clusterRadius: 100,
-    externalClustering: true,
+    externalClustering: false,
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***
@@ -34,7 +34,7 @@ export class IotMapManagerConfig {
     openStreetMapLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
 
-  markers: any = {
+  markers = {
     default: {
       shape: {
         type: ShapeType.circle,
@@ -78,7 +78,12 @@ export class IotMapManagerConfig {
           fullHeight: 100,
           width: 44,
           height: 44,
-          anchorHeight: 10
+          anchorHeight: 10,
+          gauge: {
+            radius: 0,
+            width: 0,
+            startAngle: 0
+          }
         },
         width: 30,
         height: 30,
@@ -303,12 +308,15 @@ export class IotMapManagerConfig {
     'vehicle': { // eslint-disable-line quote-props
       icon: 'iotmap-icons-vehicle',
       color: 'black'
+    },
+    'entertainment': { // eslint-disable-line quote-props
+      icon: 'iotmap-icons-Entertainment_channel',
+      color: 'black'
     }
-
   }
 
   // *** Private conf: not modified by SetConfig ***
-  clusters: any = {
+  clusters = {
     size: 50,
     gauge: {
       startAngle: -90,
@@ -317,7 +325,7 @@ export class IotMapManagerConfig {
     defaultColor: 'black'
   }
 
-  userMarker: any = {
+  userMarker = {
     size: 22,
     arrow: {
       size: 32,
@@ -325,7 +333,7 @@ export class IotMapManagerConfig {
     }
   }
 
-  accuracyCircle: any = {
+  accuracyCircle = {
     color: 'none',
     fillColor: '#527EDB',
     fillOpacity: 0.15
@@ -342,7 +350,7 @@ export class IotMapManagerConfig {
     return IotMapManagerConfig.instance
   }
 
-  public static setConfig (newConfig: any) {
+  public static setConfig (newConfig: Partial<IotMapManagerConfig>) {
     /*
      *** MAP ***
     */
@@ -350,8 +358,8 @@ export class IotMapManagerConfig {
       if (newConfig.map.defaultLat !== undefined) {
         this.instance.map.defaultLat = newConfig.map.defaultLat
       }
-      if (newConfig.map.defaultLon !== undefined) {
-        this.instance.map.defaultLon = newConfig.map.defaultLon
+      if (newConfig.map.defaultLng !== undefined) {
+        this.instance.map.defaultLng = newConfig.map.defaultLng
       }
       if (newConfig.map.defaultZoomLevel !== undefined) {
         this.instance.map.defaultZoomLevel = newConfig.map.defaultZoomLevel

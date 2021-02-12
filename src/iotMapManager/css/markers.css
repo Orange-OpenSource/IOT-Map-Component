@@ -30,52 +30,42 @@
   top:0px;
   left:0px;
   z-index: 25;
+  text-align: center;
+  dominant-baseline: middle;
+  text-anchor: middle;
+  font-family: 'Helvetica Neue';
 }
 
 
 .markericon .iconUnselected{
-  position: absolute;
-  top:5px;
-  left:5px;
-  width:20px;
-  height:20px;
-  font-size:20px;
-  line-height:20px;
-  text-align: center;
+  width:30px;
+  height:30px;
+  font-size:18px;
+  line-height:30px;
 }
 
 .markericon .labelUnselected{
-  position: absolute;
-  top:5px;
-  left:5px;
-  width:20px;
-  height:20px;
-  font-size:20px;
-  line-height:20px;
-  text-align: center;
+  width:30px;
+  height:30px;
+  font-size:18px;
+  line-height:30px;
+  font-weight: bold;
 }
 
 
 .markericon .iconSelected{
-  position: absolute;
-  top:12px;
-  left:12px;
-  width:26px;
-  height:26px;
+  width:50px;
+  height:50px;
   font-size:26px;
-  line-height:26px;
-  text-align: center;
+  line-height:50px;
 }
 
 .markericon .labelSelected{
-  position: absolute;
-  top:7px;
-  left:7px;
-  width:36px;
-  height:36px;
-  font-size:36px;
-  line-height:36px;
-  text-align: center;
+  width:50px;
+  height:50px;
+  font-size:30px;
+  line-height:50px;
+  font-weight: bold;
 }
 
 .markericon .shadowSelected{
@@ -107,23 +97,23 @@
   top:0px;
   left:0px;
   z-index: 10;
+}
+
+.clustericon .clusterLabel{
+  position: absolute;
+  top:0px;
+  left:0px;
+  width:50px;
+  height:18px;
+  font-size:18px;
+  line-height:50px;
+  text-align: center;
+  z-index: 25;
   dominant-baseline: central;
   text-anchor: middle;
   font-size: 18px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
-}
-
-.clustericon > span{
-  position: absolute;
-  top:16px;
-  left:16px;
-  width:18px;
-  height:18px;
-  font-size:18px;
-  line-height:18px;
-  text-align: center;
-  z-index: 25;
 }
 
 .clustericon .clusterShadow{

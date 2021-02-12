@@ -26,21 +26,11 @@ export class IotMapMarkers {
     if (!marker.shape) {
       marker.shape = JSON.parse(JSON.stringify(this.config.markers.default.shape))
     }
-    if (marker.shape.type === undefined) {
-      marker.shape.type = this.config.markers.default.shape.type
-    }
-    if (marker.shape.plain === undefined) {
-      marker.shape.plain = this.config.markers.default.shape.plain
-    }
-    if (marker.shape.anchored === undefined) {
-      marker.shape.anchored = this.config.markers.default.shape.anchored
-    }
-    if (marker.shape.color === undefined) {
-      marker.shape.color = this.config.markers.default.shape.color
-    }
-    if (marker.layer === undefined) {
-      marker.layer = 'default'
-    }
+    marker.shape.type = marker.shape.type ?? this.config.markers.default.shape.type
+    marker.shape.plain = marker.shape.plain ?? this.config.markers.default.shape.plain
+    marker.shape.anchored = marker.shape.anchored ?? this.config.markers.default.shape.anchored
+    marker.shape.color = marker.shape.color ?? this.config.markers.default.shape.color
+    marker.layer = marker.layer ?? 'default'
 
     // is template valid ?
     if (marker.template !== undefined) {
@@ -55,54 +45,31 @@ export class IotMapMarkers {
           if (!marker.popup !== undefined) {
             marker.popup = {}
           }
-          if (template.popup.title !== undefined) {
-            marker.popup.title = template.popup.title
-          }
-          if (template.popup.body !== undefined) {
-            marker.popup.body = template.popup.body
-          }
+          marker.popup.title = template.popup.title ?? marker.popup.title
+          marker.popup.body = template.popup.body ?? marker.popup.body
         }
         if (template.tab !== undefined) {
           if (!marker.tab) {
             marker.tab = {}
           }
-          if (template.tab.icon !== undefined) {
-            marker.tab.icon = template.tab.icon
-          }
-          if (template.tab.text !== undefined) {
-            marker.tab.text = template.tab.text
-          }
-          if (template.tab.color !== undefined) {
-            marker.tab.color = template.tab.color
-          }
+          marker.tab.icon = template.tab.icon ?? marker.tab.icon
+          marker.tab.text = template.tab.text ?? marker.tab.text
+          marker.tab.color = template.tab.color ?? marker.tab.color
         }
         if (template.shape !== undefined) {
-          if (template.shape.type !== undefined) {
-            marker.shape.type = template.shape.type
-          }
-          if (template.shape.anchored !== undefined) {
-            marker.shape.anchored = template.shape.anchored
-          }
-          if (template.shape.plain !== undefined) {
-            marker.shape.plain = template.shape.plain
-          }
-          if (template.shape.color !== undefined) {
-            marker.shape.color = template.shape.color
-          }
-          if (template.shape.percent !== undefined) {
-            marker.shape.percent = template.shape.percent
-          }
-          if (template.shape.accuracy !== undefined) {
-            marker.shape.accuracy = template.shape.accuracy
-          }
+          marker.shape.type = template.shape.type ?? marker.shape.type
+          marker.shape.anchored = template.shape.anchored ?? marker.shape.anchored
+          marker.shape.plain = template.shape.plain ?? marker.shape.plain
+          marker.shape.color = template.shape.color ?? marker.shape.color
+          marker.shape.percent = template.shape.percent ?? marker.shape.percent
+          marker.shape.accuracy = template.shape.accuracy ?? marker.shape.accuracy
         }
         if (template.inner !== undefined) {
           if (marker.inner === undefined) {
             marker.inner = {}
           }
-          if (template.inner.color !== undefined) {
-            marker.inner.color = template.inner.color
-          }
+          marker.inner.color = template.inner.color ?? marker.inner.color
+
           if (template.inner.icon !== undefined) {
             marker.inner.icon = template.inner.icon
           } else if (template.inner.label !== undefined) {
@@ -126,54 +93,30 @@ export class IotMapMarkers {
           if (marker.popup === undefined) {
             marker.popup = {}
           }
-          if (status.popup.title !== undefined) {
-            marker.popup.title = status.popup.title
-          }
-          if (status.popup.body !== undefined) {
-            marker.popup.body = status.popup.body
-          }
+          marker.popup.title = status.popup.title ?? marker.popup.title
+          marker.popup.body = status.popup.body ?? marker.popup.body
         }
         if (status.tab !== undefined) {
           if (!marker.tab) {
             marker.tab = {}
           }
-          if (status.tab.icon !== undefined) {
-            marker.tab.icon = status.tab.icon
-          }
-          if (status.tab.text !== undefined) {
-            marker.tab.text = status.tab.text
-          }
-          if (status.tab.color !== undefined) {
-            marker.tab.color = status.tab.color
-          }
+          marker.tab.icon = status.tab.icon ?? marker.tab.icon
+          marker.tab.text = status.tab.text ?? marker.tab.text
+          marker.tab.color = status.tab.color ?? marker.tab.color
         }
         if (status.shape !== undefined) {
-          if (status.shape.type !== undefined) {
-            marker.shape.type = status.shape.type
-          }
-          if (status.shape.anchored !== undefined) {
-            marker.shape.anchored = status.shape.anchored
-          }
-          if (status.shape.plain !== undefined) {
-            marker.shape.plain = status.shape.plain
-          }
-          if (status.shape.color !== undefined) {
-            marker.shape.color = status.shape.color
-          }
-          if (status.shape.percent !== undefined) {
-            marker.shape.percent = status.shape.percent
-          }
-          if (status.shape.accuracy !== undefined) {
-            marker.shape.accuracy = status.shape.accuracy
-          }
+          marker.shape.type = status.shape.type ?? marker.shape.type
+          marker.shape.anchored = status.shape.anchored ?? marker.shape.anchored
+          marker.shape.plain = status.shape.plain ?? marker.shape.plain
+          marker.shape.color = status.shape.color ?? marker.shape.color
+          marker.shape.percent = status.shape.percent ?? marker.shape.percent
+          marker.shape.accuracy = status.shape.accuracy ?? marker.shape.accuracy
         }
         if (status.inner !== undefined) {
           if (marker.inner === undefined) {
             marker.inner = {}
           }
-          if (status.inner.color !== undefined) {
-            marker.inner.color = status.inner.color
-          }
+          marker.inner.color = status.inner.color ?? marker.inner.color
           if (status.inner.icon !== undefined) {
             marker.inner.icon = status.inner.icon
           } else if (status.inner.label !== undefined) {
@@ -259,12 +202,11 @@ export class IotMapMarkers {
       const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color
 
       if (marker.inner.icon) { // icon
-        innerDesign = `<span class='innerspan ${marker.inner.icon} ${((selected) ? ' iconSelected' : ' iconUnselected')}' style='color: ${innerColor}'></span>`
+        innerDesign = `<span class='innerspan ${marker.inner.icon} ${((selected) ? ' iconSelected' : ' iconUnselected')}'
+                             style='color: ${innerColor}'></span>`
       } else if (marker.inner.label) { // label
         innerDesign = `<span class='innerspan ${((selected) ? ' labelSelected' : ' labelUnselected')}'
-          style='color: ${innerColor}
-                 font-family: ${this.config.markers.font.family}
-                 font-weight: ${this.config.markers.font.weight}'>${marker.inner.label[0]}</span>`
+                             style='color: ${innerColor}'>${marker.inner.label[0]}</span>`
       }
     }
 

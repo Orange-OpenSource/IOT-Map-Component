@@ -32,7 +32,7 @@ export class IotMapManager {
   private config: IotMapManagerConfig
   private markersObjects: any = {}
   private accuracyObjects: any = {}
-  private userMarkerObject: CustomDataMarker // only one user marker
+  private userMarkerObject: CustomDataMarker<IotUserMarker> // only one user marker
   private userMarkerAccuracy: L.Circle
 
   private baseLayers: any = {}
@@ -215,7 +215,7 @@ export class IotMapManager {
       if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
         this.updateMarker(marker.id, marker)
       } else {
-        const newMarker: CustomDataMarker =
+        const newMarker: CustomDataMarker<IotMarker> =
           new CustomDataMarker(
             marker,
             { icon: this.iotMapMarkers.getMarkerIcon(marker) })
@@ -247,7 +247,7 @@ export class IotMapManager {
   }
 
   public removeMarker (markerId: string) {
-    const markerToRemove: CustomDataMarker = this.markersObjects[markerId]
+    const markerToRemove: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
     if (markerToRemove) {
       this.getMarkerLayer(markerToRemove.getData().layer).removeLayer(markerToRemove)
       this.markersObjects[markerId] = null
@@ -271,8 +271,8 @@ export class IotMapManager {
     })
   }
 
-  public updateMarker (markerId: string, params: any) {
-    const currentMarkerObject: CustomDataMarker = this.markersObjects[markerId]
+  public updateMarker (markerId: string, params: Partial<IotMarker>) {
+    const currentMarkerObject: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
 
     if (currentMarkerObject) {
       const currentMarkerInfos: IotMarker = currentMarkerObject.getData()
@@ -471,7 +471,7 @@ export class IotMapManager {
   public addCluster (cluster: IotCluster) {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
-        const newCluster: CustomDataMarker = new CustomDataMarker(
+        const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
           cluster,
           {
             icon: this.iotMapClusters.getClusterIcon(cluster, false, false)
@@ -496,7 +496,7 @@ export class IotMapManager {
 
   public removeCluster (id: string) {
     if (this.config.map.externalClustering) {
-      const clusterToRemove: CustomDataMarker = this.markersObjects[id]
+      const clusterToRemove: CustomDataMarker<IotCluster> = this.markersObjects[id]
       if (clusterToRemove) {
         this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove)
         this.markersObjects[id] = null
@@ -517,9 +517,9 @@ export class IotMapManager {
     }
   }
 
-  public updateCluster (clusterId: string, params: any) {
+  public updateCluster (clusterId: string, params: Partial<IotCluster>) {
     if (this.config.map.externalClustering) {
-      const currentClusterObject: CustomDataMarker = this.markersObjects[clusterId]
+      const currentClusterObject: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
 
       if (currentClusterObject) {
         const currentClusterInfos: IotCluster = currentClusterObject.getData()
@@ -677,7 +677,7 @@ export class IotMapManager {
     delete this.userMarkerAccuracy
   }
 
-  public updateUserMarker (params: any) {
+  public updateUserMarker (params: Partial<IotUserMarker>) {
     if (this.userMarkerObject !== null) {
       const userMarkerInfo = this.userMarkerObject.getData()
       if (params.location !== undefined) {
@@ -712,7 +712,13 @@ export class IotMapManager {
         }
       }
     } else {
-      this.addUserMarker(params)
+      const userMarker: IotUserMarker = {
+        location: params.location,
+        direction: params.direction,
+        accuracy: params.accuracy
+      }
+
+      this.addUserMarker(userMarker)
     }
   }
 }

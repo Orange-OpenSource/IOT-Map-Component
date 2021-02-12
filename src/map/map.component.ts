@@ -20,12 +20,16 @@ export class MapComponent implements AfterViewInit {
     // square
     {
       id: 's1',
-    location: {
+      location: {
         lat: 44.895,
         lng: 4.870
       },
       template: 'square',
-      status : 'positive'
+      status: 'warning',
+      tab: {
+        icon: 'iotmap-icons-vehicle',
+        color: 'black'
+      }
     },
     {
       id: 's2',
@@ -216,6 +220,10 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'vehicle',
       status: 'neutral',
+      tab: {
+        icon: 'iotmap-icons-vehicle',
+        color: 'black'
+      }
     },
     {
       id: 'c3',
@@ -267,59 +275,72 @@ export class MapComponent implements AfterViewInit {
 
   clustersList: IotCluster[] = [
     {
-      id: 'cluster1',
+      id: 'services',
     location: {
-        lat: 44.89,
-        lng: 4.895
+        lat: 44.882,
+        lng: 4.89
       },
-      contentLabel: 'clésCluster1',
-      childCount: 40,
+      contentLabel: 'Services',
+      childCount: 80,
       aggregation: [
         {
-          singularState: 'cleRouge',
-          pluralState: 'cleRouges',
-          count: 20,
-          color: 'red'
-        },
-        {
-          singularState: 'cleVerte',
-          pluralState: 'cleVertes',
+          singularState: 'Health',
+          pluralState: 'Health',
           count: 15,
-          color: 'green'
+          color: '#d24d57'
         },
         {
-          singularState: 'clebleue',
-          pluralState: 'clebleues',
-          count: 5,
-          color: 'blue'
+          singularState: 'Service',
+          pluralState: 'Services',
+          count: 25,
+          color: '#526e91'
+        },
+        {
+          singularState: 'Civil service',
+          pluralState: 'Civil services',
+          count: 10,
+          color: '#874b0e'
+        },
+        {
+          singularState: 'Transport',
+          pluralState: 'Transport',
+          count: 30,
+          color: '#19a0b8'
         }]
     },
     {
-      id: 'cluster2',
-    location: {
-        lat: 44.89,
-        lng: 4.89
+      id: 'entertainment',
+      location: {
+        lat: 44.882,
+        lng: 4.885
       },
-      contentLabel: 'clésCluster2',
-      childCount: 90,
+      layer: 'entertainment',
+      contentLabel: 'Entertainment',
+      childCount: 60,
       aggregation: [
         {
-          singularState: 'cleRouge',
-          pluralState: 'cleRouges',
+          singularState: 'food and drink',
+          pluralState: 'food and drink',
           count: 15,
-          color: 'red'
+          color: '#467e74'
         },
         {
-          singularState: 'cleVerte',
-          pluralState: 'cleVertes',
-          count: 60,
-          color: 'green'
+          singularState: 'shopping',
+          pluralState: 'shopping',
+          count: 20,
+          color: '#b8860b'
         },
         {
-          singularState: 'clebleue',
-          pluralState: 'clebleues',
+          singularState: 'entertainment',
+          pluralState: 'entertainment',
           count: 15,
-          color: 'blue'
+          color: '#886288'
+        },
+        {
+          singularState: 'outdoor',
+          pluralState: 'outdoor',
+          count: 10,
+          color: '#176129'
         }]
     }
   ];
@@ -331,35 +352,13 @@ export class MapComponent implements AfterViewInit {
     accuracy: 150,
     direction: 180
   }
-/*
-  userMarker2: any = {
-    direction: 60
-  }
-
-  userMarker3: any = {
-    accuracy: 250
-  }
-
-  userMarker4: any = {
-    direction: -90,
-    accuracy: null
-  }
-
-  userMarker5: any = {
-    location: {
-      lat: 44.890,
-      lng: 4.875
-    }
-  }
-*/
 
 
   ngAfterViewInit(): void {
    IotMapManagerConfig.setConfig({
      markerTemplates: {
-
        'vehicle': {
-         layer: 'Vehicles',
+         layer: 'vehicle',
          shape: {
            type: ShapeType.circle,
            anchored: true,

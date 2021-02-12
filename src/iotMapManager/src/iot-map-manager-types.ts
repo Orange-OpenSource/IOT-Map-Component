@@ -14,28 +14,32 @@
 
 import * as L from 'leaflet'
 
+interface Location {
+  lat: number
+  lng: number
+}
+
+interface GeolocMarker {
+  location: Location
+}
+
 export enum ShapeType { circle, square} // eslint-disable-line no-unused-vars
 
-export class CustomDataMarker extends L.Marker {
-  data: any
+export class CustomDataMarker<T extends GeolocMarker> extends L.Marker {
+  data: T
 
-  constructor (data: any, options?: L.MarkerOptions) {
+  constructor (data: T, options?: L.MarkerOptions) {
     super(data.location, options)
     this.setData(data)
   }
 
-  getData () {
+  getData (): T {
     return this.data
   }
 
-  setData (data: any) {
+  setData (data: T) {
     this.data = data
   }
-}
-
-interface Location {
-  lat: number
-  lng: number
 }
 
 interface Popup {
@@ -66,9 +70,8 @@ interface Inner {
   label?: string
 }
 
-export interface IotMarker {
+export interface IotMarker extends GeolocMarker {
   id: string
-  location: Location
   layer?: string
   popup?: Popup
   tab?: Tab
@@ -78,9 +81,8 @@ export interface IotMarker {
   status?: string
 }
 
-export interface IotCluster {
+export interface IotCluster extends GeolocMarker {
   id: string
-  location: Location
   layer?: string
   contentLabel: string
   childCount: number
@@ -92,8 +94,7 @@ export interface IotCluster {
   }[]
 }
 
-export interface IotUserMarker {
-  location: Location
+export interface IotUserMarker extends GeolocMarker {
   direction?: number
   accuracy?: number
 }

@@ -46,9 +46,7 @@ export class IotMapClusters {
     const imgShadow = `<img class='clusterShadow' src='./assets/img/${IotMapCommonSvg.cluster.shadow}'/>`
 
     // label
-    const innerLabel = `<span class='clusterLabel' style='color: ${this.config.markers.font.color}
-      font-family: ${this.config.markers.font.family}
-      font-weight: ${this.config.markers.font.weight}'>${cluster.childCount}</span>`
+    const innerLabel = `<span class='clusterLabel' style='color: ${this.config.markers.font.color}'>${cluster.childCount}</span>`
 
     // tab
     let tab = ``

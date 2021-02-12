@@ -119,8 +119,8 @@
 /* AUTO POPUP */
 .clustericon > .automatic-cluster-popup {
   position: absolute;
-  bottom:25px;
-  left: calc(50% - 15px);
+  bottom:0px;
+  left: 0px;
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 0;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.7);
@@ -137,7 +137,7 @@
 
 .clustericon:hover > .automatic-cluster-popup {
   position: absolute;
-  bottom:25px;
+  bottom:-25px;
   left:-100px;
   width: 220px;
   max-height: 600px;
