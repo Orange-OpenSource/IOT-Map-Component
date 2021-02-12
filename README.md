@@ -37,8 +37,8 @@ Status is also used by clusterization: repartition of clusterized markers is bas
 Note that order of priority concerning attribute value is : status, then template, then attributes.
 
 Several status are defined: 
-- *positive*, *neutral*, *warning*, *alert*, *inactive*, 
-- *foodAndDrink*, *shopping*, *health*, *entertainment*, *services*, *civilServiceWorship*, *outdoor*, *transport*, 
+- For objects: *positive*, *neutral*, *warning*, *alert*, *inactive*, 
+- For PoIs: *foodAndDrink*, *shopping*, *health*, *entertainment*, *services*, *civilServiceWorship*, *outdoor*, *transport*, 
 
 <img src="doc/status.png">
 
@@ -66,7 +66,7 @@ Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 ma
 ## Quick start
 
 Several quick start options are available:
-- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/V0.4.5.zip), and integrate it in your project,
+- [Download the latest release](https://github.com/Orange-OpenSource/IOT-Map-Component/archive/V1.0.0.zip), and integrate it in your project,
 - Install with [npm](https://www.npmjs.com/): `npm install iotmapmanager`
 
 Then, display a map by inserting in your page:
