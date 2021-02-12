@@ -377,31 +377,17 @@ export class MapComponent implements AfterViewInit {
     };
 
     this.commonIotMap.init('iotMap');
-
-
     this.commonIotMap.addMarkers(this.markersList);
-
-
     this.commonIotMap.addClusters(this.clustersList);
-
-
-
     this.commonIotMap.addUserMarker(this.userMarker);
 
-    setTimeout(() => { this.commonIotMap.updateMarker('s6', {template : 'Temperature'});}, 3000);
+
+    this.commonIotMap.fitMapToBounds(this.commonIotMap.getMapBounds());
+
 
 
 // setBounds
-
-
-    /*setTimeout(() => {
-      const currentCoord = this.commonIotMap.getBounds();
-      let southWest = L.latLng(currentCoord.getSouth() + 0.02, currentCoord.getWest() + 0.02);
-      let northEast = L.latLng(currentCoord.getNorth() + 0.02, currentCoord.getEast() + 0.02);
-      let newCoord = L.latLngBounds(southWest, northEast);
-      this.commonIotMap.setBounds(newCoord);
-      }, 5000);*/
-
+/*
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.9, lng: 4.8818 }, direction: 180});}, 1000);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.899, lng: 4.8816 }, direction: 180});}, 1500);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.898, lng: 4.8814 }, direction: 180});}, 2000);
@@ -438,55 +424,9 @@ export class MapComponent implements AfterViewInit {
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 340});}, 10200);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 350});}, 10300);
     setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);
+*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//setTimeout(() => { this.commonIotMap.updateMarker(c1, {shape: { accuracy: null}});}, 3000);
-/*
-
-    setTimeout  (() => { IotMapManagerConfig.setConfig({
-      markerStatus: {
-        'Neutral': {
-          singularState : 'hello !',
-          pluralState: 'Oranges !',
-          stateColor: 'purple',
-          innerColor: 'yellow'
-        }
-      }
-    }); }, 5000);
-
-    setTimeout (() => { this.commonIotMap.redrawAll(); }, 8000);*/
   }
 }
 
