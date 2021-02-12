@@ -1,4 +1,4 @@
-import { ShapeType } from "../iotMapManager/src/iotMapManagerTypes";
+import { ShapeType } from "../iotMapManager/index";
 
 export interface IOTMarker {
   id: string;
@@ -34,17 +34,12 @@ export const MARKER_LIST = [
       lat: 44.895,
       lng: 4.870
     },
-    shape: {
-      type: ShapeType.square,
-      anchored: false,
-      plain : false
-    },
-    layer: 'Monuments',
-    status : 'Positive',
-    inner : {
-      label : 'H',
-      color: 'green'
-    },
+    template: 'square',
+    status: 'warning',
+    tab: {
+      icon: 'iotmap-icons-vehicle',
+      color: 'black'
+    }
   },
   {
     id: 's2',
@@ -52,18 +47,12 @@ export const MARKER_LIST = [
       lat: 44.895,
       lng: 4.875
     },
-    shape: {
-      type : ShapeType.square,
-      anchored: true,
-      plain : false
+    popup: {
+      title: 'Ecole Jean Rostand : ',
+      body: `<a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`
     },
-    popup: `Ecole Jean Rostand : <a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`,
-    inner: {
-      icon: 'iotmap-icons-School',
-      color: 'green'
-    },
-    layer: 'Etablissements',
-    status : 'Neutral',
+    template: 'square',
+    status : 'neutral',
   },
   {
     id: 's3',
@@ -71,18 +60,12 @@ export const MARKER_LIST = [
       lat: 44.895,
       lng: 4.88
     },
-    popup: `<img src='assets/icons/School.svg'/> Collège Debussy`,
-    shape: {
-      type : ShapeType.square,
-      plain : false,
-      anchored: true
+    popup: {
+      title: `<img src='assets/icons/School.svg'/>`,
+      body: 'Collège Debussy'
     },
-    layer: 'Etablissements',
-    inner: {
-      color: 'white',
-      label: 'A'
-    },
-    status : 'Warning',
+    template: 'square',
+    status : 'warning',
   },
   {
     id: 's4',
@@ -90,17 +73,8 @@ export const MARKER_LIST = [
       lat: 44.895,
       lng: 4.885
     },
-    shape: {
-      type : ShapeType.square,
-      anchored: false,
-      plain: false
-    },
-    inner: {
-      icon: 'iotmap-icons-accessibility_hearing',
-      color: 'blue'
-    },
-    layer: 'Monuments',
-    status: 'Alert',
+    template: 'square',
+    status: 'alert',
   },
   {
     id: 's5',
@@ -119,7 +93,7 @@ export const MARKER_LIST = [
       color: 'green'
     },
     layer: 'Etablissements',
-    status: 'Inactive',
+    status: 'inactive',
   },
   {
     id: 's6',
@@ -127,17 +101,7 @@ export const MARKER_LIST = [
       lat: 44.895,
       lng: 4.895
     },
-
-    shape: {
-      type : ShapeType.square,
-      anchored: false,
-      plain: false
-    },
-    inner: {
-      icon: 'iotmap-icons-family_place',
-      color: 'black'
-    },
-    layer: 'Monuments'
+    template: 'square',
   },
 
   // POI
@@ -148,7 +112,7 @@ export const MARKER_LIST = [
       lng: 4.870
     },
     shape: {
-      type : ShapeType.poi,
+      type : ShapeType.square,
       anchored: false,
       plain: false
     },
@@ -157,7 +121,7 @@ export const MARKER_LIST = [
       icon: 'iotmap-icons-School',
       color: 'blue'
     },
-    status: 'Positive'
+    status: 'positive'
   },
   {
     id: 'p2',
@@ -165,17 +129,21 @@ export const MARKER_LIST = [
       lat: 44.890,
       lng: 4.875
     },
-    popup: 'Ecole Simone Veil',
+    popup: {
+      title: 'Title',
+      body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.'
+    },
     shape: {
-      type : ShapeType.poi,
-      anchored: true
+      type : ShapeType.square,
+      anchored: true,
+      plain: true
     },
     inner: {
       icon: 'iotmap-icons-School',
       color: 'navyblue'
     },
     layer: 'Etablissements',
-    status: 'Neutral'
+    status: 'neutral'
   },
   {
     id: 'p3',
@@ -183,12 +151,8 @@ export const MARKER_LIST = [
       lat: 44.890,
       lng: 4.880
     },
-    shape: {
-      type : ShapeType.poi,
-      anchored: true
-    },
-    layer: 'Monuments',
-    status: 'Warning'
+    template: 'monument',
+    status: 'warning'
   },
   {
     id: 'p4',
@@ -196,16 +160,8 @@ export const MARKER_LIST = [
       lat: 44.890,
       lng: 4.885
     },
-    shape: {
-      type : ShapeType.poi,
-      anchored: false
-    },
-    layer: 'Monuments',
-    inner: {
-      icon: 'iotmap-icons-games',
-      color: 'black'
-    },
-    status: 'Alert'
+    template: 'monument',
+    status: 'alert'
   },
   {
     id: 'p5',
@@ -214,8 +170,9 @@ export const MARKER_LIST = [
       lng: 4.890
     },
     shape: {
-      type : ShapeType.poi,
+      type : ShapeType.square,
       anchored: true,
+      plain: true,
       accuracy: 300
     },
     layer: 'Etablissements',
@@ -223,7 +180,7 @@ export const MARKER_LIST = [
       icon: 'iotmap-icons-hospital',
       color: 'white'
     },
-    status: 'Inactive'
+    status: 'inactive'
   },
   {
     id: 'p6',
@@ -232,7 +189,8 @@ export const MARKER_LIST = [
       lng: 4.895
     },
     shape: {
-      type : ShapeType.poi,
+      type : ShapeType.square,
+      plain: true,
       anchored: false
     },
     layer: 'Etablissements',
@@ -252,16 +210,16 @@ export const MARKER_LIST = [
       lng: 4.870
     },
     shape: {
-      type : ShapeType.circle,
-      anchored: false,
-      percent: 100,
-      accuracy: 500
+      type: ShapeType.circle,
+      percent: 75,
+      anchored: false
     },
+    status: 'positive',
     inner: {
-      icon: 'iotmap-icons-Car_pooling',
+      icon: 'iotmap-icons-vehicle',
       color: 'black'
     },
-    status: 'Positive'
+    template: 'vehicle'
   },
   {
     id: 'c2',
@@ -270,14 +228,10 @@ export const MARKER_LIST = [
       lat: 44.885,
       lng: 4.875
     },
-    shape: {
-      type : ShapeType.circle,
-      anchored: true,
-      plain : true
-    },
-    status: 'Neutral',
-    inner: {
-      icon: 'iotmap-icons-Car_pooling',
+    template: 'vehicle',
+    status: 'neutral',
+    tab: {
+      icon: 'iotmap-icons-vehicle',
       color: 'black'
     }
   },
@@ -288,16 +242,8 @@ export const MARKER_LIST = [
       lat: 44.885,
       lng: 4.88
     },
-    shape: {
-      type : ShapeType.circle,
-      anchored: true,
-      percent: 75
-    },
-    inner: {
-      icon: 'iotmap-icons-Car_pooling',
-      color: 'black'
-    },
-    status: 'Warning'
+    template: 'vehicle',
+    status: 'warning'
   },
   {
     id: 'c4',
@@ -306,15 +252,8 @@ export const MARKER_LIST = [
       lat: 44.885,
       lng: 4.885
     },
-    shape: {
-      type : ShapeType.circle,
-      anchored: false
-    },
-    inner: {
-      icon: 'iotmap-icons-Car_pooling',
-      color: 'black'
-    },
-    status: 'Alert'
+    template: 'vehicle',
+    status: 'alert'
   },
   {
     id: 'c5',
@@ -323,33 +262,23 @@ export const MARKER_LIST = [
       lat: 44.885,
       lng: 4.890
     },
-
-    shape: {
-      type : ShapeType.circle,
-      anchored: true,
-      plain: false
-    },
-    inner: {
-      label: 'O',
-      color: 'black'
-    },
-    status: 'Inactive'
+    template: 'vehicle',
+    status: 'inactive'
   },
   {
     id: 'c6',
-    layer: 'circles',
     location: {
       lat: 44.885,
       lng: 4.895
     },
-    popup: `<img src='../assets/icons/temperature.svg'><br>La <i>température</i><br><b>de 18°C</b>`,
-    shape: {
-      type: ShapeType.circle,
-      anchored: false,
-      percent: 45
+    popup: {
+      title: `<img src='../assets/icons/temperature.svg'><br>`,
+      body: `La <i>température</i><br><b>de 18°C</b>`,
     },
+    template: 'square',
+    status: 'warning',
     inner: {
-      icon : 'iotmap-icons-temperature',
-      color: 'green'
+      label: "H",
+      color: 'black'
     }
   }];

@@ -1,5 +1,4 @@
-import { IotMapManager } from '../iotMapManager/src/iotMapManager';
-import { ShapeType } from "../iotMapManager/src/iotMapManagerTypes";
+import { IotMapManager, ShapeType } from '../iotMapManager/index';
 
 import './Test.stories.css';
 import {
@@ -12,7 +11,6 @@ import {
   text
 } from '@storybook/addon-knobs';
 import { MARKER_LIST } from './Test.stories.const';
-//import {markerType} from "../iotMapManager/iotMapManagerTypes";
 
 export default {
   title: 'Iot Map Manager',
@@ -40,7 +38,7 @@ const locationParams = (id) => [
 const shapeParams = (id) => ({
   type: select(
     'Shape type',
-    [ShapeType.circle, ShapeType.square, ShapeType.poi],
+    [ShapeType.circle, ShapeType.square],
     0,
     'item ' + id
   ),
@@ -89,7 +87,9 @@ const accuracyParams = (id) => [
 ];
 
 const directionParams = (id) => [
-  number('direction', 0, {
+  number('direction',
+    0,
+    {
     range: true,
     min: 0,
     max: 360,
@@ -104,12 +104,6 @@ const innerStoryParams = (id) => ({
   inner: innerParams(id),
 });
 
-const userMarkerParams = () => ({
-  location: locationParams(''),
-  direction: directionParams(''),
-  accuracy: accuracyParams('')
-
-})
 
 
 ///////////////////////////////////////////////////////////////
@@ -193,12 +187,15 @@ function init() {
 // USER MARKER
 ///////////////////////////////////////////////////////////////
 
+const userMarkerParams = () => ({
+  location: locationParams(0),
+  direction: directionParams(0),
+  accuracy: accuracyParams(0)
+
+})
+
 export const UserMarker = () => {
-  userMarker = {
-    location: locationParams('0'),
-    accuracy: accuracyParams('0'),
-      direction: directionParams('0')
-  };
+  userMarker = userMarkerParams();
   addEventListener('DOMContentLoaded', initUserMarker);
   return iotMapTemplate;
 };
