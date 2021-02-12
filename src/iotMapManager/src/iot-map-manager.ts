@@ -118,6 +118,55 @@ export class IotMapManager {
   }
 
   // ------------------------------------------------------------------------------------------------------------------
+  // ---------- GETTERS -----------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
+  public getIotMap (): L.Map {
+    return this.map
+  }
+
+  public getMapBounds (): L.LatLngBounds {
+    let north: number
+    let west: number
+    let south: number
+    let east: number
+    let first = true
+
+    // markers + manual clusters
+    for (const id in this.markersObjects) {
+      const markerLoc = this.markersObjects[id].getData().location
+
+      if (first) {
+        north = markerLoc.lat
+        west = markerLoc.lng
+        south = markerLoc.lat
+        east = markerLoc.lng
+
+        first = false
+      } else {
+        west = (markerLoc.lng < west) ? markerLoc.lng : west
+        east = (markerLoc.lng > east) ? markerLoc.lng : east
+        south = (markerLoc.lat < south) ? markerLoc.lat : south
+        north = (markerLoc.lat > north) ? markerLoc.lat : north
+      }
+    }
+
+    // user marker
+    if (this.userMarkerObject) {
+      const userMarkerLoc = this.userMarkerObject.getData().location
+      west = (userMarkerLoc.lng < west) ? userMarkerLoc.lng : west
+      east = (userMarkerLoc.lng > east) ? userMarkerLoc.lng : east
+      south = (userMarkerLoc.lat < south) ? userMarkerLoc.lat : south
+      north = (userMarkerLoc.lat > north) ? userMarkerLoc.lat : north
+    }
+
+    return L.latLngBounds([[south, east], [north, west]])
+  }
+
+  public fitMapToBounds (bounds, options?) {
+    this.map.fitBounds(bounds, options)
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
 
