@@ -305,11 +305,11 @@ export class IotMapManagerConfig {
   }
 
   layerTemplates: LayerTemplate = {
-    'vehicle': { // eslint-disable-line quote-props
+    'vehicles': { // eslint-disable-line quote-props
       icon: 'iotmap-icons-vehicle',
       color: 'black'
     },
-    'entertainment': { // eslint-disable-line quote-props
+    'entertainments': { // eslint-disable-line quote-props
       icon: 'iotmap-icons-Entertainment_channel',
       color: 'black'
     }

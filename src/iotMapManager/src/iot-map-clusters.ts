@@ -63,8 +63,8 @@ export class IotMapClusters {
           tab = `<span class='tab-top ${layerTemp.icon}' style='color: ${tabColor}'/>`
           tabIcon = `<span class='pop-up-title-icon ${layerTemp.icon}'></span>`
         }
-        if (layerTemp.label !== undefined) {
-          tab = `<span class='tab-top' style='color: ${tabColor}'>${layerTemp.label}</span>`
+        if (layerTemp.text !== undefined) {
+          tab = `<span class='tab-top' style='color: ${tabColor}'>${layerTemp.text}</span>`
         }
       }
     }

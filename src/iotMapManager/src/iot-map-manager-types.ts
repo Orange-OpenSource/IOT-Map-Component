@@ -126,7 +126,7 @@ export interface MarkerTemplate {
 export interface LayerTemplate {
   [layerName: string]: {
     icon?: string
-    label?: string
+    text?: string
     color?: string
   }
 }
