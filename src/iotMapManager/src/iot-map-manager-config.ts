@@ -11,6 +11,7 @@
 * Author: S. Gateau
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
+
 import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate } from './iot-map-manager-types'
 
 export class IotMapManagerConfig {
@@ -19,7 +20,7 @@ export class IotMapManagerConfig {
   /*
    *** Default configuration definition :
    */
-  map = {
+  map: any = {
     defaultLat: 44.8888929,
     defaultLng: 4.8849108,
     defaultZoomLevel: 15,
@@ -34,7 +35,7 @@ export class IotMapManagerConfig {
     openStreetMapLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
 
-  markers = {
+  markers: any = {
     default: {
       shape: {
         type: ShapeType.circle,
@@ -303,7 +304,6 @@ export class IotMapManagerConfig {
     }
   }
 
-  // layers template
   layerTemplates: LayerTemplate = {
     'vehicle': { // eslint-disable-line quote-props
       icon: 'iotmap-icons-vehicle',
@@ -315,8 +315,14 @@ export class IotMapManagerConfig {
     }
   }
 
+  accuracyCircle: any = {
+    color: 'none',
+    fillColor: '#527EDB',
+    fillOpacity: 0.15
+  }
+
   // *** Private conf: not modified by SetConfig ***
-  clusters = {
+  clusters: any = {
     size: 50,
     gauge: {
       startAngle: -90,
@@ -325,7 +331,7 @@ export class IotMapManagerConfig {
     defaultColor: 'black'
   }
 
-  userMarker = {
+  userMarker: any = {
     size: 22,
     arrow: {
       size: 32,
@@ -333,11 +339,7 @@ export class IotMapManagerConfig {
     }
   }
 
-  accuracyCircle = {
-    color: 'none',
-    fillColor: '#527EDB',
-    fillOpacity: 0.15
-  }
+
 
   /***
    * Functions
@@ -363,6 +365,9 @@ export class IotMapManagerConfig {
       }
       if (newConfig.map.defaultZoomLevel !== undefined) {
         this.instance.map.defaultZoomLevel = newConfig.map.defaultZoomLevel
+      }
+      if (newConfig.map.defaultLayerName !== undefined) {
+        this.instance.map.defaultLayerName = newConfig.map.defaultLayerName
       }
       if (newConfig.map.clusterRadius !== undefined) {
         this.instance.map.clusterRadius = newConfig.map.clusterRadius
@@ -420,6 +425,17 @@ export class IotMapManagerConfig {
       for (const template in newConfig.markerTemplates) {
         if (newConfig.markerTemplates[template] !== undefined) {
           this.instance.markerTemplates[template] = newConfig.markerTemplates[template]
+        }
+      }
+    }
+
+    /*
+     *** LAYER TEMPLATES
+     */
+    if (newConfig.layerTemplates !== undefined) {
+      for (const template in newConfig.layerTemplates) {
+        if (newConfig.layerTemplates[template] !== undefined) {
+          this.instance.layerTemplates[template] = newConfig.layerTemplates[template]
         }
       }
     }
