@@ -18,7 +18,7 @@ import { IotMapMarkers } from './iot-map-markers'
 import { IotMapUserMarker } from './iot-map-user-markers'
 import { IotMapClusters } from './iot-map-clusters'
 import { IotMapManagerConfig } from './iot-map-manager-config'
-import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types'
+import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker, TabType } from './iot-map-manager-types'
 
 const CLUSTER_LAYER = 'Clusters'
 const ACCURACY_LAYER = 'Accuracy'
@@ -347,6 +347,17 @@ export class IotMapManager {
       // popup modified
       if (params.popup) {
         currentMarkerInfos.popup = params.popup
+        htmlModificationNeeded = true
+      }
+
+      // tab modified
+      if (params.tab !== undefined) {
+        if (params.tab.content !== 'null') {
+          currentMarkerInfos.tab.content = params.tab.content
+          currentMarkerInfos.tab.type = params.tab.type ?? TabType.normal
+        } else {
+          currentMarkerInfos.tab = undefined
+        }
         htmlModificationNeeded = true
       }
 
