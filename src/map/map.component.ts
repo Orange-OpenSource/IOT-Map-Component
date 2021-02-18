@@ -27,8 +27,10 @@ export class MapComponent implements AfterViewInit {
       template: 'square',
       status: 'warning',
       tab: {
-        icon: 'iotmap-icons-vehicle',
-        color: 'black'
+        content: `<span class='iotmap-icons-vehicle'></span>`
+      },
+      inner: {
+        label: "H"
       }
     },
     {
@@ -82,7 +84,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'iotmap-icons-bluetooth',
         color: 'green'
       },
-      layer: 'Etablissements',
+      layer: 'etablissements',
       status: 'inactive',
     },
     {
@@ -106,7 +108,7 @@ export class MapComponent implements AfterViewInit {
         anchored: false,
         plain: false
       },
-      layer: 'Etablissements',
+      layer: 'etablissements',
       inner: {
         icon: 'iotmap-icons-School',
         color: 'blue'
@@ -132,7 +134,7 @@ export class MapComponent implements AfterViewInit {
         icon: 'iotmap-icons-School',
         color: 'navyblue'
       },
-      layer: 'Etablissements',
+      layer: 'etablissements',
       status: 'neutral'
     },
     {
@@ -165,7 +167,7 @@ export class MapComponent implements AfterViewInit {
         plain: true,
         accuracy: 300
       },
-      layer: 'Etablissements',
+      layer: 'etablissements',
       inner: {
         icon: 'iotmap-icons-hospital',
         color: 'white'
@@ -183,7 +185,7 @@ export class MapComponent implements AfterViewInit {
         plain: true,
         anchored: false
       },
-      layer: 'Etablissements',
+      layer: 'etablissements',
       inner: {
         icon: 'iotmap-icons-map_pin',
         color: 'white'
@@ -221,8 +223,8 @@ export class MapComponent implements AfterViewInit {
       template: 'vehicle',
       status: 'neutral',
       tab: {
-        icon: 'iotmap-icons-vehicle',
-        color: 'black'
+        content: `<span>ABCDE</span>`,
+        type: TabType.large
       }
     },
     {
@@ -309,12 +311,12 @@ export class MapComponent implements AfterViewInit {
         }]
     },
     {
-      id: 'entertainment',
+      id: 'entertainments',
       location: {
         lat: 44.882,
         lng: 4.885
       },
-      layer: 'entertainment',
+      layer: 'entertainments',
       contentLabel: 'Entertainment',
       childCount: 60,
       aggregation: [
@@ -344,6 +346,7 @@ export class MapComponent implements AfterViewInit {
         }]
     }
   ];
+
   userMarker: any = {
     location: {
       lat: 44.9,
@@ -358,7 +361,7 @@ export class MapComponent implements AfterViewInit {
    IotMapManagerConfig.setConfig({
      markerTemplates: {
        'vehicle': {
-         layer: 'vehicle',
+         layer: 'vehicles',
          shape: {
            type: ShapeType.circle,
            anchored: true,
@@ -368,8 +371,17 @@ export class MapComponent implements AfterViewInit {
            icon: 'iotmap-icons-vehicle'
          }
        }
+     },
+     map: {
+       externalClustering: false,
+     },
+     layerTemplates: {
+       'etablissements': {
+         content: `<span class='iotmap-icons-School'/>`,
+         type: TabType.large
+       }
      }
-    });
+   });
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getBounds();
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
@@ -384,7 +396,7 @@ export class MapComponent implements AfterViewInit {
 
     this.commonIotMap.fitMapToBounds(this.commonIotMap.getMapBounds());
 
-
+    setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: 'null'}})}, 3000);
 
 // setBounds
 /*
