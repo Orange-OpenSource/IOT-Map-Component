@@ -25,7 +25,7 @@ interface GeolocMarker {
 
 export enum ShapeType { circle, square} // eslint-disable-line no-unused-vars
 
-export enum TabType {normal, large}
+export enum TabType {normal, large} // eslint-disable-line no-unused-vars
 
 export class CustomDataMarker<T extends GeolocMarker> extends L.Marker {
   data: T

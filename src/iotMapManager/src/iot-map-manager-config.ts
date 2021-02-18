@@ -306,12 +306,8 @@ export class IotMapManagerConfig {
 
   layerTemplates: LayerTemplate = {
     'vehicles': { // eslint-disable-line quote-props
-      content: `<span class='iotmap-icons-vehicle'/>`,
+      content: `<span class='iotmap-icons-vehicle'/>`, // eslint-disable-line quotes
       type: TabType.normal
-    },
-    'entertainments': { // eslint-disable-line quote-props
-      content: `<span style='color: red'>Enter</span>`,
-      type: TabType.large
     }
   }
 
@@ -338,8 +334,6 @@ export class IotMapManagerConfig {
       startAngle: -45
     }
   }
-
-
 
   /***
    * Functions

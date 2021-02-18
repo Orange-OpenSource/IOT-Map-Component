@@ -13,9 +13,9 @@
 */
 
 import * as L from 'leaflet'
-import {IotMapManagerConfig} from './iot-map-manager-config'
-import {IotMarker, ShapeType, TabType} from './iot-map-manager-types'
-import {IotMapCommonSvg} from './iot-map-common-svg'
+import { IotMapManagerConfig } from './iot-map-manager-config'
+import { IotMarker, ShapeType, TabType } from './iot-map-manager-types'
+import { IotMapCommonSvg } from './iot-map-common-svg'
 
 /* eslint-disable quotes */
 export class IotMapMarkers {
@@ -261,30 +261,18 @@ export class IotMapMarkers {
     // result
     const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected'
 
-    const html =  `<div class='markericon ${markerSelectionClass}'>
+    const html = `<div class='markericon ${markerSelectionClass}'>
                     ${imgShadow}
                     ${popup}
                     <svg xmlns='http://www.w3.org/2000/svg'
                          width='${markerConfig.width}'
                          height='${markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0)}'
                          viewBox='${x} ${y} ${w} ${h}'>
-                        ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
+                      ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
                     </svg>
                     ${innerDesign}
                     ${tab}
                   </div>`
-    /*const html = `<div class='markericon ${markerSelectionClass}'>
-        ${imgShadow}
-        ${popup}
-        <svg xmlns='http://www.w3.org/2000/svg'
-             width='${markerConfig.width}'
-             height='${markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0)}'
-             viewBox='${x} ${y} ${w} ${h}'>
-            ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
-        </svg>
-        ${innerDesign}
-        ${tab}
-    </div>`*/
 
     const iconSize : L.Point = L.point(markerConfig.width, markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0))
     const iconAnchor : L.Point = L.point(iconSize.x / 2, (!(marker.shape.anchored || selected)) ? iconSize.y / 2 : iconSize.y)
