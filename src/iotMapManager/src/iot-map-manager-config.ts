@@ -12,7 +12,7 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate } from './iot-map-manager-types'
+import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate, TabType } from './iot-map-manager-types'
 
 export class IotMapManagerConfig {
   private static instance: IotMapManagerConfig
@@ -306,12 +306,12 @@ export class IotMapManagerConfig {
 
   layerTemplates: LayerTemplate = {
     'vehicles': { // eslint-disable-line quote-props
-      icon: 'iotmap-icons-vehicle',
-      color: 'black'
+      content: `<span class='iotmap-icons-vehicle'/>`,
+      type: TabType.normal
     },
     'entertainments': { // eslint-disable-line quote-props
-      icon: 'iotmap-icons-Entertainment_channel',
-      color: 'black'
+      content: `<span style='color: red'>Enter</span>`,
+      type: TabType.large
     }
   }
 

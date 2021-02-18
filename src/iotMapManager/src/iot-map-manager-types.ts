@@ -25,6 +25,8 @@ interface GeolocMarker {
 
 export enum ShapeType { circle, square} // eslint-disable-line no-unused-vars
 
+export enum TabType {normal, large}
+
 export class CustomDataMarker<T extends GeolocMarker> extends L.Marker {
   data: T
 
@@ -48,9 +50,8 @@ interface Popup {
 }
 
 interface Tab {
-  icon?: string
-  text?: string
-  color?: string
+  content: string
+  type?: TabType
 }
 
 interface Shape {
@@ -125,8 +126,7 @@ export interface MarkerTemplate {
 
 export interface LayerTemplate {
   [layerName: string]: {
-    icon?: string
-    text?: string
-    color?: string
+    content: string,
+    type: TabType
   }
 }

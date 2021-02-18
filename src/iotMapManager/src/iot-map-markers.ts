@@ -13,9 +13,9 @@
 */
 
 import * as L from 'leaflet'
-import { IotMapManagerConfig } from './iot-map-manager-config'
-import { IotMarker, ShapeType } from './iot-map-manager-types'
-import { IotMapCommonSvg } from './iot-map-common-svg'
+import {IotMapManagerConfig} from './iot-map-manager-config'
+import {IotMarker, ShapeType, TabType} from './iot-map-manager-types'
+import {IotMapCommonSvg} from './iot-map-common-svg'
 
 /* eslint-disable quotes */
 export class IotMapMarkers {
@@ -49,12 +49,10 @@ export class IotMapMarkers {
           marker.popup.body = template.popup.body ?? marker.popup.body
         }
         if (template.tab !== undefined) {
-          if (!marker.tab) {
-            marker.tab = {}
+          marker.tab = {
+            content: template.tab.content,
+            type: template.tab.type ?? TabType.normal
           }
-          marker.tab.icon = template.tab.icon ?? marker.tab.icon
-          marker.tab.text = template.tab.text ?? marker.tab.text
-          marker.tab.color = template.tab.color ?? marker.tab.color
         }
         if (template.shape !== undefined) {
           marker.shape.type = template.shape.type ?? marker.shape.type
@@ -97,12 +95,10 @@ export class IotMapMarkers {
           marker.popup.body = status.popup.body ?? marker.popup.body
         }
         if (status.tab !== undefined) {
-          if (!marker.tab) {
-            marker.tab = {}
+          marker.tab = {
+            content: status.tab.content,
+            type: status.tab.type ?? TabType.normal
           }
-          marker.tab.icon = status.tab.icon ?? marker.tab.icon
-          marker.tab.text = status.tab.text ?? marker.tab.text
-          marker.tab.color = status.tab.color ?? marker.tab.color
         }
         if (status.shape !== undefined) {
           marker.shape.type = status.shape.type ?? marker.shape.type
@@ -233,19 +229,12 @@ export class IotMapMarkers {
     let tab = ``
     if (marker.tab !== undefined) {
       // color
-      const tabColor = (marker.tab.color === undefined) ? 'black' : marker.tab.color
-
-      if (marker.tab.icon !== undefined) { // simple tab
-        tab = `<span class='tab-top ${marker.tab.icon}' style='color: ${tabColor}'/>`
-      }
-      if (marker.tab.text !== undefined) {
-        if (marker.tab.text.length < 3) { // simple tab
-          tab = `<span class='tab-top' style='color: ${tabColor}'>${marker.tab.text}</span>`
-        } else { // big tab
-          tab = `<span class='tab-top-big' style='color: ${tabColor}'>${marker.tab.text}</span>`
-          tab += `<span class='tab-top-big-left'></span>`
-          tab += `<span class='tab-top-big-right'></span>`
-        }
+      if (marker.tab.type === TabType.normal || marker.tab.type === undefined) {
+        tab = `<span class='tab-top'>${marker.tab.content}</span>`
+      } else {
+        tab = `<span class='tab-top-big'>${marker.tab.content}</span>`
+        tab += `<span class='tab-top-big-left'></span>`
+        tab += `<span class='tab-top-big-right'></span>`
       }
     }
 
