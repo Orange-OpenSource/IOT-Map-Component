@@ -17,6 +17,8 @@
 
 .markericon{
   position: relative;
+  width: 0px;
+  height: 0px;
 }
 .markericon > svg{
   position: absolute;

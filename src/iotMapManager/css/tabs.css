@@ -63,6 +63,7 @@
   background-color: white;
   z-index: 7;
 }
+
 .marker-unselected > .tab-top-big-right {
   width: 20px;
   height: 20px;
@@ -76,11 +77,8 @@
   background-color: white;
   z-index: 7;
 }
-.marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
 
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
+.marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
   overflow: hidden;
 }
 
