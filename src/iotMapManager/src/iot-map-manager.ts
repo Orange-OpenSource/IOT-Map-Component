@@ -345,18 +345,23 @@ export class IotMapManager {
       }
 
       // popup modified
-      if (params.popup) {
-        currentMarkerInfos.popup = params.popup
+      if (params.popup !== undefined) {
+        if (params.popup.title === null && params.popup.body === null) { // cmd to remove popup
+          currentMarkerInfos.popup = undefined
+        } else {
+          currentMarkerInfos.popup.title = params.popup.title
+          currentMarkerInfos.popup.body = params.popup.body
+        }
         htmlModificationNeeded = true
       }
 
       // tab modified
       if (params.tab !== undefined) {
-        if (params.tab.content !== 'null') {
+        if (params.tab.content === null) { // cmd to remove tab
+          currentMarkerInfos.tab = undefined
+        } else {
           currentMarkerInfos.tab.content = params.tab.content
           currentMarkerInfos.tab.type = params.tab.type ?? TabType.normal
-        } else {
-          currentMarkerInfos.tab = undefined
         }
         htmlModificationNeeded = true
       }
@@ -748,8 +753,12 @@ export class IotMapManager {
         this.userMarkerAccuracy.setLatLng(newLatLng)
       }
 
-      if (params.direction !== undefined || (userMarkerInfo.direction !== undefined && params.direction === undefined)) {
-        userMarkerInfo.direction = params.direction
+      if (params.direction != undefined) {
+        if (params.direction === null) {  // cmd to remove arrow
+          userMarkerInfo.direction = undefined
+        } else {
+          userMarkerInfo.direction = params.direction
+        }
 
         // update icon
         const html = this.iotMapUserMarkers.getUserMarkerIcon(userMarkerInfo)

@@ -239,18 +239,17 @@ export class IotMapMarkers {
     }
 
     // popup
-    let popup = `<div class='marker-popup'>`
-    if (marker.popup) {
+    let popup: string = ''
+    if (marker.popup !== undefined) {
+      popup = `<div class='marker-popup'>`
       if (marker.popup.title) {
         popup += `<span class='pop-up-title'>${marker.popup.title}</span><br>`
       }
       if (marker.popup.body) {
         popup += `<span class='pop-up-body'>${marker.popup.body}</span><br>`
       }
-    } else {
-      popup += `<span class='pop-up-title'>${marker.id}</span>`
+      popup += `</div>`
     }
-    popup += `</div>`
 
     // calculate ViewBox
     const x = (markerConfig.origin.fullWidth - markerConfig.origin.width) / 2

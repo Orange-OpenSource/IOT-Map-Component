@@ -396,7 +396,8 @@ export class MapComponent implements AfterViewInit {
 
     this.commonIotMap.fitMapToBounds(this.commonIotMap.getMapBounds());
 
-    setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: 'null'}})}, 3000);
+    setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: null}})}, 3000);
+    setTimeout (() => { this.commonIotMap.updateMarker('s4', { popup: {title: null, body: null}})}, 4000);
 
 // setBounds
 /*
