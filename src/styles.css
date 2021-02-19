@@ -1,2 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'iotmapmanager/iot-map-manager.css';
+/*@import 'iotmapmanager/iot-map-manager.css';*/
+@import './iotMapManager/iot-map-manager.css';
+@import './assets/fonts/iotmap-icons.css';

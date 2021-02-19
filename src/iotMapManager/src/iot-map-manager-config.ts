@@ -306,8 +306,8 @@ export class IotMapManagerConfig {
 
   layerTemplates: LayerTemplate = {
     'vehicles': { // eslint-disable-line quote-props
-      content: `<span class='iotmap-icons-vehicle'/>`, // eslint-disable-line quotes
-      type: TabType.normal
+      content: `<span class='iotmap-icons-vehicle'></span>`, // eslint-disable-line quotes
+      type: TabType.large
     }
   }
 

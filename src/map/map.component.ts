@@ -1,6 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus, TabType } from 'iotmapmanager';
+//import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus, TabType } from 'iotmapmanager';
+import {IotCluster, IotMapManager, IotMapManagerConfig, IotMarker, ShapeType, TabType} from '../iotMapManager/index';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class MapComponent implements AfterViewInit {
 
   markersList: IotMarker[] = [
     // square
-    {
+    /*{
       id: 's1',
       location: {
         lat: 44.895,
@@ -32,7 +33,7 @@ export class MapComponent implements AfterViewInit {
       inner: {
         label: "H"
       }
-    },
+    },*/
     {
       id: 's2',
     location: {
@@ -45,6 +46,10 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'square',
       status : 'neutral',
+      tab: {
+        content: 'XXX',
+        type: TabType.large
+      }
     },
     {
       id: 's3',
@@ -313,10 +318,12 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'entertainments',
       location: {
-        lat: 44.882,
-        lng: 4.885
+        /*lat: 44.882,
+        lng: 4.885*/
+        lat: 44.895,
+        lng: 4.870
       },
-      layer: 'entertainments',
+      layer: 'vehicles',
       contentLabel: 'Entertainment',
       childCount: 60,
       aggregation: [
@@ -373,12 +380,12 @@ export class MapComponent implements AfterViewInit {
        }
      },
      map: {
-       externalClustering: false,
+       externalClustering: true,
      },
      layerTemplates: {
        'etablissements': {
-         content: `<span class='iotmap-icons-School'/>`,
-         type: TabType.large
+         content: `<span class='iotmap-icons-School'></span>`,
+         type: TabType.normal
        }
      }
    });
@@ -396,8 +403,10 @@ export class MapComponent implements AfterViewInit {
 
     this.commonIotMap.fitMapToBounds(this.commonIotMap.getMapBounds());
 
-    setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: null}})}, 3000);
-    setTimeout (() => { this.commonIotMap.updateMarker('s4', { popup: {title: null, body: null}})}, 4000);
+    //setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: null}})}, 3000);
+    setTimeout(() => {this.commonIotMap.updateMarker('s1',{popup: {title:'bidon'}});}, 2000)
+    setTimeout (() => { this.commonIotMap.updateMarker('s2', { tab: {content: 'AAA'}})}, 4000);
+    setTimeout (() => { this.commonIotMap.updateMarker('p3', { location: {lat: 44.892, lng: 4.880}, shape: {accuracy: 150}})}, 6000);
 
 // setBounds
 /*
