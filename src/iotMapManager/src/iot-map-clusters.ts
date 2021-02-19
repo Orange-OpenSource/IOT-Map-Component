@@ -13,7 +13,7 @@
 */
 
 import * as L from 'leaflet'
-import {IotCluster, TabType} from './iot-map-manager-types'
+import { IotCluster, TabType} from './iot-map-manager-types'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMapCommonSvg } from './iot-map-common-svg'
 
