@@ -127,6 +127,6 @@ export interface MarkerTemplate {
 export interface LayerTemplate {
   [layerName: string]: {
     content: string,
-    type: TabType
+    type?: TabType
   }
 }

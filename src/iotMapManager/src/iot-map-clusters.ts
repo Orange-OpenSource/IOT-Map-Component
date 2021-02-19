@@ -13,7 +13,7 @@
 */
 
 import * as L from 'leaflet'
-import { IotCluster } from './iot-map-manager-types'
+import { IotCluster, TabType} from './iot-map-manager-types'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMapCommonSvg } from './iot-map-common-svg'
 
@@ -55,15 +55,28 @@ export class IotMapClusters {
     } else {
       const layerTemp = this.config.layerTemplates[cluster.layer]
       if (layerTemp !== undefined) {
-        tab = `<span class='tab-top'>${layerTemp.content}</span>`
+        if (layerTemp.type === TabType.normal || layerTemp.type === undefined) {
+          tab = `<span class='tab-top'>${layerTemp.content}</span>`
+        } else {
+          tab = `<span class='tab-top-big'>${layerTemp.content}</span>`
+          tab += `<span class='tab-top-big-left'></span>`
+          tab += `<span class='tab-top-big-right'></span>`
+        }
       }
     }
 
     // popup
     const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
-
+    const layerTemp = this.config.layerTemplates[cluster.layer]
     let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
-    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
+    if (layerTemp !== undefined) {
+      popup += `<span class='pop-up-title'>
+                  <span class='pop-up-title-icon'>${layerTemp.content}</span>
+                  ${cluster.childCount} ${cluster.contentLabel}
+                </span><br>`
+    } else {
+      popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
+    }
 
     for (const aggr of cluster.aggregation) {
       popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
