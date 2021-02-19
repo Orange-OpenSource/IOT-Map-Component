@@ -1,4 +1,4 @@
-import { ShapeType } from "../iotMapManager/index";
+import {ShapeType, TabType} from "../iotMapManager/index";
 
 export interface IOTMarker {
   id: string;
@@ -24,6 +24,10 @@ export interface IOTMarker {
     // *** OR ***
     label?: string;
   };
+  tab?: {
+    content: string;
+    type?: TabType;
+  }
 }
 
 export const MARKER_LIST = [
@@ -37,8 +41,8 @@ export const MARKER_LIST = [
     template: 'square',
     status: 'warning',
     tab: {
-      icon: 'iotmap-icons-vehicle',
-      color: 'black'
+      content: 'H',
+      type: TabType.normal
     }
   },
   {
@@ -231,8 +235,8 @@ export const MARKER_LIST = [
     template: 'vehicle',
     status: 'neutral',
     tab: {
-      icon: 'iotmap-icons-vehicle',
-      color: 'black'
+      content: `ABC`,
+      type: TabType.large
     }
   },
   {
