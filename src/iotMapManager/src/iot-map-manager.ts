@@ -753,8 +753,8 @@ export class IotMapManager {
         this.userMarkerAccuracy.setLatLng(newLatLng)
       }
 
-      if (params.direction != undefined) {
-        if (params.direction === null) {  // cmd to remove arrow
+      if (params.direction !== undefined) {
+        if (params.direction === null) { // cmd to remove arrow
           userMarkerInfo.direction = undefined
         } else {
           userMarkerInfo.direction = params.direction
