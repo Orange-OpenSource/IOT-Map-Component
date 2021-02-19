@@ -339,7 +339,7 @@ export class IotMapManager {
 
         // update accuracy circle
         const currentAccuracyCircle: L.Circle = this.accuracyObjects[markerId]
-        if (currentAccuracyCircle) {
+        if (currentAccuracyCircle !== undefined) {
           currentAccuracyCircle.setLatLng(newLatLng)
         }
       }
@@ -349,8 +349,10 @@ export class IotMapManager {
         if (params.popup.title === null && params.popup.body === null) { // cmd to remove popup
           currentMarkerInfos.popup = undefined
         } else {
-          currentMarkerInfos.popup.title = params.popup.title
-          currentMarkerInfos.popup.body = params.popup.body
+          currentMarkerInfos.popup = {
+            title: params.popup.title ?? currentMarkerInfos.popup?.title,
+            body: params.popup.body ?? currentMarkerInfos.popup?.body
+          }
         }
         htmlModificationNeeded = true
       }
@@ -360,69 +362,50 @@ export class IotMapManager {
         if (params.tab.content === null) { // cmd to remove tab
           currentMarkerInfos.tab = undefined
         } else {
-          currentMarkerInfos.tab.content = params.tab.content
-          currentMarkerInfos.tab.type = params.tab.type ?? TabType.normal
+          currentMarkerInfos.tab = {
+            content: params.tab.content,
+            type: params.tab.type ?? currentMarkerInfos.tab?.type
+          };
         }
         htmlModificationNeeded = true
       }
 
       // shape modified
-      if (params.shape) {
-        if (params.shape.type != null) {
-          currentMarkerInfos.shape.type = params.shape.type
+      if (params.shape !== undefined) {
+        currentMarkerInfos.shape = {
+          type: params.shape.type ?? currentMarkerInfos.shape.type,
+          anchored: params.shape.anchored ?? currentMarkerInfos.shape.anchored,
+          plain: params.shape.plain ?? currentMarkerInfos.shape.plain,
+          color: params.shape.color ?? currentMarkerInfos.shape.color,
+          percent: params.shape.percent ?? currentMarkerInfos.shape.percent
         }
-        if (params.shape.anchored != null) {
-          currentMarkerInfos.shape.anchored = params.shape.anchored
-        }
-        if (params.shape.plain != null) {
-          currentMarkerInfos.shape.plain = params.shape.plain
-        }
-        if (params.shape.color != null) {
-          currentMarkerInfos.shape.color = params.shape.color
-        }
-        if (params.shape.percent != null) {
-          currentMarkerInfos.shape.percent = params.shape.percent
-        }
-
         htmlModificationNeeded = true
       }
 
       // layer modified
-      if (params.layer) {
+      if (params.layer !== undefined) {
         oldLayerName = currentMarkerInfos.layer
         currentMarkerInfos.layer = params.layer
       }
 
       // inner modified
-      if (params.inner) {
-        if (!currentMarkerInfos.inner) {
-          currentMarkerInfos.inner = {
-            color: this.config.markers.default.inner.color,
-            label: ''
-          } // Default values
-        }
-        if (params.inner.color) {
-          currentMarkerInfos.inner.color = params.inner.color
-        }
-        if (params.inner.icon) {
-          currentMarkerInfos.inner.icon = params.inner.icon
-          currentMarkerInfos.inner.label = ''
-        } else if (params.inner.label) {
-          currentMarkerInfos.inner.label = params.inner.label
-          currentMarkerInfos.inner.icon = ''
+      if (params.inner !== undefined) {
+        currentMarkerInfos.inner = {
+          color: params.inner?.color ?? currentMarkerInfos.inner?.color ?? this.config.markers.default.inner.color,
+          icon: params.inner?.icon ?? currentMarkerInfos.inner?.icon,
+          label: (params.inner?.icon === undefined) ? (params.inner?.icon ?? currentMarkerInfos.inner?.icon) : undefined
         }
         htmlModificationNeeded = true
       }
 
       // status modified
-      if (params.status) {
+      if (params.status !== undefined) {
         currentMarkerInfos.status = params.status
-
         htmlModificationNeeded = true
       }
 
       // template modified
-      if (params.template) {
+      if (params.template !== undefined) {
         currentMarkerInfos.template = params.template
         htmlModificationNeeded = true
       }
@@ -441,26 +424,27 @@ export class IotMapManager {
       }
 
       // accuracy
-      if (params.location) {
-        if (params.shape.accuracy !== undefined) {
-          // update marker info
-          currentMarkerInfos.shape.accuracy = params.shape.accuracy
+      if (params.shape?.accuracy !== undefined) {
+        // update marker info
+        if (currentMarkerInfos.shape === undefined) {
+          currentMarkerInfos.shape = {}
+        }
+        currentMarkerInfos.shape.accuracy = params.shape?.accuracy
 
-          // update accuracy layer
-          const currentAccuracyCircle = this.accuracyObjects[currentMarkerInfos.id]
-          if (currentAccuracyCircle !== undefined) {
-            currentAccuracyCircle.setRadius(currentMarkerInfos.shape.accuracy)
-          } else {
-            const newCircle = L.circle(currentMarkerInfos.location, {
-              color: 'none',
-              fillColor: this.config.accuracyCircle.fillColor,
-              fillOpacity: this.config.accuracyCircle.fillOpacity,
-              radius: currentMarkerInfos.shape.accuracy,
-              interactive: false // not clickable
-            })
-            this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle)
-            this.accuracyObjects[currentMarkerInfos.id] = newCircle
-          }
+        // update accuracy layer
+        const currentAccuracyCircle = this.accuracyObjects[currentMarkerInfos.id]
+        if (currentAccuracyCircle !== undefined) {
+          currentAccuracyCircle.setRadius(currentMarkerInfos.shape.accuracy)
+        } else {
+          const newCircle = L.circle(currentMarkerInfos.location, {
+            color: 'none',
+            fillColor: this.config.accuracyCircle.fillColor,
+            fillOpacity: this.config.accuracyCircle.fillOpacity,
+            radius: currentMarkerInfos.shape.accuracy,
+            interactive: false // not clickable
+          })
+          this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle)
+          this.accuracyObjects[currentMarkerInfos.id] = newCircle
         }
       }
     }
