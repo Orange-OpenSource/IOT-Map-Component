@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 1.0.2
+* Version: 1.0.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -289,7 +289,7 @@ export class IotMapManagerConfig {
         color: '#477ddf'
       },
       inner: {
-        color: 'white'
+        color: 'black'
       }
     },
     'poi': { // eslint-disable-line quote-props
