@@ -48,7 +48,7 @@ Several status are defined:
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
 Markers are clusterized:
-- by layer (2 markers from 2 different layers will not be clusterized together). Layers can be optionnally qualified by an HTML **content**, for cluster to display it in a tab, in *large* or *normal* **type**.
+- by layer (2 markers from 2 different layers will not be clusterized together). Layers can be optionnally qualified by an HTML **content**, for cluster to display it in a tab, in *large* or *normal* **type**, and in its popup.
 - using **status** attribute for the color repartition on cluster, and information displayed in the cluster popup.
 
 Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 markers. Beyond that, *external* mode allows to manage manually clusters.
