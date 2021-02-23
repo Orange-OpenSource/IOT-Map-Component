@@ -276,7 +276,7 @@ export class IotMapManager {
             }
           }
         } else { // clustered
-          if (marker.shape?.accuracy !== undefined) {
+          if (marker.shape.accuracy !== undefined) {
             // accuracy circle if needed
             const accuracyToRemove: L.Circle = this.accuracyObjects[markerId]
             if (accuracyToRemove) {
@@ -661,21 +661,34 @@ export class IotMapManager {
         const currentClusterInfos: IotCluster = currentClusterObject.getData()
 
         let htmlModificationNeeded = false
+        let oldLayerName: string
 
         // location modified
-        if (params.location) {
+        if (params.location !== undefined) {
           currentClusterInfos.location = params.location
 
           const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
           currentClusterObject.setLatLng(newLatLng)
         }
 
-        if (params.childCount) {
+        // childcount modified
+        if (params.childCount !== undefined) {
           currentClusterInfos.childCount = params.childCount
           htmlModificationNeeded = true
         }
 
-        if (params.aggregation) {
+        // layer modified
+        if (params.layer !== undefined) {
+          currentClusterInfos.layer = params.layer
+          htmlModificationNeeded = true
+        }
+
+        if (params.contentLabel !== undefined) {
+          currentClusterInfos.contentLabel = params.contentLabel
+          htmlModificationNeeded = true
+        }
+
+        if (params.aggregation !== undefined) {
           currentClusterInfos.aggregation = params.aggregation
           htmlModificationNeeded = true
         }
