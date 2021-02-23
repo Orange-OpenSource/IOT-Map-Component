@@ -223,19 +223,19 @@ export class IotMapManager {
    * @remarks nothing appends if element is not currently selected
    */
   public unselectElement (id: string): void {
-    if (this.selectedMarkerId == id) {
+    if (this.selectedMarkerId === id) {
       this.changeSelectionStatus(id, false)
     }
   }
 
   private changeSelectionStatus (id: string, selected: boolean) {
-    let currentElement = this.markersObjects[id];
+    const currentElement = this.markersObjects[id]
     if (currentElement) {
-      const isManualCluster = (currentElement.getData().childCount !== undefined)
-      const currentElementInfos = currentElement.getData();
-      let html = (isManualCluster)
-        ? iotMapClusters.getClusterIcon(currentElement.getData(), selected, false)
-        : iotMapMarkers.getMarkerIcon(currentElement.getData(), selected)
+      const currentElementInfos = currentElement.getData()
+      const isManualCluster = (currentElementInfos.childCount !== undefined)
+      const html = (isManualCluster)
+        ? iotMapClusters.getClusterIcon(currentElementInfos, selected, false)
+        : iotMapMarkers.getMarkerIcon(currentElementInfos, selected)
       currentElement.setIcon(html)
       currentElement.setZIndexOffset((selected) ? 100 : 0)
       this.selectedMarkerId = (selected) ? id : ''
@@ -902,7 +902,4 @@ export class IotMapManager {
       this.addUserMarker(userMarker)
     }
   }
-
-
-
 }
