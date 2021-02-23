@@ -661,7 +661,6 @@ export class IotMapManager {
         const currentClusterInfos: IotCluster = currentClusterObject.getData()
 
         let htmlModificationNeeded = false
-        let oldLayerName: string
 
         // location modified
         if (params.location !== undefined) {
