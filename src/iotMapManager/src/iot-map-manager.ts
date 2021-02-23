@@ -30,13 +30,13 @@ export class IotMapManager {
   private iotMapClusters: IotMapClusters
   private iotMapUserMarkers: IotMapUserMarker
   private config: IotMapManagerConfig
-  private markersObjects: any = {}
-  private accuracyObjects: any = {}
+  private markersObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
+  private accuracyObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private userMarkerObject: CustomDataMarker<IotUserMarker> // only one user marker
   private userMarkerAccuracy: L.Circle
 
-  private baseLayers: any = {}
-  private markersLayers: any = {}
+  private baseLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
+  private markersLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private selectedMarkerId = ''
   private layerControl: L.Control
 
@@ -53,7 +53,12 @@ export class IotMapManager {
   // handler for 'moveend'
   public onMove?: () => void
 
-  public init (selector) {
+  /**
+   * Initialise a leaflet map with default position, zoom and layer
+   *
+   * @param selector - map id
+   */
+  public init (selector: string): void {
     // init map
     this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
       this.config.map.defaultZoomLevel)
@@ -120,10 +125,20 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- GETTERS -----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
+  /**
+   * Returns leaflet map
+   *
+   * @returns the leaflet map previously initialised
+   */
   public getIotMap (): L.Map {
     return this.map
   }
 
+  /**
+   * Returns bounds containing all the defined markers, manual clusters and user marker
+   *
+   * @returns leaflet LatLngBounds object
+   */
   public getMapBounds (): L.LatLngBounds {
     let north: number
     let west: number
@@ -162,8 +177,33 @@ export class IotMapManager {
     return L.latLngBounds([[south, east], [north, west]])
   }
 
-  public fitMapToBounds (bounds, options?) {
+  /**
+   * Fit map to given bounds, according to options
+   *
+   * @param bounds - bounds of the map area to display
+   * @param options - see leaflet options
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  public fitMapToBounds (bounds: L.LatLngBounds, options?: any): void {
     this.map.fitBounds(bounds, options)
+  }
+
+  /**
+   * Returns the displayed area bounds
+   *
+   * @returns leaflet LatLngBounds object
+   */
+  public getBounds (): L.LatLngBounds {
+    return this.map.getBounds()
+  }
+
+  /**
+   * Defines displayed area bounds
+   *
+   * @param bounds - leaflet LatLngBounds object
+   */
+  public setBounds (bounds: L.LatLngBounds): void {
+    this.map.fitBounds(bounds)
   }
 
   // ------------------------------------------------------------------------------------------------------------------
@@ -258,7 +298,12 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- MARKERS -----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
-  public addMarker (marker: IotMarker) {
+  /**
+   * Insert marker in the map
+   *
+   * @param marker - an IotMarker containing all display info
+   */
+  public addMarker (marker: IotMarker): void {
     if (marker.id && marker.location) {
       // does id already exist ?
       if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
@@ -289,13 +334,23 @@ export class IotMapManager {
     }
   }
 
-  public addMarkers (markerList: IotMarker[]) {
+  /**
+   * Insert a list of markers in the map
+   *
+   * @param markerList - list of IotMarker containing all display info for each marker
+   */
+  public addMarkers (markerList: IotMarker[]): void {
     markerList.forEach(marker => {
       this.addMarker(marker)
     })
   }
 
-  public removeMarker (markerId: string) {
+  /**
+   * Remove a marker from the map
+   *
+   * @param markerId - the id of the marker to remove
+   */
+  public removeMarker (markerId: string): void {
     const markerToRemove: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
     if (markerToRemove) {
       this.getMarkerLayer(markerToRemove.getData().layer).removeLayer(markerToRemove)
@@ -314,13 +369,24 @@ export class IotMapManager {
     }
   }
 
-  public removeMarkers (markersId: string[]) {
+  /**
+   * Remove a list of markers from the map
+   *
+   * @param markersId - the id list of markers to remove
+   */
+  public removeMarkers (markersId: string[]): void {
     markersId.forEach(id => {
       this.removeMarker(id)
     })
   }
 
-  public updateMarker (markerId: string, params: Partial<IotMarker>) {
+  /**
+   * Update a marker with new display parameters
+   *
+   * @param markersId - the id of the marker to update
+   * @param params - a structure containing partial display information to update
+   */
+  public updateMarker (markerId: string, params: Partial<IotMarker>): void {
     const currentMarkerObject: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
 
     if (currentMarkerObject) {
@@ -450,7 +516,15 @@ export class IotMapManager {
     }
   }
 
-  public updateAllMarkers (markerList: IotMarker[]) {
+  /**
+   * Update all markers with new display parameters
+   *
+   * @param markerList - the list of markers to display
+   * @remarks the marker list is exhaustive: if a marker is not previously displayed but appears in markerList, it will
+   * be added / if a marker is previously displayed but doesn't appear in markerList, it will be removed / if a marker
+   * is previously displayed and appears in markerList, it will be updated
+   */
+  public updateAllMarkers (markerList: IotMarker[]): void {
     // first : remove unused markers
     // create id list from new marker list
     const markersToUpdate: string[] = []
@@ -474,7 +548,12 @@ export class IotMapManager {
     }
   }
 
-  public redrawAll () {
+  /**
+   * Force map to redraw all markers / clusters and user marker.
+   *
+   * @remarks This can be used to force the automatic clustering to take into account an update of a clustered marker
+   */
+  public redrawAll (): void {
     for (const layerName in this.markersLayers) {
       if (this.markersLayers[layerName] !== undefined) {
         this.markersLayers[layerName].clearLayers()
@@ -500,24 +579,17 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- CLUSTERS ----------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
-  public getBounds (): L.LatLngBounds {
-    return this.map.getBounds()
-  }
-
-  public setBounds (bounds: L.LatLngBounds) {
-    this.map.fitBounds(bounds)
-  }
-
-  public fitBounds (bounds: L.LatLngBounds, options = null) {
-    this.map.fitBounds(bounds, options)
-  }
-
   private defineClusterIcon (cluster): L.DivIcon {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster)
     return this.iotMapClusters.getClusterIcon(currentCluster, false, true) // automatic cluster
   }
 
-  public addCluster (cluster: IotCluster) {
+  /**
+   * Insert manual cluster in the map
+   *
+   * @param cluster - an IotCluster containing all display info
+   */
+  public addCluster (cluster: IotCluster): void {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
         const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
@@ -535,38 +607,59 @@ export class IotMapManager {
     }
   }
 
-  public addClusters (clusters: IotCluster[]) {
+  /**
+   * Insert a list of manual clusters in the map
+   *
+   * @param clusterList - list of IotCluster containing all display info for each manual cluster
+   */
+  public addClusters (clusterList: IotCluster[]): void {
     if (this.config.map.externalClustering) {
-      for (const cluster of clusters) {
+      for (const cluster of clusterList) {
         this.addCluster(cluster)
       }
     }
   }
 
-  public removeCluster (id: string) {
+  /**
+   * Remove a manual cluster from the map
+   *
+   * @param clusterId - the id of the manual cluster to remove
+   */
+  public removeCluster (clusterId: string): void {
     if (this.config.map.externalClustering) {
-      const clusterToRemove: CustomDataMarker<IotCluster> = this.markersObjects[id]
+      const clusterToRemove: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
       if (clusterToRemove) {
         this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove)
-        this.markersObjects[id] = null
+        this.markersObjects[clusterId] = null
 
         // deselect cluster if selected
-        if (this.selectedMarkerId === id) {
+        if (this.selectedMarkerId === clusterId) {
           this.selectedMarkerId = ''
         }
       }
     }
   }
 
-  public removeClusters (ids: string[]) {
+  /**
+   * Remove a list of manual clusters from the map
+   *
+   * @param clustersId - the id list of manual clusters to remove
+   */
+  public removeClusters (clustersId: string[]): void {
     if (this.config.map.externalClustering) {
-      for (const id of ids) {
+      for (const id of clustersId) {
         this.removeCluster(id)
       }
     }
   }
 
-  public updateCluster (clusterId: string, params: Partial<IotCluster>) {
+  /**
+   * Update a manual cluster with new display parameters
+   *
+   * @param clusterId - the id of the manual cluster to update
+   * @param params - a structure containing partial display information to update
+   */
+  public updateCluster (clusterId: string, params: Partial<IotCluster>): void {
     if (this.config.map.externalClustering) {
       const currentClusterObject: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
 
@@ -603,7 +696,15 @@ export class IotMapManager {
     }
   }
 
-  public updateAllClusters (clusterList: IotCluster[]) {
+  /**
+   * Update all manual clusters with new display parameters
+   *
+   * @param clusterList - the list of manual clusters to display
+   * @remarks the manual clusters list is exhaustive: if a cluster is not previously displayed but appears in
+   * clusterList, it will be added / if a cluster is previously displayed but doesn't appear in clusterList, it will be
+   * removed / if a cluster is previously displayed and appears in clusterList, it will be updated
+   */
+  public updateAllClusters (clusterList: IotCluster[]): void {
     if (this.config.map.externalClustering) {
       // first : remove unused clusters
       // create id list from new clusters list
@@ -634,7 +735,7 @@ export class IotMapManager {
    */
   private leafletClusterToIotCluster (leafletCluster): IotCluster {
     // marker Distribution
-    const tabDistribution: any = {}
+    const tabDistribution: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
 
     const allChildMarkers = leafletCluster.getAllChildMarkers()
     allChildMarkers.forEach(marker => {
@@ -689,7 +790,12 @@ export class IotMapManager {
    * USER MARKER
    */
 
-  public addUserMarker (userMarker: IotUserMarker) {
+  /**
+   * Insert user marker in the map
+   *
+   * @param userMarker - an IotUserMarker containing all display info
+   */
+  public addUserMarker (userMarker: IotUserMarker): void {
     if (userMarker.location) {
       if (this.userMarkerObject != null) {
         this.getMarkerLayer(USERMARKER_LAYER).clearLayers()
@@ -718,7 +824,12 @@ export class IotMapManager {
     }
   }
 
-  public removeUserMarker () {
+  /**
+   * Remove a user marker from the map
+   *
+   * @remarks there is no param as only one user marker can be displayed at a time
+   */
+  public removeUserMarker (): void {
     this.getMarkerLayer(USERMARKER_LAYER).removeLayer(this.userMarkerObject)
     delete this.userMarkerObject
 
@@ -726,7 +837,12 @@ export class IotMapManager {
     delete this.userMarkerAccuracy
   }
 
-  public updateUserMarker (params: Partial<IotUserMarker>) {
+  /**
+   * Update user marker with new display parameters
+   *
+   * @param params - a structure containing partial display information to update
+   */
+  public updateUserMarker (params: Partial<IotUserMarker>): void {
     if (this.userMarkerObject !== null) {
       const userMarkerInfo = this.userMarkerObject.getData()
       if (params.location !== undefined) {

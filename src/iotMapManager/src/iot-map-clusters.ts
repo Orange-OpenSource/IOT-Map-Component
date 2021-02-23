@@ -13,7 +13,7 @@
 */
 
 import * as L from 'leaflet'
-import { IotCluster, TabType} from './iot-map-manager-types'
+import { IotCluster, TabType } from './iot-map-manager-types'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMapCommonSvg } from './iot-map-common-svg'
 
@@ -21,6 +21,13 @@ import { IotMapCommonSvg } from './iot-map-common-svg'
 export class IotMapClusters {
   private config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
 
+  /**
+   * Returns a DivIcon compatible with leaflet, representing all cluster information (shape, tab, popup, size...)
+   *
+   * @param cluster - an IotCluster structure containing all visual information
+   * @param selected - true if cluster must have selected design (popup visible), false otherwise. (false by default)
+   * @returns a DivIcon containing design
+   */
   public getClusterIcon (cluster: IotCluster, selected = false, automatic = true): L.DivIcon {
     // Gauge design
     let svgGauge = ``

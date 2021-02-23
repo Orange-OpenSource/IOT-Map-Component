@@ -21,6 +21,13 @@ import { IotMapCommonSvg } from './iot-map-common-svg'
 export class IotMapMarkers {
   private config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
 
+  /**
+   * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
+   *
+   * @param marker - an IotMarker structure containing all visual information
+   * @param selected - true if marker must have selected design, false otherwise. (false by default)
+   * @returns a DivIcon containing design
+   */
   public getMarkerIcon (marker: IotMarker, selected = false): L.DivIcon {
     // default values
     if (!marker.shape) {
@@ -128,10 +135,10 @@ export class IotMapMarkers {
 
   private getDivIcon (marker: IotMarker, selected: boolean): L.DivIcon {
     // shape
-    let svgShape: string = ``
-    let svgBG: string = ``
-    let svgBorder: string = ``
-    let svgGauge: string = ``
+    let svgShape = ``
+    let svgBG = ``
+    let svgBorder = ``
+    let svgGauge = ``
     let shadowFile = './assets/img/'
 
     const markerConfig = (selected)
@@ -239,7 +246,7 @@ export class IotMapMarkers {
     }
 
     // popup
-    let popup: string = ''
+    let popup = ''
     if (marker.popup !== undefined) {
       popup = `<div class='marker-popup'>`
       if (marker.popup.title) {

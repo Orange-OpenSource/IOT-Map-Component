@@ -21,6 +21,12 @@ import { IotMapCommonSvg } from './iot-map-common-svg'
 export class IotMapUserMarker {
   private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
+  /**
+   * Returns a DivIcon compatible with leaflet, representing all user marker information
+   *
+   * @param userMarker - an IotUserMarker structure containing all visual information
+   * @returns a DivIcon containing design
+   */
   public getUserMarkerIcon (userMarker: IotUserMarker): L.DivIcon {
     const userSvg = IotMapCommonSvg.user
     const userMarkerSize = this.config.userMarker.size

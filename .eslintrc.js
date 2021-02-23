@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
+    'plugin:@typescript-eslint/recommended',
     'standard'
   ],
   parserOptions: {
@@ -14,8 +15,10 @@ module.exports = {
   },
   plugins: [
     'vue',
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'eslint-plugin-tsdoc'
   ],
   rules: {
+    'tsdoc/syntax': 'warn'
   }
 }

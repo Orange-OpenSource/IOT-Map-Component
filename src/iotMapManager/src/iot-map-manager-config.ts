@@ -20,7 +20,7 @@ export class IotMapManagerConfig {
   /*
    *** Default configuration definition :
    */
-  map: any = {
+  map: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     defaultLat: 44.8888929,
     defaultLng: 4.8849108,
     defaultZoomLevel: 15,
@@ -30,12 +30,11 @@ export class IotMapManagerConfig {
     layerControl: true,
 
     // *** Private conf: not modified by SetConfig ***
-    // tslint:disable-next-line:max-line-length
     geoportailLayer: 'https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
     openStreetMapLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
 
-  markers: any = {
+  markers: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     default: {
       shape: {
         type: ShapeType.circle,
@@ -311,14 +310,14 @@ export class IotMapManagerConfig {
     }
   }
 
-  accuracyCircle: any = {
+  accuracyCircle: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     color: 'none',
     fillColor: '#527EDB',
     fillOpacity: 0.15
   }
 
   // *** Private conf: not modified by SetConfig ***
-  clusters: any = {
+  clusters: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     size: 50,
     gauge: {
       startAngle: -90,
@@ -327,7 +326,7 @@ export class IotMapManagerConfig {
     defaultColor: 'black'
   }
 
-  userMarker: any = {
+  userMarker: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     size: 22,
     arrow: {
       size: 32,
@@ -335,8 +334,10 @@ export class IotMapManagerConfig {
     }
   }
 
-  /***
-   * Functions
+  /**
+   * Returns the current configuration
+   *
+   * @returns an IotMapManagerConfig up to date
    */
   public static getConfig (): IotMapManagerConfig {
     if (!IotMapManagerConfig.instance) {
@@ -346,7 +347,14 @@ export class IotMapManagerConfig {
     return IotMapManagerConfig.instance
   }
 
-  public static setConfig (newConfig: Partial<IotMapManagerConfig>) {
+  /**
+   * Update current configuration with new values for some entries
+   * @remarks some configuration entries are private and can not be modified
+   *
+   * @param newConfig - a structure containing entries to update in current configuration
+   *
+   */
+  public static setConfig (newConfig: Partial<IotMapManagerConfig>): void {
     /*
      *** MAP ***
     */
