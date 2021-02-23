@@ -15,11 +15,13 @@
 import * as L from 'leaflet'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMarker, ShapeType, TabType } from './iot-map-manager-types'
-import { IotMapCommonSvg } from './iot-map-common-svg'
+//import { IotMapCommonSvg } from './iot-map-common-svg'
+import * as commonSvg from './iot-map-common-svg'
+
 
 /* eslint-disable quotes */
-export class IotMapMarkers {
-  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
+//export class IotMapMarkers {
+  const config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
 
   /**
    * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
@@ -28,20 +30,20 @@ export class IotMapMarkers {
    * @param selected - true if marker must have selected design, false otherwise. (false by default)
    * @returns a DivIcon containing design
    */
-  public getMarkerIcon (marker: IotMarker, selected = false): L.DivIcon {
+  export function getMarkerIcon (marker: IotMarker, selected = false): L.DivIcon {
     // default values
     if (!marker.shape) {
-      marker.shape = JSON.parse(JSON.stringify(this.config.markers.default.shape))
+      marker.shape = JSON.parse(JSON.stringify(config.markers.default.shape))
     }
-    marker.shape.type = marker.shape.type ?? this.config.markers.default.shape.type
-    marker.shape.plain = marker.shape.plain ?? this.config.markers.default.shape.plain
-    marker.shape.anchored = marker.shape.anchored ?? this.config.markers.default.shape.anchored
-    marker.shape.color = marker.shape.color ?? this.config.markers.default.shape.color
+    marker.shape.type = marker.shape.type ?? config.markers.default.shape.type
+    marker.shape.plain = marker.shape.plain ?? config.markers.default.shape.plain
+    marker.shape.anchored = marker.shape.anchored ?? config.markers.default.shape.anchored
+    marker.shape.color = marker.shape.color ?? config.markers.default.shape.color
     marker.layer = marker.layer ?? 'default'
 
     // is template valid ?
     if (marker.template !== undefined) {
-      const template = this.config.markerTemplates[marker.template]
+      const template = config.markerTemplates[marker.template]
       if (template === undefined) {
         marker.template = undefined
       } else { // update marker with template info
@@ -87,7 +89,7 @@ export class IotMapMarkers {
 
     // is status valid ?
     if (marker.status !== undefined) {
-      const status = this.config.markerStatus[marker.status]
+      const status = config.markerStatus[marker.status]
       if (status === undefined) {
         marker.status = undefined
       } else { // update marker with status info
@@ -130,10 +132,10 @@ export class IotMapMarkers {
       }
     }
 
-    return this.getDivIcon(marker, selected)
+    return getDivIcon(marker, selected)
   }
 
-  private getDivIcon (marker: IotMarker, selected: boolean): L.DivIcon {
+  function getDivIcon (marker: IotMarker, selected: boolean): L.DivIcon {
     // shape
     let svgShape = ``
     let svgBG = ``
@@ -142,59 +144,59 @@ export class IotMapMarkers {
     let shadowFile = './assets/img/'
 
     const markerConfig = (selected)
-      ? this.config.markers.size.selected
+      ? config.markers.size.selected
       : ((marker.shape.type === ShapeType.circle)
-          ? this.config.markers.size.unselectedCircle
-          : this.config.markers.size.unselectedSquare
+          ? config.markers.size.unselectedCircle
+          : config.markers.size.unselectedSquare
         )
 
-    const commonSvg = (marker.shape.type === ShapeType.circle) ? IotMapCommonSvg.circle : IotMapCommonSvg.square
+    const svg = (marker.shape.type === ShapeType.circle) ? commonSvg.circle : commonSvg.square
     if (marker.shape.color === undefined) {
-      marker.shape.color = this.config.markers.default.shape.color
+      marker.shape.color = config.markers.default.shape.color
     }
     const funColor = (marker.shape.percent !== undefined) ? 'white' : marker.shape.color
 
     // shape
     if (selected) { // Only anchored markers can be selected
       if (marker.shape.plain) { // STD
-        svgShape = `<path ${commonSvg.selStdColour}  fill='${funColor}'/>`
+        svgShape = `<path ${svg.selStdColour}  fill='${funColor}'/>`
       } else { // FUN
-        svgShape = `<path ${commonSvg.selFunColour} fill='${funColor}'/>`
-        svgBG = commonSvg.selFunBg
+        svgShape = `<path ${svg.selFunColour} fill='${funColor}'/>`
+        svgBG = svg.selFunBg
       }
-      shadowFile += commonSvg.selShadow
+      shadowFile += svg.selShadow
     } else if (marker.shape.type === ShapeType.circle) {
       if (marker.shape.anchored) {
-        svgBorder = commonSvg.pinBorder
-        svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
-        shadowFile += commonSvg.pinShadow
+        svgBorder = svg.pinBorder
+        svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
+        shadowFile += svg.pinShadow
       } else {
-        svgBorder = commonSvg.border
-        svgShape = `<circle ${commonSvg.stdColour} fill='${funColor}'/>`
-        shadowFile += commonSvg.shadow
+        svgBorder = svg.border
+        svgShape = `<circle ${svg.stdColour} fill='${funColor}'/>`
+        shadowFile += svg.shadow
       }
     } else if (marker.shape.type === ShapeType.square) {
       if (marker.shape.anchored) {
         if (marker.shape.plain) {
-          svgBorder = commonSvg.pinBorder
-          svgShape = `<path ${commonSvg.pinStdColour} fill='${funColor}'/>`
-          shadowFile += commonSvg.pinShadow
+          svgBorder = svg.pinBorder
+          svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
+          shadowFile += svg.pinShadow
         } else {
-          svgBorder = commonSvg.pinBorder
-          svgShape = `<path ${commonSvg.pinFunColour} fill='${funColor}'/>`
-          svgBG = commonSvg.pinFunBg
-          shadowFile += commonSvg.pinShadow
+          svgBorder = svg.pinBorder
+          svgShape = `<path ${svg.pinFunColour} fill='${funColor}'/>`
+          svgBG = svg.pinFunBg
+          shadowFile += svg.pinShadow
         }
       } else {
         if (marker.shape.plain) {
-          svgBorder = commonSvg.border
-          svgShape = `<rect ${commonSvg.stdColour} fill='${funColor}'/>`
-          shadowFile += commonSvg.shadow
+          svgBorder = svg.border
+          svgShape = `<rect ${svg.stdColour} fill='${funColor}'/>`
+          shadowFile += svg.shadow
         } else {
-          svgBorder = commonSvg.border
-          svgShape = `<rect ${commonSvg.funColour} fill='${funColor}'/>`
-          shadowFile += commonSvg.shadow
-          svgBG = commonSvg.funBg
+          svgBorder = svg.border
+          svgShape = `<rect ${svg.funColour} fill='${funColor}'/>`
+          shadowFile += svg.shadow
+          svgBG = svg.funBg
         }
       }
     }
@@ -202,7 +204,7 @@ export class IotMapMarkers {
     // inner
     let innerDesign = ''
     if (marker.inner) {
-      const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : this.config.markers.default.inner.color
+      const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : config.markers.default.inner.color
 
       if (marker.inner.icon) { // icon
         innerDesign = `<span class='innerspan ${marker.inner.icon} ${((selected) ? ' iconSelected' : ' iconUnselected')}'
@@ -219,7 +221,7 @@ export class IotMapMarkers {
       const perimeter = 2 * 3.14 * markerConfig.origin.gauge.radius
       const arc = marker.shape.percent * perimeter / 100
 
-      svgGauge = `<circle ${commonSvg.gauge}
+      svgGauge = `<circle ${svg.gauge}
         r='${markerConfig.origin.gauge.radius}'
         stroke-width='${markerConfig.origin.gauge.width}'
         stroke='${gaugeColor}'
@@ -291,5 +293,5 @@ export class IotMapMarkers {
       html: html
     })
   }
-}
+//}
 /* eslint-ensable quotes */

@@ -15,11 +15,12 @@
 import * as L from 'leaflet'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotUserMarker } from './iot-map-manager-types'
-import { IotMapCommonSvg } from './iot-map-common-svg'
+//import { IotMapCommonSvg } from './iot-map-common-svg'
+import * as commonSvg from './iot-map-common-svg'
 
 /* eslint-disable quotes */
-export class IotMapUserMarker {
-  private config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
+//export class IotMapUserMarker {
+  const config: IotMapManagerConfig = IotMapManagerConfig.getConfig();
 
   /**
    * Returns a DivIcon compatible with leaflet, representing all user marker information
@@ -27,10 +28,10 @@ export class IotMapUserMarker {
    * @param userMarker - an IotUserMarker structure containing all visual information
    * @returns a DivIcon containing design
    */
-  public getUserMarkerIcon (userMarker: IotUserMarker): L.DivIcon {
-    const userSvg = IotMapCommonSvg.user
-    const userMarkerSize = this.config.userMarker.size
-    const arrowConfig = this.config.userMarker.arrow
+  export function getUserMarkerIcon (userMarker: IotUserMarker): L.DivIcon {
+    const userSvg = commonSvg.user
+    const userMarkerSize = config.userMarker.size
+    const arrowConfig = config.userMarker.arrow
 
     // shadow file
     const imgShadow = `<img class='usermarkershadow' src='./assets/img/${userSvg.shadow}'/>`
@@ -65,5 +66,5 @@ export class IotMapUserMarker {
       html: html
     })
   }
-}
+//}
 /* eslint-ensable quotes */

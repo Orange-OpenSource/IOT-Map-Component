@@ -14,9 +14,9 @@
 
 import * as L from 'leaflet'
 import 'leaflet.markercluster'
-import { IotMapMarkers } from './iot-map-markers'
-import { IotMapUserMarker } from './iot-map-user-markers'
-import { IotMapClusters } from './iot-map-clusters'
+import * as iotMapMarkers from './iot-map-markers'
+import * as iotMapUserMarker from './iot-map-user-markers'
+import * as iotMapClusters from './iot-map-clusters'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types'
 
@@ -26,9 +26,6 @@ const USERMARKER_LAYER = 'UserMarker'
 
 export class IotMapManager {
   private map: L.Map
-  private iotMapMarkers: IotMapMarkers
-  private iotMapClusters: IotMapClusters
-  private iotMapUserMarkers: IotMapUserMarker
   private config: IotMapManagerConfig
   private markersObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private accuracyObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -41,9 +38,6 @@ export class IotMapManager {
   private layerControl: L.Control
 
   constructor () {
-    this.iotMapMarkers = new IotMapMarkers()
-    this.iotMapClusters = new IotMapClusters()
-    this.iotMapUserMarkers = new IotMapUserMarker()
     this.config = IotMapManagerConfig.getConfig()
   }
 
@@ -223,8 +217,8 @@ export class IotMapManager {
 
       // get new html and update marker (=> unselect marker)
       html = (isManualCluster)
-        ? this.iotMapClusters.getClusterIcon(markerObject.getData(), false, false)
-        : this.iotMapMarkers.getMarkerIcon(markerObject.getData(), false)
+        ? iotMapClusters.getClusterIcon(markerObject.getData(), false, false)
+        : iotMapMarkers.getMarkerIcon(markerObject.getData(), false)
       markerObject.setIcon(html)
       markerObject.setZIndexOffset(0)
     } else { // new marker selected
@@ -234,8 +228,8 @@ export class IotMapManager {
 
         // get new html and update marker (=> unselect marker)
         html = (lastSelectedMarker.getData().childCount !== undefined)
-          ? this.iotMapClusters.getClusterIcon(lastSelectedMarker.getData(), false, false)
-          : this.iotMapMarkers.getMarkerIcon(lastSelectedMarker.getData(), false)
+          ? iotMapClusters.getClusterIcon(lastSelectedMarker.getData(), false, false)
+          : iotMapMarkers.getMarkerIcon(lastSelectedMarker.getData(), false)
         lastSelectedMarker.setIcon(html)
         lastSelectedMarker.setZIndexOffset(0)
       }
@@ -246,8 +240,8 @@ export class IotMapManager {
 
       // get new html and update marker (=> select marker)
       html = (isManualCluster)
-        ? this.iotMapClusters.getClusterIcon(markerObject.getData(), true, false)
-        : this.iotMapMarkers.getMarkerIcon(markerObject.getData(), true)
+        ? iotMapClusters.getClusterIcon(markerObject.getData(), true, false)
+        : iotMapMarkers.getMarkerIcon(markerObject.getData(), true)
       markerObject.setIcon(html)
       markerObject.setZIndexOffset(100)
     }
@@ -312,7 +306,7 @@ export class IotMapManager {
         const newMarker: CustomDataMarker<IotMarker> =
           new CustomDataMarker(
             marker,
-            { icon: this.iotMapMarkers.getMarkerIcon(marker) })
+            { icon: iotMapMarkers.getMarkerIcon(marker) })
         this.getMarkerLayer(marker.layer).addLayer(newMarker)
         this.markersObjects[marker.id] = newMarker
 
@@ -478,7 +472,7 @@ export class IotMapManager {
 
       // update marker icon
       if (htmlModificationNeeded) {
-        const html = this.iotMapMarkers.getMarkerIcon(currentMarkerInfos, currentMarkerIsSelected)
+        const html = iotMapMarkers.getMarkerIcon(currentMarkerInfos, currentMarkerIsSelected)
         currentMarkerObject.setIcon(html)
       }
 
@@ -581,7 +575,7 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   private defineClusterIcon (cluster): L.DivIcon {
     const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster)
-    return this.iotMapClusters.getClusterIcon(currentCluster, false, true) // automatic cluster
+    return iotMapClusters.getClusterIcon(currentCluster, false, true) // automatic cluster
   }
 
   /**
@@ -595,7 +589,7 @@ export class IotMapManager {
         const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
           cluster,
           {
-            icon: this.iotMapClusters.getClusterIcon(cluster, false, false)
+            icon: iotMapClusters.getClusterIcon(cluster, false, false)
           } // manual cluster
         )
 
@@ -689,7 +683,7 @@ export class IotMapManager {
         // update cluster icon
         if (htmlModificationNeeded) {
           const selected = (this.selectedMarkerId === currentClusterInfos.id)
-          const html = this.iotMapClusters.getClusterIcon(currentClusterInfos, selected, !this.config.map.externalClustering)
+          const html = iotMapClusters.getClusterIcon(currentClusterInfos, selected, !this.config.map.externalClustering)
           currentClusterObject.setIcon(html)
         }
       }
@@ -802,7 +796,7 @@ export class IotMapManager {
         this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy)
       }
       this.userMarkerObject = new CustomDataMarker(userMarker, {
-        icon: this.iotMapUserMarkers.getUserMarkerIcon(userMarker),
+        icon: iotMapUserMarker.getUserMarkerIcon(userMarker),
         interactive: false
       }) // not clickable
       this.getMarkerLayer(USERMARKER_LAYER).addLayer(this.userMarkerObject)
@@ -861,7 +855,7 @@ export class IotMapManager {
         }
 
         // update icon
-        const html = this.iotMapUserMarkers.getUserMarkerIcon(userMarkerInfo)
+        const html = iotMapUserMarker.getUserMarkerIcon(userMarkerInfo)
         this.userMarkerObject.setIcon(html)
       }
 
