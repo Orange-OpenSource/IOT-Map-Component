@@ -276,7 +276,7 @@ export class IotMapManager {
             }
           }
         } else { // clustered
-          if (marker.location.accuracy !== undefined) {
+          if (marker.shape?.accuracy !== undefined) {
             // accuracy circle if needed
             const accuracyToRemove: L.Circle = this.accuracyObjects[markerId]
             if (accuracyToRemove) {
