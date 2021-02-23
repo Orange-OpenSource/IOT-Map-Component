@@ -203,47 +203,53 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
+  /**
+   * Select element
+   * @param id - id of the element to select
+   *
+   * @remarks unselect currently selected element, if one
+   */
+  public selectElement (id: string): void {
+    if (this.selectedMarkerId !== id) {
+      this.changeSelectionStatus(this.selectedMarkerId, false)
+    }
+    this.changeSelectionStatus(id, true)
+  }
+
+  /**
+   * Unselect element
+   * @param id - ident of the element to unselect
+   *
+   * @remarks nothing appends if element is not currently selected
+   */
+  public unselectElement (id: string): void {
+    if (this.selectedMarkerId == id) {
+      this.changeSelectionStatus(id, false)
+    }
+  }
+
+  private changeSelectionStatus (id: string, selected: boolean) {
+    let currentElement = this.markersObjects[id];
+    if (currentElement) {
+      const isManualCluster = (currentElement.getData().childCount !== undefined)
+      const currentElementInfos = currentElement.getData();
+      let html = (isManualCluster)
+        ? iotMapClusters.getClusterIcon(currentElement.getData(), selected, false)
+        : iotMapMarkers.getMarkerIcon(currentElement.getData(), selected)
+      currentElement.setIcon(html)
+      currentElement.setZIndexOffset((selected) ? 100 : 0)
+      this.selectedMarkerId = (selected) ? id : ''
+    }
+  }
 
   private onMarkerClick (event) {
     const markerObject = event.layer
-    const isManualCluster = (markerObject.getData().childCount !== undefined)
+    const id = markerObject?.getData().id ?? ''
 
-    // select / unselect marker
-    let html: L.DivIcon
-    // already selected => unselect it
-    if (this.selectedMarkerId === markerObject.getData().id) {
-      // update selected id
-      this.selectedMarkerId = ''
-
-      // get new html and update marker (=> unselect marker)
-      html = (isManualCluster)
-        ? iotMapClusters.getClusterIcon(markerObject.getData(), false, false)
-        : iotMapMarkers.getMarkerIcon(markerObject.getData(), false)
-      markerObject.setIcon(html)
-      markerObject.setZIndexOffset(0)
-    } else { // new marker selected
-      // --- unselect last selected marker ---
-      if (this.selectedMarkerId !== '') { // a marker was already selected
-        const lastSelectedMarker = this.markersObjects[this.selectedMarkerId]
-
-        // get new html and update marker (=> unselect marker)
-        html = (lastSelectedMarker.getData().childCount !== undefined)
-          ? iotMapClusters.getClusterIcon(lastSelectedMarker.getData(), false, false)
-          : iotMapMarkers.getMarkerIcon(lastSelectedMarker.getData(), false)
-        lastSelectedMarker.setIcon(html)
-        lastSelectedMarker.setZIndexOffset(0)
-      }
-
-      // --- select new marker ---
-      // update selected id
-      this.selectedMarkerId = markerObject.getData().id
-
-      // get new html and update marker (=> select marker)
-      html = (isManualCluster)
-        ? iotMapClusters.getClusterIcon(markerObject.getData(), true, false)
-        : iotMapMarkers.getMarkerIcon(markerObject.getData(), true)
-      markerObject.setIcon(html)
-      markerObject.setZIndexOffset(100)
+    if (this.selectedMarkerId === id) { // already selected
+      this.unselectElement(id)
+    } else {
+      this.selectElement(id)
     }
   }
 
@@ -896,4 +902,7 @@ export class IotMapManager {
       this.addUserMarker(userMarker)
     }
   }
+
+
+
 }
