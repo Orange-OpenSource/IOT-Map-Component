@@ -42,18 +42,18 @@ Several status are defined:
 
 <img src="doc/status.png">
 
-- [NOT IMPLEMENTED YET] An always visible **tab** can be optionnaly added to every marker, for additionnal information:
+- An always visible **tab**, in *large* or *normal* **type**, can be optionnaly added to every marker, for additionnal HTML **content** information:
 
 <img src="doc/tabs.png">
 
 <ins>Clusters</ins> to replace several markers, depending on the map zoom level.
 Markers are clusterized:
-- by layer (2 markers from 2 different layers will not be clusterized together).
+- by layer (2 markers from 2 different layers will not be clusterized together). Layers can be optionnally qualified by an HTML **content**, for cluster to display it in a tab, in *large* or *normal* **type**, and in its popup.
 - using **status** attribute for the color repartition on cluster, and information displayed in the cluster popup.
 
 Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 markers. Beyond that, *external* mode allows to manage manually clusters.
 
-<img src="doc/clusters.png">
+<img src="doc/clusters.png"><img src="doc/clusters_tabs.png">
 
 <ins>User marker</ins> to display the current location of the application user, with an optionnal **direction** (in degree) and **accuracy**.
 
