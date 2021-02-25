@@ -459,7 +459,7 @@ export class IotMapManager {
         currentMarkerInfos.inner = {
           color: params.inner?.color ?? currentMarkerInfos.inner?.color ?? this.config.markers.default.inner.color,
           icon: params.inner?.icon ?? currentMarkerInfos.inner?.icon,
-          label: (params.inner?.icon === undefined) ? (params.inner?.icon ?? currentMarkerInfos.inner?.icon) : undefined
+          label: (params.inner?.icon === undefined) ? (params.inner?.label ?? currentMarkerInfos.inner?.label) : undefined
         }
         htmlModificationNeeded = true
       }
