@@ -20,7 +20,7 @@ import * as iotMapClusters from './iot-map-clusters'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types'
 
-const CLUSTER_LAYER = 'Clusters'
+//const CLUSTER_LAYER = 'Clusters'
 const ACCURACY_LAYER = 'Accuracy'
 const USERMARKER_LAYER = 'UserMarker'
 
@@ -592,15 +592,21 @@ export class IotMapManager {
   public addCluster (cluster: IotCluster): void {
     if (this.config.map.externalClustering) {
       if (cluster.id && cluster.location) {
-        const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
-          cluster,
-          {
-            icon: iotMapClusters.getClusterIcon(cluster, false, false)
-          } // manual cluster
-        )
+        if (this.markersObjects[cluster.id] !== undefined && this.markersObjects[cluster.id] !== null) {
+          this.updateCluster(cluster.id, cluster)
+        } else {
+          const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
+            cluster,
+            {
+              icon: iotMapClusters.getClusterIcon(cluster, false, false)
+            } // manual cluster
+          )
 
-        this.getMarkerLayer(CLUSTER_LAYER).addLayer(newCluster)
-        this.markersObjects[cluster.id] = newCluster
+          cluster.layer = cluster.layer ?? 'default'
+
+          this.getMarkerLayer(cluster.layer).addLayer(newCluster)
+          this.markersObjects[cluster.id] = newCluster
+        }
       } else {
         console.log('No id and/or no location defined for new cluster. Unable to display')
       }
@@ -629,7 +635,7 @@ export class IotMapManager {
     if (this.config.map.externalClustering) {
       const clusterToRemove: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
       if (clusterToRemove) {
-        this.getMarkerLayer(CLUSTER_LAYER).removeLayer(clusterToRemove)
+        this.getMarkerLayer(clusterToRemove.getData().layer).removeLayer(clusterToRemove)
         this.markersObjects[clusterId] = null
 
         // deselect cluster if selected
