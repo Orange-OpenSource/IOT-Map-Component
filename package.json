@@ -13,7 +13,8 @@
     "lint": "eslint src/iotMapManager/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -s ./src/iotMapManager/img:/assets/img -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o ./docs && mkdir -p docs/assets/img && cp src/iotMapManager/img/* docs/assets/img/",
+    "deploy-storybook": "git add docs && git commit -m 'chore(storybook): deploy' --allow-empty && git subtree split --branch gh-pages --prefix docs && git push origin gh-pages -f && echo 'Storybook successfully deployed'"
   },
   "repository": {
     "type": "git",
