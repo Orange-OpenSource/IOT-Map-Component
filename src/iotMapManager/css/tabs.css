@@ -80,6 +80,7 @@
 
 .marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
   overflow: hidden;
+  font-size: 1px;
 }
 
 
@@ -143,6 +144,7 @@
 .cluster-selected > .tab-top-big-left,
 .cluster-selected > .tab-top-big-right {
   visibility: hidden;
+  font-size: 1px;
 }
 
 
@@ -207,5 +209,6 @@
 .automatic-cluster:hover > .tab-top-big-right
 {
   visibility: hidden;
+  font-size: 1px;
 }
 
