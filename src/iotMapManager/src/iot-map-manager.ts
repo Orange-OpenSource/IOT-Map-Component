@@ -200,6 +200,23 @@ export class IotMapManager {
     this.map.fitBounds(bounds)
   }
 
+  /**
+   * Returns a leaflet element defined by its id
+   * @param id - Id of the element to return
+   *
+   * @remarks id is unique
+   */
+  public getElement(id: string): CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster> {
+    return this.markersObjects[id];
+  }
+
+  /**
+   * Returns all leaflet elements (markers and clusters)
+   */
+  public getAllElements(): (CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster>)[] {
+    return this.markersObjects;
+  }
+
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
