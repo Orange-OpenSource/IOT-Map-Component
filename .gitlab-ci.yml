@@ -5,6 +5,7 @@ stages:
   - check
   - build
   - test
+  - validate
 
 
 lint:
