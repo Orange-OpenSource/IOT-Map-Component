@@ -28,6 +28,7 @@ export class IotMapManagerConfig {
     clusterRadius: 100,
     externalClustering: false,
     layerControl: true,
+    exclusiveLayers: false,
 
     // *** Private conf: not modified by SetConfig ***
     geoportailLayer: 'https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',

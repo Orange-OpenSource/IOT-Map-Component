@@ -102,7 +102,11 @@ export class IotMapManager {
     this.map.addLayer(layer)
     this.markersLayers[layerName] = layer
     if (this.config.map.layerControl) {
-      this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
+      if (this.config.map.exclusiveLayers) {
+        this.layerControl = L.control.layers(this.markersLayers).addTo(this.map)
+      } else {
+        this.layerControl = L.control.layers(null, this.markersLayers).addTo(this.map)
+      }
     }
 
     return layer
