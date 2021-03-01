@@ -20,7 +20,6 @@ import * as iotMapClusters from './iot-map-clusters'
 import { IotMapManagerConfig } from './iot-map-manager-config'
 import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types'
 
-//const CLUSTER_LAYER = 'Clusters'
 const ACCURACY_LAYER = 'Accuracy'
 const USERMARKER_LAYER = 'UserMarker'
 
@@ -210,15 +209,15 @@ export class IotMapManager {
    *
    * @remarks id is unique
    */
-  public getElement(id: string): CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster> {
-    return this.markersObjects[id];
+  public getElement (id: string): CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster> {
+    return this.markersObjects[id]
   }
 
   /**
    * Returns all leaflet elements (markers and clusters)
    */
-  public getAllElements(): (CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster>)[] {
-    return this.markersObjects;
+  public getAllElements (): (CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster>)[] {
+    return this.markersObjects
   }
 
   // ------------------------------------------------------------------------------------------------------------------
