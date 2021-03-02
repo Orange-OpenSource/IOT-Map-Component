@@ -1,6 +1,6 @@
 {
   "name": "iotmapmanager",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Manage markers and clusters on IotMaps",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,10 +9,7 @@
     "build": "tsc"
   },
   "files": [
-    "lib/index.js",
-    "lib/index.d.ts",
-    "lib/*/*.js",
-    "lib/*/*.d.ts",
+    "lib/**/*",
     "css/*",
     "img/*",
     "iot-map-manager.css",
