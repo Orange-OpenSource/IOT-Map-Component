@@ -86,7 +86,7 @@ const accuracyParams = (id) => [
   number('accuracy', 150, {step: 20}, 'item ' + id),
 ];
 
-const directionParams = (id) => [
+const directionParams = (id) =>
   number('direction',
     0,
     {
@@ -94,8 +94,8 @@ const directionParams = (id) => [
     min: 0,
     max: 360,
     step: 10,
-  }, 'item ' + id),
-];
+  }, 'item ' + id)
+;
 
 const innerStoryParams = (id) => ({
   id: 's1',
