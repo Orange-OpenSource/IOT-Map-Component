@@ -1,6 +1,17 @@
 import {AfterViewInit, Component} from '@angular/core';
 
-import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapManagerConfig, MarkerStatus, TabType } from 'iotmapmanager';
+import {
+  IotMapManager,
+  IotCluster,
+  IotMarker,
+  IotUserMarker,
+  ShapeType,
+  IotMapConfig,
+  TabType,
+  IotMapMarkerManager,
+  IotMapClusterManager,
+  IotMapUserMarkerManager
+} from 'iotmapmanager';
 
 @Component({
   selector: 'map-component',
@@ -9,8 +20,11 @@ import { IotMapManager, IotCluster, IotMarker, IotUserMarker, ShapeType, IotMapM
 })
 
 export class MapComponent implements AfterViewInit {
-  commonIotMap: IotMapManager = new IotMapManager();
-  conf: IotMapManagerConfig = IotMapManagerConfig.getConfig();
+  conf: IotMapConfig = new IotMapConfig();
+  commonIotMap: IotMapManager = new IotMapManager(this.conf)
+  iotMapMarkerManager: IotMapMarkerManager = new IotMapMarkerManager(this.commonIotMap, this.conf)
+  iotMapClusterManager: IotMapClusterManager = new IotMapClusterManager(this.commonIotMap, this.conf)
+  iotMapUserMarkerManager: IotMapUserMarkerManager = new IotMapUserMarkerManager(this.commonIotMap, this.conf)
   title = 'IotMap';
 
   markersList: IotMarker[] = [
@@ -50,7 +64,7 @@ export class MapComponent implements AfterViewInit {
         type: TabType.large
       }
     },
-    {
+   /* {
       id: 's3',
     location: {
         lat: 44.895,
@@ -71,7 +85,7 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'square',
       status: 'alert',
-    },
+    },*/
     {
       id: 's5',
     location: {
@@ -351,17 +365,121 @@ export class MapComponent implements AfterViewInit {
     }
   ];
 
-  userMarker: any = {
-    location: {
+  userMarker: IotUserMarker = {
+    location: { lat: 44.897, lng: 4.8813 }/*{
       lat: 44.9,
       lng: 4.8818
-    },
+    }*/,
     accuracy: 150,
     direction: 180
   }
+/*
+  chemin: IotPath = {
+    id: 'chemin',
+    points: [
+      { lat: 44.9, lng: 4.8818 },
+      { lat: 44.899, lng: 4.8816 },
+      { lat: 44.898, lng: 4.8814 },
+      { lat: 44.897, lng: 4.8813 },
+      { lat: 44.896, lng: 4.8811 },
+      { lat: 44.895, lng: 4.8809 },
+      { lat: 44.894, lng: 4.8807 },
+      { lat: 44.893, lng: 4.8807 },
+      { lat: 44.893, lng: 4.8810 },
+      { lat: 44.8929, lng: 4.882 },
+      { lat: 44.8929, lng: 4.883 },
+      { lat: 44.8929, lng: 4.884 },
+      { lat: 44.8925, lng: 4.884 },
+      { lat: 44.892, lng: 4.884 }],
+    middlePos: [
+      { lat: 44.896, lng: 4.8811 },
+      { lat: 44.8929, lng: 4.884 }],
+    sidePath: [
+      {
+        line: 1,
+        color: '#CD3C14',
+        points: [
+          {lat: 44.9, lng: 4.8818},
+          {lat: 44.899, lng: 4.8816},
+          {lat: 44.898, lng: 4.8814},
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811},
+          {lat: 44.895, lng: 4.8809}]
+      },
+      {
+        line: 1,
+        color: '#CD3C14',
+        points: [
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 2,
+        color: '#FFCC00',
+        points: [
 
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811},
+          {lat: 44.895, lng: 4.8809},
+          {lat: 44.894, lng: 4.8807},
+          {lat: 44.893, lng: 4.8807},
+          {lat: 44.893, lng: 4.8810},
+          {lat: 44.8929, lng: 4.882}]
+      },
+      {
+        line: 2,
+        color: '#FFCC00',
+        points: [
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 3,
+        color: '#32C832',
+        points: [
+          {lat: 44.9, lng: 4.8818},
+          {lat: 44.899, lng: 4.8816},
+          {lat: 44.898, lng: 4.8814},
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811}]
+      },
+      {
+        line: 3,
+        color: '#32C832',
+        points: [
+          { lat: 44.895, lng: 4.8809 },
+          { lat: 44.894, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8810 },
+          { lat: 44.8929, lng: 4.882 },
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 4,
+        color: 'black',//'#CCCCCC',
+        points: [
+          { lat: 44.897, lng: 4.8813 },
+          { lat: 44.896, lng: 4.8811 },
+          { lat: 44.895, lng: 4.8809 },
+          { lat: 44.894, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8810 },
+          { lat: 44.8929, lng: 4.882 },
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      }
+    ]
+  }
+*/
   ngAfterViewInit(): void {
-   IotMapManagerConfig.setConfig({
+    this.conf.setConfig({
      markerTemplates: {
        'vehicle': {
          layer: 'vehicles',
@@ -376,7 +494,7 @@ export class MapComponent implements AfterViewInit {
        }
      },
      map: {
-       externalClustering: true,
+       externalClustering: false,
      },
      layerTemplates: {
        'etablissements': {
@@ -386,70 +504,15 @@ export class MapComponent implements AfterViewInit {
      }
    });
     this.commonIotMap.onMove = () => {
-      const coord = this.commonIotMap.getBounds();
+      const coord = this.commonIotMap.getIotMap().getBounds();
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
                                     + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']');
     };
 
     this.commonIotMap.init('iotMap');
-    this.commonIotMap.addMarkers(this.markersList);
-    this.commonIotMap.addClusters(this.clustersList);
-    this.commonIotMap.addUserMarker(this.userMarker);
-
-
-    //this.commonIotMap.fitMapToBounds(this.commonIotMap.getMapBounds());
-    setTimeout (() => { this.commonIotMap.selectElement('s3')}, 3000);
-    setTimeout (() => { this.commonIotMap.selectElement('services')}, 6000);
-    setTimeout (() => { this.commonIotMap.selectElement('p2')}, 9000);
-
-
-
-    //setTimeout (() => { this.commonIotMap.updateCluster('entertainments', { layer: 'vehicles'})}, 3000);
-    //setTimeout (() => { this.commonIotMap.updateMarker('c2', { tab: {content: null}})}, 3000);
-   /* setTimeout(() => {this.commonIotMap.updateMarker('s1',{popup: {title:'bidon'}});}, 2000)
-    setTimeout (() => { this.commonIotMap.updateMarker('s2', { tab: {content: 'AAA'}})}, 4000);
-    setTimeout (() => { this.commonIotMap.updateMarker('p3', { location: {lat: 44.892, lng: 4.880}, shape: {accuracy: 150}})}, 6000);
-*/
-// setBounds
-/*
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.9, lng: 4.8818 }, direction: 180});}, 1000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.899, lng: 4.8816 }, direction: 180});}, 1500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.898, lng: 4.8814 }, direction: 180});}, 2000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.897, lng: 4.8813 }, direction: 180});}, 2500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.896, lng: 4.8811 }, direction: 180});}, 3000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.895, lng: 4.8809 }, direction: 180});}, 3500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.894, lng: 4.8807 }, direction: 180});}, 4000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.893, lng: 4.8807 }, direction: 120});}, 4500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.893, lng: 4.8810 }, direction: 90});}, 5000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.8929, lng: 4.882 }, direction: 90});}, 5500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.8929, lng: 4.883 }, direction: 90});}, 6000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.8929, lng: 4.884 }, direction: 120});}, 6500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.8925, lng: 4.884 }, direction: 180});}, 7000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.892, lng: 4.884 }, direction: 180});}, 7500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.891, lng: 4.8845 }, direction: 180});}, 8000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ location: { lat: 44.890, lng: 4.885 }, direction: 190});}, 8500);
-
-
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 200});}, 8700);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 210});}, 8800);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 220});}, 8900);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 230});}, 9000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 240});}, 9100);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 250});}, 9200);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 260});}, 9300);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 270});}, 9400);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 280});}, 9500);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 280});}, 9600);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 290});}, 9700);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 300});}, 9800);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 310});}, 9900);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 320});}, 10000);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 330});}, 10100);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 340});}, 10200);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 350});}, 10300);
-    setTimeout (() => { this.commonIotMap.updateUserMarker({ direction: 0});}, 10400);
-*/
-
+    this.iotMapMarkerManager.addMarkers(this.markersList);
+    this.iotMapClusterManager.addClusters(this.clustersList)
+    this.iotMapUserMarkerManager.addUserMarker(this.userMarker);
 
   }
 }
