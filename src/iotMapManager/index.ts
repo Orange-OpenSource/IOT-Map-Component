@@ -20,5 +20,6 @@ export * from './src/iot-map-manager'
 export * from './src/iot-map-marker-manager'
 export * from './src/iot-map-cluster-manager'
 export * from './src/iot-map-user-marker-manager'
+export * from './src/iot-map-path-manager'
 
 export * from './src/iot-map-icons'

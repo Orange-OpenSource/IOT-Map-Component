@@ -89,4 +89,10 @@ export const user = {
   shadow: `USR_Shadow.png`
 }
 
+export const path = {
+  start: `<circle r='12' cx='12' cy='12' fill='white'/><circle r='8' cx='12' cy='12' fill='#32C832'/>`,
+  end: `<circle r='12' cx='12' cy='12' fill='white'/><circle r='8' cx='12' cy='12' fill='#CD3C14'/><circle r='3' cx='12' cy='12' fill='white'/>`,
+  mid: `<circle r='12' cx='12' cy='12' fill='#527EDB'/><circle r='8' cx='12' cy='12' fill='white'/>`
+}
+
 /* eslint-enable quotes */

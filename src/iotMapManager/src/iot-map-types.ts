@@ -27,6 +27,7 @@ export enum ShapeType { circle, square} // eslint-disable-line no-unused-vars
 
 export enum TabType {normal, large} // eslint-disable-line no-unused-vars
 
+export enum PathIconType {start, mid, end} // eslint-disable-line no-unused-vars
 /**
  * IotMapDisplay abstract class extends leaflet Marker
  *
@@ -213,4 +214,23 @@ export interface LayerTemplate {
     content: string,
     type?: TabType
   }
+}
+
+/**
+ * * Path
+ *
+ * @param id - (mandatory) id of the path (used to update path for exemple)
+ * @param color - (optionnal) color of the path (blue is default)
+ * @param type - (mandatory) At least 2 points to define a path
+ */
+export interface IotPath {
+  id: string,
+  color?: string
+  points: Location[]
+  middlePos?: Location[]
+  sidePath?: {
+    points: Location[]
+    color: string
+    line: number
+  }[]
 }

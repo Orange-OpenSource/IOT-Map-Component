@@ -335,6 +335,13 @@ export class IotMapConfig {
     layerName: 'UserMarker'
   }
 
+  path: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
+    layerName: 'Paths',
+    color: '#',
+    width: 18,
+    markerSize: 24
+  }
+
   /**
    * Update current configuration with new values for some entries
    * @remarks some configuration entries are private and can not be modified

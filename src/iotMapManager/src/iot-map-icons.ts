@@ -13,7 +13,7 @@
 */
 
 import * as L from 'leaflet'
-import { IotCluster, IotMarker, IotUserMarker, ShapeType, TabType } from './iot-map-types'
+import { IotCluster, IotMarker, IotUserMarker, ShapeType, TabType, PathIconType } from './iot-map-types'
 import { IotMapConfig } from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
 import { IotMapMarker } from './iot-map-marker'
@@ -162,12 +162,55 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   })
 }
 
+export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIcon {
+  let svg: string
+  switch (type) {
+    case PathIconType.start: {
+      svg = commonSvg.path.start
+      break
+    }
+    case PathIconType.mid: {
+      svg = commonSvg.path.mid
+      break
+    }
+    case PathIconType.end: {
+      svg = commonSvg.path.end
+      break
+    }
+    default: {
+      svg = ''
+      break
+    }
+  }
+
+  const size = config.path.markerSize
+  const html = `<div>
+                  <svg xmlns='http://www.w3.org/2000/svg'
+                       width='${size}'
+                       height='${size}'
+                       viewBox='0 0 ${size} ${size}'>
+                    ${svg}
+                  </svg>
+                </div>`
+
+  const iconSize : L.Point = L.point(size, size)
+  const iconAnchor : L.Point = L.point(iconSize.x / 2, iconSize.y / 2)
+
+  // creating icon
+  return new L.DivIcon({
+    className: 'my-custom-pin',
+    iconSize: iconSize, // size of the icon
+    iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
+    html: html
+  })
+}
+
 // -------------------
 // ----- PRIVATE -----
 // -------------------
 /**
  * Compute marker values by applying default values, template and status value
- * @param marker - all marler information
+ * @param marker - all marker information
  * @param config - configuration to use to display marker
  */
 function computeMarkerValues (marker: IotMarker, config: IotMapConfig): IotMarker {

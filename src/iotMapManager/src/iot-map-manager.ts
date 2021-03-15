@@ -86,7 +86,9 @@ export class IotMapManager {
     if (this.config.map.externalClustering) { // manual clustering
       layer = new L.FeatureGroup()
       layer.on('click', this.onElementClick.bind(this))
-    } else if (layerName === this.config.accuracyCircle.layerName || layerName === this.config.userMarker.layerName) { // accuracy area or user marker = no clustering
+    } else if (layerName === this.config.accuracyCircle.layerName ||
+      layerName === this.config.userMarker.layerName ||
+      layerName === this.config.path.layerName) { // accuracy area, user marker or path = no clustering
       layer = new L.FeatureGroup()
     } else { // clusterables marker
       layer = L.markerClusterGroup({
