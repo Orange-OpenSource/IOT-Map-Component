@@ -4,7 +4,7 @@ This library provides management of markers dedicated to projects using mapping.
 ## use
 In your project file :
 
-    import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapManagerConfig, MarkerStatus } from 'iotmapmanager';
+    import { IotMapManager, IotCluster, IotMarker, IotUserMarker, markerType, IotMapConfig, MarkerStatus } from 'iotmapmanager';
 
 In your css file:
 
@@ -107,7 +107,7 @@ label and icon cannot be defined simultaneously : you can display only one of th
       }[];
     }
 
-* id used for update/delete purposes
+* id used for update/removeMarker purposes
 * location is (lat, long) of the cluster
 * contentLabel: what is clustered ? (devices, cars, buildings...)
 * childCount: number of clustered elements
@@ -123,11 +123,11 @@ label and icon cannot be defined simultaneously : you can display only one of th
 Default values are set for configuration.
 You can get config values as following:
 
-    config = IotMapManagerConfig.getConfig();
+    config = IotMapConfig.getConfig();
 
 You can modify several values by calling :
 
-    IotMapManagerConfig.setConfig(...)
+    IotMapConfig.setConfig(...)
     
 Editable values :
 * map:
@@ -172,7 +172,7 @@ Editable values :
 You can get markerIcons, clusterIcons and UserMarkerIcons and there sizing and position to use them with an other map.
 
     getMarkerIcon(marker: IotMarker, selected = false): L.DivIcon
-    getClusterIcon(cluster: IotCluster, selected = false, automatic = true): L.DivIcon
+    getManualClusterIcon(cluster: IotCluster, selected = false, automatic = true): L.DivIcon
     getUserMarkerIcon(userMarker: IotUserMarker): L.DivIcon
 
 Each function takes:

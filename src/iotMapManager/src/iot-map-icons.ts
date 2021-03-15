@@ -13,21 +13,164 @@
 */
 
 import * as L from 'leaflet'
-import { IotMapManagerConfig } from './iot-map-manager-config'
-import { IotMarker, ShapeType, TabType } from './iot-map-manager-types'
+import { IotCluster, IotMarker, IotUserMarker, ShapeType, TabType } from './iot-map-types'
+import { IotMapConfig } from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
+import { IotMapMarker } from './iot-map-marker'
 
 /* eslint-disable quotes */
-const config: IotMapManagerConfig = IotMapManagerConfig.getConfig()
-
 /**
  * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
  *
  * @param marker - an IotMarker structure containing all visual information
+ * @param config - config to use to generate the icon
  * @param selected - true if marker must have selected design, false otherwise. (false by default)
  * @returns a DivIcon containing design
  */
-export function getMarkerIcon (marker: IotMarker, selected = false): L.DivIcon {
+export function getMarkerIcon (marker: IotMarker, config: IotMapConfig, selected = false): L.DivIcon {
+  marker = computeMarkerValues(marker, config)
+  return getMarkerDivIcon(marker, config, selected)
+}
+
+/**
+ * Returns a DivIcon compatible with leaflet, representing all manual cluster information (shape, tab, popup, gauge...)
+ *
+ * @param cluster - an IotCluster structure containing all visual information
+ * @param config - config to use to generate the icon
+ * @param selected - true if cluster must have selected design, false otherwise. (false by default)
+ * @param automatic - true if clustering is automatic (calculated by leaflet), false if clustering is manual
+ *
+ * @remarks use this function for manual clustering purpose
+ */
+export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig, selected = false, automatic: boolean): L.DivIcon {
+  const svgGauge = computeClusterGauge(cluster, config)
+
+  // shadow
+  const imgShadow = `<img class='clusterShadow' src='./assets/img/${commonSvg.cluster.shadow}'/>`
+
+  // label
+  const innerLabel = `<span class='clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
+
+  // tab
+  let tab = ``
+  if (cluster.layer === undefined) {
+    cluster.layer = 'default'
+  } else {
+    const layerTemp = config.layerTemplates[cluster.layer]
+    if (layerTemp !== undefined) {
+      if (layerTemp.type === TabType.normal || layerTemp.type === undefined) {
+        tab = `<span class='tab-top'>${layerTemp.content}</span>`
+      } else {
+        tab = `<span class='tab-top-big'>${layerTemp.content}</span>`
+        tab += `<span class='tab-top-big-left'></span>`
+        tab += `<span class='tab-top-big-right'></span>`
+      }
+    }
+  }
+
+  // popup
+  const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
+  const layerTemp = config.layerTemplates[cluster.layer]
+  let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
+  if (layerTemp !== undefined) {
+    popup += `<span class='pop-up-title'>
+                <span class='pop-up-title-icon'>${layerTemp.content}</span>
+                ${cluster.childCount} ${cluster.contentLabel}
+              </span><br>`
+  } else {
+    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
+  }
+
+  for (const aggr of cluster.aggregation) {
+    popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
+              <span class='pop-up-body'>${aggr.count} ${((aggr.count === 1) ? aggr.singularState : aggr.pluralState)}</span><br>`
+  }
+  popup += `</div>`
+
+  const html = `<div class='clustericon ${clusterSelectionClass}'>
+                  ${imgShadow}
+                  ${popup}
+                  ${commonSvg.cluster.svgDefinitionStart}
+                  ${commonSvg.cluster.clusterBG}
+                  ${svgGauge}
+                  ${commonSvg.cluster.svgDefinitionEnd}
+                  ${innerLabel}
+                  ${tab}
+                </div>`
+
+  const clusterSize = config.clusters.size
+  return new L.DivIcon({
+    html: html,
+    className: 'my-cluster-class',
+    iconSize: L.point(clusterSize, clusterSize),
+    iconAnchor: L.point(clusterSize / 2, clusterSize / 2)
+  })
+}
+
+/**
+ * Returns a DivIcon compatible with leaflet, representing all automatic cluster information (shape, tab, popup, gauge...)
+ * @param leafletCluster - cluster computed by leaflet
+ * @param config - config to use to display cluster
+ *
+ * @remarks use this function for automatic clustering purpose
+ */
+export function getAutomaticClusterIcon (leafletCluster: L.MarkerCluster, config: IotMapConfig): L.DivIcon {
+  const iotCluster: IotCluster = leafletClusterToIotCluster(leafletCluster, config)
+  return getManualClusterIcon(iotCluster, config, false, true) // automatic cluster
+}
+
+/**
+ * Returns a DivIcon compatible with leaflet, representing all user marker information (direction, accuracy...)
+ * @param userMarker - IotUserMarker structure containing all visual information
+ */
+export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConfig): L.DivIcon {
+  const userSvg = commonSvg.user
+  const userMarkerSize = config.userMarker.size
+  const arrowConfig = config.userMarker.arrow
+
+  // shadow file
+  const imgShadow = `<img class='usermarkershadow' src='./assets/img/${userSvg.shadow}'/>`
+
+  let html = `<div class='usermarkericon'>`
+  if (userMarker.direction !== undefined) {
+    html += `<svg xmlns='http://www.w3.org/2000/svg'
+                  width='${userMarkerSize}'
+                  height='${userMarkerSize}'
+                  viewBox='0 0 ${userMarkerSize} ${userMarkerSize}'>${userSvg.border}</svg>
+             <svg xmlns='http://www.w3.org/2000/svg'
+                  width='${userMarkerSize}'
+                  height='${userMarkerSize}'
+                  viewBox='-3 -3 38 38'>
+              <path ${userSvg.arrow} transform='rotate(${(userMarker.direction + arrowConfig.startAngle)}
+                                                       ${arrowConfig.size / 2}
+                                                       ${arrowConfig.size / 2})'/>
+              </svg>`
+  } else {
+    html += `<svg xmlns='http://www.w3.org/2000/svg'
+                  width='${userMarkerSize}'
+                  height='${userMarkerSize}'
+                  viewBox='0 0 ${userMarkerSize} ${userMarkerSize}'> ${userSvg.border} ${userSvg.inner}</svg>`
+  }
+  html += imgShadow
+
+  // creating icon
+  return new L.DivIcon({
+    className: 'my-custom-pin',
+    iconSize: L.point(userMarkerSize, userMarkerSize), // size of the icon
+    iconAnchor: L.point(userMarkerSize / 2, userMarkerSize / 2), // point of the icon which will correspond to marker's location
+    html: html
+  })
+}
+
+// -------------------
+// ----- PRIVATE -----
+// -------------------
+/**
+ * Compute marker values by applying default values, template and status value
+ * @param marker - all marler information
+ * @param config - configuration to use to display marker
+ */
+function computeMarkerValues (marker: IotMarker, config: IotMapConfig): IotMarker {
   // default values
   if (!marker.shape) {
     marker.shape = JSON.parse(JSON.stringify(config.markers.default.shape))
@@ -129,10 +272,17 @@ export function getMarkerIcon (marker: IotMarker, selected = false): L.DivIcon {
     }
   }
 
-  return getDivIcon(marker, selected)
+  return marker
 }
 
-function getDivIcon (marker: IotMarker, selected: boolean): L.DivIcon {
+/**
+ * Create a divIcon according to marker informations
+ * @param marker - an IotMarker structure containing all visual information
+ * @param config - config to use to generate the icon
+ * @param selected - true if marker must have selected design, false otherwise. (false by default)
+ * @returns a DivIcon containing design
+ */
+function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: boolean): L.DivIcon {
   // shape
   let svgShape = ``
   let svgBG = ``
@@ -290,4 +440,93 @@ function getDivIcon (marker: IotMarker, selected: boolean): L.DivIcon {
     html: html
   })
 }
-/* eslint-ensable quotes */
+
+/**
+ * Create a svg gauge according to cluster information (number and distribution of children markers)
+ * @param cluster - an IotCluster structure containing all visual information
+ * @param config - config to use to generate the svg string
+ */
+function computeClusterGauge (cluster: IotCluster, config: IotMapConfig): string {
+  // Gauge design
+  let svgGauge = ``
+  let angle = config.clusters.gauge.startAngle
+  let arc = 0.0
+  const radius = config.clusters.gauge.radius
+  const perimeter = 2 * 3.14 * radius
+  const clusterSize = config.clusters.size
+  for (const aggr of cluster.aggregation) {
+    const n = aggr.count
+    const color = aggr.color
+
+    arc = n * perimeter / cluster.childCount
+
+    svgGauge += `<circle ${commonSvg.cluster.gauge}
+      r='${radius}'
+      stroke='${color}'
+      stroke-dasharray='${arc}, ${perimeter}'
+      transform='rotate(${angle} ${clusterSize / 2} ${clusterSize / 2})'/>`
+    angle += n * 360 / cluster.childCount
+  }
+
+  return svgGauge
+}
+
+/**
+ * Convert a MarkerCluster to an IotCluster
+ * @param leafletCluster - MarkerCluster containing children markers
+ * @param config - config to use to convert
+ */
+function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: IotMapConfig): IotCluster {
+  // marker Distribution
+  const tabDistribution: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
+
+  const allChildMarkers = leafletCluster.getAllChildMarkers()
+  allChildMarkers.forEach(m => {
+    const marker = <IotMapMarker> m // cast m to IotMapMaker
+    const state = (marker.getData().status) ? marker.getData().status : 'stateless'
+    if (tabDistribution[state]) {
+      tabDistribution[state] = {
+        count: tabDistribution[state].count + 1,
+        label: (marker.getData().status)
+          ? config.markerStatus[marker.getData().status].name.plural
+          : 'stateless'
+      }
+    } else {
+      tabDistribution[state] = {
+        count: 1,
+        label: (marker.getData().status)
+          ? config.markerStatus[marker.getData().status].name.singular
+          : 'stateless'
+      }
+    }
+  })
+
+  const layer = (<IotMapMarker> allChildMarkers[0]).getData().layer
+
+  const currentCluster: IotCluster = {
+    id: '', // unused in automatic mode
+    location: {
+      lat: 0,
+      lng: 0
+    }, // unused in automatic mode
+    contentLabel: layer, // unused in automatic mode
+    layer: layer,
+    childCount: leafletCluster.getChildCount(),
+    aggregation: []
+  }
+  let i = 0
+  for (const state in tabDistribution) {
+    if (tabDistribution[state]) {
+      currentCluster.aggregation[i] = {
+        count: tabDistribution[state].count,
+        color: (state === 'stateless') ? config.clusters.defaultColor : config.markerStatus[state].shape.color,
+        singularState: tabDistribution[state].label,
+        pluralState: tabDistribution[state].label
+      }
+      i++
+    }
+  }
+
+  return currentCluster
+}
+/* eslint-enable quotes */

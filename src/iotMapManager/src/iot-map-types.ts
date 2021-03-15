@@ -14,12 +14,12 @@
 
 import * as L from 'leaflet'
 
-interface Location {
+export interface Location {
   lat: number
   lng: number
 }
 
-interface GeolocMarker {
+export interface GeolocMarker {
   location: Location
 }
 
@@ -28,34 +28,17 @@ export enum ShapeType { circle, square} // eslint-disable-line no-unused-vars
 export enum TabType {normal, large} // eslint-disable-line no-unused-vars
 
 /**
- * CustomDataMarker class extends leaflet Marker
+ * IotMapDisplay abstract class extends leaflet Marker
  *
  * @remarks same behaviour as L.Marker with a stored data structure to save displayed info
  */
-export class CustomDataMarker<T extends GeolocMarker> extends L.Marker {
-  data: T
-
-  constructor (data: T, options?: L.MarkerOptions) {
-    super(data.location, options)
-    this.setData(data)
-  }
-
-  /**
-   * Returns marker data
-   *
-   * @returns data related to marker / cluster / user marker. Type is defined by marker itself
-   */
-  getData (): T {
-    return this.data
-  }
-
-  /**
-   * Set marker data
-   *
-   * @param data - data related to marker / cluster / user marker. Type is defined by marker itself
-   */
-  setData (data: T): void {
-    this.data = data
+export abstract class IotMapDisplay extends L.Marker {
+  abstract getData (): GeolocMarker
+  abstract setData (data: GeolocMarker): void
+  abstract select (selected: boolean): void
+  abstract redraw (): void
+  reactAfterZoom (): void {
+    // By default : Nothing to do
   }
 }
 

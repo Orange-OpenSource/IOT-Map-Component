@@ -14,30 +14,27 @@
 
 import * as L from 'leaflet'
 import 'leaflet.markercluster'
-import * as iotMapMarkers from './iot-map-markers'
-import * as iotMapUserMarker from './iot-map-user-markers'
-import * as iotMapClusters from './iot-map-clusters'
-import { IotMapManagerConfig } from './iot-map-manager-config'
-import { IotMarker, IotCluster, IotUserMarker, CustomDataMarker } from './iot-map-manager-types'
-
-const ACCURACY_LAYER = 'Accuracy'
-const USERMARKER_LAYER = 'UserMarker'
+import { IotMapConfig } from './iot-map-config'
+import { IotMapDisplay } from './iot-map-types'
+import { getAutomaticClusterIcon } from './iot-map-icons'
 
 export class IotMapManager {
   private map: L.Map
-  private config: IotMapManagerConfig
-  private markersObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
-  private accuracyObjects: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
-  private userMarkerObject: CustomDataMarker<IotUserMarker> // only one user marker
-  private userMarkerAccuracy: L.Circle
+  private config: IotMapConfig
+
+  private displayedMarkers: IotMapDisplay[] = []
+  private selectedElement: IotMapDisplay
 
   private baseLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private markersLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
-  private selectedMarkerId = ''
   private layerControl: L.Control
 
-  constructor () {
-    this.config = IotMapManagerConfig.getConfig()
+  /**
+   * Constructor
+   * @param config - config to use for map display
+   */
+  constructor (config: IotMapConfig) {
+    this.config = config
   }
 
   // ------------------------------------------------------------------------------------------------------------------
@@ -71,9 +68,16 @@ export class IotMapManager {
     }
 
     this.map.on('moveend', this.onMove)
+
+    this.selectedElement = undefined
   }
 
-  private initMarkerLayer (layerName) {
+  /**
+   * Create a layer according to marker / cluster types : if clustering is automatic or external, if layer is for
+   * displaying accuracy areas or user marker...
+   * @param layerName - name of the layer to init
+   */
+  private initLayer (layerName: string) {
     if (this.config.map.layerControl) {
       this.map.removeControl(this.layerControl)
     }
@@ -81,20 +85,20 @@ export class IotMapManager {
     let layer: L.MarkerClusterGroup | L.FeatureGroup
     if (this.config.map.externalClustering) { // manual clustering
       layer = new L.FeatureGroup()
-      layer.on('click', this.onMarkerClick.bind(this))
-    } else if (layerName === ACCURACY_LAYER || layerName === USERMARKER_LAYER) { // accuracy zones or user marker = no clustering
+      layer.on('click', this.onElementClick.bind(this))
+    } else if (layerName === this.config.accuracyCircle.layerName || layerName === this.config.userMarker.layerName) { // accuracy area or user marker = no clustering
       layer = new L.FeatureGroup()
     } else { // clusterables marker
       layer = L.markerClusterGroup({
         maxClusterRadius: this.config.map.clusterRadius,
         showCoverageOnHover: false,
-        iconCreateFunction: this.defineClusterIcon.bind(this)
+        iconCreateFunction: this.getClusterIcon.bind(this)
       })
 
       layer.on('animationend', this.onZoom.bind(this))
         .on('clustermouseover', this.onClusterMouseOver.bind(this))
         .on('clustermouseout', this.onClusterMouseOut.bind(this))
-        .on('click', this.onMarkerClick.bind(this))
+        .on('click', this.onElementClick.bind(this))
     }
 
     // add layer to map
@@ -111,17 +115,23 @@ export class IotMapManager {
     return layer
   }
 
-  private getMarkerLayer (layerName): L.MarkerClusterGroup | L.FeatureGroup {
+  // ------------------------------------------------------------------------------------------------------------------
+  // ---------- GETTERS / SETTERS -------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * Returns Leaflet layer corresponding to layerName
+   *
+   * @param layerName - name of the layer
+   */
+  public getLayer (layerName: string): L.MarkerClusterGroup | L.FeatureGroup {
     let layer: L.MarkerClusterGroup | L.FeatureGroup = this.markersLayers[layerName]
     if (!layer) {
-      layer = this.initMarkerLayer(layerName)
+      layer = this.initLayer(layerName)
     }
     return layer
   }
 
-  // ------------------------------------------------------------------------------------------------------------------
-  // ---------- GETTERS -----------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------------------------
   /**
    * Returns leaflet map
    *
@@ -132,800 +142,100 @@ export class IotMapManager {
   }
 
   /**
-   * Returns bounds containing all the defined markers, manual clusters and user marker
-   *
-   * @returns leaflet LatLngBounds object
+   * switch a displayed element to selected
+   * @param elt - element to select
    */
-  public getMapBounds (): L.LatLngBounds {
-    let north: number
-    let west: number
-    let south: number
-    let east: number
-    let first = true
-
-    // markers + manual clusters
-    for (const id in this.markersObjects) {
-      const markerLoc = this.markersObjects[id].getData().location
-
-      if (first) {
-        north = markerLoc.lat
-        west = markerLoc.lng
-        south = markerLoc.lat
-        east = markerLoc.lng
-
-        first = false
-      } else {
-        west = (markerLoc.lng < west) ? markerLoc.lng : west
-        east = (markerLoc.lng > east) ? markerLoc.lng : east
-        south = (markerLoc.lat < south) ? markerLoc.lat : south
-        north = (markerLoc.lat > north) ? markerLoc.lat : north
-      }
+  public selectElement (elt: IotMapDisplay): void {
+    if (this.selectedElement !== elt) {
+      this.changeSelectionStatus(this.selectedElement, false)
     }
+    this.changeSelectionStatus(elt, true)
+  }
 
-    // user marker
-    if (this.userMarkerObject) {
-      const userMarkerLoc = this.userMarkerObject.getData().location
-      west = (userMarkerLoc.lng < west) ? userMarkerLoc.lng : west
-      east = (userMarkerLoc.lng > east) ? userMarkerLoc.lng : east
-      south = (userMarkerLoc.lat < south) ? userMarkerLoc.lat : south
-      north = (userMarkerLoc.lat > north) ? userMarkerLoc.lat : north
+  /**
+   * switch a displayed element to unselected
+   * @param elt - element to unselect
+   */
+  public unselectElement (elt: IotMapDisplay): void {
+    if (this.selectedElement === elt) {
+      this.changeSelectionStatus(elt, false)
     }
-
-    return L.latLngBounds([[south, east], [north, west]])
   }
 
   /**
-   * Fit map to given bounds, according to options
+   * Add a marker to the map.
+   * @param elt - marker to add
+   * @param layer - layer to add the marker in
+   * @param id - marker id
    *
-   * @param bounds - bounds of the map area to display
-   * @param options - see leaflet options
+   * @remarks used to get the list of displayed markers
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  public fitMapToBounds (bounds: L.LatLngBounds, options?: any): void {
-    this.map.fitBounds(bounds, options)
+  public addElement (elt: IotMapDisplay, layer: string, id: string): void {
+    this.getLayer(layer).addLayer(elt)
+    this.displayedMarkers[id] = elt
   }
 
   /**
-   * Returns the displayed area bounds
-   *
-   * @returns leaflet LatLngBounds object
+   * Set selection status
+   * @param elt - element (marker, cluster...) to select/unselect
+   * @param selected - True if element must be selected, false otherwise
    */
-  public getBounds (): L.LatLngBounds {
-    return this.map.getBounds()
+  private changeSelectionStatus (elt: IotMapDisplay, selected: boolean) {
+    if (elt !== undefined) {
+      elt.select(selected)
+      this.selectedElement = (selected) ? elt : undefined
+    }
   }
 
   /**
-   * Defines displayed area bounds
-   *
-   * @param bounds - leaflet LatLngBounds object
+   * Returns a DivIcon compatible with leaflet, representing all automatic cluster information (shape, tab, popup, gauge...)
+   * @param leafletCluster - cluster computed by leaflet
    */
-  public setBounds (bounds: L.LatLngBounds): void {
-    this.map.fitBounds(bounds)
-  }
-
-  /**
-   * Returns a leaflet element defined by its id
-   * @param id - Id of the element to return
-   *
-   * @remarks id is unique
-   */
-  public getElement (id: string): CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster> {
-    return this.markersObjects[id]
-  }
-
-  /**
-   * Returns all leaflet elements (markers and clusters)
-   */
-  public getAllElements (): (CustomDataMarker<IotMarker> | CustomDataMarker<IotCluster>)[] {
-    return this.markersObjects
+  private getClusterIcon (leafletCluster: L.MarkerCluster) {
+    return getAutomaticClusterIcon(leafletCluster, this.config)
   }
 
   // ------------------------------------------------------------------------------------------------------------------
   // ---------- EVENTS ------------------------------------------------------------------------------------------------
   // ------------------------------------------------------------------------------------------------------------------
   /**
-   * Select element
-   * @param id - id of the element to select
-   *
-   * @remarks unselect currently selected element, if one
+   * Called on element click
+   * @param event - event data
    */
-  public selectElement (id: string): void {
-    if (this.selectedMarkerId !== id) {
-      this.changeSelectionStatus(this.selectedMarkerId, false)
+  private onElementClick (event) {
+    const element = event.layer
+    if (this.selectedElement === element) {
+      this.unselectElement(element)
+    } else {
+      this.selectElement(element)
     }
-    this.changeSelectionStatus(id, true)
   }
 
   /**
-   * Unselect element
-   * @param id - ident of the element to unselect
-   *
-   * @remarks nothing appends if element is not currently selected
+   * Called on cluster mouse over
+   * @param event - event data
    */
-  public unselectElement (id: string): void {
-    if (this.selectedMarkerId === id) {
-      this.changeSelectionStatus(id, false)
-    }
-  }
-
-  private changeSelectionStatus (id: string, selected: boolean) {
-    const currentElement = this.markersObjects[id]
-    if (currentElement) {
-      const currentElementInfos = currentElement.getData()
-      const isManualCluster = (currentElementInfos.childCount !== undefined)
-      const html = (isManualCluster)
-        ? iotMapClusters.getClusterIcon(currentElementInfos, selected, false)
-        : iotMapMarkers.getMarkerIcon(currentElementInfos, selected)
-      currentElement.setIcon(html)
-      currentElement.setZIndexOffset((selected) ? 100 : 0)
-      this.selectedMarkerId = (selected) ? id : ''
-    }
-  }
-
-  private onMarkerClick (event) {
-    const markerObject = event.layer
-    const id = markerObject?.getData().id ?? ''
-
-    if (this.selectedMarkerId === id) { // already selected
-      this.unselectElement(id)
-    } else {
-      this.selectElement(id)
-    }
-  }
-
   private onClusterMouseOver (event) {
     event.layer.setZIndexOffset(100)
   }
 
+  /**
+   * Called on cluster mouse out
+   * @param event - event data
+   */
   private onClusterMouseOut (event) {
     event.layer.setZIndexOffset(0)
   }
 
+  /**
+   * Called when displayed map area change (zoom in, zoom out, move...)
+   */
   private onZoom () {
-    for (const markerId in this.markersObjects) {
-      if (this.markersObjects[markerId] !== undefined && this.markersObjects[markerId] !== null) {
-        const marker = this.markersObjects[markerId].getData()
-        if (this.map.hasLayer(this.markersObjects[markerId])) { // unclustered
-          if (marker.shape.accuracy !== undefined) {
-            // accuracy circle if needed
-            const accuracy = this.accuracyObjects[markerId]
-            if (!accuracy) { // create accuracy circle
-              const newCircle = L.circle(marker.location, {
-                color: this.config.accuracyCircle.color,
-                fillColor: this.config.accuracyCircle.fillColor,
-                fillOpacity: this.config.accuracyCircle.fillOpacity,
-                radius: marker.shape.accuracy,
-                interactive: false // not clickable
-              })
-              this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle)
-              this.accuracyObjects[markerId] = newCircle
-            }
-          }
-        } else { // clustered
-          if (marker.shape.accuracy !== undefined) {
-            // accuracy circle if needed
-            const accuracyToRemove: L.Circle = this.accuracyObjects[markerId]
-            if (accuracyToRemove) {
-              this.getMarkerLayer(ACCURACY_LAYER).removeLayer(accuracyToRemove)
-              this.accuracyObjects[markerId] = null
-            }
-          }
-        }
+    for (const id in this.displayedMarkers) {
+      const elt = this.displayedMarkers[id]
+      if (elt) {
+        elt.reactAfterZoom()
       }
-    }
-  }
-
-  // ------------------------------------------------------------------------------------------------------------------
-  // ---------- MARKERS -----------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------------------------
-  /**
-   * Insert marker in the map
-   *
-   * @param marker - an IotMarker containing all display info
-   */
-  public addMarker (marker: IotMarker): void {
-    if (marker.id && marker.location) {
-      // does id already exist ?
-      if (this.markersObjects[marker.id] !== undefined && this.markersObjects[marker.id] !== null) {
-        this.updateMarker(marker.id, marker)
-      } else {
-        const newMarker: CustomDataMarker<IotMarker> =
-          new CustomDataMarker(
-            marker,
-            { icon: iotMapMarkers.getMarkerIcon(marker) })
-        this.getMarkerLayer(marker.layer).addLayer(newMarker)
-        this.markersObjects[marker.id] = newMarker
-
-        // accuracy circle if needed
-        if (marker.shape.accuracy !== undefined) {
-          const newCircle = L.circle(marker.location, {
-            color: this.config.accuracyCircle.color,
-            fillColor: this.config.accuracyCircle.fillColor,
-            fillOpacity: this.config.accuracyCircle.fillOpacity,
-            radius: marker.shape.accuracy,
-            interactive: false // not clickable
-          })
-          this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle)
-          this.accuracyObjects[marker.id] = newCircle
-        }
-      }
-    } else {
-      console.log('No id and/or no location defined for new marker. Unable to display')
-    }
-  }
-
-  /**
-   * Insert a list of markers in the map
-   *
-   * @param markerList - list of IotMarker containing all display info for each marker
-   */
-  public addMarkers (markerList: IotMarker[]): void {
-    markerList.forEach(marker => {
-      this.addMarker(marker)
-    })
-  }
-
-  /**
-   * Remove a marker from the map
-   *
-   * @param markerId - the id of the marker to remove
-   */
-  public removeMarker (markerId: string): void {
-    const markerToRemove: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
-    if (markerToRemove) {
-      this.getMarkerLayer(markerToRemove.getData().layer).removeLayer(markerToRemove)
-      this.markersObjects[markerId] = null
-
-      const accuracyToRemove: L.Circle = this.accuracyObjects[markerId]
-      if (accuracyToRemove) {
-        this.getMarkerLayer(ACCURACY_LAYER).removeLayer(accuracyToRemove)
-        this.accuracyObjects[markerId] = null
-      }
-
-      // deselect marker if selected
-      if (this.selectedMarkerId === markerId) {
-        this.selectedMarkerId = ''
-      }
-    }
-  }
-
-  /**
-   * Remove a list of markers from the map
-   *
-   * @param markersId - the id list of markers to remove
-   */
-  public removeMarkers (markersId: string[]): void {
-    markersId.forEach(id => {
-      this.removeMarker(id)
-    })
-  }
-
-  /**
-   * Update a marker with new display parameters
-   *
-   * @param markersId - the id of the marker to update
-   * @param params - a structure containing partial display information to update
-   */
-  public updateMarker (markerId: string, params: Partial<IotMarker>): void {
-    const currentMarkerObject: CustomDataMarker<IotMarker> = this.markersObjects[markerId]
-
-    if (currentMarkerObject) {
-      const currentMarkerInfos: IotMarker = currentMarkerObject.getData()
-      const currentMarkerIsSelected: boolean = (this.selectedMarkerId === currentMarkerInfos.id)
-
-      let htmlModificationNeeded = false
-      let oldLayerName: string = null
-
-      // location modified
-      if (params.location) {
-        currentMarkerInfos.location = params.location
-
-        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
-        currentMarkerObject.setLatLng(newLatLng)
-
-        // update accuracy circle
-        const currentAccuracyCircle: L.Circle = this.accuracyObjects[markerId]
-        if (currentAccuracyCircle !== undefined) {
-          currentAccuracyCircle.setLatLng(newLatLng)
-        }
-      }
-
-      // popup modified
-      if (params.popup !== undefined) {
-        if (params.popup.title === null && params.popup.body === null) { // cmd to remove popup
-          currentMarkerInfos.popup = undefined
-        } else {
-          currentMarkerInfos.popup = {
-            title: params.popup.title ?? currentMarkerInfos.popup?.title,
-            body: params.popup.body ?? currentMarkerInfos.popup?.body
-          }
-        }
-        htmlModificationNeeded = true
-      }
-
-      // tab modified
-      if (params.tab !== undefined) {
-        if (params.tab.content === null) { // cmd to remove tab
-          currentMarkerInfos.tab = undefined
-        } else {
-          currentMarkerInfos.tab = {
-            content: params.tab.content,
-            type: params.tab.type ?? currentMarkerInfos.tab?.type
-          }
-        }
-        htmlModificationNeeded = true
-      }
-
-      // shape modified
-      if (params.shape !== undefined) {
-        currentMarkerInfos.shape = {
-          type: params.shape.type ?? currentMarkerInfos.shape.type,
-          anchored: params.shape.anchored ?? currentMarkerInfos.shape.anchored,
-          plain: params.shape.plain ?? currentMarkerInfos.shape.plain,
-          color: params.shape.color ?? currentMarkerInfos.shape.color,
-          percent: params.shape.percent ?? currentMarkerInfos.shape.percent
-        }
-        htmlModificationNeeded = true
-      }
-
-      // layer modified
-      if (params.layer !== undefined) {
-        oldLayerName = currentMarkerInfos.layer
-        currentMarkerInfos.layer = params.layer
-      }
-
-      // inner modified
-      if (params.inner !== undefined) {
-        currentMarkerInfos.inner = {
-          color: params.inner?.color ?? currentMarkerInfos.inner?.color ?? this.config.markers.default.inner.color,
-          icon: params.inner?.icon ?? currentMarkerInfos.inner?.icon,
-          label: (params.inner?.icon === undefined) ? (params.inner?.label ?? currentMarkerInfos.inner?.label) : undefined
-        }
-        htmlModificationNeeded = true
-      }
-
-      // status modified
-      if (params.status !== undefined) {
-        currentMarkerInfos.status = params.status
-        htmlModificationNeeded = true
-      }
-
-      // template modified
-      if (params.template !== undefined) {
-        currentMarkerInfos.template = params.template
-        htmlModificationNeeded = true
-      }
-
-      // update marker icon
-      if (htmlModificationNeeded) {
-        const html = iotMapMarkers.getMarkerIcon(currentMarkerInfos, currentMarkerIsSelected)
-        currentMarkerObject.setIcon(html)
-      }
-
-      if (oldLayerName != null) {
-        // remove  marker from previous layer
-        this.getMarkerLayer(oldLayerName).removeLayer(currentMarkerObject)
-        // add marker to new layer
-        this.getMarkerLayer(currentMarkerInfos.layer).addLayer(currentMarkerObject)
-      }
-
-      // accuracy
-      if (params.shape?.accuracy !== undefined) {
-        // update marker info
-        if (currentMarkerInfos.shape === undefined) {
-          currentMarkerInfos.shape = {}
-        }
-        currentMarkerInfos.shape.accuracy = params.shape?.accuracy
-
-        // update accuracy layer
-        const currentAccuracyCircle = this.accuracyObjects[currentMarkerInfos.id]
-        if (currentAccuracyCircle !== undefined) {
-          currentAccuracyCircle.setRadius(currentMarkerInfos.shape.accuracy)
-        } else {
-          const newCircle = L.circle(currentMarkerInfos.location, {
-            color: 'none',
-            fillColor: this.config.accuracyCircle.fillColor,
-            fillOpacity: this.config.accuracyCircle.fillOpacity,
-            radius: currentMarkerInfos.shape.accuracy,
-            interactive: false // not clickable
-          })
-          this.getMarkerLayer(ACCURACY_LAYER).addLayer(newCircle)
-          this.accuracyObjects[currentMarkerInfos.id] = newCircle
-        }
-      }
-    }
-  }
-
-  /**
-   * Update all markers with new display parameters
-   *
-   * @param markerList - the list of markers to display
-   * @remarks the marker list is exhaustive: if a marker is not previously displayed but appears in markerList, it will
-   * be added / if a marker is previously displayed but doesn't appear in markerList, it will be removed / if a marker
-   * is previously displayed and appears in markerList, it will be updated
-   */
-  public updateAllMarkers (markerList: IotMarker[]): void {
-    // first : remove unused markers
-    // create id list from new marker list
-    const markersToUpdate: string[] = []
-    for (const marker of markerList) {
-      markersToUpdate.push(marker.id)
-    }
-
-    for (const markerId in this.markersObjects) {
-      if (!markersToUpdate.includes(markerId)) {
-        this.removeMarker(markerId)
-      }
-    }
-
-    // Now update / create new markers
-    for (const marker of markerList) {
-      if (this.markersObjects[marker.id] === undefined) {
-        this.addMarker(marker)
-      } else {
-        this.updateMarker(marker.id, marker)
-      }
-    }
-  }
-
-  /**
-   * Force map to redraw all markers / clusters and user marker.
-   *
-   * @remarks This can be used to force the automatic clustering to take into account an update of a clustered marker
-   */
-  public redrawAll (): void {
-    for (const layerName in this.markersLayers) {
-      if (this.markersLayers[layerName] !== undefined) {
-        this.markersLayers[layerName].clearLayers()
-      }
-    }
-
-    // redraw markers and manual clusters
-    for (const markerId in this.markersObjects) {
-      if (this.markersObjects[markerId] != null) {
-        const marker = this.markersObjects[markerId].getData()
-        if (marker.childCount !== undefined) { // marker is a manual cluster
-          this.addCluster(marker)
-        } else {
-          this.addMarker(marker)
-        }
-      }
-    }
-
-    // redraw usermarker
-    this.addUserMarker(this.userMarkerObject.getData())
-  }
-
-  // ------------------------------------------------------------------------------------------------------------------
-  // ---------- CLUSTERS ----------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------------------------
-  private defineClusterIcon (cluster): L.DivIcon {
-    const currentCluster: IotCluster = this.leafletClusterToIotCluster(cluster)
-    return iotMapClusters.getClusterIcon(currentCluster, false, true) // automatic cluster
-  }
-
-  /**
-   * Insert manual cluster in the map
-   *
-   * @param cluster - an IotCluster containing all display info
-   */
-  public addCluster (cluster: IotCluster): void {
-    if (this.config.map.externalClustering) {
-      if (cluster.id && cluster.location) {
-        if (this.markersObjects[cluster.id] !== undefined && this.markersObjects[cluster.id] !== null) {
-          this.updateCluster(cluster.id, cluster)
-        } else {
-          const newCluster: CustomDataMarker<IotCluster> = new CustomDataMarker(
-            cluster,
-            {
-              icon: iotMapClusters.getClusterIcon(cluster, false, false)
-            } // manual cluster
-          )
-
-          cluster.layer = cluster.layer ?? 'default'
-
-          this.getMarkerLayer(cluster.layer).addLayer(newCluster)
-          this.markersObjects[cluster.id] = newCluster
-        }
-      } else {
-        console.log('No id and/or no location defined for new cluster. Unable to display')
-      }
-    }
-  }
-
-  /**
-   * Insert a list of manual clusters in the map
-   *
-   * @param clusterList - list of IotCluster containing all display info for each manual cluster
-   */
-  public addClusters (clusterList: IotCluster[]): void {
-    if (this.config.map.externalClustering) {
-      for (const cluster of clusterList) {
-        this.addCluster(cluster)
-      }
-    }
-  }
-
-  /**
-   * Remove a manual cluster from the map
-   *
-   * @param clusterId - the id of the manual cluster to remove
-   */
-  public removeCluster (clusterId: string): void {
-    if (this.config.map.externalClustering) {
-      const clusterToRemove: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
-      if (clusterToRemove) {
-        this.getMarkerLayer(clusterToRemove.getData().layer).removeLayer(clusterToRemove)
-        this.markersObjects[clusterId] = null
-
-        // deselect cluster if selected
-        if (this.selectedMarkerId === clusterId) {
-          this.selectedMarkerId = ''
-        }
-      }
-    }
-  }
-
-  /**
-   * Remove a list of manual clusters from the map
-   *
-   * @param clustersId - the id list of manual clusters to remove
-   */
-  public removeClusters (clustersId: string[]): void {
-    if (this.config.map.externalClustering) {
-      for (const id of clustersId) {
-        this.removeCluster(id)
-      }
-    }
-  }
-
-  /**
-   * Update a manual cluster with new display parameters
-   *
-   * @param clusterId - the id of the manual cluster to update
-   * @param params - a structure containing partial display information to update
-   */
-  public updateCluster (clusterId: string, params: Partial<IotCluster>): void {
-    if (this.config.map.externalClustering) {
-      const currentClusterObject: CustomDataMarker<IotCluster> = this.markersObjects[clusterId]
-
-      if (currentClusterObject) {
-        const currentClusterInfos: IotCluster = currentClusterObject.getData()
-
-        let htmlModificationNeeded = false
-
-        // location modified
-        if (params.location !== undefined) {
-          currentClusterInfos.location = params.location
-
-          const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
-          currentClusterObject.setLatLng(newLatLng)
-        }
-
-        // childcount modified
-        if (params.childCount !== undefined) {
-          currentClusterInfos.childCount = params.childCount
-          htmlModificationNeeded = true
-        }
-
-        // layer modified
-        if (params.layer !== undefined) {
-          currentClusterInfos.layer = params.layer
-          htmlModificationNeeded = true
-        }
-
-        if (params.contentLabel !== undefined) {
-          currentClusterInfos.contentLabel = params.contentLabel
-          htmlModificationNeeded = true
-        }
-
-        if (params.aggregation !== undefined) {
-          currentClusterInfos.aggregation = params.aggregation
-          htmlModificationNeeded = true
-        }
-
-        // update cluster icon
-        if (htmlModificationNeeded) {
-          const selected = (this.selectedMarkerId === currentClusterInfos.id)
-          const html = iotMapClusters.getClusterIcon(currentClusterInfos, selected, !this.config.map.externalClustering)
-          currentClusterObject.setIcon(html)
-        }
-      }
-    }
-  }
-
-  /**
-   * Update all manual clusters with new display parameters
-   *
-   * @param clusterList - the list of manual clusters to display
-   * @remarks the manual clusters list is exhaustive: if a cluster is not previously displayed but appears in
-   * clusterList, it will be added / if a cluster is previously displayed but doesn't appear in clusterList, it will be
-   * removed / if a cluster is previously displayed and appears in clusterList, it will be updated
-   */
-  public updateAllClusters (clusterList: IotCluster[]): void {
-    if (this.config.map.externalClustering) {
-      // first : remove unused clusters
-      // create id list from new clusters list
-      const clustersToUpdate: string[] = []
-      for (const cluster of clusterList) {
-        clustersToUpdate.push(cluster.id)
-      }
-
-      for (const clusterId in this.markersObjects) {
-        if (!clustersToUpdate.includes(clusterId)) {
-          this.removeCluster(clusterId)
-        }
-      }
-
-      // Now update / create new clusters
-      for (const cluster of clusterList) {
-        if (this.markersObjects[cluster.id] === undefined) {
-          this.addCluster(cluster)
-        } else {
-          this.updateCluster(cluster.id, cluster)
-        }
-      }
-    }
-  }
-
-  /***
-   * privates !
-   */
-  private leafletClusterToIotCluster (leafletCluster): IotCluster {
-    // marker Distribution
-    const tabDistribution: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
-
-    const allChildMarkers = leafletCluster.getAllChildMarkers()
-    allChildMarkers.forEach(marker => {
-      const state = (marker.getData().status) ? marker.getData().status : 'stateless'
-      if (tabDistribution[state]) {
-        tabDistribution[state] = {
-          count: tabDistribution[state].count + 1,
-          label: (marker.getData().status)
-            ? this.config.markerStatus[marker.getData().status].name.plural
-            : 'stateless'
-        }
-      } else {
-        tabDistribution[state] = {
-          count: 1,
-          label: (marker.getData().status)
-            ? this.config.markerStatus[marker.getData().status].name.singular
-            : 'stateless'
-        }
-      }
-    })
-
-    const layer = allChildMarkers[0].getData().layer
-
-    const currentCluster: IotCluster = {
-      id: '', // unused in automatic mode
-      location: {
-        lat: 0,
-        lng: 0
-      }, // unused in automatic mode
-      contentLabel: layer, // unused in automatic mode
-      layer: layer,
-      childCount: leafletCluster.getChildCount(),
-      aggregation: []
-    }
-    let i = 0
-    for (const state in tabDistribution) {
-      if (tabDistribution[state]) {
-        currentCluster.aggregation[i] = {
-          count: tabDistribution[state].count,
-          color: (state === 'stateless') ? this.config.clusters.defaultColor : this.config.markerStatus[state].shape.color,
-          singularState: tabDistribution[state].label,
-          pluralState: tabDistribution[state].label
-        }
-        i++
-      }
-    }
-
-    return currentCluster
-  }
-
-  /***
-   * USER MARKER
-   */
-
-  /**
-   * Insert user marker in the map
-   *
-   * @param userMarker - an IotUserMarker containing all display info
-   */
-  public addUserMarker (userMarker: IotUserMarker): void {
-    if (userMarker.location) {
-      if (this.userMarkerObject != null) {
-        this.getMarkerLayer(USERMARKER_LAYER).clearLayers()
-        this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy)
-      }
-      this.userMarkerObject = new CustomDataMarker(userMarker, {
-        icon: iotMapUserMarker.getUserMarkerIcon(userMarker),
-        interactive: false
-      }) // not clickable
-      this.getMarkerLayer(USERMARKER_LAYER).addLayer(this.userMarkerObject)
-      this.userMarkerObject.setZIndexOffset(75)
-
-      // accuracy circle if needed
-      if (userMarker.accuracy !== undefined) {
-        this.userMarkerAccuracy = L.circle(userMarker.location, {
-          color: this.config.accuracyCircle.color,
-          fillColor: this.config.accuracyCircle.fillColor,
-          fillOpacity: this.config.accuracyCircle.fillOpacity,
-          radius: userMarker.accuracy,
-          interactive: false // not clickable
-        })
-        this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy)
-      }
-    } else {
-      console.log('No location defined for userMarker. Unable to display')
-    }
-  }
-
-  /**
-   * Remove a user marker from the map
-   *
-   * @remarks there is no param as only one user marker can be displayed at a time
-   */
-  public removeUserMarker (): void {
-    this.getMarkerLayer(USERMARKER_LAYER).removeLayer(this.userMarkerObject)
-    delete this.userMarkerObject
-
-    this.getMarkerLayer(ACCURACY_LAYER).removeLayer(this.userMarkerAccuracy)
-    delete this.userMarkerAccuracy
-  }
-
-  /**
-   * Update user marker with new display parameters
-   *
-   * @param params - a structure containing partial display information to update
-   */
-  public updateUserMarker (params: Partial<IotUserMarker>): void {
-    if (this.userMarkerObject !== null) {
-      const userMarkerInfo = this.userMarkerObject.getData()
-      if (params.location !== undefined) {
-        userMarkerInfo.location = params.location
-
-        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
-        this.userMarkerObject.setLatLng(newLatLng)
-        this.userMarkerAccuracy.setLatLng(newLatLng)
-      }
-
-      if (params.direction !== undefined) {
-        if (params.direction === null) { // cmd to remove arrow
-          userMarkerInfo.direction = undefined
-        } else {
-          userMarkerInfo.direction = params.direction
-        }
-
-        // update icon
-        const html = iotMapUserMarker.getUserMarkerIcon(userMarkerInfo)
-        this.userMarkerObject.setIcon(html)
-      }
-
-      if (params.accuracy !== undefined) {
-        userMarkerInfo.accuracy = params.accuracy
-        if (this.userMarkerAccuracy === null) { // create
-          this.userMarkerAccuracy = L.circle(userMarkerInfo.location, {
-            color: this.config.accuracyCircle.color,
-            fillColor: this.config.accuracyCircle.fillColor,
-            fillOpacity: this.config.accuracyCircle.fillOpacity,
-            radius: userMarkerInfo.accuracy,
-            interactive: false // not clickable
-          })
-          this.getMarkerLayer(ACCURACY_LAYER).addLayer(this.userMarkerAccuracy)
-        } else { // update
-          this.userMarkerAccuracy.setRadius(userMarkerInfo.accuracy)
-        }
-      }
-    } else {
-      const userMarker: IotUserMarker = {
-        location: params.location,
-        direction: params.direction,
-        accuracy: params.accuracy
-      }
-
-      this.addUserMarker(userMarker)
     }
   }
 }

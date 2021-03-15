@@ -12,11 +12,9 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate, TabType } from './iot-map-manager-types'
+import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate, TabType } from './iot-map-types'
 
-export class IotMapManagerConfig {
-  private static instance: IotMapManagerConfig
-
+export class IotMapConfig {
   /*
    *** Default configuration definition :
    */
@@ -314,7 +312,8 @@ export class IotMapManagerConfig {
   accuracyCircle: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     color: 'none',
     fillColor: '#527EDB',
-    fillOpacity: 0.15
+    fillOpacity: 0.15,
+    layerName: 'Accuracy'
   }
 
   // *** Private conf: not modified by SetConfig ***
@@ -332,20 +331,8 @@ export class IotMapManagerConfig {
     arrow: {
       size: 32,
       startAngle: -45
-    }
-  }
-
-  /**
-   * Returns the current configuration
-   *
-   * @returns an IotMapManagerConfig up to date
-   */
-  public static getConfig (): IotMapManagerConfig {
-    if (!IotMapManagerConfig.instance) {
-      IotMapManagerConfig.instance = new IotMapManagerConfig()
-    }
-
-    return IotMapManagerConfig.instance
+    },
+    layerName: 'UserMarker'
   }
 
   /**
@@ -355,31 +342,31 @@ export class IotMapManagerConfig {
    * @param newConfig - a structure containing entries to update in current configuration
    *
    */
-  public static setConfig (newConfig: Partial<IotMapManagerConfig>): void {
+  public setConfig (newConfig: Partial<IotMapConfig>): void {
     /*
      *** MAP ***
     */
     if (newConfig.map !== undefined) {
       if (newConfig.map.defaultLat !== undefined) {
-        this.instance.map.defaultLat = newConfig.map.defaultLat
+        this.map.defaultLat = newConfig.map.defaultLat
       }
       if (newConfig.map.defaultLng !== undefined) {
-        this.instance.map.defaultLng = newConfig.map.defaultLng
+        this.map.defaultLng = newConfig.map.defaultLng
       }
       if (newConfig.map.defaultZoomLevel !== undefined) {
-        this.instance.map.defaultZoomLevel = newConfig.map.defaultZoomLevel
+        this.map.defaultZoomLevel = newConfig.map.defaultZoomLevel
       }
       if (newConfig.map.defaultLayerName !== undefined) {
-        this.instance.map.defaultLayerName = newConfig.map.defaultLayerName
+        this.map.defaultLayerName = newConfig.map.defaultLayerName
       }
       if (newConfig.map.clusterRadius !== undefined) {
-        this.instance.map.clusterRadius = newConfig.map.clusterRadius
+        this.map.clusterRadius = newConfig.map.clusterRadius
       }
       if (newConfig.map.externalClustering !== undefined) {
-        this.instance.map.externalClustering = newConfig.map.externalClustering
+        this.map.externalClustering = newConfig.map.externalClustering
       }
       if (newConfig.map.layerControl !== undefined) {
-        this.instance.map.layerControl = newConfig.map.layerControl
+        this.map.layerControl = newConfig.map.layerControl
       }
     }
 
@@ -390,21 +377,21 @@ export class IotMapManagerConfig {
       if (newConfig.markers.default !== undefined) {
         if (newConfig.markers.default.shape !== undefined) {
           if (newConfig.markers.default.shape.type !== undefined) {
-            this.instance.markers.default.shape.type = newConfig.markers.default.shape.type
+            this.markers.default.shape.type = newConfig.markers.default.shape.type
           }
           if (newConfig.markers.default.shape.anchored !== undefined) {
-            this.instance.markers.default.shape.anchored = newConfig.markers.default.shape.anchored
+            this.markers.default.shape.anchored = newConfig.markers.default.shape.anchored
           }
           if (newConfig.markers.default.shape.plain !== undefined) {
-            this.instance.markers.default.shape.plain = newConfig.markers.default.shape.plain
+            this.markers.default.shape.plain = newConfig.markers.default.shape.plain
           }
           if (newConfig.markers.default.shape.color !== undefined) {
-            this.instance.markers.default.shape.color = newConfig.markers.default.shape.color
+            this.markers.default.shape.color = newConfig.markers.default.shape.color
           }
         }
         if (newConfig.markers.default.inner !== undefined) {
           if (newConfig.markers.default.inner.color !== undefined) {
-            this.instance.markers.default.inner.color = newConfig.markers.default.inner.color
+            this.markers.default.inner.color = newConfig.markers.default.inner.color
           }
         }
       }
@@ -416,7 +403,7 @@ export class IotMapManagerConfig {
     if (newConfig.markerStatus !== undefined) {
       for (const status in newConfig.markerStatus) {
         if (newConfig.markerStatus[status] !== undefined) {
-          this.instance.markerStatus[status] = newConfig.markerStatus[status]
+          this.markerStatus[status] = newConfig.markerStatus[status]
         }
       }
     }
@@ -427,7 +414,7 @@ export class IotMapManagerConfig {
     if (newConfig.markerTemplates !== undefined) {
       for (const template in newConfig.markerTemplates) {
         if (newConfig.markerTemplates[template] !== undefined) {
-          this.instance.markerTemplates[template] = newConfig.markerTemplates[template]
+          this.markerTemplates[template] = newConfig.markerTemplates[template]
         }
       }
     }
@@ -438,7 +425,7 @@ export class IotMapManagerConfig {
     if (newConfig.layerTemplates !== undefined) {
       for (const template in newConfig.layerTemplates) {
         if (newConfig.layerTemplates[template] !== undefined) {
-          this.instance.layerTemplates[template] = newConfig.layerTemplates[template]
+          this.layerTemplates[template] = newConfig.layerTemplates[template]
         }
       }
     }
@@ -448,13 +435,13 @@ export class IotMapManagerConfig {
      */
     if (newConfig.accuracyCircle !== undefined) {
       if (newConfig.accuracyCircle.color !== undefined) {
-        this.instance.accuracyCircle.color = newConfig.accuracyCircle.color
+        this.accuracyCircle.color = newConfig.accuracyCircle.color
       }
       if (newConfig.accuracyCircle.fillColor !== undefined) {
-        this.instance.accuracyCircle.fillColor = newConfig.accuracyCircle.fillColor
+        this.accuracyCircle.fillColor = newConfig.accuracyCircle.fillColor
       }
       if (newConfig.accuracyCircle.fillOpacity !== undefined) {
-        this.instance.accuracyCircle.fillOpacity = newConfig.accuracyCircle.fillOpacity
+        this.accuracyCircle.fillOpacity = newConfig.accuracyCircle.fillOpacity
       }
     }
   }
