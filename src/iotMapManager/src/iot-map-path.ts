@@ -16,7 +16,7 @@ import * as L from 'leaflet'
 import { IotMapConfig } from './iot-map-config'
 import { IotPath, PathIconType } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
-import {getMarkerIcon, getPathIcon} from './iot-map-icons'
+import { getPathIcon } from './iot-map-icons'
 
 /**
  * Class IotMapPath displaying a path, with start, stop and mid points and with sub paths
@@ -78,7 +78,7 @@ export class IotMapPath extends L.Polyline {
   /**
    * remove all points (start, end and mids points) from the map
    */
-  public removeAllPos(): void {
+  public removeAllPos (): void {
     this.start?.remove()
     this.end?.remove()
     this.mids?.forEach(pos => pos.remove())

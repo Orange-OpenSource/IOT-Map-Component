@@ -141,10 +141,10 @@ export class IotMapMarkerManager {
 
       // shape modified
       if (params.shape !== undefined) {
-        currentMarkerInfos.shape.type = params.shape.type ?? currentMarkerInfos.shape.type,
-        currentMarkerInfos.shape.anchored = params.shape.anchored ?? currentMarkerInfos.shape.anchored,
-        currentMarkerInfos.shape.plain = params.shape.plain ?? currentMarkerInfos.shape.plain,
-        currentMarkerInfos.shape.color = params.shape.color ?? currentMarkerInfos.shape.color,
+        currentMarkerInfos.shape.type = params.shape.type ?? currentMarkerInfos.shape.type
+        currentMarkerInfos.shape.anchored = params.shape.anchored ?? currentMarkerInfos.shape.anchored
+        currentMarkerInfos.shape.plain = params.shape.plain ?? currentMarkerInfos.shape.plain
+        currentMarkerInfos.shape.color = params.shape.color ?? currentMarkerInfos.shape.color
         currentMarkerInfos.shape.percent = params.shape.percent ?? currentMarkerInfos.shape.percent
         if (params.shape.accuracy === null) {
           currentMarkerInfos.shape.accuracy = undefined
