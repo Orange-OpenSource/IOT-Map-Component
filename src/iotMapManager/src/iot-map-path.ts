@@ -66,8 +66,8 @@ export class IotMapPath extends L.Polyline {
    */
   public getMids (): L.Marker[] {
     this.mids?.forEach(pos => pos.remove())
-    if (this.data.intermediatePos !== undefined) {
-      this.data.intermediatePos.forEach(pos => {
+    if (this.data.positions !== undefined) {
+      this.data.positions.forEach(pos => {
         const newMarker = L.marker(pos, { icon: getPathIcon(PathIconType.mid, this.config), interactive: false })
         this.mids.push(newMarker)
       })

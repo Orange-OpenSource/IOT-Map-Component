@@ -227,8 +227,8 @@ export interface IotPath {
   id: string,
   color?: string
   points: Location[]
-  intermediatePos?: Location[]
-  additionnalPath?: {
+  positions?: Location[]
+  additional?: {
     points: Location[]
     color: string
     line: number

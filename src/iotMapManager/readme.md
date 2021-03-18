@@ -108,8 +108,8 @@ accuracy | number | yes | radius in meters of accuracy area around the user mark
       id: string
       color?: string
       points: Location[]
-      intermediatePos?: Location[]
-      additionnalPath?: {
+      positions?: Location[]
+      additional?: {
         points: Location[]
         color: string
         line: number
@@ -121,8 +121,8 @@ Param | type | optionnal | Comment
 id | string | no | used for update and remove
 color | string | yes | color of the path
 points | Location array | no | array of geographical points defining the path
-intermediatePos | Location array | yes | allow to display intermediate markers along the path
-additionnalPath | array of additionnal path | yes | allow to display additionnal sub paths along the main path
+positions | Location array | yes | allow to display intermediate markers along the path
+additional | array of additional path | yes | allow to display additional sub paths along the main path
 
 additional paths :
 
