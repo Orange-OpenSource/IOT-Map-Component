@@ -1,4 +1,10 @@
-import { IotMapManager, ShapeType } from '../iotMapManager/index';
+import {
+  IotMapConfig,
+  IotMapManager,
+  IotMapMarkerManager,
+  IotMapUserMarkerManager,
+  ShapeType
+} from 'iotmapmanager-test';
 
 import './Test.stories.css';
 import {
@@ -175,9 +181,11 @@ export const GaugeWithInner = () => {
 };
 
 function init() {
-  var t = new IotMapManager();
-  t.init('iotMap');
-  t.addMarkers(markersList);
+  let config = new IotMapConfig()
+  let mapManager = new IotMapManager(config);
+  let markerManager = new IotMapMarkerManager(mapManager, config)
+  mapManager.init('iotMap');
+  markerManager.addMarkers(markersList);
   removeEventListener('DOMContentLoaded', init);
 }
 
@@ -201,9 +209,11 @@ export const UserMarker = () => {
 };
 
 function initUserMarker() {
-  var t = new IotMapManager();
-  t.init('iotMap');
-  t.addUserMarker(userMarker);
+  let config = new IotMapConfig()
+  let mapManager = new IotMapManager(config);
+  let userMarkerManager = new IotMapUserMarkerManager(mapManager, config)
+  mapManager.init('iotMap');
+  userMarkerManager.addUserMarker(userMarker);
   removeEventListener('DOMContentLoaded', initUserMarker);
 }
 

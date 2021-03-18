@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 1.0.5
+* Version: 0.0.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -227,8 +227,8 @@ export interface IotPath {
   id: string,
   color?: string
   points: Location[]
-  middlePos?: Location[]
-  sidePath?: {
+  intermediatePos?: Location[]
+  additionnalPath?: {
     points: Location[]
     color: string
     line: number

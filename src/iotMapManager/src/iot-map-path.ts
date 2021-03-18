@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 1.0.5
+* Version: 0.0.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -16,7 +16,7 @@ import * as L from 'leaflet'
 import { IotMapConfig } from './iot-map-config'
 import { IotPath, PathIconType } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
-import { getPathIcon } from './iot-map-icons'
+import {getMarkerIcon, getPathIcon} from './iot-map-icons'
 
 /**
  * Class IotMapPath displaying a path, with start, stop and mid points and with sub paths
@@ -66,8 +66,8 @@ export class IotMapPath extends L.Polyline {
    */
   public getMids (): L.Marker[] {
     this.mids?.forEach(pos => pos.remove())
-    if (this.data.middlePos !== undefined) {
-      this.data.middlePos.forEach(pos => {
+    if (this.data.intermediatePos !== undefined) {
+      this.data.intermediatePos.forEach(pos => {
         const newMarker = L.marker(pos, { icon: getPathIcon(PathIconType.mid, this.config), interactive: false })
         this.mids.push(newMarker)
       })
@@ -78,7 +78,7 @@ export class IotMapPath extends L.Polyline {
   /**
    * remove all points (start, end and mids points) from the map
    */
-  public removeAllPos (): void {
+  public removeAllPos(): void {
     this.start?.remove()
     this.end?.remove()
     this.mids?.forEach(pos => pos.remove())

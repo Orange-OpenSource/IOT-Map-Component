@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 1.0.5
+* Version: 0.0.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -162,6 +162,11 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   })
 }
 
+/**
+ * Returns a DivIcon compatible with leaflet, representing a start, end or intermediate path icon
+ * @param type - PathIconType = start, end or mid
+ * @param config - config to use to display start / end / mid icons
+ */
 export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIcon {
   let svg: string
   switch (type) {

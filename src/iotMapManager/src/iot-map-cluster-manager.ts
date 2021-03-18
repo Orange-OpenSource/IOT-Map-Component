@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 1.0.5
+* Version: 0.0.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -185,5 +185,11 @@ export class IotMapClusterManager {
 
   public getAllClusters (): IotMapCluster[] {
     return this.clustersObjects
+  }
+
+  public redrawAll (): void {
+    this.clustersObjects.forEach(cluster => {
+      cluster.redraw()
+    })
   }
 }

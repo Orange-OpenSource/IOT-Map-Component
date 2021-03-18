@@ -5,13 +5,15 @@ import {
   IotCluster,
   IotMarker,
   IotUserMarker,
+  IotPath,
   ShapeType,
   IotMapConfig,
   TabType,
   IotMapMarkerManager,
   IotMapClusterManager,
-  IotMapUserMarkerManager
-} from 'iotmapmanager';
+  IotMapUserMarkerManager,
+  IotMapPathManager
+} from 'iotmapmanager'
 
 @Component({
   selector: 'map-component',
@@ -25,6 +27,7 @@ export class MapComponent implements AfterViewInit {
   iotMapMarkerManager: IotMapMarkerManager = new IotMapMarkerManager(this.commonIotMap, this.conf)
   iotMapClusterManager: IotMapClusterManager = new IotMapClusterManager(this.commonIotMap, this.conf)
   iotMapUserMarkerManager: IotMapUserMarkerManager = new IotMapUserMarkerManager(this.commonIotMap, this.conf)
+  iotMapPathManager: IotMapPathManager = new IotMapPathManager(this.commonIotMap, this.conf)
   title = 'IotMap';
 
   markersList: IotMarker[] = [
@@ -373,7 +376,7 @@ export class MapComponent implements AfterViewInit {
     accuracy: 150,
     direction: 180
   }
-/*
+
   chemin: IotPath = {
     id: 'chemin',
     points: [
@@ -391,102 +394,103 @@ export class MapComponent implements AfterViewInit {
       { lat: 44.8929, lng: 4.884 },
       { lat: 44.8925, lng: 4.884 },
       { lat: 44.892, lng: 4.884 }],
-    middlePos: [
+    intermediatePos: [
       { lat: 44.896, lng: 4.8811 },
       { lat: 44.8929, lng: 4.884 }],
-    sidePath: [
-      {
-        line: 1,
-        color: '#CD3C14',
-        points: [
-          {lat: 44.9, lng: 4.8818},
-          {lat: 44.899, lng: 4.8816},
-          {lat: 44.898, lng: 4.8814},
-          {lat: 44.897, lng: 4.8813},
-          {lat: 44.896, lng: 4.8811},
-          {lat: 44.895, lng: 4.8809}]
-      },
-      {
-        line: 1,
-        color: '#CD3C14',
-        points: [
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
-      },
-      {
-        line: 2,
-        color: '#FFCC00',
-        points: [
-
-          {lat: 44.897, lng: 4.8813},
-          {lat: 44.896, lng: 4.8811},
-          {lat: 44.895, lng: 4.8809},
-          {lat: 44.894, lng: 4.8807},
-          {lat: 44.893, lng: 4.8807},
-          {lat: 44.893, lng: 4.8810},
-          {lat: 44.8929, lng: 4.882}]
-      },
-      {
-        line: 2,
-        color: '#FFCC00',
-        points: [
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
-      },
-      {
-        line: 3,
-        color: '#32C832',
-        points: [
-          {lat: 44.9, lng: 4.8818},
-          {lat: 44.899, lng: 4.8816},
-          {lat: 44.898, lng: 4.8814},
-          {lat: 44.897, lng: 4.8813},
-          {lat: 44.896, lng: 4.8811}]
-      },
-      {
-        line: 3,
-        color: '#32C832',
-        points: [
-          { lat: 44.895, lng: 4.8809 },
-          { lat: 44.894, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8810 },
-          { lat: 44.8929, lng: 4.882 },
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
-      },
-      {
-        line: 4,
-        color: 'black',//'#CCCCCC',
-        points: [
-          { lat: 44.897, lng: 4.8813 },
-          { lat: 44.896, lng: 4.8811 },
-          { lat: 44.895, lng: 4.8809 },
-          { lat: 44.894, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8810 },
-          { lat: 44.8929, lng: 4.882 },
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
-      }
-    ]
+    // sidePath: [
+    //   {
+    //     line: 1,
+    //     color: '#CD3C14',
+    //     points: [
+    //       {lat: 44.9, lng: 4.8818},
+    //       {lat: 44.899, lng: 4.8816},
+    //       {lat: 44.898, lng: 4.8814},
+    //       {lat: 44.897, lng: 4.8813},
+    //       {lat: 44.896, lng: 4.8811},
+    //       {lat: 44.895, lng: 4.8809}]
+    //   },
+    //   {
+    //     line: 1,
+    //     color: '#CD3C14',
+    //     points: [
+    //       { lat: 44.8929, lng: 4.883 },
+    //       { lat: 44.8929, lng: 4.884 },
+    //       { lat: 44.8925, lng: 4.884 },
+    //       { lat: 44.892, lng: 4.884 }]
+    //   },
+    //   {
+    //     line: 2,
+    //     color: '#FFCC00',
+    //     points: [
+    //
+    //       {lat: 44.897, lng: 4.8813},
+    //       {lat: 44.896, lng: 4.8811},
+    //       {lat: 44.895, lng: 4.8809},
+    //       {lat: 44.894, lng: 4.8807},
+    //       {lat: 44.893, lng: 4.8807},
+    //       {lat: 44.893, lng: 4.8810},
+    //       {lat: 44.8929, lng: 4.882}]
+    //   },
+    //   {
+    //     line: 2,
+    //     color: '#FFCC00',
+    //     points: [
+    //       { lat: 44.8925, lng: 4.884 },
+    //       { lat: 44.892, lng: 4.884 }]
+    //   },
+    //   {
+    //     line: 3,
+    //     color: '#32C832',
+    //     points: [
+    //       {lat: 44.9, lng: 4.8818},
+    //       {lat: 44.899, lng: 4.8816},
+    //       {lat: 44.898, lng: 4.8814},
+    //       {lat: 44.897, lng: 4.8813},
+    //       {lat: 44.896, lng: 4.8811}]
+    //   },
+    //   {
+    //     line: 3,
+    //     color: '#32C832',
+    //     points: [
+    //       { lat: 44.895, lng: 4.8809 },
+    //       { lat: 44.894, lng: 4.8807 },
+    //       { lat: 44.893, lng: 4.8807 },
+    //       { lat: 44.893, lng: 4.8810 },
+    //       { lat: 44.8929, lng: 4.882 },
+    //       { lat: 44.8929, lng: 4.883 },
+    //       { lat: 44.8929, lng: 4.884 },
+    //       { lat: 44.8925, lng: 4.884 },
+    //       { lat: 44.892, lng: 4.884 }]
+    //   },
+    //   {
+    //     line: 4,
+    //     color: 'black',//'#CCCCCC',
+    //     points: [
+    //       { lat: 44.897, lng: 4.8813 },
+    //       { lat: 44.896, lng: 4.8811 },
+    //       { lat: 44.895, lng: 4.8809 },
+    //       { lat: 44.894, lng: 4.8807 },
+    //       { lat: 44.893, lng: 4.8807 },
+    //       { lat: 44.893, lng: 4.8810 },
+    //       { lat: 44.8929, lng: 4.882 },
+    //       { lat: 44.8929, lng: 4.883 },
+    //       { lat: 44.8929, lng: 4.884 },
+    //       { lat: 44.8925, lng: 4.884 },
+    //       { lat: 44.892, lng: 4.884 }]
+    //   }
+    // ]
   }
-*/
+
   ngAfterViewInit(): void {
     this.conf.setConfig({
      markerTemplates: {
        'vehicle': {
-         layer: 'vehicles',
+         layer: 'vehicle',
          shape: {
            type: ShapeType.circle,
            anchored: true,
-           plain: true
+           plain: true,
+           accuracy: 800
          },
          inner: {
            icon: 'iotmap-icons-vehicle'
@@ -504,16 +508,20 @@ export class MapComponent implements AfterViewInit {
      }
    });
     this.commonIotMap.onMove = () => {
-      const coord = this.commonIotMap.getIotMap().getBounds();
+      const coord = this.commonIotMap.getIotMap().getBounds()
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
-                                    + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']');
-    };
+                                    + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
+    }
 
-    this.commonIotMap.init('iotMap');
-    this.iotMapMarkerManager.addMarkers(this.markersList);
+    this.commonIotMap.init('iotMap')
+    this.iotMapMarkerManager.addMarkers(this.markersList)
     this.iotMapClusterManager.addClusters(this.clustersList)
-    this.iotMapUserMarkerManager.addUserMarker(this.userMarker);
+    this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
+    this.iotMapPathManager.addPath(this.chemin)
 
+    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', {shape: {accuracy: 600}})}, 3000)
+    setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
+    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', {shape : { accuracy: undefined}})}, 5000)
   }
 }
 
