@@ -4,6 +4,7 @@
 
 - [Presentation](#presentation)
 - [Quick start](#quick-start)
+- [Storybook](#storybook]
 
 
 ## Presentation
@@ -75,4 +76,6 @@ Then, display a map by inserting in your page:
 ```
 Angular sample of use is given in ```map/map.components.ts``` (and not included by npm) to display/refresh map elements, using javascript **IoTMapManager** class methods (see [src/iotMapManager/readme.md](https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/src/iotMapManager/readme.md)).
 
+## Storybook
 
+In order to play with entities and attributes, defined in the comonent, without any integration, a storybook instance is accessible [here](https://orange-opensource.github.io/IOT-Map-Component/?path=/story/iot-map-manager--clusters).
