@@ -158,9 +158,11 @@ export class IotMapMarkerManager {
 
       // template modified
       if (params.template !== undefined) {
-        let template = this.config.markerTemplates[params.template]
-        if (template.layer !== undefined && template.layer !== currentMarkerInfos.layer) {
-          oldLayerName = oldLayerName ?? currentMarkerInfos.layer   // oldLayerName can have been modified by new layer at marker level
+        const template = this.config.markerTemplates[params.template]
+        if (template) {
+          if (template.layer !== undefined && template.layer !== currentMarkerInfos.layer) {
+            oldLayerName = oldLayerName ?? currentMarkerInfos.layer // oldLayerName can have been modified by new layer at marker level
+          }
         }
         currentMarkerInfos.template = params.template
         htmlModificationNeeded = true
@@ -168,14 +170,15 @@ export class IotMapMarkerManager {
 
       // status modified
       if (params.status !== undefined) {
-        let status = this.config.markerStatus[params.status]
-        if (status.layer !== undefined && status.layer !== currentMarkerInfos.layer) {
-          oldLayerName = oldLayerName ?? currentMarkerInfos.layer   // oldLayerName can have been modified by new layer at marker level
+        const status = this.config.markerStatus[params.status]
+        if (status) {
+          if (status.layer !== undefined && status.layer !== currentMarkerInfos.layer) {
+            oldLayerName = oldLayerName ?? currentMarkerInfos.layer // oldLayerName can have been modified by new layer at marker level
+          }
         }
         currentMarkerInfos.status = params.status
         htmlModificationNeeded = true
       }
-
 
       // update marker icon
       if (htmlModificationNeeded) {
