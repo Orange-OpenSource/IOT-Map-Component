@@ -99,20 +99,6 @@ export class IotMapMarkerManager {
       let htmlModificationNeeded = false
       let oldLayerName: string = null
 
-      // location modified
-      if (params.location) {
-        currentMarkerInfos.location = params.location
-
-        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
-        currentMarkerObject.setLatLng(newLatLng)
-
-        // update accuracy circle
-        const currentAccuracyCircle: L.Circle = this.accuracyObjects[markerId]
-        if (currentAccuracyCircle !== undefined) {
-          currentAccuracyCircle.setLatLng(newLatLng)
-        }
-      }
-
       // popup modified
       if (params.popup !== undefined) {
         if (params.popup.title === null && params.popup.body === null) { // cmd to remove popup
@@ -170,23 +156,47 @@ export class IotMapMarkerManager {
         htmlModificationNeeded = true
       }
 
+      // template modified
+      if (params.template !== undefined) {
+        let template = this.config.markerTemplates[params.template]
+        if (template.layer !== undefined && template.layer !== currentMarkerInfos.layer) {
+          oldLayerName = oldLayerName ?? currentMarkerInfos.layer   // oldLayerName can have been modified by new layer at marker level
+        }
+        currentMarkerInfos.template = params.template
+        htmlModificationNeeded = true
+      }
+
       // status modified
       if (params.status !== undefined) {
+        let status = this.config.markerStatus[params.status]
+        if (status.layer !== undefined && status.layer !== currentMarkerInfos.layer) {
+          oldLayerName = oldLayerName ?? currentMarkerInfos.layer   // oldLayerName can have been modified by new layer at marker level
+        }
         currentMarkerInfos.status = params.status
         htmlModificationNeeded = true
       }
 
-      // template modified
-      if (params.template !== undefined) {
-        currentMarkerInfos.template = params.template
-        htmlModificationNeeded = true
-      }
 
       // update marker icon
       if (htmlModificationNeeded) {
         currentMarkerObject.redraw()
       }
 
+      // location modified
+      if (params.location) {
+        currentMarkerInfos.location = params.location
+
+        const newLatLng: L.LatLng = new L.LatLng(params.location.lat, params.location.lng)
+        currentMarkerObject.setLatLng(newLatLng)
+
+        // update accuracy circle
+        const currentAccuracyCircle: L.Circle = this.accuracyObjects[markerId]
+        if (currentAccuracyCircle !== undefined) {
+          currentAccuracyCircle.setLatLng(newLatLng)
+        }
+      }
+
+      // layer modified
       if (oldLayerName != null) {
         // remove marker from previous layer
         this.map.getLayer(oldLayerName).removeLayer(currentMarkerObject)
