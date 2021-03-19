@@ -4,7 +4,7 @@
 
 - [Presentation](#presentation)
 - [Quick start](#quick-start)
-- [Storybook](#storybook]
+- [Storybook](#storybook)
 
 
 ## Presentation
