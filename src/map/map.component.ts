@@ -394,7 +394,7 @@ export class MapComponent implements AfterViewInit {
       { lat: 44.8929, lng: 4.884 },
       { lat: 44.8925, lng: 4.884 },
       { lat: 44.892, lng: 4.884 }],
-    intermediatePos: [
+    positions: [
       { lat: 44.896, lng: 4.8811 },
       { lat: 44.8929, lng: 4.884 }],
     // sidePath: [
@@ -489,8 +489,7 @@ export class MapComponent implements AfterViewInit {
          shape: {
            type: ShapeType.circle,
            anchored: true,
-           plain: true,
-           accuracy: 800
+           plain: true
          },
          inner: {
            icon: 'iotmap-icons-vehicle'

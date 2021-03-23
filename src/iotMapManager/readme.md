@@ -1,80 +1,97 @@
-# IotMapManager V0.0.6
+# IotMapManager V2.0.0
 
 This library provides management of markers dedicated to projects using mapping.
 ## use
-In your project file (except IotMapManager, all are optionnal):
+In your project file (except IotMapManager and IotMapConf, all are optionnal):
 
-    import {
-      IotMapManager,
-      IotCluster,
-      IotMarker,
-      IotUserMarker,
-      IotPath,
-      ShapeType,
-      IotMapConfig,
-      TabType,
-      IotMapMarkerManager,
-      IotMapClusterManager,
-      IotMapUserMarkerManager,
-      IotMapPathManager    
-    } from 'iotmapmanager'
+```
+import {
+    IotMapManager,
+    IotCluster,
+    IotMarker,
+    IotUserMarker,
+    IotPath,
+    ShapeType,
+    IotMapConfig,
+    TabType,
+    IotMapMarkerManager,
+    IotMapClusterManager,
+    IotMapUserMarkerManager,
+    IotMapPathManager    
+} from 'iotmapmanager'
+```
+
+and instanciate classes you need:
+
+```    
+conf: IotMapConfig = new IotMapConfig();    // mandatory
+commonIotMap: IotMapManager = new IotMapManager(this.conf) // mandatory
+
+iotMapMarkerManager: IotMapMarkerManager = new IotMapMarkerManager(this.commonIotMap, this.conf)
+iotMapClusterManager: IotMapClusterManager = new IotMapClusterManager(this.commonIotMap, this.conf)
+otMapUserMarkerManager: IotMapUserMarkerManager = new IotMapUserMarkerManager(this.commonIotMap, this.conf)
+iotMapPathManager: IotMapPathManager = new IotMapPathManager(this.commonIotMap, this.conf)
+```
 
 In your css file:
 
-    @import 'iotmapmanager/iotMapManager.css'; 
-
+```
+@import 'iotmapmanager/iotMapManager.css'; 
+```
 
 ## marker definition
 A marker is defined as follow:
 
-    {
-        id: string
-        location: Location
-        layer?: string
-        popup?: Popup
-        tab?: Tab
-        shape?: Shape
-        inner?: Inner
-        template?: string
-        status?: string
-    }
-
+```
+{
+    id: string
+    location: Location
+    layer?: string
+    popup?: Popup
+    tab?: Tab
+    shape?: Shape
+    inner?: Inner
+    template?: string
+    status?: string
+}
+```
 
 Param | Type | Optionnal | Comment
 ----- | ---- | --------- | -------
 id    | string | no | Used by update and remove functions
-location | Location | non | (lat, lng) of the marker
-layer | string | yes | you can sort your markers in different layers. A tool allow you to display specific layers (see configuration)
-popup | Popup | yes | a string displayed in a popup when marker is clicked. (see Popup definition)
-tab | Tab | yes | a little white rectangle displayed above the marker. It contains few characters or icon (see tab definition) 
-shape | Shape | yes | all information relative to marker shape (see shape definition)
-inner | Inner | yes | all information relative to marker inner (see inner definition)
-status | string | yes | name of the status to apply (see configuration)
-template | string | yes | name of the template to apply (see configuration)
+location | [Location](#Location) | non | (lat, lng) of the marker
+layer | string | yes | you can sort your markers in different layers. A tool allow you to display specific layers (see [configuration](#Configuration))
+popup | [Popup](#Popup) | yes | a string displayed in a popup when marker is clicked. 
+tab | [Tab](#Tab) | yes | a little white rectangle displayed above the marker. It contains few characters or icon 
+shape | [Shape](#Shape) | yes | all information relative to marker shape
+inner | [Inner](#Inner) | yes | all information relative to marker inner
+status | string | yes | name of the status to apply (see [configuration](#Configuration))
+template | string | yes | name of the template to apply (see [configuration](#Configuration))
 
 
 ## manual clusters definition
-    {
-      id: string
-      location: Location
-      layer?: string
-      contentLabel: string
-      childCount: number
-      aggregation: {
-        singularState: string
-        pluralState: string
-        count: number
-        color: string
-      }[]
-    }
-
+```
+{
+  id: string
+  location: Location
+  layer?: string
+  contentLabel: string
+  childCount: number
+  aggregation: {
+    singularState: string
+    pluralState: string
+    count: number
+    color: string
+  }[]
+}
+```
 
 
 Param | type | optionnal | Comment
 ----- | ---- | --------- | -------
 id | string | no | used for update/removeMarker purposes
-location | Location | no | (lat, long) of the cluster
-layer | string | yes | You can sort your manual clusters in different layers. A tool allow you to display specific layers (see configuration)
+location | [Location](#location) | no | (lat, long) of the cluster
+layer | string | yes | You can sort your manual clusters in different layers. A tool allow you to display specific layers (see [configuration](#Configuration))
 contentLabel | string | no | what is clustered ? (devices, cars, buildings...)
 childCount | number | no | number of clustered elements
 aggregation | array | no | containing following info for each type of element
@@ -90,47 +107,118 @@ color | string | no | color to display is gauge and popup
 
 
 ## user marker definition
-    {
-        location: Location
-        direction?: number
-        accuracy?: number
-    }
+```
+{
+    location: Location
+    direction?: number
+    accuracy?: number
+}
+```
 
 Param | type | optionnal | Comment
 ----- | ---- | --------- | -------
-location | Location | no | position of the user marker on the map
+location | [Location](#location) | no | position of the user marker on the map
 direction | number | yes | angle in degrees, clockwise 
 accuracy | number | yes | radius in meters of accuracy area around the user marker
 
 
-## path definition
-    {
-      id: string
-      color?: string
-      points: Location[]
-      positions?: Location[]
-      additional?: {
-        points: Location[]
-        color: string
-        line: number
-      }[]
-    }
+## path definition 
+```
+{
+  id: string
+  color?: string
+  points: Location[]
+  positions?: Location[]
+  additional?: {
+    points: Location[]
+    color: string
+    line: number
+  }[]
+}
+```
 
 Param | type | optionnal | Comment
 ----- | ---- | --------- | -------
 id | string | no | used for update and remove
 color | string | yes | color of the path
-points | Location array | no | array of geographical points defining the path
-positions | Location array | yes | allow to display intermediate markers along the path
-additional | array of additional path | yes | allow to display additional sub paths along the main path
+points | [Location](#location) array | no | array of geographical points defining the path
+positions | [Location](#location) array | yes | allow to display intermediate markers along the path
+additional | array of [additional path](#additional-path) | yes | allow to display additional sub paths along the main path
 
-additional paths :
+#### additional path :
 
 Param | type | optionnal | Comment
 ----- | ---- | --------- | -------
-points | Location array | no | array of geographical points defining the path
+points | [Location](#location) array | no | array of geographical points defining the path
 color | string | yes | color of the path
 line | number (1..4) | no | define the place of the sub path (1 is completely to the left, 4 is completely to the right) 
+
+## enums
+
+```
+enum ShapeType { circle, square }
+```
+```    
+enum TabType { normal, large }
+``` 
+```    
+enum PathIconType { start, mid, end }
+```
+     
+## Common interfaces definitions
+#### Location
+```
+interface Location {
+  lat: number
+  lng: number
+}
+```
+
+#### GeolocMarker 
+```
+interface GeolocMarker {
+  location: Location
+}
+  ```  
+#### Popup
+``` 
+interface Popup {
+  title?: string
+  body?: string
+}
+```
+
+#### Tab    
+```    
+interface Tab {
+  content: string
+  type?: TabType
+}
+```   
+#### Shape   
+ ```   
+interface Shape {
+  type?: ShapeType
+  anchored?: boolean
+  plain?: boolean
+  color?: string
+  percent?: number
+  accuracy?: number
+}
+```    
+#### Inner    
+```    
+interface Inner {
+  color?: string
+
+  icon?: string
+  // *** OR ***
+  label?: string
+}
+```
+
+
+
 
 
 ## Configuration
@@ -164,20 +252,20 @@ Editable values :
     * name:
         * singular: name used in cluster popup if there is only one element with this status
         * plural: name used in cluster popup if there are several elements with this status
-    * layer (optionnal): you can sort your markers in different layers. A tool allow you to display specific layers (see configuration)
-    * popup (optionnal) is a string displayed in a popup when marker is clicked. (see Popup definition)
-    * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see tab definition) 
-    * shape (optionnal): all information relative to marker shape (see shape definition)
-    * inner(optionnal) : all information relative to marker inner (see inner definition)
+    * layer (optionnal): you can sort your markers in different layers. A tool allow you to display specific layers (see [configuration](#Configuration))
+    * popup (optionnal) is a string displayed in a popup when marker is clicked. (see [Popup](#Popup))
+    * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see [Tab](#Tab))
+    * shape (optionnal): all information relative to marker shape (see [shape](#Shape))
+    * inner(optionnal) : all information relative to marker inner (see [Inner](#Inner))
 
     
 * markerTemplate: agregates all display parameters (colors, shape, icon...)
   * for each template (defined by a name as string):
-    * layer (optionnal): you can sort your markers in different layers. A tool allow you to display specific layers (see configuration)
-    * popup (optionnal) is a string displayed in a popup when marker is clicked. (see Popup definition)
-    * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see tab definition) 
-    * shape (optionnal): all information relative to marker shape (see shape definition)
-    * inner(optionnal) : all information relative to marker inner (see inner definition)
+    * layer (optionnal): you can sort your markers in different layers. A tool allow you to display specific layers (see [configuration](#Configuration))
+    * popup (optionnal) is a string displayed in a popup when marker is clicked. (see [Popup](#Popup))
+    * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see [Tab](#Tab)) 
+    * shape (optionnal): all information relative to marker shape (see [shape](#Shape))
+    * inner(optionnal) : all information relative to marker inner (see [Inner](#Inner))
     
         
 Marker data are applied first,

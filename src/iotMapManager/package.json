@@ -1,7 +1,7 @@
 {
-  "name": "iotmapmanager-test",
-  "version": "0.0.7",
-  "description": "Manage markers and clusters on IotMaps",
+  "name": "iotmapmanager",
+  "version": "2.0.0",
+  "description": "Manage markers, clusters, user marker or paths on IotMaps",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
