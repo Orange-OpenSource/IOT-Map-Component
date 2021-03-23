@@ -4,6 +4,7 @@
 
 - [Presentation](#presentation)
 - [Quick start](#quick-start)
+- [Storybook](#storybook)
 
 
 ## Presentation
@@ -59,7 +60,7 @@ Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 ma
 
 <img src="doc/usermarker.png">
 
-[NOT IMPLEMENTED YET] <ins>Paths</ins> to display a path between several **locations**, including a **start** and an **end**, and with a **color**.
+<ins>Paths</ins> to display a path relying a list of **points**, with a **color**. Above the starting and end positions that are displayed automatically, intermediate **positions** can be specified. Paths can be optionally completed by **additional** ones, specifying **points**, **color**, and **line** number.
 
 <img src="doc/paths.png">
 
@@ -75,4 +76,6 @@ Then, display a map by inserting in your page:
 ```
 Angular sample of use is given in ```map/map.components.ts``` (and not included by npm) to display/refresh map elements, using javascript **IoTMapManager** class methods (see [src/iotMapManager/readme.md](https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/src/iotMapManager/readme.md)).
 
+## Storybook
 
+In order to discover or demonstrate, without any integration, entities and attributes defined in the map component, a storybook instance is accessible [here](https://orange-opensource.github.io/IOT-Map-Component/?path=/story/iot-map-manager--clusters).
