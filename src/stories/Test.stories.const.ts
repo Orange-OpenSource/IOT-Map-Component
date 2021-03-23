@@ -1,4 +1,4 @@
-import {ShapeType, TabType} from "../iotMapManager/index";
+import {ShapeType, TabType} from '../iotMapManager/index';
 
 export interface IOTMarker {
   id: string;

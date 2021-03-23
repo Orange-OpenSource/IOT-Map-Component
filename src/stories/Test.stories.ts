@@ -4,7 +4,7 @@ import {
   IotMapMarkerManager,
   IotMapUserMarkerManager,
   ShapeType
-} from 'iotmapmanager-test';
+} from '../iotMapManager/index';
 
 import './Test.stories.css';
 import {
