@@ -18,6 +18,8 @@ import { IotMapConfig } from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
 import { IotMapMarker } from './iot-map-marker'
 
+import CLU_Shadow from '../img/CLU_Shadow.png'
+
 /* eslint-disable quotes */
 /**
  * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
@@ -46,7 +48,8 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const svgGauge = computeClusterGauge(cluster, config)
 
   // shadow
-  const imgShadow = `<img class='clusterShadow' src='./assets/img/${commonSvg.cluster.shadow}'/>`
+  //const imgShadow = `<img class='clusterShadow' src='./assets/img/${commonSvg.cluster.shadow}'/>`
+  const imgShadow = `<img class='clusterShadow' src='${CLU_Shadow}'/>`
 
   // label
   const innerLabel = `<span class='clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
