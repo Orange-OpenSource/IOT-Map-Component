@@ -13,9 +13,10 @@
     "css/*",
     "img/*",
     "iot-map-manager.css",
-    "license.txt",
     "package.json",
-    "readme.md"
+    "readme.md",
+    "../../LICENSE",
+    "../../NOTICE.txt"
   ],
   "repository": {
     "type": "git",
