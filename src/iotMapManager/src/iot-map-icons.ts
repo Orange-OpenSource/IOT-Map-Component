@@ -18,15 +18,14 @@ import { IotMapConfig } from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
 import { IotMapMarker } from './iot-map-marker'
 
-import CLU_Shadow from '../img/CLU_Shadow.png'
-import MOB_CIR_Shadow from '../img/MOB_CIR_Shadow.png'
-import MOB_CIR_SEL_Shadow from '../img/MOB_CIR_SEL_Shadow.png'
-import MOB_CIR_PIN_Shadow from '../img/MOB_CIR_PIN_Shadow.png'
-import POI_SQR_Shadow from '../img/POI_SQR_Shadow.png'
-import POI_SQR_SEL_Shadow from '../img/POI_SQR_SEL_Shadow.png'
-import POI_SQR_PIN_Shadow from '../img/POI_SQR_PIN_Shadow.png'
-import USR_Shadow from '../img/USR_Shadow.png'
-
+import cluShadow from '../img/CLU_Shadow.png'
+import mobCirShadow from '../img/MOB_CIR_Shadow.png'
+import mobCirSelShadow from '../img/MOB_CIR_SEL_Shadow.png'
+import mobCirPinShadow from '../img/MOB_CIR_PIN_Shadow.png'
+import poiSqrShadow from '../img/POI_SQR_Shadow.png'
+import poiSqrSelShadow from '../img/POI_SQR_SEL_Shadow.png'
+import poiSqrPinShadow from '../img/POI_SQR_PIN_Shadow.png'
+import usrShadow from '../img/USR_Shadow.png'
 
 /* eslint-disable quotes */
 /**
@@ -56,8 +55,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const svgGauge = computeClusterGauge(cluster, config)
 
   // shadow
-  //const imgShadow = `<img class='clusterShadow' src='./assets/img/${commonSvg.cluster.shadow}'/>`
-  const imgShadow = `<img class='clusterShadow' src='${CLU_Shadow}'/>`
+  const imgShadow = `<img class='clusterShadow' src='${cluShadow}'/>`
 
   // label
   const innerLabel = `<span class='clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
@@ -140,7 +138,7 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   const arrowConfig = config.userMarker.arrow
 
   // shadow file
-  const imgShadow = `<img class='usermarkershadow' src='${USR_Shadow}'/>`
+  const imgShadow = `<img class='usermarkershadow' src='${usrShadow}'/>`
 
   let html = `<div class='usermarkericon'>`
   if (userMarker.direction !== undefined) {
@@ -370,16 +368,16 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
       svgShape = `<path ${svg.selFunColour} fill='${funColor}'/>`
       svgBG = svg.selFunBg
     }
-    shadowFile = (marker.shape.type === ShapeType.circle) ? MOB_CIR_SEL_Shadow : POI_SQR_SEL_Shadow
+    shadowFile = (marker.shape.type === ShapeType.circle) ? mobCirSelShadow : poiSqrSelShadow
   } else if (marker.shape.type === ShapeType.circle) {
     if (marker.shape.anchored) {
       svgBorder = svg.pinBorder
       svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
-      shadowFile = MOB_CIR_PIN_Shadow
+      shadowFile = mobCirPinShadow
     } else {
       svgBorder = svg.border
       svgShape = `<circle ${svg.stdColour} fill='${funColor}'/>`
-      shadowFile = MOB_CIR_Shadow
+      shadowFile = mobCirShadow
     }
   } else if (marker.shape.type === ShapeType.square) {
     if (marker.shape.anchored) {
@@ -391,7 +389,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
         svgShape = `<path ${svg.pinFunColour} fill='${funColor}'/>`
         svgBG = svg.pinFunBg
       }
-      shadowFile = POI_SQR_PIN_Shadow
+      shadowFile = poiSqrPinShadow
     } else {
       if (marker.shape.plain) {
         svgBorder = svg.border
@@ -401,7 +399,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
         svgShape = `<rect ${svg.funColour} fill='${funColor}'/>`
         svgBG = svg.funBg
       }
-      shadowFile = POI_SQR_Shadow
+      shadowFile = poiSqrShadow
     }
   }
 
