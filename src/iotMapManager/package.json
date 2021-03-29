@@ -1,15 +1,17 @@
 {
-  "name": "iotmapmanager",
-  "version": "2.0.0",
+  "name": "iotmapmanager-test",
+  "version": "0.0.17",
   "description": "Manage markers, clusters, user marker or paths on IotMaps",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
-    "build": "tsc"
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode development",
+    "dist": "webpack --mode production",
+    "watch": "webpack --watch --mode development"
   },
   "files": [
-    "lib/**/*",
+    "dist/**/*",
     "css/*",
     "img/*",
     "iot-map-manager.css",
@@ -38,5 +40,12 @@
     "@types/leaflet.markercluster": "^1.4.3",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1"
+  },
+  "devDependencies": {
+    "ts-loader": "^8.0.18",
+    "typescript": "^4.2.3",
+    "webpack": "^5.27.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }

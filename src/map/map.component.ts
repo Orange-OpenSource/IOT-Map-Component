@@ -13,7 +13,8 @@ import {
   IotMapClusterManager,
   IotMapUserMarkerManager,
   IotMapPathManager
-} from 'iotmapmanager'
+//} from 'iotmapmanager-test'
+} from '../iotMapManager/dist/bundle'
 
 @Component({
   selector: 'map-component',
