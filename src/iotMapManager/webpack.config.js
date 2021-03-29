@@ -11,11 +11,9 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
+        test: /\.(png|jpg|gif)$/,
+        loader: 'url-loader',
+
       }
     ],
   },
@@ -23,11 +21,9 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'my-library',
     libraryTarget: 'umd'
-  },
-
-  devtool: 'source-map'
+  }
 };

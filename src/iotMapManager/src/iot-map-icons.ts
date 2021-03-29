@@ -13,12 +13,20 @@
 */
 
 import * as L from 'leaflet'
-import { IotCluster, IotMarker, IotUserMarker, ShapeType, TabType, PathIconType } from './iot-map-types'
-import { IotMapConfig } from './iot-map-config'
+import {IotCluster, IotMarker, IotUserMarker, PathIconType, ShapeType, TabType} from './iot-map-types'
+import {IotMapConfig} from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
-import { IotMapMarker } from './iot-map-marker'
+import {IotMapMarker} from './iot-map-marker'
 
 import CLU_Shadow from '../img/CLU_Shadow.png'
+import MOB_CIR_Shadow from '../img/MOB_CIR_Shadow.png'
+import MOB_CIR_SEL_Shadow from '../img/MOB_CIR_SEL_Shadow.png'
+import MOB_CIR_PIN_Shadow from '../img/MOB_CIR_PIN_Shadow.png'
+import POI_SQR_Shadow from '../img/POI_SQR_Shadow.png'
+import POI_SQR_SEL_Shadow from '../img/POI_SQR_SEL_Shadow.png'
+import POI_SQR_PIN_Shadow from '../img/POI_SQR_PIN_Shadow.png'
+import USR_Shadow from '../img/USR_Shadow.png'
+
 
 /* eslint-disable quotes */
 /**
@@ -132,7 +140,7 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   const arrowConfig = config.userMarker.arrow
 
   // shadow file
-  const imgShadow = `<img class='usermarkershadow' src='./assets/img/${userSvg.shadow}'/>`
+  const imgShadow = `<img class='usermarkershadow' src='${USR_Shadow}'/>`
 
   let html = `<div class='usermarkericon'>`
   if (userMarker.direction !== undefined) {
@@ -339,7 +347,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   let svgBG = ``
   let svgBorder = ``
   let svgGauge = ``
-  let shadowFile = './assets/img/'
+  let shadowFile = ''
 
   const markerConfig = (selected)
     ? config.markers.size.selected
@@ -362,40 +370,38 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
       svgShape = `<path ${svg.selFunColour} fill='${funColor}'/>`
       svgBG = svg.selFunBg
     }
-    shadowFile += svg.selShadow
+    shadowFile = (marker.shape.type === ShapeType.circle) ? MOB_CIR_SEL_Shadow : POI_SQR_SEL_Shadow
   } else if (marker.shape.type === ShapeType.circle) {
     if (marker.shape.anchored) {
       svgBorder = svg.pinBorder
       svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
-      shadowFile += svg.pinShadow
+      shadowFile = MOB_CIR_PIN_Shadow
     } else {
       svgBorder = svg.border
       svgShape = `<circle ${svg.stdColour} fill='${funColor}'/>`
-      shadowFile += svg.shadow
+      shadowFile = MOB_CIR_Shadow
     }
   } else if (marker.shape.type === ShapeType.square) {
     if (marker.shape.anchored) {
       if (marker.shape.plain) {
         svgBorder = svg.pinBorder
         svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
-        shadowFile += svg.pinShadow
       } else {
         svgBorder = svg.pinBorder
         svgShape = `<path ${svg.pinFunColour} fill='${funColor}'/>`
         svgBG = svg.pinFunBg
-        shadowFile += svg.pinShadow
       }
+      shadowFile = POI_SQR_PIN_Shadow
     } else {
       if (marker.shape.plain) {
         svgBorder = svg.border
         svgShape = `<rect ${svg.stdColour} fill='${funColor}'/>`
-        shadowFile += svg.shadow
       } else {
         svgBorder = svg.border
         svgShape = `<rect ${svg.funColour} fill='${funColor}'/>`
-        shadowFile += svg.shadow
         svgBG = svg.funBg
       }
+      shadowFile = POI_SQR_Shadow
     }
   }
 
