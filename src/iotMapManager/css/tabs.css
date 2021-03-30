@@ -25,12 +25,14 @@
   border-radius: 6px 6px 0px 0px;
   z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   color: black;
   font-size: 16px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
   line-height:20px;
   text-align: center;
+  visibility: visible;
 }
 
 .marker-unselected > .tab-top-big {
@@ -41,12 +43,14 @@
   width: 40px;
   height: 20px;
   border-radius: 6px 6px 0px 0px;
+  box-sizing: border-box;
   font-size: 16px;
   font-family: 'Helvetica Neue';
   font-weight: bold;
   line-height:20px;
   text-align: center;
   z-index: 30;
+  visibility: visible;
 }
 
 
@@ -60,8 +64,10 @@
   top: -5px;
   border-radius: 5px 0px 0px 1px;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   background-color: white;
   z-index: 7;
+  visibility: visible;
 }
 
 .marker-unselected > .tab-top-big-right {
@@ -74,13 +80,16 @@
   left: 10px;
   border-radius: 0px 5px 1px 0px;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   background-color: white;
   z-index: 7;
+  visibility: visible;
 }
 
 .marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
   overflow: hidden;
   font-size: 1px;
+  visibility: hidden;
 }
 
 
@@ -95,6 +104,7 @@
   border-radius: 6px 6px 0px 0px;
   z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   color: black;
   font-size: 16px;
   font-family: 'Helvetica Neue';
@@ -112,6 +122,7 @@
   border-radius: 6px 6px 0px 0px;
   z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   color: black;
   font-size: 16px;
   font-family: 'Helvetica Neue';
@@ -127,6 +138,7 @@
   width: 10px;
   height: 20px;
   border-radius: 0px 0px 30px 0px;
+  box-sizing: border-box;
   z-index: 7;
 }
 .cluster-unselected > .tab-top-big-right {
@@ -137,6 +149,7 @@
   width: 10px;
   height: 20px;
   border-radius: 0px 0px 0px 30px;
+  box-sizing: border-box;
   z-index: 7;
 }
 .cluster-selected > .tab-top,
@@ -158,6 +171,7 @@
   border-radius: 6px 6px 0px 0px;
   z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   color: black;
   font-size: 16px;
   font-family: 'Helvetica Neue';
@@ -175,6 +189,7 @@
   border-radius: 6px 6px 0px 0px;
   z-index: 7;
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
+  box-sizing: border-box;
   color: black;
   font-size: 16px;
   font-family: 'Helvetica Neue';
@@ -190,6 +205,7 @@
   width: 10px;
   height: 20px;
   border-radius: 0px 0px 30px 0px;
+  box-sizing: border-box;
   z-index: 7;
 }
 .clustericon > .tab-top-big-right {
@@ -200,6 +216,7 @@
   width: 10px;
   height: 20px;
   border-radius: 0px 0px 0px 30px;
+  box-sizing: border-box;
   z-index: 7;
 }
 

@@ -19,6 +19,7 @@
   position: relative;
   width: 0px;
   height: 0px;
+  box-sizing: border-box;
 }
 .markericon > svg{
   position: absolute;
@@ -36,6 +37,7 @@
   dominant-baseline: middle;
   text-anchor: middle;
   font-family: 'Helvetica Neue';
+  box-sizing: border-box;
 }
 
 
@@ -94,6 +96,7 @@
   position: relative;
   width: 0px;
   height: 0px;
+  box-sizing: border-box;
 }
 
 .clustericon > svg{
