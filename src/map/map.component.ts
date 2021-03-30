@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import { AfterViewInit, Component} from '@angular/core';
 
 import {
   IotMapManager,
