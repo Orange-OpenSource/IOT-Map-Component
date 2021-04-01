@@ -38,8 +38,6 @@ export class IotMapUserMarkerManager {
         this.userMarkerObject.removeUserMarker()
       }
       this.userMarkerObject = new IotMapUserMarker(userMarker, this.map, this.config)
-      this.userMarkerObject.setZIndexOffset(75)
-      this.map.getLayer(this.config.userMarker.layerName).addLayer(this.userMarkerObject)
     } else {
       console.log('No location defined for userMarker. Unable to display')
     }

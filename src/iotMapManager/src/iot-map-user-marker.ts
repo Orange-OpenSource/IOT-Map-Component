@@ -30,7 +30,15 @@ export class IotMapUserMarker extends IotMapDisplay {
     this.data = userMarker
     this.config = config
     this.map = map
+
+    this.map.getLayer(this.config.userMarker.layerName).addLayer(this)
+    this.setZIndexOffset(75)
     this.displayAccuracy()
+  }
+
+  public removeUserMarker (): void {
+    this.map.getLayer(this.config.userMarker.layerName).removeLayer(this)
+    this.map.getLayer(this.config.accuracyCircle.layerName).removeLayer(this.accuracyCircle)
   }
 
   public select (selected: boolean): void { // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -43,11 +51,6 @@ export class IotMapUserMarker extends IotMapDisplay {
 
   public setData (data: IotUserMarker): void {
     this.data = data
-  }
-
-  public removeUserMarker (): void {
-    super.remove()
-    this.accuracyCircle.remove()
   }
 
   public redraw (): void {
@@ -63,7 +66,7 @@ export class IotMapUserMarker extends IotMapDisplay {
 
   private displayAccuracy (): void {
     if (this.accuracyCircle != null) { // already existing
-      this.accuracyCircle.remove()
+      this.map.getLayer(this.config.accuracyCircle.layerName).removeLayer(this.accuracyCircle)
     }
     if (this.data.accuracy !== undefined) {
       this.accuracyCircle = L.circle(this.data.location, {
@@ -73,7 +76,7 @@ export class IotMapUserMarker extends IotMapDisplay {
         radius: this.data.accuracy,
         interactive: false // not clickable
       })
-      this.map.getLayer(this.config.userMarker.layerName).addLayer(this.accuracyCircle)
+      this.map.getLayer(this.config.accuracyCircle.layerName).addLayer(this.accuracyCircle)
     }
   }
 }

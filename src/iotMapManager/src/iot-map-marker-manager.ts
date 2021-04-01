@@ -41,8 +41,6 @@ export class IotMapMarkerManager {
         this.updateMarker(marker.id, marker)
       } else {
         const newMarker: IotMapMarker = new IotMapMarker(marker, this.map, this.config)
-        marker.layer = marker.layer ?? 'default'
-        this.map.addElement(newMarker, marker.layer, marker.id)
         this.markersObjects[marker.id] = newMarker
       }
     } else {
@@ -70,6 +68,11 @@ export class IotMapMarkerManager {
     const markerToRemove: IotMapMarker = this.markersObjects[markerId]
     if (markerToRemove) {
       markerToRemove.removeMarker()
+
+      const index = this.markersObjects.indexOf(markerToRemove, 0)
+      if (index > -1) {
+        this.markersObjects.splice(index, 1)
+      }
     }
   }
 

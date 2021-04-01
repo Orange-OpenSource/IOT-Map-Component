@@ -15,12 +15,14 @@
 import { IotCluster, IotMapDisplay } from './iot-map-types'
 import { IotMapConfig } from './iot-map-config'
 import { getManualClusterIcon } from './iot-map-icons'
+import { IotMapManager } from './iot-map-manager'
 
 /**
  * Class IotMapCluster to display a manual cluster
  */
 export class IotMapCluster extends IotMapDisplay {
   private data: IotCluster
+  private map: IotMapManager
   private config: IotMapConfig
   private selected = false
 
@@ -29,10 +31,21 @@ export class IotMapCluster extends IotMapDisplay {
    * @param cluster - Structure containing all cluster information
    * @param config - configuration to use to display cluster
    */
-  constructor (cluster: IotCluster, config: IotMapConfig) {
+  constructor (cluster: IotCluster, map: IotMapManager, config: IotMapConfig) {
     super(cluster.location, { icon: getManualClusterIcon(cluster, config, false, false) })
     this.data = cluster
+    this.map = map
     this.config = config
+    this.data.layer = this.data.layer ?? 'default'
+
+    this.map.addElement(this, this.data.layer, this.data.id)
+  }
+
+  /**
+   * Removes the current cluster from the map
+   */
+  public removeCluster (): void {
+    this.map.removeElement(this, this.data.layer)
   }
 
   /**

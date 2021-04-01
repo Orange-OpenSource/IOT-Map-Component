@@ -178,6 +178,22 @@ export class IotMapManager {
   }
 
   /**
+   * remove a marker from the map.
+   * @param layer - layer to add the marker in
+   * @param id - marker id
+   *
+   * @remarks used to get the list of displayed markers
+   */
+  public removeElement (elt: IotMapDisplay, layer: string): void {
+    this.getLayer(layer).removeLayer(elt)
+
+    const index = this.displayedMarkers.indexOf(elt, 0)
+    if (index > -1) {
+      this.displayedMarkers.splice(index, 1)
+    }
+  }
+
+  /**
    * Set selection status
    * @param elt - element (marker, cluster...) to select/unselect
    * @param selected - True if element must be selected, false otherwise

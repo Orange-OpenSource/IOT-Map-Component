@@ -35,12 +35,14 @@ export class IotMapMarker extends IotMapDisplay {
     this.data = marker
     this.config = config
     this.map = map
+    this.data.layer = this.data.layer ?? 'default'
+    this.map.addElement(this, this.data.layer, this.data.id)
     this.displayAccuracy()
   }
 
   public removeMarker () : void {
     this.removeAccuracy()
-    this.remove()
+    this.map.removeElement(this, this.data.layer)
   }
 
   public select (selected: boolean): void {
@@ -71,9 +73,7 @@ export class IotMapMarker extends IotMapDisplay {
   }
 
   private displayAccuracy (): void {
-    if (this.accuracyCircle) { // already existing
-      this.accuracyCircle.remove()
-    }
+    this.removeAccuracy()
     if (this.data.shape.accuracy !== undefined) {
       this.accuracyCircle = L.circle(this.data.location, {
         color: this.config.accuracyCircle.color,
@@ -88,7 +88,7 @@ export class IotMapMarker extends IotMapDisplay {
 
   private removeAccuracy (): void {
     if (this.accuracyCircle) {
-      this.accuracyCircle.remove()
+      this.map.getLayer(this.config.accuracyCircle.layerName).removeLayer(this.accuracyCircle)
     }
   }
 }

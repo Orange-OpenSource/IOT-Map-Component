@@ -46,11 +46,7 @@ export class IotMapClusterManager {
         if (this.clustersObjects[cluster.id] !== undefined && this.clustersObjects[cluster.id] !== null) {
           this.updateCluster(cluster.id, cluster)
         } else {
-          const newCluster: IotMapCluster = new IotMapCluster(cluster, this.config)
-
-          cluster.layer = cluster.layer ?? 'default'
-
-          this.map.getLayer(cluster.layer).addLayer(newCluster)
+          const newCluster: IotMapCluster = new IotMapCluster(cluster, this.map, this.config)
           this.clustersObjects[cluster.id] = newCluster
         }
       } else {
@@ -79,8 +75,11 @@ export class IotMapClusterManager {
     if (this.config.map.externalClustering) {
       const clusterToRemove: IotMapCluster = this.clustersObjects[clusterId]
       if (clusterToRemove) {
-        clusterToRemove.remove()
-        this.clustersObjects[clusterId] = null
+        clusterToRemove.removeCluster()
+        const index = this.clustersObjects.indexOf(clusterToRemove, 0)
+        if (index > -1) {
+          this.clustersObjects.splice(index, 1)
+        }
       }
     }
   }
