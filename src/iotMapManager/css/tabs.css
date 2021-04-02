@@ -31,6 +31,7 @@
   font-weight: bold;
   line-height:20px;
   text-align: center;
+  visibility: visible;
 }
 
 .marker-unselected > .tab-top-big {
@@ -47,6 +48,7 @@
   line-height:20px;
   text-align: center;
   z-index: 30;
+  visibility: visible;
 }
 
 
@@ -62,6 +64,7 @@
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
   background-color: white;
   z-index: 7;
+  visibility: visible;
 }
 
 .marker-unselected > .tab-top-big-right {
@@ -76,11 +79,13 @@
   box-shadow: 0 0 8px -1px rgba(42, 42, 42, 0.4);
   background-color: white;
   z-index: 7;
+  visibility: visible;
 }
 
 .marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
   overflow: hidden;
   font-size: 1px;
+  visibility: hidden;
 }
 
 
