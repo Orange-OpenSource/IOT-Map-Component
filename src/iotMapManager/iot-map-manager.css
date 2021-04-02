@@ -13,6 +13,8 @@
 */
 
 /* iot-map-manager.css */
+@import './css/map.css';
 @import './css/markers.css';
 @import './css/popup.css';
 @import './css/tabs.css';
+
