@@ -109,7 +109,7 @@ export class IotMapConfig {
       },
       directionArrow: {
         fullWidth: 90,
-        fullHeight:90,
+        fullHeight: 90,
         width: 16,
         height: 16
       }
