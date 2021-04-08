@@ -20,7 +20,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 Note that shapes appear bigger when selected, and always with an anchor for a better accuracy.
 
-<img src="doc/markers.png">
+<img src="doc/markers.png" width="400">
 
 <ins>Templates</ins> can be used to define marker templates, setting one or several markers attributes. By setting **template** attribute, marker inherits template attributes.
 
