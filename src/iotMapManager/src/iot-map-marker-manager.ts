@@ -140,6 +140,11 @@ export class IotMapMarkerManager {
         } else {
           currentMarkerInfos.shape.accuracy = params.shape.accuracy ?? currentMarkerInfos.shape.accuracy
         }
+        if (params.shape.direction === null) {
+          currentMarkerInfos.shape.direction = undefined
+        } else {
+          currentMarkerInfos.shape.direction = params.shape.direction ?? currentMarkerInfos.shape.direction
+        }
         htmlModificationNeeded = true
       }
 

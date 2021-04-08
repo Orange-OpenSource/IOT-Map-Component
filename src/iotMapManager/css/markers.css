@@ -21,12 +21,31 @@
   height: 0px;
   box-sizing: border-box;
 }
-.markericon > svg{
+.markericon .svgMarker {
   position: absolute;
   top:0px;
   left:0px;
   z-index: 10;
 }
+
+.markericon .directionUnselected {
+  position: absolute;
+  top:-30px;
+  left:-30px;
+  width: 70px;
+  height: 70px;
+  z-index: 40;
+}
+
+.markericon .directionSelected {
+  position: absolute;
+  top:-20px;
+  left:-20px;
+  width: 70px;
+  height: 70px;
+  z-index: 40;
+}
+
 
 .markericon > .innerspan {
   position: absolute;

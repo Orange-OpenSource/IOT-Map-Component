@@ -82,6 +82,7 @@ interface Shape {
   color?: string
   percent?: number
   accuracy?: number
+  direction?: number
 }
 
 /**

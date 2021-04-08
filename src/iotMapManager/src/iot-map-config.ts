@@ -106,6 +106,12 @@ export class IotMapConfig {
         height: 30,
         anchorHeight: 6,
         fontSize: 18
+      },
+      directionArrow: {
+        fullWidth: 90,
+        fullHeight:90,
+        width: 16,
+        height: 16
       }
     }
   }

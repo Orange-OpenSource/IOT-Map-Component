@@ -49,7 +49,10 @@ export const circle = {
   // shadows
   shadow: `MOB_CIR_Shadow.png`,
   pinShadow: `MOB_CIR_PIN_Shadow.png`,
-  selShadow: `MOB_CIR_SEL_Shadow.png`
+  selShadow: `MOB_CIR_SEL_Shadow.png`,
+
+  // direction
+  dirArrow: `d="M8 1l7 16c-7.18-4.3-6.9-4.49-14 0L8 1z"`
 }
 
 // square

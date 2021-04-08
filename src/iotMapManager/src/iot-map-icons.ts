@@ -13,10 +13,10 @@
 */
 
 import * as L from 'leaflet'
-import { IotCluster, IotMarker, IotUserMarker, PathIconType, ShapeType, TabType } from './iot-map-types'
-import { IotMapConfig } from './iot-map-config'
+import {IotCluster, IotMarker, IotUserMarker, PathIconType, ShapeType, TabType} from './iot-map-types'
+import {IotMapConfig} from './iot-map-config'
 import * as commonSvg from './iot-map-common-svg'
-import { IotMapMarker } from './iot-map-marker'
+import {IotMapMarker} from './iot-map-marker'
 
 import cluShadow from '../img/CLU_Shadow.png'
 import mobCirShadow from '../img/MOB_CIR_Shadow.png'
@@ -345,6 +345,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   let svgBG = ``
   let svgBorder = ``
   let svgGauge = ``
+  let svgDirection = ``
   let shadowFile = ''
 
   const markerConfig = (selected)
@@ -401,6 +402,24 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
       }
       shadowFile = poiSqrShadow
     }
+  }
+
+  // Direction
+  if (marker.shape.type === ShapeType.circle && marker.shape.direction !== undefined) {
+    let arrowConf = config.markers.size.directionArrow
+    let shift = (selected) ? 0 : 3 * arrowConf.height / 4
+    let strokeColor = (selected) ? funColor : 'white'
+
+    svgDirection = `<div class='${((selected) ? 'directionSelected' : 'directionUnselected')}'>
+                    <svg xmlns='http://www.w3.org/2000/svg'
+                       width='${arrowConf.fullWidth}'
+                       height='${arrowConf.fullHeight}'
+                       viewBox='0 0 ${arrowConf.fullWidth} ${arrowConf.fullHeight}'>
+                       <g transform='translate(${(arrowConf.fullWidth - arrowConf.width)/2}, ${shift})
+                                     rotate( ${marker.shape.direction} ${arrowConf.width/2} ${arrowConf.fullHeight/2 - shift})'>
+                          <path ${commonSvg.circle.dirArrow} fill='${funColor}' stroke='${strokeColor}'/>
+                       </g>
+                    </svg></div>`
   }
 
   // inner
@@ -474,12 +493,14 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   const html = `<div class='markericon ${markerSelectionClass}'>
                   ${imgShadow}
                   ${popup}
+                  <div class='svgMarker'>
                   <svg xmlns='http://www.w3.org/2000/svg'
-                       width='${markerConfig.width}'
+                       width='${markerConfig.width }'
                        height='${markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0)}'
                        viewBox='${x} ${y} ${w} ${h}'>
                     ${svgBorder} ${svgShape} ${svgBG} ${svgGauge}
-                  </svg>
+                  </svg></div>
+                  ${svgDirection}
                   ${innerDesign}
                   ${tab}
                 </div>`
