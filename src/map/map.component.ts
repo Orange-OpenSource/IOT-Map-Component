@@ -222,10 +222,12 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.870
       },
+
       shape: {
         type: ShapeType.circle,
         percent: 75,
-        anchored: false
+        anchored: false,
+        direction: 0
       },
       status: 'positive',
       inner: {
@@ -241,6 +243,9 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.875
       },
+      shape: {
+        direction: 90
+      },
       template: 'vehicle',
       status: 'neutral',
       tab: {
@@ -251,9 +256,12 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'c3',
       layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.88
+      },
+      shape: {
+        direction: 45
       },
       template: 'vehicle',
       status: 'warning'
@@ -261,9 +269,12 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'c4',
       layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.885
+      },
+      shape: {
+        direction: 220
       },
       template: 'vehicle',
       status: 'alert'
@@ -271,9 +282,12 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'c5',
       layer: 'circles',
-    location: {
+      location: {
         lat: 44.885,
         lng: 4.890
+      },
+      shape: {
+        direction: 270
       },
       template: 'vehicle',
       status: 'inactive'
@@ -284,6 +298,9 @@ export class MapComponent implements AfterViewInit {
         lat: 44.885,
         lng: 4.895
       },
+      shape: {
+        direction: 320
+      },
       popup: {
         title: `<img src='../assets/icons/temperature.svg'><br>`,
         body: `La <i>température</i><br><b>de 18°C</b>`,
@@ -293,8 +310,10 @@ export class MapComponent implements AfterViewInit {
       inner: {
         label: "H",
         color: 'black'
-      }
-    }];
+      },
+
+    }
+      ];
 
   clustersList: IotCluster[] = [
     {
@@ -337,7 +356,7 @@ export class MapComponent implements AfterViewInit {
         lat: 44.882,
         lng: 4.885
       },
-      layer: 'etablissements',
+      layer: 'vehicles',
       contentLabel: 'Entertainment',
       childCount: 60,
       aggregation: [
@@ -485,7 +504,7 @@ export class MapComponent implements AfterViewInit {
     this.conf.setConfig({
      markerTemplates: {
        'vehicle': {
-         layer: 'vehicle',
+         layer: 'vehicles',
          shape: {
            type: ShapeType.circle,
            anchored: true,
@@ -497,20 +516,32 @@ export class MapComponent implements AfterViewInit {
        }
      },
      map: {
-       externalClustering: false,
+       externalClustering: true,
+       layerControl: true,
+       exclusiveLayers: true
      },
      layerTemplates: {
        'etablissements': {
          content: `<span class='iotmap-icons-School'></span>`,
          type: TabType.normal
+       },
+       'meters': {
+         content: '<img width=16 src="../assets/icons/check_your_balance.svg">'
+       },
+       'autos': {
+         content: 'Cars',
+         type: TabType.large
        }
      }
-   });
+   })
+
+
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getIotMap().getBounds()
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
                                     + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
+
 
     this.commonIotMap.init('iotMap')
     this.iotMapMarkerManager.addMarkers(this.markersList)
@@ -518,8 +549,13 @@ export class MapComponent implements AfterViewInit {
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
     this.iotMapPathManager.addPath(this.chemin)
 
+
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters'})}, 3000)
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos'})}, 3000)
+
+
     setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', {shape: {accuracy: 600}})}, 3000)
-    setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
+    //setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
     setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', {shape : { accuracy: undefined}})}, 5000)
   }
 }
