@@ -202,8 +202,9 @@ interface Shape {
   anchored?: boolean
   plain?: boolean
   color?: string
-  percent?: number
-  accuracy?: number
+  percent?: number (0-100)
+  accuracy?: number (in meters)
+  direction?: number (0-360)
 }
 ```    
 #### Inner    

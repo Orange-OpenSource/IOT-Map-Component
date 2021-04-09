@@ -64,7 +64,7 @@ export class IotMapManager {
     }
 
     if (this.config.map.layerControl) {
-      this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
+      this.layerControl = L.control.layers(null, null).addTo(this.map)
     }
 
     this.map.on('moveend', this.onMove)

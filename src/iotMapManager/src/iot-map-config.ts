@@ -381,6 +381,9 @@ export class IotMapConfig {
       if (newConfig.map.layerControl !== undefined) {
         this.map.layerControl = newConfig.map.layerControl
       }
+      if (newConfig.map.exclusiveLayers !== undefined) {
+        this.map.exclusiveLayers = newConfig.map.exclusiveLayers
+      }
     }
 
     /*

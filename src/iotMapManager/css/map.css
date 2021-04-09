@@ -22,26 +22,29 @@
 
 /* layer control border */
 .leaflet-top.leaflet-right .leaflet-control-layers {
-  border-color: #FF7900;
+  border-color: black;
 }
 
 .leaflet-top.leaflet-right .leaflet-control-layers-toggle {
-  background-color: #FF7900;
+  background-color: white;
 }
 
 .leaflet-top.leaflet-left .leaflet-control-zoom {
-  border-color: #FF7900;
+  border-color: black;
 }
 
 .leaflet-top.leaflet-left .leaflet-control-zoom-in, .leaflet-top.leaflet-left  .leaflet-control-zoom-out {
+  background-color: white;
+  color: black;
+}
+
+.leaflet-top.leaflet-left .leaflet-control-zoom-in:hover, .leaflet-top.leaflet-left  .leaflet-control-zoom-out:hover {
+  background-color: black;
+  color: white;
+}
+.leaflet-top.leaflet-left .leaflet-control-zoom-in:active, .leaflet-top.leaflet-left  .leaflet-control-zoom-out:active {
   background-color: #FF7900;
+  color: black;
 }
-
-.leaflet-control-layers-overlays  {
-  /* todo : revoir design des checkboxes
-  background-color: #449fdb;
-   */
-}
-
 
 
