@@ -4,7 +4,7 @@ import {
   IotMapMarkerManager,
   IotMapUserMarkerManager,
   ShapeType
-} from '../iotMapManager/index';
+} from 'iotmapmanager/dist';
 
 import './Test.stories.css';
 import {
@@ -52,6 +52,7 @@ const shapeParams = (id) => ({
   anchored: boolean('With anchor', false, 'item ' + id),
   plain: boolean('Plain shape', false, 'item ' + id),
   accuracy: accuracyParams(id),
+  direction: directionParams(id)
 });
 
 const innerParams = (id) => ({
