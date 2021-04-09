@@ -15,12 +15,12 @@ It provides Orange branded design and User eXperience.
 This component manipulates the following <ins>entities</ins>, with according **attributes** (and *values*) :
 
 <ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially described by a **popup**, with **title** and **body** HTML messages displayed on click. Markers contain also: 
-- a **shape** with a **type** (can be *circle* or *square*), **anchored** or not, **plain** or not, displayed in a **color**, with a **percent** gauge (only for *circle* shapes), and with a circle of **accuracy**.
+- a **shape** with a **type** (can be *circle* or *square*), **anchored** or not, **plain** or not, displayed in a **color** and with a circle of **accuracy**. For *circle* shapes, **shape** can contain additionnally a **percent** gauge and an angle (0-360) **direction**,
 - an **inner** which can be either an **icon** or a **label**, in a specific **color**,
 
 Note that shapes appear bigger when selected, and always with an anchor for a better accuracy.
 
-<img src="doc/markers.png">
+<img src="doc/markers.png" width="400">
 
 <ins>Templates</ins> can be used to define marker templates, setting one or several markers attributes. By setting **template** attribute, marker inherits template attributes.
 
