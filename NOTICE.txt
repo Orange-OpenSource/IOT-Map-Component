@@ -37,5 +37,8 @@ doc/Image5.png
 doc/Image6.png
 
 src/iotMapManager/src/iot-map-icons.ts
+src/iotMapManager/src/iot-map-common-svg.ts
+src/iotMapManager/img/*.png
+
 
 End of the parts list under Orange SA Copyright

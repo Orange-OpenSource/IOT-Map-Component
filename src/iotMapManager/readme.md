@@ -1,4 +1,4 @@
-# IotMapManager V2.0.1
+# IotMapManager V2.1.0
 
 This library provides management of markers dedicated to projects using mapping.
 ## use
@@ -110,8 +110,8 @@ color | string | no | color to display is gauge and popup
 ```
 {
     location: Location
-    direction?: number
-    accuracy?: number
+    direction?: number (0-360)
+    accuracy?: number (in meters)
 }
 ```
 

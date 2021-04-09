@@ -12,7 +12,7 @@
     "build": "ng build",
     "lint": "eslint src/iotMapManager/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -s ./src/iotMapManager/img:/assets/img -p 6006",
+    "storybook": "start-storybook",
     "build-storybook": "build-storybook -o ./docs && mkdir -p docs/assets/img && cp src/iotMapManager/img/* docs/assets/img/",
     "deploy-storybook": "git add docs && git commit -m 'chore(storybook): deploy' --allow-empty && git subtree split --branch gh-pages --prefix docs && git push origin gh-pages -f && echo 'Storybook successfully deployed'"
   },
@@ -60,6 +60,7 @@
     "@types/leaflet.markercluster": "^1.4.3",
     "boosted": "^4.6.0",
     "iotmapmanager": "^2.0.1",
+    "iotmapmanager-test": "0.0.22",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "zone.js": "^0.11.3"
