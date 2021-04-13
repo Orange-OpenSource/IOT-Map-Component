@@ -267,6 +267,7 @@ function computeMarkerValues (marker: IotMarker, config: IotMapConfig): IotMarke
         marker.shape.color = template.shape.color ?? marker.shape.color
         marker.shape.percent = template.shape.percent ?? marker.shape.percent
         marker.shape.accuracy = template.shape.accuracy ?? marker.shape.accuracy
+        marker.shape.direction = template.shape.direction ?? marker.shape.direction
       }
       if (template.inner !== undefined) {
         if (marker.inner === undefined) {
@@ -313,6 +314,7 @@ function computeMarkerValues (marker: IotMarker, config: IotMapConfig): IotMarke
         marker.shape.color = status.shape.color ?? marker.shape.color
         marker.shape.percent = status.shape.percent ?? marker.shape.percent
         marker.shape.accuracy = status.shape.accuracy ?? marker.shape.accuracy
+        marker.shape.direction = status.shape.direction ?? marker.shape.direction
       }
       if (status.inner !== undefined) {
         if (marker.inner === undefined) {
