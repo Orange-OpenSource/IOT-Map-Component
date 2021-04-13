@@ -25,10 +25,6 @@
   border-color: black;
 }
 
-.leaflet-top.leaflet-right .leaflet-control-layers-toggle {
-  background-color: white;
-}
-
 .leaflet-top.leaflet-left .leaflet-control-zoom {
   border-color: black;
 }
