@@ -12,15 +12,14 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-
-import { Polyline as leafletPolyline } from 'leaflet';
-import 'leaflet-polylineoffset';
-declare var L: any;
-
 import { IotMapConfig } from './iot-map-config'
 import { IotPath, PathIconType } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
 import { getPathIcon } from './iot-map-icons'
+
+import { Polyline as leafletPolyline, Marker, marker } from 'leaflet'
+import 'leaflet-polylineoffset'
+declare const L: any // eslint-disable-line @typescript-eslint/no-explicit-any
 
 /**
  * Class IotMapPath displaying a path, with start, stop and mid points and with sub paths
@@ -29,10 +28,10 @@ export class IotMapPath extends leafletPolyline {
   private data: IotPath
   private config: IotMapConfig
   private map: IotMapManager
-  private start: L.Marker
-  private end: L.Marker
-  private mids: L.Marker[] = []
-  private additionalPaths: L.Polyline[] = []
+  private start: Marker
+  private end: Marker
+  private mids: Marker[] = []
+  private additionalPaths: leafletPolyline[] = []
 
   /**
    * Creates a path
@@ -51,36 +50,39 @@ export class IotMapPath extends leafletPolyline {
   /**
    * returns a L.marker displayed on the start point of the path
    */
-  public getStart (): L.Marker {
+  public getStart (): Marker {
     this.start?.remove()
-    this.start = L.marker(this.data.points[0], { icon: getPathIcon(PathIconType.start, this.config), interactive: false })
+    this.start = marker(this.data.points[0], { icon: getPathIcon(PathIconType.start, this.config), interactive: false })
     return this.start
   }
 
   /**
    * returns a L.marker displayed on the end point of the path
    */
-  public getEnd (): L.Marker {
+  public getEnd (): Marker {
     this.end?.remove()
-    this.end = L.marker(this.data.points[this.data.points.length - 1], { icon: getPathIcon(PathIconType.end, this.config), interactive: false })
+    this.end = marker(this.data.points[this.data.points.length - 1], { icon: getPathIcon(PathIconType.end, this.config), interactive: false })
     return this.end
   }
 
   /**
    * returns a L.marker list according to mid points defined in IotPath
    */
-  public getMids (): L.Marker[] {
+  public getMids (): Marker[] {
     this.mids?.forEach(pos => pos.remove())
     if (this.data.positions !== undefined) {
       this.data.positions.forEach(pos => {
-        const newMarker = L.marker(pos, { icon: getPathIcon(PathIconType.mid, this.config), interactive: false })
+        const newMarker = marker(pos, { icon: getPathIcon(PathIconType.mid, this.config), interactive: false })
         this.mids.push(newMarker)
       })
     }
     return this.mids
   }
 
-  public getAdditionalPaths (): L.Polyline[] {
+  /**
+   * returns a L.PolyLine array containing all additional paths
+   */
+  public getAdditionalPaths (): leafletPolyline[] {
     // TODO: à revoir
     this.additionalPaths.forEach(path => path.remove())
     // add additional paths if existing
@@ -108,21 +110,24 @@ export class IotMapPath extends leafletPolyline {
     this.mids?.forEach(pos => pos.remove())
   }
 
-
-  private getOffset(line: number): number {
+  /**
+   * calculate offset according to line number
+   * @param line - [1..4] line number from left to right
+   */
+  private getOffset (line: number): number {
     let offset = 0
     switch (line) {
       case 1:
-        offset = -8//-6
+        offset = -8
         break
       case 2:
-        offset = -6//-2
+        offset = -6
         break
       case 3:
-        offset = 6//2
+        offset = 6
         break
       case 4:
-        offset = 8//6
+        offset = 8
         break
       default:
         offset = 0
@@ -130,5 +135,4 @@ export class IotMapPath extends leafletPolyline {
     }
     return offset
   }
-
 }

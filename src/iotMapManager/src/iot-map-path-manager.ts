@@ -52,7 +52,6 @@ export class IotMapPathManager {
       })
     }
 
-
     // draw start :
     const start = newPath.getStart()
     this.map.getLayer(this.config.path.layerName).addLayer(start)
