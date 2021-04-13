@@ -29,6 +29,8 @@ export class IotMapManager {
   private markersLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private layerControl: L.Control
 
+  private firstLayerAdded: boolean = true
+
   /**
    * Constructor
    * @param config - config to use for map display
@@ -57,19 +59,13 @@ export class IotMapManager {
     const defaultLayer = L.tileLayer(this.config.map.openStreetMapLayer, {
       attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map)
-
-    this.baseLayers = {
-      // eslint-disable-next-line quote-props
-      'Standard': defaultLayer
-    }
-
-    if (this.config.map.layerControl) {
-      this.layerControl = L.control.layers(null, null).addTo(this.map)
-    }
+    this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
 
     this.map.on('moveend', this.onMove)
 
     this.selectedElement = undefined
+
+
   }
 
   /**
@@ -81,6 +77,7 @@ export class IotMapManager {
     if (this.config.map.layerControl) {
       this.map.removeControl(this.layerControl)
     }
+
     // create layer
     let layer: L.MarkerClusterGroup | L.FeatureGroup
     if (this.config.map.externalClustering) { // manual clustering
@@ -104,14 +101,18 @@ export class IotMapManager {
     }
 
     // add layer to map
-    this.map.addLayer(layer)
-    this.markersLayers[layerName] = layer
     if (this.config.map.layerControl) {
       if (this.config.map.exclusiveLayers) {
-        this.layerControl = L.control.layers(this.markersLayers).addTo(this.map)
+        this.baseLayers[layerName] = layer
+        if (this.firstLayerAdded) {
+          this.firstLayerAdded = false
+          this.map.addLayer(layer)
+        }
       } else {
-        this.layerControl = L.control.layers(null, this.markersLayers).addTo(this.map)
+        this.markersLayers[layerName] = layer
+        this.map.addLayer(layer)
       }
+      this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
     }
 
     return layer
@@ -129,7 +130,10 @@ export class IotMapManager {
   public getLayer (layerName: string): L.MarkerClusterGroup | L.FeatureGroup {
     let layer: L.MarkerClusterGroup | L.FeatureGroup = this.markersLayers[layerName]
     if (!layer) {
-      layer = this.initLayer(layerName)
+      layer = this.baseLayers[layerName]
+      if (!layer) {
+        layer = this.initLayer(layerName)
+      }
     }
     return layer
   }
