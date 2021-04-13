@@ -12,7 +12,11 @@
 * Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
 */
 
-import * as L from 'leaflet'
+
+import { Polyline as leafletPolyline } from 'leaflet';
+import 'leaflet-polylineoffset';
+declare var L: any;
+
 import { IotMapConfig } from './iot-map-config'
 import { IotPath, PathIconType } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
@@ -21,13 +25,14 @@ import { getPathIcon } from './iot-map-icons'
 /**
  * Class IotMapPath displaying a path, with start, stop and mid points and with sub paths
  */
-export class IotMapPath extends L.Polyline {
+export class IotMapPath extends leafletPolyline {
   private data: IotPath
   private config: IotMapConfig
   private map: IotMapManager
   private start: L.Marker
   private end: L.Marker
   private mids: L.Marker[] = []
+  private additionalPaths: L.Polyline[] = []
 
   /**
    * Creates a path
@@ -75,6 +80,25 @@ export class IotMapPath extends L.Polyline {
     return this.mids
   }
 
+  public getAdditionalPaths (): L.Polyline[] {
+    // TODO: à revoir
+    this.additionalPaths.forEach(path => path.remove())
+    // add additional paths if existing
+    if (this.data.additional !== undefined) {
+      this.data.additional.forEach(path => {
+        const newPath = L.polyline(path.points, {
+          color: path.color,
+          weight: 3,
+          smoothFactor: 1,
+          interactive: false,
+          offset: this.getOffset(path.line)
+        })
+        this.additionalPaths.push(newPath)
+      })
+    }
+    return this.additionalPaths
+  }
+
   /**
    * remove all points (start, end and mids points) from the map
    */
@@ -83,4 +107,28 @@ export class IotMapPath extends L.Polyline {
     this.end?.remove()
     this.mids?.forEach(pos => pos.remove())
   }
+
+
+  private getOffset(line: number): number {
+    let offset = 0
+    switch (line) {
+      case 1:
+        offset = -8//-6
+        break
+      case 2:
+        offset = -6//-2
+        break
+      case 3:
+        offset = 6//2
+        break
+      case 4:
+        offset = 8//6
+        break
+      default:
+        offset = 0
+        break
+    }
+    return offset
+  }
+
 }

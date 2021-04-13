@@ -44,6 +44,15 @@ export class IotMapPathManager {
     this.map.getLayer(this.config.path.layerName).addLayer(newPath)
     this.pathObjects[path.id] = newPath
 
+    // additional paths
+    if (path.additional !== undefined) {
+      const additionalPaths = newPath.getAdditionalPaths()
+      additionalPaths.forEach(addPath => {
+        this.map.getLayer(this.config.path.layerName).addLayer(addPath)
+      })
+    }
+
+
     // draw start :
     const start = newPath.getStart()
     this.map.getLayer(this.config.path.layerName).addLayer(start)
