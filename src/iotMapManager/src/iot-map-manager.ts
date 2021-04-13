@@ -29,7 +29,7 @@ export class IotMapManager {
   private markersLayers: any = {} // eslint-disable-line @typescript-eslint/no-explicit-any
   private layerControl: L.Control
 
-  private firstLayerAdded: boolean = true
+  private firstLayerAdded = true
 
   /**
    * Constructor
@@ -56,16 +56,14 @@ export class IotMapManager {
       this.config.map.defaultZoomLevel)
 
     // init base layers
-    const defaultLayer = L.tileLayer(this.config.map.openStreetMapLayer, {
-      attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.map)
+    L.tileLayer(this.config.map.openStreetMapLayer,
+      { attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })
+      .addTo(this.map)
     this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
 
     this.map.on('moveend', this.onMove)
 
     this.selectedElement = undefined
-
-
   }
 
   /**
