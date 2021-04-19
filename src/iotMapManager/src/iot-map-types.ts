@@ -102,6 +102,16 @@ interface Inner {
   label?: string
 }
 
+
+interface clusterPopup {
+  title? : string
+  body?: {
+    bullet?: string
+    text: string
+    url?: string
+  }[]
+  colNumber?: number
+}
 /**
  * * IotMarker
  *
@@ -139,6 +149,7 @@ export interface IotCluster extends GeolocMarker {
   layer?: string
   contentLabel: string
   childCount: number
+  popup? : clusterPopup
   aggregation: {
     singularState: string
     pluralState: string

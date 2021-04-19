@@ -81,18 +81,52 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
   const layerTemp = config.layerTemplates[cluster.layer]
   let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
-  if (layerTemp !== undefined) {
-    popup += `<span class='pop-up-title'>
+
+  if (cluster.popup !== undefined) {
+    // title
+    if (layerTemp !== undefined) {
+      popup += `<span class='pop-up-title'>
                 <span class='pop-up-title-icon'>${layerTemp.content}</span>
                 ${cluster.childCount} ${cluster.contentLabel}
               </span><br>`
-  } else {
-    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
-  }
+    } else {
+      popup += `<span class='pop-up-title'>${cluster.popup.title}</span><br>`
+    }
 
-  for (const aggr of cluster.aggregation) {
-    popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
+    // body
+    if (cluster.popup.body !== undefined) {
+      popup += `<table class='cluster-popup-table'>`
+      popup += `<tr>`
+      let elemNum = 1
+      let nbCols = cluster.popup.colNumber ?? 1
+      cluster.popup.body.forEach( line => {
+        popup += `<td class='cluster-popup-body-bullet'><span >${line.bullet??''}</span></td>`
+        popup += `<td class='cluster-popup-body-cell'><span >`
+        popup += (line.url !== undefined) ? `<a href='${line.url}'>` : ''
+        popup += `${line.text}</span></td>`
+        popup += (line.url !== undefined) ? `</a>` : ''
+        if (elemNum % nbCols === 0) {
+          popup += `</tr><tr>`
+        }
+        elemNum += 1
+      })
+      popup += `</tr>`
+      popup += `</table>`
+    }
+  } else {
+    if (layerTemp !== undefined) {
+      popup += `<span class='pop-up-title'>
+                <span class='pop-up-title-icon'>${layerTemp.content}</span>
+                ${cluster.childCount} ${cluster.contentLabel}
+              </span><br>`
+    } else {
+      popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
+    }
+
+    for (const aggr of cluster.aggregation) {
+      popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
               <span class='pop-up-body'>${aggr.count} ${((aggr.count === 1) ? aggr.singularState : aggr.pluralState)}</span><br>`
+    }
   }
   popup += `</div>`
 

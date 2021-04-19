@@ -60,6 +60,19 @@
 
 
 /* MANUAL POPUP */
+.cluster-popup-table {
+  width: 100%;
+  text-align: left;
+}
+.cluster-popup-body-cell {
+  text-align: left;
+}
+.cluster-popup-body-bullet {
+  width: 25px;
+  text-align: center;
+
+}
+
 .cluster-unselected > .manual-cluster-popup {
   position: absolute;
   bottom:0px;
