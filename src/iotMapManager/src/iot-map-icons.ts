@@ -96,7 +96,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   popup += `<table class='cluster-popup-table'>`
   popup += `<tr>`
   let elemNum = 1
-  const nbCols = cluster.colNumber ?? 1
+  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
 
   const nbRows = Math.round(cluster.aggregation.length / nbCols)
 
@@ -122,61 +122,9 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
     }
   }
 
-  // cluster.aggregation.forEach(agreg => {
-  //   const bullet = agreg.bullet ?? `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${agreg.color}'> &#x26aa;  </span>`
-  //   const url = agreg.url ?? ''
-  //
-  //   popup += `<td class='cluster-popup-body-bullet'><span >${bullet}</span></td>`
-  //   popup += `<td class='cluster-popup-body-cell'><span >`
-  //   popup += (url !== '') ? `<a href='${url}'>` : ''
-  //   popup += `${agreg.count} ${(agreg.count === 1) ? agreg.singularState : agreg.pluralState} </span></td>`
-  //   popup += (url !== '') ? `</a>` : ''
-  //   if (elemNum % nbCols === 0) {
-  //     popup += `</tr><tr>`
-  //   }
-  //   elemNum += 1
-  // })
   popup += `</tr>`
   popup += `</table>`
-  // }
 
-  // if (cluster.popup !== undefined) {
-  //
-  //   // body
-  //   // if (cluster.popup.body !== undefined) {
-  //     popup += `<table class='cluster-popup-table'>`
-  //     popup += `<tr>`
-  //     let elemNum = 1
-  //     let nbCols = cluster.popup.colNumber ?? 1
-  //     cluster.popup.body.forEach( line => {
-  //       popup += `<td class='cluster-popup-body-bullet'><span >${line.bullet??''}</span></td>`
-  //       popup += `<td class='cluster-popup-body-cell'><span >`
-  //       popup += (line.url !== undefined) ? `<a href='${line.url}'>` : ''
-  //       popup += `${line.text}</span></td>`
-  //       popup += (line.url !== undefined) ? `</a>` : ''
-  //       if (elemNum % nbCols === 0) {
-  //         popup += `</tr><tr>`
-  //       }
-  //       elemNum += 1
-  //     })
-  //     popup += `</tr>`
-  //     popup += `</table>`
-  //   }
-  // } else {
-  //   if (layerTemp !== undefined) {
-  //     popup += `<span class='pop-up-title'>
-  //               <span class='pop-up-title-icon'>${layerTemp.content}</span>
-  //               ${cluster.childCount} ${cluster.contentLabel}
-  //             </span><br>`
-  //   } else {
-  //     popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
-  //   }
-  //
-  //   for (const aggr of cluster.aggregation) {
-  //     popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
-  //             <span class='pop-up-body'>${aggr.count} ${((aggr.count === 1) ? aggr.singularState : aggr.pluralState)}</span><br>`
-  //   }
-  // }
   popup += `</div>`
 
   const html = `<div class='clustericon ${clusterSelectionClass}'>
