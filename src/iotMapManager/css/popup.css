@@ -44,7 +44,7 @@
   overflow: hidden;
   min-height: 10px;
   padding: 10px 15px 30px;
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', 'helvetica';
   font-weight: bold;
   text-align: left;
   z-index: 0;
@@ -70,7 +70,6 @@
 .cluster-popup-body-bullet {
   width: 25px;
   text-align: center;
-
 }
 
 .cluster-unselected > .manual-cluster-popup {
@@ -102,7 +101,7 @@
   overflow: hidden;
   min-height: 10px;
   padding: 10px 15px 30px;
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', 'helvetica';
   font-weight: bold;
   text-align: left;
   z-index: 0;
@@ -118,7 +117,7 @@
 }
 
 .cluster-selected > .manual-cluster-popup .pop-up-bullet {
-  font-size: 14px;
+  font-size: 12px;
   color: transparent;
 }
 
@@ -145,7 +144,7 @@
   width: 10px;
   font-size: 1px;
 
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', 'helvetica';
   font-weight: bold;
 }
 
@@ -165,7 +164,7 @@
   overflow: hidden;
   min-height: 10px;
   padding: 10px 15px 30px;
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica Neue', 'helvetica';
   font-weight: bold;
   text-align: left;
   z-index: 0;
