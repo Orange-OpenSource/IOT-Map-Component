@@ -139,11 +139,14 @@ export interface IotCluster extends GeolocMarker {
   layer?: string
   contentLabel: string
   childCount: number
+  colNumber?: number
   aggregation: {
     singularState: string
     pluralState: string
     count: number
     color: string
+    bullet?: string
+    url?: string
   }[]
 }
 
@@ -214,6 +217,7 @@ export interface LayerTemplate {
   [layerName: string]: {
     content: string,
     type?: TabType
+    popupColNumber?: number
   }
 }
 

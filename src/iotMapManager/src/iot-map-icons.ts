@@ -81,19 +81,50 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
   const layerTemp = config.layerTemplates[cluster.layer]
   let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
+
+  // popup title
   if (layerTemp !== undefined) {
     popup += `<span class='pop-up-title'>
-                <span class='pop-up-title-icon'>${layerTemp.content}</span>
-                ${cluster.childCount} ${cluster.contentLabel}
-              </span><br>`
+              <span class='pop-up-title-icon'>${layerTemp.content}</span>
+              ${cluster.childCount} ${cluster.contentLabel}
+            </span><br>`
   } else {
     popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
   }
 
-  for (const aggr of cluster.aggregation) {
-    popup += `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${aggr.color}'> &#x26ab  </span>
-              <span class='pop-up-body'>${aggr.count} ${((aggr.count === 1) ? aggr.singularState : aggr.pluralState)}</span><br>`
+  // popup body
+  popup += `<table class='cluster-popup-table'>`
+  popup += `<tr>`
+  let elemNum = 1
+  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
+
+  const nbRows = Math.round(cluster.aggregation.length / nbCols)
+
+  for (let row = 1; row <= nbRows; row++) {
+    for (let col = 1; col <= nbCols; col++) {
+      const agregNum = (nbRows * (col - 1) + row - 1)
+      if (agregNum < cluster.aggregation.length) {
+        const currentAgreg = cluster.aggregation[agregNum]
+        console.log("col = " + col + " row = " + row + " aggreg = " + agregNum)
+        const bullet = currentAgreg.bullet ?? `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${currentAgreg.color}'> &#x26aa;  </span>`
+        const url = currentAgreg.url ?? ''
+
+        popup += `<td class='cluster-popup-body-bullet'><span >${bullet}</span></td>`
+        popup += `<td class='cluster-popup-body-cell'><span >`
+        popup += (url !== '') ? `<a href='${url}'>` : ''
+        popup += `${currentAgreg.count} ${(currentAgreg.count === 1) ? currentAgreg.singularState : currentAgreg.pluralState} </span></td>`
+        popup += (url !== '') ? `</a>` : ''
+        if (elemNum % nbCols === 0) {
+          popup += `</tr><tr>`
+        }
+        elemNum += 1
+      }
+    }
   }
+
+  popup += `</tr>`
+  popup += `</table>`
+
   popup += `</div>`
 
   const html = `<div class='clustericon ${clusterSelectionClass}'>

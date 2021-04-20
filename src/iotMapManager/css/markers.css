@@ -53,7 +53,7 @@
   left: 0px;
   z-index: 25;
   text-align: center;
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", 'helvetica';
 
 }
 
@@ -128,7 +128,7 @@
   height:50px;
   z-index: 25;
   font-size: 18px;
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", 'helvetica';
   font-weight: bold;
   line-height:50px;
   text-align: center;
