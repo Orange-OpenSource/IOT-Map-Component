@@ -1,4 +1,4 @@
-import { AfterViewInit, Component} from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core'
 
 import {
   IotMapManager,
@@ -41,33 +41,33 @@ export class MapComponent implements AfterViewInit {
       template: 'square',
       status: 'warning',
       tab: {
-        content: `<span class='iotmap-icons-vehicle'></span>`
+        content: '<span class="iotmap-icons-vehicle"></span>'
       },
       inner: {
-        label: "H"
+        label: 'H'
       },
-      shape:{
+      shape: {
         accuracy: 300
       }
     },
     {
       id: 's2',
-    location: {
+      location: {
         lat: 44.895,
         lng: 4.875
       },
       popup: {
         title: 'Ecole Jean Rostand : ',
-        body: `<a href='https://bv.ac-grenoble.fr/carteforpub/uai/0260969M'>ici</a>`
+        body: '<a href="https://bv.ac-grenoble.fr/carteforpub/uai/0260969M">ici</a>'
       },
       template: 'square',
-      status : 'neutral',
+      status: 'neutral',
       tab: {
         content: 'XXX',
         type: TabType.large
       }
     },
-   /* {
+    /* {
       id: 's3',
     location: {
         lat: 44.895,
@@ -88,15 +88,15 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'square',
       status: 'alert',
-    },*/
+    }, */
     {
       id: 's5',
-    location: {
+      location: {
         lat: 44.895,
         lng: 4.890
       },
       shape: {
-        type : ShapeType.square,
+        type: ShapeType.square,
         anchored: true,
         plain: false,
         accuracy: 200
@@ -106,7 +106,7 @@ export class MapComponent implements AfterViewInit {
         color: 'green'
       },
       layer: 'etablissements',
-      status: 'inactive',
+      status: 'inactive'
     },
     {
       id: 's6',
@@ -114,7 +114,7 @@ export class MapComponent implements AfterViewInit {
         lat: 44.895,
         lng: 4.895
       },
-      template: 'square',
+      template: 'square'
     },
 
     // POI
@@ -125,7 +125,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.870
       },
       shape: {
-        type : ShapeType.square,
+        type: ShapeType.square,
         anchored: false,
         plain: false
       },
@@ -138,7 +138,7 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p2',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.875
       },
@@ -147,7 +147,7 @@ export class MapComponent implements AfterViewInit {
         body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.'
       },
       shape: {
-        type : ShapeType.square,
+        type: ShapeType.square,
         anchored: true,
         plain: true
       },
@@ -160,7 +160,7 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p3',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.880
       },
@@ -169,7 +169,7 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p4',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.885
       },
@@ -178,12 +178,12 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p5',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.890
       },
       shape: {
-        type : ShapeType.square,
+        type: ShapeType.square,
         anchored: true,
         plain: true,
         accuracy: 300
@@ -197,12 +197,12 @@ export class MapComponent implements AfterViewInit {
     },
     {
       id: 'p6',
-    location: {
+      location: {
         lat: 44.890,
         lng: 4.895
       },
       shape: {
-        type : ShapeType.square,
+        type: ShapeType.square,
         plain: true,
         anchored: false
       },
@@ -212,7 +212,6 @@ export class MapComponent implements AfterViewInit {
         color: 'white'
       }
     },
-
 
     // circle
     {
@@ -249,7 +248,7 @@ export class MapComponent implements AfterViewInit {
       template: 'vehicle',
       status: 'neutral',
       tab: {
-        content: `<span>ABC</span>`,
+        content: '<span>ABC</span>',
         type: TabType.large
       }
     },
@@ -302,52 +301,74 @@ export class MapComponent implements AfterViewInit {
         direction: 320
       },
       popup: {
-        title: `<img src='../assets/icons/temperature.svg'><br>`,
-        body: `La <i>température</i><br><b>de 18°C</b>`,
+        title: '<img src="../assets/icons/temperature.svg"><br>',
+        body: 'La <i>température</i><br><b>de 18°C</b>'
       },
       template: 'square',
       status: 'warning',
       inner: {
-        label: "H",
+        label: 'H',
         color: 'black'
-      },
-
-    }
-      ];
+      }
+    }];
 
   clustersList: IotCluster[] = [
     {
-      id: 'services',
+      id: 'interfaces',
       location: {
         lat: 44.882,
         lng: 4.89
       },
-      contentLabel: 'Services',
-      childCount: 80,
+      contentLabel: 'interfaces',
+      colNumber: 1,
+      childCount: 100,
       aggregation: [
         {
-          singularState: 'Health',
-          pluralState: 'Health',
+          singularState: 'registered',
+          pluralState: 'registered',
           count: 15,
-          color: '#d24d57'
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
         },
         {
-          singularState: 'Service',
-          pluralState: 'Services',
-          count: 25,
-          color: '#526e91'
+          singularState: 'initializing',
+          pluralState: 'initializing',
+          count: 15,
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
         },
         {
-          singularState: 'Civil service',
-          pluralState: 'Civil services',
+          singularState: 'initialized',
+          pluralState: 'initialized',
+          bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
           count: 10,
-          color: '#874b0e'
+          color: '#527EDB'
         },
         {
-          singularState: 'Transport',
-          pluralState: 'Transport',
+          singularState: 'activated',
+          pluralState: 'activated',
           count: 30,
-          color: '#19a0b8'
+          color: '#32C832',
+          url: 'http://www.orange.fr'
+        },
+        {
+          singularState: 'reactivated',
+          pluralState: 'reactivated',
+          count: 10,
+          color: '#32C832',
+          bullet: '<span class= "iotmap-icons-assistance" style="color: #32C832; font-size: 16px"></span>'
+        },
+        {
+          singularState: 'error',
+          pluralState: 'errors',
+          count: 10,
+          color: '#CD3C14'
+        },
+        {
+          singularState: 'deactivated',
+          pluralState: 'deactivated',
+          count: 10,
+          color: '#CCCCCC'
         }]
     },
     {
@@ -359,18 +380,21 @@ export class MapComponent implements AfterViewInit {
       layer: 'vehicles',
       contentLabel: 'Entertainment',
       childCount: 60,
+      colNumber: 2,
       aggregation: [
         {
           singularState: 'food and drink',
           pluralState: 'food and drink',
           count: 15,
-          color: '#467e74'
+          color: '#467e74',
+          bullet: '<span class="iotmap-icons-School">@</span>'
         },
         {
           singularState: 'shopping',
           pluralState: 'shopping',
           count: 20,
-          color: '#b8860b'
+          color: '#b8860b',
+          url: 'http://www.google.fr'
         },
         {
           singularState: 'entertainment',
@@ -388,10 +412,10 @@ export class MapComponent implements AfterViewInit {
   ];
 
   userMarker: IotUserMarker = {
-    location: { lat: 44.897, lng: 4.8813 }/*{
+    location: { lat: 44.897, lng: 4.8813 }, /* {
       lat: 44.9,
       lng: 4.8818
-    }*/,
+    } */
     accuracy: 150,
     direction: 180
   }
@@ -415,7 +439,7 @@ export class MapComponent implements AfterViewInit {
       { lat: 44.892, lng: 4.884 }],
     positions: [
       { lat: 44.896, lng: 4.8811 },
-      { lat: 44.8929, lng: 4.884 }],
+      { lat: 44.8929, lng: 4.884 }]
     // sidePath: [
     //   {
     //     line: 1,
@@ -500,48 +524,46 @@ export class MapComponent implements AfterViewInit {
     // ]
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit (): void {
     this.conf.setConfig({
-     markerTemplates: {
-       'vehicle': {
-         layer: 'vehicles',
-         shape: {
-           type: ShapeType.circle,
-           anchored: true,
-           plain: true
-         },
-         inner: {
-           icon: 'iotmap-icons-vehicle'
-         }
-       }
-     },
-     map: {
-       externalClustering: true,
-       layerControl: true,
-       exclusiveLayers: true
-     },
-     layerTemplates: {
-       'etablissements': {
-         content: `<span class='iotmap-icons-School'></span>`,
-         type: TabType.normal
-       },
-       'meters': {
-         content: '<img width=16 src="../assets/icons/check_your_balance.svg">'
-       },
-       'autos': {
-         content: 'Cars',
-         type: TabType.large
-       }
-     }
-   })
-
+      markerTemplates: {
+        'vehicle': {
+          layer: 'vehicles',
+          shape: {
+            type: ShapeType.circle,
+            anchored: true,
+            plain: true
+          },
+          inner: {
+            icon: 'iotmap-icons-vehicle'
+          }
+        }
+      },
+      map: {
+        externalClustering: false,
+        layerControl: true,
+        exclusiveLayers: true
+      },
+      layerTemplates: {
+        'etablissements': {
+          content: '<span class="iotmap-icons-School"></span>',
+          type: TabType.normal,
+          popupColNumber: 2
+        },
+        'meters': {
+          content: '<img width=16 src="../assets/icons/check_your_balance.svg">'
+        },
+        'autos': {
+          content: 'Cars',
+          type: TabType.large
+        }
+      }
+    })
 
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getIotMap().getBounds()
-      console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng
-                                    + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
+      console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
-
 
     this.commonIotMap.init('iotMap')
     this.iotMapMarkerManager.addMarkers(this.markersList)
@@ -549,14 +571,11 @@ export class MapComponent implements AfterViewInit {
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
     this.iotMapPathManager.addPath(this.chemin)
 
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters' }) }, 3000)
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos' }) }, 3000)
 
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters'})}, 3000)
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos'})}, 3000)
-
-
-    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', {shape: {accuracy: 600}})}, 3000)
-    //setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
-    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', {shape : { accuracy: undefined}})}, 5000)
+    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 3000)
+    // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
+    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', { shape: { accuracy: undefined } }) }, 5000)
   }
 }
-
