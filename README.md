@@ -54,7 +54,7 @@ Markers are clusterized:
 
 Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 markers. Beyond that, *external* mode allows to manage manually clusters, by building clusters with all attributs described above.
 
-<img src="doc/clusters.png"><img src="doc/clusters_tabs.png width=300">
+<img src="doc/clusters.png"><img src="doc/clusters_tabs.png" width=420>
 
 <ins>User marker</ins> to display the current location of the application user, with an optionnal **direction** (in degree) and **accuracy**.
 
