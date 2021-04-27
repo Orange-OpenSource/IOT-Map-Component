@@ -97,7 +97,6 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   popup += `<tr>`
   let elemNum = 1
   const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
-
   const nbRows = Math.round(cluster.aggregation.length / nbCols)
 
   for (let row = 1; row <= nbRows; row++) {
@@ -599,14 +598,14 @@ function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: Io
       tabDistribution[state] = {
         count: tabDistribution[state].count + 1,
         label: (marker.getData().status)
-          ? config.markerStatus[marker.getData().status].name.plural
+          ? config.markerStatus[marker.getData().status]?.name.plural
           : 'stateless'
       }
     } else {
       tabDistribution[state] = {
         count: 1,
         label: (marker.getData().status)
-          ? config.markerStatus[marker.getData().status].name.singular
+          ? config.markerStatus[marker.getData().status]?.name.singular
           : 'stateless'
       }
     }
@@ -631,9 +630,12 @@ function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: Io
     if (tabDistribution[state]) {
       currentCluster.aggregation[i] = {
         count: tabDistribution[state].count,
-        color: (state === 'stateless') ? config.clusters.defaultColor : config.markerStatus[state].shape.color,
+        color: config.markerStatus[state]?.shape?.color ?? config.clusters.defaultColor,
         singularState: tabDistribution[state].label,
-        pluralState: tabDistribution[state].label
+        pluralState: tabDistribution[state].label,
+        bullet: config.markerStatus[state]?.bullet,
+        url: config.markerStatus[state]?.url,
+        urlTarget: config.markerStatus[state]?.urlTarget
       }
       i++
     }

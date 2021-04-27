@@ -426,6 +426,9 @@ export class IotMapConfig {
             tab: newConfig.markerStatus[status].tab ?? this.markerStatus[status]?.tab,
             shape: newConfig.markerStatus[status].shape ?? this.markerStatus[status]?.shape,
             inner: newConfig.markerStatus[status].inner ?? this.markerStatus[status]?.inner,
+            bullet: newConfig.markerStatus[status].bullet ?? this.markerStatus[status]?.bullet,
+            url: newConfig.markerStatus[status].url ?? this.markerStatus[status]?.url,
+            urlTarget: newConfig.markerStatus[status].urlTarget ?? this.markerStatus[status]?.urlTarget
           }
         }
       }

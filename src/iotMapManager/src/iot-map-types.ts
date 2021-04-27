@@ -184,6 +184,9 @@ export interface MarkerStatus {
     tab?: Tab
     shape?: Shape
     inner?: Inner
+    bullet?: string
+    url?: string
+    urlTarget?: string
   }
 }
 
