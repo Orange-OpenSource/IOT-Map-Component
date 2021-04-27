@@ -73,9 +73,10 @@
   text-align: center;
 }
 
-.cluster-popup-body-link, .cluster-popup-body-link:visited {
+.cluster-popup-body-cell a, .cluster-popup-body-link:visited {
   color: black;
 }
+
 .cluster-popup-body-link:hover {
   color: #FF7900;
 }

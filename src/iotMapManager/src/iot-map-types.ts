@@ -219,7 +219,7 @@ export interface MarkerTemplate {
  */
 export interface LayerTemplate {
   [layerName: string]: {
-    content: string,
+    content?: string,
     type?: TabType
     popupColNumber?: number
   }

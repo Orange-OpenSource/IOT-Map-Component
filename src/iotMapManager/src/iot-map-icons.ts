@@ -66,7 +66,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
     cluster.layer = 'default'
   } else {
     const layerTemp = config.layerTemplates[cluster.layer]
-    if (layerTemp !== undefined) {
+    if (layerTemp?.content !== undefined) {
       if (layerTemp.type === TabType.normal || layerTemp.type === undefined) {
         tab = `<span class='tab-top'>${layerTemp.content}</span>`
       } else {
@@ -85,7 +85,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   // popup title
   if (layerTemp !== undefined) {
     popup += `<span class='pop-up-title'>
-              <span class='pop-up-title-icon'>${layerTemp.content}</span>
+              <span class='pop-up-title-icon'>${layerTemp.content ?? ''}</span>
               ${cluster.childCount} ${cluster.contentLabel}
             </span><br>`
   } else {
