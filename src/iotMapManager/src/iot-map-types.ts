@@ -147,6 +147,7 @@ export interface IotCluster extends GeolocMarker {
     color: string
     bullet?: string
     url?: string
+    urlTarget?: string
   }[]
 }
 

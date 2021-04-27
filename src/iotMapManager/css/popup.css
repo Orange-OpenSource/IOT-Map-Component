@@ -59,7 +59,7 @@
 }
 
 
-/* MANUAL POPUP */
+/* MANUAL CLUSTER POPUP */
 .cluster-popup-table {
   width: 100%;
   text-align: left;
@@ -69,8 +69,15 @@
   font-size: 14px;
 }
 .cluster-popup-body-bullet {
-  width: 25px;
+  width: 20px;
   text-align: center;
+}
+
+.cluster-popup-body-link, .cluster-popup-body-link:visited {
+  color: black;
+}
+.cluster-popup-body-link:hover {
+  color: #FF7900;
 }
 
 .cluster-unselected > .manual-cluster-popup {
@@ -90,8 +97,8 @@
 .cluster-selected > .manual-cluster-popup {
   position: absolute;
   bottom:-25px;
-  left:-100px;
-  width: 250px;
+  left:-115px;
+  width: 280px;
   box-sizing: border-box;
   max-height: 600px;
   border-radius: 10px;
@@ -123,7 +130,7 @@
 }
 
 .cluster-selected > .manual-cluster-popup .pop-up-body {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cluster-selected> .clusteropacity {
@@ -150,8 +157,8 @@
 .clustericon:hover > .automatic-cluster-popup {
   position: absolute;
   bottom:-25px;
-  left:-100px;
-  width: 250px;
+  left:-115px;
+  width: 280px;
   box-sizing: border-box;
   max-height: 600px;
   border-radius: 10px;
@@ -183,7 +190,7 @@
 }
 
 .clustericon:hover > .automatic-cluster-popup .pop-up-body {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 

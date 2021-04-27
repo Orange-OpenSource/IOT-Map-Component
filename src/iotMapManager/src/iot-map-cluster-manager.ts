@@ -135,6 +135,10 @@ export class IotMapClusterManager {
           htmlModificationNeeded = true
         }
 
+        if (params.colNumber !== undefined) {
+          currentClusterInfos.colNumber = params.colNumber
+          htmlModificationNeeded = true
+        }
         if (params.aggregation !== undefined) {
           currentClusterInfos.aggregation = params.aggregation
           htmlModificationNeeded = true

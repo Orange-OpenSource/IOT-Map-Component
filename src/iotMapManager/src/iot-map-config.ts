@@ -419,7 +419,14 @@ export class IotMapConfig {
     if (newConfig.markerStatus !== undefined) {
       for (const status in newConfig.markerStatus) {
         if (newConfig.markerStatus[status] !== undefined) {
-          this.markerStatus[status] = newConfig.markerStatus[status]
+          this.markerStatus[status] = {
+            name: newConfig.markerStatus[status].name ?? this.markerStatus[status]?.name,
+            layer: newConfig.markerStatus[status].layer ?? this.markerStatus[status]?.layer,
+            popup: newConfig.markerStatus[status].popup ?? this.markerStatus[status]?.popup,
+            tab: newConfig.markerStatus[status].tab ?? this.markerStatus[status]?.tab,
+            shape: newConfig.markerStatus[status].shape ?? this.markerStatus[status]?.shape,
+            inner: newConfig.markerStatus[status].inner ?? this.markerStatus[status]?.inner,
+          }
         }
       }
     }
@@ -430,7 +437,13 @@ export class IotMapConfig {
     if (newConfig.markerTemplates !== undefined) {
       for (const template in newConfig.markerTemplates) {
         if (newConfig.markerTemplates[template] !== undefined) {
-          this.markerTemplates[template] = newConfig.markerTemplates[template]
+          this.markerTemplates[template] = {
+            layer: newConfig.markerTemplates[template].layer ?? this.markerTemplates[template]?.layer,
+            inner: newConfig.markerTemplates[template].inner ?? this.markerTemplates[template]?.inner,
+            shape: newConfig.markerTemplates[template].shape ?? this.markerTemplates[template]?.shape,
+            popup: newConfig.markerTemplates[template].popup ?? this.markerTemplates[template]?.popup,
+            tab: newConfig.markerTemplates[template].tab ?? this.markerTemplates[template]?.tab
+          }
         }
       }
     }
@@ -441,7 +454,11 @@ export class IotMapConfig {
     if (newConfig.layerTemplates !== undefined) {
       for (const template in newConfig.layerTemplates) {
         if (newConfig.layerTemplates[template] !== undefined) {
-          this.layerTemplates[template] = newConfig.layerTemplates[template]
+          this.layerTemplates[template] = {
+            content: newConfig.layerTemplates[template].content ?? this.layerTemplates[template]?.content,
+            type: newConfig.layerTemplates[template].type ?? this.layerTemplates[template]?.type,
+            popupColNumber: newConfig.layerTemplates[template].popupColNumber ?? this.layerTemplates[template]?.popupColNumber
+          }
         }
       }
     }

@@ -108,10 +108,11 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
         console.log("col = " + col + " row = " + row + " aggreg = " + agregNum)
         const bullet = currentAgreg.bullet ?? `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${currentAgreg.color}'> &#x26aa;  </span>`
         const url = currentAgreg.url ?? ''
+        const urlTarget = currentAgreg.urlTarget ?? ''
 
         popup += `<td class='cluster-popup-body-bullet'><span >${bullet}</span></td>`
         popup += `<td class='cluster-popup-body-cell'><span >`
-        popup += (url !== '') ? `<a href='${url}'>` : ''
+        popup += (url !== '') ? (`<a class='cluster-popup-body-link' href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
         popup += `${currentAgreg.count} ${(currentAgreg.count === 1) ? currentAgreg.singularState : currentAgreg.pluralState} </span></td>`
         popup += (url !== '') ? `</a>` : ''
         if (elemNum % nbCols === 0) {
@@ -622,6 +623,7 @@ function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: Io
     contentLabel: layer, // unused in automatic mode
     layer: layer,
     childCount: leafletCluster.getChildCount(),
+    colNumber: config.layerTemplates[layer]?.popupColNumber ?? 1,
     aggregation: []
   }
   let i = 0
