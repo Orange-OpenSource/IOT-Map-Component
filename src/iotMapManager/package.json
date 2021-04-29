@@ -1,10 +1,11 @@
 {
   "name": "iotmapmanager",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Manage markers, clusters, user marker or paths on IotMaps",
   "main": "dist/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "npm run dist",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode development",
     "dist": "webpack --mode production",
@@ -12,13 +13,14 @@
   },
   "files": [
     "dist/**/*",
+    "lib/**/*",
     "css/*",
     "img/*",
     "iot-map-manager.css",
     "package.json",
     "readme.md",
-    "../../LICENSE",
-    "../../NOTICE.txt"
+    "LICENSE",
+    "NOTICE.txt"
   ],
   "repository": {
     "type": "git",

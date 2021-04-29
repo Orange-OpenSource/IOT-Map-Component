@@ -39,7 +39,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.870
       },
       template: 'square',
-      status: 'warning',
+      status: 'test', // 'warning',
       tab: {
         content: '<span class="iotmap-icons-vehicle"></span>'
       },
@@ -61,7 +61,7 @@ export class MapComponent implements AfterViewInit {
         body: '<a href="https://bv.ac-grenoble.fr/carteforpub/uai/0260969M">ici</a>'
       },
       template: 'square',
-      status: 'neutral',
+      status: 'test', // 'neutral',
       tab: {
         content: 'XXX',
         type: TabType.large
@@ -319,8 +319,9 @@ export class MapComponent implements AfterViewInit {
         lat: 44.882,
         lng: 4.89
       },
+      // layer: 'autos',
       contentLabel: 'interfaces',
-      colNumber: 1,
+      colNumber: 2,
       childCount: 100,
       aggregation: [
         {
@@ -349,7 +350,8 @@ export class MapComponent implements AfterViewInit {
           pluralState: 'activated',
           count: 30,
           color: '#32C832',
-          url: 'http://www.orange.fr'
+          url: 'http://www.orange.fr/fdsfsdf',
+          urlTarget: '_blank'
         },
         {
           singularState: 'reactivated',
@@ -387,7 +389,7 @@ export class MapComponent implements AfterViewInit {
           pluralState: 'food and drink',
           count: 15,
           color: '#467e74',
-          bullet: '<span class="iotmap-icons-School">@</span>'
+          bullet: '<span class="iotmap-icons-Entertainment_channel"></span>'
         },
         {
           singularState: 'shopping',
@@ -412,10 +414,10 @@ export class MapComponent implements AfterViewInit {
   ];
 
   userMarker: IotUserMarker = {
-    location: { lat: 44.897, lng: 4.8813 }, /* {
-      lat: 44.9,
-      lng: 4.8818
-    } */
+    location: {
+      lat: 44.897,
+      lng: 4.8813
+    },
     accuracy: 150,
     direction: 180
   }
@@ -439,89 +441,88 @@ export class MapComponent implements AfterViewInit {
       { lat: 44.892, lng: 4.884 }],
     positions: [
       { lat: 44.896, lng: 4.8811 },
-      { lat: 44.8929, lng: 4.884 }]
-    // sidePath: [
-    //   {
-    //     line: 1,
-    //     color: '#CD3C14',
-    //     points: [
-    //       {lat: 44.9, lng: 4.8818},
-    //       {lat: 44.899, lng: 4.8816},
-    //       {lat: 44.898, lng: 4.8814},
-    //       {lat: 44.897, lng: 4.8813},
-    //       {lat: 44.896, lng: 4.8811},
-    //       {lat: 44.895, lng: 4.8809}]
-    //   },
-    //   {
-    //     line: 1,
-    //     color: '#CD3C14',
-    //     points: [
-    //       { lat: 44.8929, lng: 4.883 },
-    //       { lat: 44.8929, lng: 4.884 },
-    //       { lat: 44.8925, lng: 4.884 },
-    //       { lat: 44.892, lng: 4.884 }]
-    //   },
-    //   {
-    //     line: 2,
-    //     color: '#FFCC00',
-    //     points: [
-    //
-    //       {lat: 44.897, lng: 4.8813},
-    //       {lat: 44.896, lng: 4.8811},
-    //       {lat: 44.895, lng: 4.8809},
-    //       {lat: 44.894, lng: 4.8807},
-    //       {lat: 44.893, lng: 4.8807},
-    //       {lat: 44.893, lng: 4.8810},
-    //       {lat: 44.8929, lng: 4.882}]
-    //   },
-    //   {
-    //     line: 2,
-    //     color: '#FFCC00',
-    //     points: [
-    //       { lat: 44.8925, lng: 4.884 },
-    //       { lat: 44.892, lng: 4.884 }]
-    //   },
-    //   {
-    //     line: 3,
-    //     color: '#32C832',
-    //     points: [
-    //       {lat: 44.9, lng: 4.8818},
-    //       {lat: 44.899, lng: 4.8816},
-    //       {lat: 44.898, lng: 4.8814},
-    //       {lat: 44.897, lng: 4.8813},
-    //       {lat: 44.896, lng: 4.8811}]
-    //   },
-    //   {
-    //     line: 3,
-    //     color: '#32C832',
-    //     points: [
-    //       { lat: 44.895, lng: 4.8809 },
-    //       { lat: 44.894, lng: 4.8807 },
-    //       { lat: 44.893, lng: 4.8807 },
-    //       { lat: 44.893, lng: 4.8810 },
-    //       { lat: 44.8929, lng: 4.882 },
-    //       { lat: 44.8929, lng: 4.883 },
-    //       { lat: 44.8929, lng: 4.884 },
-    //       { lat: 44.8925, lng: 4.884 },
-    //       { lat: 44.892, lng: 4.884 }]
-    //   },
-    //   {
-    //     line: 4,
-    //     color: 'black',//'#CCCCCC',
-    //     points: [
-    //       { lat: 44.897, lng: 4.8813 },
-    //       { lat: 44.896, lng: 4.8811 },
-    //       { lat: 44.895, lng: 4.8809 },
-    //       { lat: 44.894, lng: 4.8807 },
-    //       { lat: 44.893, lng: 4.8807 },
-    //       { lat: 44.893, lng: 4.8810 },
-    //       { lat: 44.8929, lng: 4.882 },
-    //       { lat: 44.8929, lng: 4.883 },
-    //       { lat: 44.8929, lng: 4.884 },
-    //       { lat: 44.8925, lng: 4.884 },
-    //       { lat: 44.892, lng: 4.884 }]
-    //   }
-    // ]
+      { lat: 44.8929, lng: 4.884 }],
+    additional: [
+      {
+        line: 1,
+        color: '#CD3C14',
+        points: [
+          { lat: 44.9, lng: 4.8818 },
+          { lat: 44.899, lng: 4.8816 },
+          { lat: 44.898, lng: 4.8814 },
+          { lat: 44.897, lng: 4.8813 },
+          { lat: 44.896, lng: 4.8811 },
+          { lat: 44.895, lng: 4.8809 }]
+      },
+      {
+        line: 1,
+        color: '#CD3C14',
+        points: [
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 2,
+        color: '#FFCC00',
+        points: [
+          { lat: 44.897, lng: 4.8813 },
+          { lat: 44.896, lng: 4.8811 },
+          { lat: 44.895, lng: 4.8809 },
+          { lat: 44.894, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8810 },
+          { lat: 44.8929, lng: 4.882 }]
+      },
+      {
+        line: 2,
+        color: '#FFCC00',
+        points: [
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 3,
+        color: '#32C832',
+        points: [
+          { lat: 44.9, lng: 4.8818 },
+          { lat: 44.899, lng: 4.8816 },
+          { lat: 44.898, lng: 4.8814 },
+          { lat: 44.897, lng: 4.8813 },
+          { lat: 44.896, lng: 4.8811 }]
+      },
+      {
+        line: 3,
+        color: '#32C832',
+        points: [
+          { lat: 44.895, lng: 4.8809 },
+          { lat: 44.894, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8810 },
+          { lat: 44.8929, lng: 4.882 },
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      },
+      {
+        line: 4,
+        color: '#CCCCCC',
+        points: [
+          { lat: 44.897, lng: 4.8813 },
+          { lat: 44.896, lng: 4.8811 },
+          { lat: 44.895, lng: 4.8809 },
+          { lat: 44.894, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8807 },
+          { lat: 44.893, lng: 4.8810 },
+          { lat: 44.8929, lng: 4.882 },
+          { lat: 44.8929, lng: 4.883 },
+          { lat: 44.8929, lng: 4.884 },
+          { lat: 44.8925, lng: 4.884 },
+          { lat: 44.892, lng: 4.884 }]
+      }
+    ]
   }
 
   ngAfterViewInit (): void {
@@ -540,9 +541,9 @@ export class MapComponent implements AfterViewInit {
         }
       },
       map: {
-        externalClustering: false,
+        externalClustering: true,
         layerControl: true,
-        exclusiveLayers: true
+        exclusiveLayers: false
       },
       layerTemplates: {
         'etablissements': {
@@ -557,6 +558,16 @@ export class MapComponent implements AfterViewInit {
           content: 'Cars',
           type: TabType.large
         }
+      },
+      markerStatus: {
+        'test': {
+          name: {
+            singular: 'test',
+            plural: 'tests'
+          },
+          bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>',
+          url: 'http://www.orange.com'
+        }
       }
     })
 
@@ -564,13 +575,11 @@ export class MapComponent implements AfterViewInit {
       const coord = this.commonIotMap.getIotMap().getBounds()
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
-
     this.commonIotMap.init('iotMap')
     this.iotMapMarkerManager.addMarkers(this.markersList)
     this.iotMapClusterManager.addClusters(this.clustersList)
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
     this.iotMapPathManager.addPath(this.chemin)
-
     setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters' }) }, 3000)
     setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos' }) }, 3000)
 

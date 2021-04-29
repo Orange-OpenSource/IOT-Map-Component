@@ -8,17 +8,16 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader',
-
+        loader: 'url-loader'
       }
-    ],
+    ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
   output: {
     filename: 'index.js',
@@ -26,4 +25,4 @@ module.exports = {
     library: 'my-library',
     libraryTarget: 'umd'
   }
-};
+}
