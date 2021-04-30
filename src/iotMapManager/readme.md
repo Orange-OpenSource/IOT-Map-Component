@@ -1,4 +1,4 @@
-# IotMapManager V2.1.0
+# IotMapManager V2.2.1
 
 This library provides management of markers dedicated to projects using mapping.
 ## use
@@ -77,11 +77,15 @@ template | string | yes | name of the template to apply (see [configuration](#Co
   layer?: string
   contentLabel: string
   childCount: number
+  colNumber?: number
   aggregation: {
     singularState: string
     pluralState: string
     count: number
     color: string
+    bullet?: string
+    url?: string
+    urlTarget?: string
   }[]
 }
 ```
@@ -94,6 +98,7 @@ location | [Location](#location) | no | (lat, long) of the cluster
 layer | string | yes | You can sort your manual clusters in different layers. A tool allow you to display specific layers (see [configuration](#Configuration))
 contentLabel | string | no | what is clustered ? (devices, cars, buildings...)
 childCount | number | no | number of clustered elements
+colNumber | number | yes | number of columns displayed in a cluster popup
 aggregation | array | no | containing following info for each type of element
 
 Aggregation :
@@ -104,7 +109,9 @@ singularState | string | no | used for only one element
 pluralState | string | no | used for several elements
 count | number | no | number of elements
 color | string | no | color to display is gauge and popup
-
+bullet | string | yes | bullet used to illustrate current state (plain circle if not specified)
+url | string | yes | state name is then displayed as an hyper link with 'url' as href 
+urlTarget | string | yes | specifies where to open the linked document or page ('_blank', '_self', '_parent', '_top', framename)
 
 ## user marker definition
 ```
@@ -257,7 +264,10 @@ Editable values :
     * popup (optionnal) is a string displayed in a popup when marker is clicked. (see [Popup](#Popup))
     * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see [Tab](#Tab))
     * shape (optionnal): all information relative to marker shape (see [shape](#Shape))
-    * inner(optionnal) : all information relative to marker inner (see [Inner](#Inner))
+    * inner (optionnal) : all information relative to marker inner (see [Inner](#Inner))
+    * bullet (optionnal) is the bullet displayed before the name status in cluster popups (html code)
+    * url (optionnal): if defined, in the cluster popup the name becomes an hyperlink with 'url' as href 
+    * urlTarget specifies where to open the linked document or page ('_blank', '_self', '_parent', '_top', framename)
 
     
 * markerTemplate: agregates all display parameters (colors, shape, icon...)
@@ -266,8 +276,14 @@ Editable values :
     * popup (optionnal) is a string displayed in a popup when marker is clicked. (see [Popup](#Popup))
     * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see [Tab](#Tab)) 
     * shape (optionnal): all information relative to marker shape (see [shape](#Shape))
-    * inner(optionnal) : all information relative to marker inner (see [Inner](#Inner))
+    * inner (optionnal) : all information relative to marker inner (see [Inner](#Inner))
     
+* layerTemplate: parameters that can be applied to a layer
+  * for each template (defined by a name as string):
+    * content (optionnal): the html code to display in cluster tab (can be img, text...)
+    * type (optionnal): the type used for cluster tab (see )
+    * popupColNumber (optionnal): number of columns to display in cluster popup
+  
         
 Marker data are applied first,
   - then default values if needed,

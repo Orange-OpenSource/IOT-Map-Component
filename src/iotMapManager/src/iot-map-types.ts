@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.1.0
+* Version: 2.2.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -214,8 +214,9 @@ export interface MarkerTemplate {
  * * LayerTemplate
  *
  * @param layerName - (mandatory) the layer name as it is mentionned in IotMarker
- * @param content - (mandatory) the html code to display in cluster tab
+ * @param content - (optionnal) the html code to display in cluster tab
  * @param type - (optionnal) the cluster tab width. (see TabType)
+ * @param popupColNumber - (optionnal) the number of columns to display in cluster popups
  */
 export interface LayerTemplate {
   [layerName: string]: {
