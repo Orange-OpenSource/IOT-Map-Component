@@ -33,7 +33,7 @@ Note that shapes appear bigger when selected, and always with an anchor for a be
 
 <ins>Status</ins> can be used, in the same way, to define marker status, setting on or several markers attributes. By setting **status** attribute, marker inherits status attributes.
 
-Status is also used by clusterization: repartition of clusterized markers is based on status **color**, and cluster popup displays **singular** or **plural** status **name**.
+Status is also used by clusterization: repartition of clusterized markers is based on status **color**, and cluster popup displays **bullet** and **singular** or **plural** status **name**, potentially clickable to go to **url** opened in a **urlTarget**.
 
 Note that order of priority concerning attribute value is : status, then template, then attributes.
 
