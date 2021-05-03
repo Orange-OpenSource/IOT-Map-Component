@@ -40,7 +40,13 @@ export class IotMapPath extends leafletPolyline {
    * @param config - the config to use to display the path
    */
   constructor (path: IotPath, map: IotMapManager, config: IotMapConfig) {
-    super(path.points, { color: '#527EDB', weight: 8, smoothFactor: 1, interactive: false })
+    super(path.points,
+      {
+        color: path.color ?? config.path.color,
+        weight: config.path.width,
+        smoothFactor: 1,
+        interactive: false
+      })
 
     this.data = path
     this.config = config
@@ -93,7 +99,7 @@ export class IotMapPath extends leafletPolyline {
           weight: 3,
           smoothFactor: 1,
           interactive: false,
-          offset: this.getOffset(path.line)
+          offset: IotMapPath.getOffset(path.line)
         })
         this.additionalPaths.push(newPath)
       })
@@ -114,8 +120,8 @@ export class IotMapPath extends leafletPolyline {
    * calculate offset according to line number
    * @param line - [1..4] line number from left to right
    */
-  private getOffset (line: number): number {
-    let offset = 0
+  private static getOffset (line: number): number {
+    let offset: number
     switch (line) {
       case 1:
         offset = -8

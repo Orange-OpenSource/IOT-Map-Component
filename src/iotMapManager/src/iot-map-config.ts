@@ -343,9 +343,16 @@ export class IotMapConfig {
 
   path: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
     layerName: 'Paths',
-    color: '#',
-    width: 18,
+    color: '#527EDB',
+    width: 8,
     markerSize: 24
+  }
+
+  area: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
+    layerName: 'Areas',
+    color: '#886288',
+    fillColor: '#886288',
+    fillOpacity: 0.4
   }
 
   /**
@@ -479,6 +486,39 @@ export class IotMapConfig {
       if (newConfig.accuracyCircle.fillOpacity !== undefined) {
         this.accuracyCircle.fillOpacity = newConfig.accuracyCircle.fillOpacity
       }
+    }
+
+    /*
+     *** CLUSTERS
+     */
+    if (newConfig.clusters !== undefined) {
+      this.clusters.defaultColor ??= newConfig.clusters.defaultColor
+    }
+
+    /*
+     *** USER MARKER
+     */
+    if (newConfig.userMarker !== undefined) {
+      this.userMarker.layerName ??= newConfig.userMarker.layerName
+    }
+
+    /*
+     *** PATHS
+     */
+    if (newConfig.path !== undefined) {
+      this.path.layerName ??= newConfig.path.layerName
+      this.path.color ??= newConfig.path.color
+      this.path.width ??= newConfig.path.width
+    }
+
+    /*
+     *** AREAS
+     */
+    if (newConfig.area !== undefined) {
+      this.area.layerName ??= newConfig.area.layerName
+      this.area.color ??= newConfig.area.color
+      this.area.fillColor ??= newConfig.area.fillColor
+      this.area.fillOpacity ??= newConfig.area.fillOpacity
     }
   }
 }

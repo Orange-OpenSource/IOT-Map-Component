@@ -104,7 +104,6 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
       const agregNum = (nbRows * (col - 1) + row - 1)
       if (agregNum < cluster.aggregation.length) {
         const currentAgreg = cluster.aggregation[agregNum]
-        console.log("col = " + col + " row = " + row + " aggreg = " + agregNum)
         const bullet = currentAgreg.bullet ?? `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${currentAgreg.color}'> &#x26aa;  </span>`
         const url = currentAgreg.url ?? ''
         const urlTarget = currentAgreg.urlTarget ?? ''
@@ -162,6 +161,7 @@ export function getAutomaticClusterIcon (leafletCluster: L.MarkerCluster, config
 /**
  * Returns a DivIcon compatible with leaflet, representing all user marker information (direction, accuracy...)
  * @param userMarker - IotUserMarker structure containing all visual information
+ * @param config - IotMapConfig configuration containing predefined and user defined values
  */
 export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConfig): L.DivIcon {
   const userSvg = commonSvg.user

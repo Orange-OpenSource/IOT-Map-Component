@@ -46,8 +46,8 @@ export abstract class IotMapDisplay extends L.Marker {
 /**
  * Popup
  *
- * @param title - (optionnal) string displayed as a title in the marker / cluster popup
- * @param body - (optionnal) string displayed as a body in the marker / cluster popup
+ * @param title - (optional) string displayed as a title in the marker / cluster popup
+ * @param body - (optional) string displayed as a body in the marker / cluster popup
  */
 interface Popup {
   title?: string
@@ -58,7 +58,7 @@ interface Popup {
  * Tab
  *
  * @param content - mandatory: string displayed as is in the tab. Can be a label or a more complex html string
- * @param type - (optionnal) related to tab width (normal or large)
+ * @param type - (optional) related to tab width (normal or large)
  */
 interface Tab {
   content: string
@@ -68,12 +68,12 @@ interface Tab {
 /**
  * Shape
  *
- * @param type - (optionnal) shape type (circle or square)
- * @param anchored - (optionnal) if true, an anchor is displayed under the shape. None otherwise.
- * @param plain - (optionnal) if true, shape is filled with color. Only border is colored otherwise.
- * @param color - (optionnal) define the color of the shape (or the border, according to plain value) is filled with.
- * @param percent - (optionnal) define a gauge, design on the border of the shape. Filled at <percent> %.
- * @param accuracy - (optionnal) define a circle radius around the marker position.
+ * @param type - (optional) shape type (circle or square)
+ * @param anchored - (optional) if true, an anchor is displayed under the shape. None otherwise.
+ * @param plain - (optional) if true, shape is filled with color. Only border is colored otherwise.
+ * @param color - (optional) define the color of the shape (or the border, according to plain value) is filled with.
+ * @param percent - (optional) define a gauge, design on the border of the shape. Filled at <percent> %.
+ * @param accuracy - (optional) define a circle radius around the marker position.
  */
 interface Shape {
   type?: ShapeType
@@ -88,9 +88,9 @@ interface Shape {
 /**
  * Inner
  *
- * @param icon - (optionnal) define the icon displayed inside the shape.
- * @param label - (optionnal) define the character displayed inside the shape.
- * @param color - (optionnal) define the color of the inner element.
+ * @param icon - (optional) define the icon displayed inside the shape.
+ * @param label - (optional) define the character displayed inside the shape.
+ * @param color - (optional) define the color of the inner element.
  *
  * @remarks icon and label can not be used simultaneously. Otherwise, only icon will be displayed.
  */
@@ -106,13 +106,13 @@ interface Inner {
  * * IotMarker
  *
  * @param id - (mandatory) id of the marker. This id must be unique.
- * @param layer - (optionnal) define the name of the layer the marker is displayed in.
- * @param popup - (optionnal) define popup elements (see Popup interface).
- * @param tab - (optionnal) define tab elements (see Tab inferface)
- * @param shape - (optionnal) define shape elements (see Shape interface)
- * @param inner - (optionnal) define inner elements (see Inner interface)
- * @param template - (optionnal) name of the template to apply
- * @param status - (optionnal) name of the status to apply
+ * @param layer - (optional) define the name of the layer the marker is displayed in.
+ * @param popup - (optional) define popup elements (see Popup interface).
+ * @param tab - (optional) define tab elements (see Tab inferface)
+ * @param shape - (optional) define shape elements (see Shape interface)
+ * @param inner - (optional) define inner elements (see Inner interface)
+ * @param template - (optional) name of the template to apply
+ * @param status - (optional) name of the status to apply
  */
 export interface IotMarker extends GeolocMarker {
   id: string
@@ -129,7 +129,7 @@ export interface IotMarker extends GeolocMarker {
  * * IotCluster
  *
  * @param id - (mandatory) id of the marker. This id must be unique.
- * @param layer - (optionnal) define the name of the layer the marker is displayed in.
+ * @param layer - (optional) define the name of the layer the marker is displayed in.
  * @param contentLabel - label displayed as title of popup
  * @param childCount - number of markers clustered. Displayed as inner element
  * @param aggregation - array of markers types. Each type represented by a color, a number and a state (sing and plur)
@@ -154,8 +154,8 @@ export interface IotCluster extends GeolocMarker {
 /**
  * * IotUserMarker
  *
- * @param direction - (optionnal) clockwise angle describing the arrow direction
- * @param accuracy - (optionnal) define accuracy area radius around the user marker location.
+ * @param direction - (optional) clockwise angle describing the arrow direction
+ * @param accuracy - (optional) define accuracy area radius around the user marker location.
  */
 export interface IotUserMarker extends GeolocMarker {
   direction?: number
@@ -167,11 +167,11 @@ export interface IotUserMarker extends GeolocMarker {
  *
  * @param state - (mandatory) the status name as it is mentionned in IotMarker
  * @param name - (mandatory) string displayed in cluster popup when IotMarker uses this markerStatus and is clustered
- * @param layer - (optionnal) the layer the marker is displayed in
- * @param popup - (optionnal) popup elements (see Popup)
- * @param tab - (optionnal) tab elements (see Tab)
- * @param shape - (optionnal) shape elements (see Shape)
- * @param inner - (optionnal) inner elements (see Inner)
+ * @param layer - (optional) the layer the marker is displayed in
+ * @param popup - (optional) popup elements (see Popup)
+ * @param tab - (optional) tab elements (see Tab)
+ * @param shape - (optional) shape elements (see Shape)
+ * @param inner - (optional) inner elements (see Inner)
  */
 export interface MarkerStatus {
   [state: string]: {
@@ -194,11 +194,11 @@ export interface MarkerStatus {
  * * MarkerTemplate
  *
  * @param template - (mandatory) the template name as it is mentionned in IotMarker
- * @param layer - (optionnal) the layer the marker is displayed in
- * @param popup - (optionnal) popup elements (see Popup)
- * @param tab - (optionnal) tab elements (see Tab)
- * @param shape - (optionnal) shape elements (see Shape)
- * @param inner - (optionnal) inner elements (see Inner)
+ * @param layer - (optional) the layer the marker is displayed in
+ * @param popup - (optional) popup elements (see Popup)
+ * @param tab - (optional) tab elements (see Tab)
+ * @param shape - (optional) shape elements (see Shape)
+ * @param inner - (optional) inner elements (see Inner)
  */
 export interface MarkerTemplate {
   [template: string]: {
@@ -214,9 +214,9 @@ export interface MarkerTemplate {
  * * LayerTemplate
  *
  * @param layerName - (mandatory) the layer name as it is mentionned in IotMarker
- * @param content - (optionnal) the html code to display in cluster tab
- * @param type - (optionnal) the cluster tab width. (see TabType)
- * @param popupColNumber - (optionnal) the number of columns to display in cluster popups
+ * @param content - (optional) the html code to display in cluster tab
+ * @param type - (optional) the cluster tab width. (see TabType)
+ * @param popupColNumber - (optional) the number of columns to display in cluster popups
  */
 export interface LayerTemplate {
   [layerName: string]: {
@@ -230,11 +230,16 @@ export interface LayerTemplate {
  * * Path
  *
  * @param id - (mandatory) id of the path (used to update path for exemple)
- * @param color - (optionnal) color of the path (blue is default)
- * @param type - (mandatory) At least 2 points to define a path
+ * @param color - (optional) color of the path (blue is default)
+ * @param points - (mandatory) At least 2 points to define a path
+ * @param positions - (optional) several positions marked with a specific marker along the path
+ * @param additional - (optional) 1..4 additional path displayed along the main path
+ *            additional.points - (mandatory) at least 2 points to define a path
+ *            additional.color - (mandatory) color used to display additional path
+ *            additional.number - (mandatory) line number (1..4 : 1 is full left, 4 full right in the direction of travel)
  */
 export interface IotPath {
-  id: string,
+  id: string
   color?: string
   points: Location[]
   positions?: Location[]
@@ -243,4 +248,19 @@ export interface IotPath {
     color: string
     line: number
   }[]
+}
+
+/**
+ * * Area
+ * @param id - (mandatory) id of the area (used to update area for exemple)
+ * @param points - (mandatory) at least 3 points to define an area
+ * @param borderColor - (optional) color of the area border
+ * @param fillColor - (optional) fill color of the area
+ */
+export interface IotArea {
+  id: string
+  points: Location[]
+  color?: string
+  fillColor?: string
+  fillOpacity?: number
 }
