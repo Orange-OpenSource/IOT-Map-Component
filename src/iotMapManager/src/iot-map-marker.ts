@@ -72,6 +72,18 @@ export class IotMapMarker extends IotMapDisplay {
     }
   }
 
+  public updateAccuracyDisplay (selectedLayer: string, display: boolean): void {
+    if (selectedLayer === this.data.layer) {
+      if (display === true) {
+        this.displayAccuracy()
+      } else {
+        this.removeAccuracy()
+      }
+    } else {
+      this.removeAccuracy()
+    }
+  }
+
   private displayAccuracy (): void {
     this.removeAccuracy()
     if (this.data.shape.accuracy !== undefined) {

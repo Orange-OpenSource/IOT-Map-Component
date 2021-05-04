@@ -30,6 +30,8 @@ export class IotMapManager {
   private layerControl: L.Control
 
   private firstLayerAdded = true
+  private accuracyDisplayed = false
+  private currentDisplayedLayer: string
 
   /**
    * Constructor
@@ -62,6 +64,9 @@ export class IotMapManager {
     this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
 
     this.map.on('moveend', this.onMove)
+      .on('baselayerchange', this.onBaseLayerChange.bind(this))
+      .on('overlayadd', this.onOverlayAdd.bind(this))
+      .on('overlayremove', this.onOverlayRemove.bind(this))
 
     this.selectedElement = undefined
   }
@@ -100,11 +105,17 @@ export class IotMapManager {
 
     // add layer to map
     if (this.config.map.layerControl) {
-      if (this.config.map.exclusiveLayers) {
+      if (layerName === this.config.accuracyCircle.layerName) {
+        this.markersLayers[layerName] = layer // always not exclusive
+        if (!this.config.map.exclusiveLayers) {
+          this.map.addLayer(layer)
+        }
+      } else if (this.config.map.exclusiveLayers) {
         this.baseLayers[layerName] = layer
         if (this.firstLayerAdded) {
           this.firstLayerAdded = false
           this.map.addLayer(layer)
+          this.currentDisplayedLayer = layerName
         }
       } else {
         this.markersLayers[layerName] = layer
@@ -256,6 +267,36 @@ export class IotMapManager {
       if (elt) {
         elt.reactAfterZoom()
       }
+    }
+  }
+
+  private onBaseLayerChange (event) {
+    if (this.config.map.exclusiveLayers === true) {
+      this.currentDisplayedLayer = event.name
+      this.updateAccuracy()
+    }
+  }
+
+  private onOverlayAdd (event) {
+    if (event.name === this.config.accuracyCircle.layerName) {
+      this.accuracyDisplayed = true
+      this.updateAccuracy()
+    } else {
+
+    }
+  }
+
+  private onOverlayRemove (event) {
+    if (event.name === this.config.accuracyCircle.layerName) {
+      this.accuracyDisplayed = false
+      this.updateAccuracy()
+    }
+  }
+
+  private updateAccuracy (): void {
+    for (const id in this.displayedMarkers) {
+      const elt = this.displayedMarkers[id]
+      elt.updateAccuracyDisplay(this.currentDisplayedLayer, this.accuracyDisplayed)
     }
   }
 }

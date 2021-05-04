@@ -38,7 +38,12 @@ export abstract class IotMapDisplay extends L.Marker {
   abstract setData (data: GeolocMarker): void
   abstract select (selected: boolean): void
   abstract redraw (): void
+
   reactAfterZoom (): void {
+    // By default : Nothing to do
+  }
+
+  updateAccuracyDisplay (selectedLayer: string, display: boolean): void {
     // By default : Nothing to do
   }
 }
