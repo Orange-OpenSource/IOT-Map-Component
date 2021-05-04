@@ -31,7 +31,7 @@ export class IotMapManager {
 
   private firstLayerAdded = true
   private accuracyDisplayed = false
-  private currentDisplayedLayer: string
+  private currentDisplayedLayers: string[] = []
 
   /**
    * Constructor
@@ -61,7 +61,9 @@ export class IotMapManager {
     L.tileLayer(this.config.map.openStreetMapLayer,
       { attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })
       .addTo(this.map)
-    this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
+    if (this.config.map.layerControl) {
+      this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
+    }
 
     this.map.on('moveend', this.onMove)
       .on('baselayerchange', this.onBaseLayerChange.bind(this))
@@ -104,23 +106,27 @@ export class IotMapManager {
     }
 
     // add layer to map
-    if (this.config.map.layerControl) {
-      if (layerName === this.config.accuracyCircle.layerName) {
-        this.markersLayers[layerName] = layer // always not exclusive
-        if (!this.config.map.exclusiveLayers) {
-          this.map.addLayer(layer)
-        }
-      } else if (this.config.map.exclusiveLayers) {
-        this.baseLayers[layerName] = layer
-        if (this.firstLayerAdded) {
-          this.firstLayerAdded = false
-          this.map.addLayer(layer)
-          this.currentDisplayedLayer = layerName
-        }
-      } else {
-        this.markersLayers[layerName] = layer
+    if (layerName === this.config.accuracyCircle.layerName) {
+      this.markersLayers[layerName] = layer // always not exclusive
+      if (!this.config.map.exclusiveLayers) {
         this.map.addLayer(layer)
+        this.currentDisplayedLayers.push(layerName)
       }
+    } else if (this.config.map.layerControl && this.config.map.exclusiveLayers) {
+      this.baseLayers[layerName] = layer
+      if (this.firstLayerAdded) {
+        this.firstLayerAdded = false
+        this.map.addLayer(layer)
+        this.currentDisplayedLayers[0] = layerName
+      }
+    } else {
+      this.markersLayers[layerName] = layer
+      this.map.addLayer(layer)
+      this.currentDisplayedLayers.push(layerName)
+    }
+
+    // display layer control
+    if (this.config.map.layerControl) {
       this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
     }
 
@@ -272,7 +278,7 @@ export class IotMapManager {
 
   private onBaseLayerChange (event) {
     if (this.config.map.exclusiveLayers === true) {
-      this.currentDisplayedLayer = event.name
+      this.currentDisplayedLayers = event.name
       this.updateAccuracy()
     }
   }
@@ -280,23 +286,28 @@ export class IotMapManager {
   private onOverlayAdd (event) {
     if (event.name === this.config.accuracyCircle.layerName) {
       this.accuracyDisplayed = true
-      this.updateAccuracy()
     } else {
-
+      this.currentDisplayedLayers.push(event.name)
     }
+    this.updateAccuracy()
   }
 
   private onOverlayRemove (event) {
     if (event.name === this.config.accuracyCircle.layerName) {
       this.accuracyDisplayed = false
-      this.updateAccuracy()
+    } else {
+      const index = this.currentDisplayedLayers.indexOf(event.name, 0)
+      if (index > -1) {
+        this.currentDisplayedLayers.splice(index, 1)
+      }
     }
+    this.updateAccuracy()
   }
 
   private updateAccuracy (): void {
     for (const id in this.displayedMarkers) {
       const elt = this.displayedMarkers[id]
-      elt.updateAccuracyDisplay(this.currentDisplayedLayer, this.accuracyDisplayed)
+      elt.updateAccuracyDisplay(this.currentDisplayedLayers, this.accuracyDisplayed)
     }
   }
 }

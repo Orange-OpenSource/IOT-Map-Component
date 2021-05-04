@@ -65,8 +65,8 @@ export class IotMapUserMarker extends IotMapDisplay {
     this.accuracyCircle.setLatLng(newLatLng)
   }
 
-  public updateAccuracyDisplay (selectedLayer: string, display: boolean): void {
-    if (selectedLayer === this.config.userMarker.layerName) {
+  public updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {
+    if (selectedLayers.includes(this.config.userMarker.layerName)) {
       if (display === true) {
         this.displayAccuracy()
       } else {

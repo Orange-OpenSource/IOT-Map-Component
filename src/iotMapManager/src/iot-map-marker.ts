@@ -26,6 +26,8 @@ export class IotMapMarker extends IotMapDisplay {
   private config: IotMapConfig
   private map: IotMapManager
   private selected = false
+  private layerDisplayed = true
+  private accuracityDisplayed = true
 
   private accuracyCircle: L.Circle
 
@@ -72,9 +74,11 @@ export class IotMapMarker extends IotMapDisplay {
     }
   }
 
-  public updateAccuracyDisplay (selectedLayer: string, display: boolean): void {
-    if (selectedLayer === this.data.layer) {
-      if (display === true) {
+  public updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {
+    this.layerDisplayed = selectedLayers.includes(this.data.layer)
+    this.accuracityDisplayed = display
+    if (this.layerDisplayed) {
+      if (this.accuracityDisplayed) {
         this.displayAccuracy()
       } else {
         this.removeAccuracy()
@@ -86,15 +90,17 @@ export class IotMapMarker extends IotMapDisplay {
 
   private displayAccuracy (): void {
     this.removeAccuracy()
-    if (this.data.shape.accuracy !== undefined) {
-      this.accuracyCircle = L.circle(this.data.location, {
-        color: this.config.accuracyCircle.color,
-        fillColor: this.config.accuracyCircle.fillColor,
-        fillOpacity: this.config.accuracyCircle.fillOpacity,
-        radius: this.data.shape.accuracy,
-        interactive: false // not clickable
-      })
-      this.map.getLayer(this.config.accuracyCircle.layerName).addLayer(this.accuracyCircle)
+    if (this.layerDisplayed && this.accuracityDisplayed) {
+      if (this.data.shape.accuracy !== undefined) {
+        this.accuracyCircle = L.circle(this.data.location, {
+          color: this.config.accuracyCircle.color,
+          fillColor: this.config.accuracyCircle.fillColor,
+          fillOpacity: this.config.accuracyCircle.fillOpacity,
+          radius: this.data.shape.accuracy,
+          interactive: false // not clickable
+        })
+        this.map.getLayer(this.config.accuracyCircle.layerName).addLayer(this.accuracyCircle)
+      }
     }
   }
 

@@ -43,7 +43,7 @@ export abstract class IotMapDisplay extends L.Marker {
     // By default : Nothing to do
   }
 
-  updateAccuracyDisplay (selectedLayer: string, display: boolean): void {
+  updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {
     // By default : Nothing to do
   }
 }
