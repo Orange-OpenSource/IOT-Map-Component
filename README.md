@@ -64,6 +64,10 @@ Automatic clustering (engined by Leaflet) can be used to manage up to 100 000 ma
 
 <img src="doc/paths.png">
 
+<ins>Areas</ins> to display areas, defined by a list of **points**, bordered by a **color**ed line, and filled with **fillColor** and **fillOpacity** percent.
+
+<img src="doc/areas.png">
+
 ## Quick start
 
 Several quick start options are available:
