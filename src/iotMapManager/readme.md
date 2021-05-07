@@ -6,18 +6,20 @@ In your project file (except IotMapManager and IotMapConf, all are optionnal):
 
 ```
 import {
-    IotMapManager,
-    IotCluster,
-    IotMarker,
-    IotUserMarker,
-    IotPath,
-    ShapeType,
-    IotMapConfig,
-    TabType,
-    IotMapMarkerManager,
-    IotMapClusterManager,
-    IotMapUserMarkerManager,
-    IotMapPathManager    
+  IotMapManager,
+  IotCluster,
+  IotMarker,
+  IotUserMarker,
+  IotPath,
+  IotArea,
+  ShapeType,
+  IotMapConfig,
+  TabType,
+  IotMapMarkerManager,
+  IotMapClusterManager,
+  IotMapUserMarkerManager,
+  IotMapPathManager,
+  IotMapAreaManager
 } from 'iotmapmanager'
 ```
 
@@ -38,6 +40,8 @@ In your css file:
 ```
 @import 'iotmapmanager/iotMapManager.css'; 
 ```
+
+If your use TypeScript, all types are defined in lib/index.d.ts
 
 ## marker definition
 A marker is defined as follow:
@@ -158,7 +162,28 @@ Param | type | optionnal | Comment
 ----- | ---- | --------- | -------
 points | [Location](#location) array | no | array of geographical points defining the path
 color | string | yes | color of the path
-line | number (1..4) | no | define the place of the sub path (1 is completely to the left, 4 is completely to the right) 
+line | number (1..4) | no | define the place of the sub path (1 is full left, 4 is full right) 
+
+
+## area definition
+```
+{
+  id: string
+  points: Location[]
+  color?: string
+  fillColor?: string
+  fillOpacity?: number
+}
+```
+
+Param | type | optionnal | Comment
+----- | ---- | --------- | -------
+id | string | no | used for update and remove
+points | [Location](#location) array | no | array of geographical points defining the area. Last and first are link, no need to duplicate
+color | string | yes | border color of the area
+fillColor | string | yes | interior color of the area
+fillOpacity | string | yes | interior color opacity of the area
+
 
 ## enums
 
@@ -268,7 +293,6 @@ Editable values :
     * bullet (optionnal) is the bullet displayed before the name status in cluster popups (html code)
     * url (optionnal): if defined, in the cluster popup the name becomes an hyperlink with 'url' as href 
     * urlTarget specifies where to open the linked document or page ('_blank', '_self', '_parent', '_top', framename)
-
     
 * markerTemplate: agregates all display parameters (colors, shape, icon...)
   * for each template (defined by a name as string):
@@ -277,14 +301,38 @@ Editable values :
     * tab (optionnal) is a little white rectangle displayed above the marker. It contains few characters or icon (see [Tab](#Tab)) 
     * shape (optionnal): all information relative to marker shape (see [shape](#Shape))
     * inner (optionnal) : all information relative to marker inner (see [Inner](#Inner))
-    
+  
+* accuracyCircle: default parameters for accuracy area
+  * layerName: name displayed in layers control list
+  * color: default border color for accuracy circles
+  * fillColor: default fill color for accuracy circles
+  * fillOpacity: interior color opacity for accuracy circles
+
 * layerTemplate: parameters that can be applied to a layer
   * for each template (defined by a name as string):
     * content (optionnal): the html code to display in cluster tab (can be img, text...)
     * type (optionnal): the type used for cluster tab (see )
     * popupColNumber (optionnal): number of columns to display in cluster popup
+
+* clusters
+  * defaultColor: color used if marker has no status, then no status color
   
-        
+* userMarker
+  * layerName: name displayed in layers control list
+
+* path  
+  * layerName: name displayed in layers control list
+  * color: default path color
+  * width: path width in px
+
+* area
+  * layerName: name displayed in layers control list
+  * color: default border color for areas
+  * fillColor: default fill color for areas
+  * fillOpacity: interior color opacity for areas
+
+
+
 Marker data are applied first,
   - then default values if needed,
   - then template if one,
@@ -327,7 +375,7 @@ This class manages manual clusters:
 
 IotMapClusterManager requires a configuration object and an IotMapManager
 
-## IotMapUserMarkerManager
+### IotMapUserMarkerManager
 This class manages user marker: (!! only one user marker at a time)
 - addUserMarker: adds the userMarker to the map
 - removeUserMarker: removes the userMarker from the map
@@ -336,9 +384,15 @@ This class manages user marker: (!! only one user marker at a time)
 
 IotMapUserMarkerManager requires a configuration object and an IotMapManager
 
-## IotMapPathManager
+### IotMapPathManager
 This class manages paths:
 - addPath/ addPaths: adds a (list of) path(s) to the map
 - removePath / removePaths: removes a (list of) path(s) from the map
 
 IotMapPathManager requires a configuration object and an IotMapManager
+
+
+### IotMapAreaManager
+This class manages areas:
+
+

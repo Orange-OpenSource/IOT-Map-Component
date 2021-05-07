@@ -6,14 +6,17 @@ import {
   IotMarker,
   IotUserMarker,
   IotPath,
+  IotArea,
   ShapeType,
   IotMapConfig,
   TabType,
   IotMapMarkerManager,
   IotMapClusterManager,
   IotMapUserMarkerManager,
-  IotMapPathManager
+  IotMapPathManager,
+  IotMapAreaManager
 } from 'iotmapmanager'
+
 
 @Component({
   selector: 'map-component',
@@ -28,6 +31,7 @@ export class MapComponent implements AfterViewInit {
   iotMapClusterManager: IotMapClusterManager = new IotMapClusterManager(this.commonIotMap, this.conf)
   iotMapUserMarkerManager: IotMapUserMarkerManager = new IotMapUserMarkerManager(this.commonIotMap, this.conf)
   iotMapPathManager: IotMapPathManager = new IotMapPathManager(this.commonIotMap, this.conf)
+  iotMapAreaManager: IotMapAreaManager = new IotMapAreaManager(this.commonIotMap, this.conf)
   title = 'IotMap';
 
   markersList: IotMarker[] = [
@@ -525,6 +529,15 @@ export class MapComponent implements AfterViewInit {
     ]
   }
 
+  zone: IotArea = {
+    id: 'zone1',
+    points: [
+      { lat: 44.887, lng: 4.885 },
+      { lat: 44.888, lng: 4.9 },
+      { lat: 44.89, lng: 4.883 }
+    ]
+  }
+
   ngAfterViewInit (): void {
     this.conf.setConfig({
       markerTemplates: {
@@ -542,8 +555,8 @@ export class MapComponent implements AfterViewInit {
       },
       map: {
         externalClustering: true,
-        layerControl: true,
-        exclusiveLayers: false
+        layerControl: false,
+        exclusiveLayers: true
       },
       layerTemplates: {
         'etablissements': {
@@ -580,10 +593,13 @@ export class MapComponent implements AfterViewInit {
     this.iotMapClusterManager.addClusters(this.clustersList)
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
     this.iotMapPathManager.addPath(this.chemin)
+
+    this.iotMapAreaManager.addArea(this.zone)
+
     setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters' }) }, 3000)
     setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos' }) }, 3000)
 
-    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 3000)
+    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 5000)
     // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
     setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', { shape: { accuracy: undefined } }) }, 5000)
   }

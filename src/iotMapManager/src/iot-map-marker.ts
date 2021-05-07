@@ -26,7 +26,7 @@ export class IotMapMarker extends IotMapDisplay {
   private config: IotMapConfig
   private map: IotMapManager
   private selected = false
-  private layerDisplayed = true
+  private layerDisplayed = false
   private accuracityDisplayed = true
 
   private accuracyCircle: L.Circle

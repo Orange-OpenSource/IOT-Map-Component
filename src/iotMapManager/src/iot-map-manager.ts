@@ -30,7 +30,7 @@ export class IotMapManager {
   private layerControl: L.Control
 
   private firstLayerAdded = true
-  private accuracyDisplayed = false
+  private accuracyDisplayed = true
   private currentDisplayedLayers: string[] = []
 
   /**
@@ -108,10 +108,7 @@ export class IotMapManager {
     // add layer to map
     if (layerName === this.config.accuracyCircle.layerName) {
       this.markersLayers[layerName] = layer // always not exclusive
-      if (!this.config.map.exclusiveLayers) {
-        this.map.addLayer(layer)
-        this.currentDisplayedLayers.push(layerName)
-      }
+      this.map.addLayer(layer)
     } else if (this.config.map.layerControl && this.config.map.exclusiveLayers) {
       this.baseLayers[layerName] = layer
       if (this.firstLayerAdded) {
@@ -130,6 +127,7 @@ export class IotMapManager {
       this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
     }
 
+    this.updateAccuracy()
     return layer
   }
 

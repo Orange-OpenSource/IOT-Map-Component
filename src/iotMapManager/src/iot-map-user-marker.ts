@@ -24,6 +24,9 @@ export class IotMapUserMarker extends IotMapDisplay {
   private map: IotMapManager
   private accuracyCircle: L.Circle
 
+  private layerDisplayed = false
+  private accuracityDisplayed = true
+
   constructor (userMarker: IotUserMarker, map: IotMapManager, config: IotMapConfig) {
     super(userMarker.location, { icon: getUserMarkerIcon(userMarker, config), interactive: false }) // not clickable
 
@@ -66,8 +69,10 @@ export class IotMapUserMarker extends IotMapDisplay {
   }
 
   public updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {
-    if (selectedLayers.includes(this.config.userMarker.layerName)) {
-      if (display === true) {
+    this.layerDisplayed = selectedLayers.includes(this.config.userMarker.layerName)
+    this.accuracityDisplayed = display
+    if (this.layerDisplayed) {
+      if (this.accuracityDisplayed) {
         this.displayAccuracy()
       } else {
         this.removeAccuracy()
@@ -79,15 +84,17 @@ export class IotMapUserMarker extends IotMapDisplay {
 
   private displayAccuracy (): void {
     this.removeAccuracy()
-    if (this.data.accuracy !== undefined) {
-      this.accuracyCircle = L.circle(this.data.location, {
-        color: this.config.accuracyCircle.color,
-        fillColor: this.config.accuracyCircle.fillColor,
-        fillOpacity: this.config.accuracyCircle.fillOpacity,
-        radius: this.data.accuracy,
-        interactive: false // not clickable
-      })
-      this.map.getLayer(this.config.accuracyCircle.layerName).addLayer(this.accuracyCircle)
+    if (this.layerDisplayed && this.accuracityDisplayed) {
+      if (this.data.accuracy !== undefined) {
+        this.accuracyCircle = L.circle(this.data.location, {
+          color: this.config.accuracyCircle.color,
+          fillColor: this.config.accuracyCircle.fillColor,
+          fillOpacity: this.config.accuracyCircle.fillOpacity,
+          radius: this.data.accuracy,
+          interactive: false // not clickable
+        })
+        this.map.getLayer(this.config.accuracyCircle.layerName).addLayer(this.accuracyCircle)
+      }
     }
   }
 

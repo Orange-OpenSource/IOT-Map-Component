@@ -477,6 +477,9 @@ export class IotMapConfig {
      *** ACCURACY CIRCLE
      */
     if (newConfig.accuracyCircle !== undefined) {
+      if (newConfig.accuracyCircle.layerName !== undefined) {
+        this.accuracyCircle.layerName = newConfig.accuracyCircle.layerName
+      }
       if (newConfig.accuracyCircle.color !== undefined) {
         this.accuracyCircle.color = newConfig.accuracyCircle.color
       }
