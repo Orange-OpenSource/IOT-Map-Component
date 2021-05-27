@@ -15,7 +15,7 @@
 /* tabs.css */
 
 /* Markers TABS */
-.marker-unselected > .tab-top {
+.iotmap-marker-unselected > .iotmap-tab-top {
   position: absolute;
   background-color: white;
   left: 0px;
@@ -34,7 +34,7 @@
   visibility: visible;
 }
 
-.marker-unselected > .tab-top-big {
+.iotmap-marker-unselected > .iotmap-tab-top-big {
   position: absolute;
   background-color: white;
   left: -5px;
@@ -52,7 +52,7 @@
 }
 
 
-.marker-unselected > .tab-top-big-left {
+.iotmap-marker-unselected > .iotmap-tab-top-big-left {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -67,7 +67,7 @@
   visibility: visible;
 }
 
-.marker-unselected > .tab-top-big-right {
+.iotmap-marker-unselected > .iotmap-tab-top-big-right {
   width: 20px;
   height: 20px;
   position: absolute;
@@ -82,7 +82,7 @@
   visibility: visible;
 }
 
-.marker-selected > .tab-top, .tab-top-big-right, .tab-top-big-left, .tab-top-big {
+.iotmap-marker-selected > .iotmap-tab-top, .iotmap-tab-top-big-right, .iotmap-tab-top-big-left, .iotmap-tab-top-big {
   overflow: hidden;
   font-size: 1px;
   visibility: hidden;
@@ -90,7 +90,7 @@
 
 
 /* Clusters TABS */
-.cluster-unselected > .tab-top, .automatic-cluster > .tab-top {
+.iotmap-cluster-unselected > .iotmap-tab-top, .iotmap-automatic-cluster > .iotmap-tab-top {
   position: absolute;
   background-color: white;
   left: 10px;
@@ -108,7 +108,7 @@
   text-align: center;
   visibility: visible;
 }
-.cluster-unselected > .tab-top-big , .automatic-cluster > .tab-top-big {
+.iotmap-cluster-unselected > .iotmap-tab-top-big , .iotmap-automatic-cluster > .iotmap-tab-top-big {
   position: absolute;
   background-color: white;
   left: 0px;
@@ -127,7 +127,7 @@
 
   visibility: visible;
 }
-.cluster-unselected > .tab-top-big-left , .automatic-cluster > .tab-top-big-left {
+.iotmap-cluster-unselected > .iotmap-tab-top-big-left , .iotmap-automatic-cluster > .iotmap-tab-top-big-left {
   position: absolute;
   background-color: white;
   left: 0px;
@@ -139,7 +139,7 @@
 
   visibility: visible;
 }
-.cluster-unselected > .tab-top-big-right , .automatic-cluster > .tab-top-big-right {
+.iotmap-cluster-unselected > .iotmap-tab-top-big-right , .iotmap-automatic-cluster > .iotmap-tab-top-big-right {
   position: absolute;
   background-color: white;
   right: -50px;
@@ -150,14 +150,14 @@
   z-index: 7;
   visibility: visible;
 }
-.cluster-selected > .tab-top,
-.cluster-selected > .tab-top-big,
-.cluster-selected > .tab-top-big-left,
-.cluster-selected > .tab-top-big-right,
-.automatic-cluster:hover > .tab-top,
-.automatic-cluster:hover > .tab-top-big,
-.automatic-cluster:hover > .tab-top-big-left,
-.automatic-cluster:hover > .tab-top-big-right {
+.iotmap-cluster-selected > .iotmap-tab-top,
+.iotmap-cluster-selected > .iotmap-tab-top-big,
+.iotmap-cluster-selected > .iotmap-tab-top-big-left,
+.iotmap-cluster-selected > .iotmap-tab-top-big-right,
+.iotmap-automatic-cluster:hover > .iotmap-tab-top,
+.iotmap-automatic-cluster:hover > .iotmap-tab-top-big,
+.iotmap-automatic-cluster:hover > .iotmap-tab-top-big-left,
+.iotmap-automatic-cluster:hover > .iotmap-tab-top-big-right {
   visibility: hidden;
   font-size: 1px;
 }

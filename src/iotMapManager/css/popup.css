@@ -15,7 +15,7 @@
 /* popup.css */
 
 /* POP-UP */
-.marker-unselected > .marker-popup {
+.iotmap-marker-unselected > .iotmap-marker-popup {
   position: absolute;
   bottom:-25px;
   left: 0px;
@@ -29,7 +29,7 @@
   font-size: 1px;
 }
 
-.marker-selected > .marker-popup {
+.iotmap-marker-selected > .iotmap-marker-popup {
   position: absolute;
   bottom:-25px;
   left:-100px;
@@ -50,38 +50,38 @@
   z-index: 0;
 }
 
-.marker-selected > .marker-popup .pop-up-title {
+.iotmap-marker-selected > .iotmap-marker-popup .iotmap-pop-up-title {
   font-size: 20px;
 }
 
-.marker-selected > .marker-popup .pop-up-body {
+.iotmap-marker-selected > .iotmap-marker-popup .iotmap-pop-up-body {
   font-size: 14px;
 }
 
 
 /* MANUAL CLUSTER POPUP */
-.cluster-popup-table {
+.iotmap-cluster-popup-table {
   width: 100%;
   text-align: left;
 }
-.cluster-popup-body-cell {
+.iotmap-cluster-popup-body-cell {
   text-align: left;
   font-size: 14px;
 }
-.cluster-popup-body-bullet {
+.iotmap-cluster-popup-body-bullet {
   width: 20px;
   text-align: center;
 }
 
-.cluster-popup-body-cell a, .cluster-popup-body-link:visited {
+.iotmap-cluster-popup-body-cell a, .iotmap-cluster-popup-body-link:visited {
   color: black;
 }
 
-.cluster-popup-body-link:hover {
+.iotmap-cluster-popup-body-link:hover {
   color: #FF7900;
 }
 
-.cluster-unselected > .manual-cluster-popup {
+.iotmap-cluster-unselected > .iotmap-manual-cluster-popup {
   position: absolute;
   bottom:0px;
   left: 0px;
@@ -95,7 +95,7 @@
   font-size: 1px;
 }
 
-.cluster-selected > .manual-cluster-popup {
+.iotmap-cluster-selected > .iotmap-manual-cluster-popup {
   position: absolute;
   bottom:-25px;
   left:-115px;
@@ -116,31 +116,31 @@
   z-index: 0;
 }
 
-.cluster-selected > .manual-cluster-popup .pop-up-title {
+.iotmap-cluster-selected > .iotmap-manual-cluster-popup .iotmap-pop-up-title {
   font-size: 20px;
 }
 
-.cluster-selected > .manual-cluster-popup .pop-up-title-icon {
+.iotmap-cluster-selected > .iotmap-manual-cluster-popup .iotmap-pop-up-title-icon {
   font-size: 20px;
   margin-right: 15px;
 }
 
-.cluster-selected > .manual-cluster-popup .pop-up-bullet {
+.iotmap-cluster-selected > .iotmap-manual-cluster-popup .iotmap-pop-up-bullet {
   font-size: 12px;
   color: transparent;
 }
 
-.cluster-selected > .manual-cluster-popup .pop-up-body {
+.iotmap-cluster-selected > .iotmap-manual-cluster-popup .iotmap-pop-up-body {
   font-size: 12px;
 }
 
-.cluster-selected> .clusteropacity {
+.iotmap-cluster-selected> .iotmap-clusteropacity {
   fill-opacity: 1;
 }
 
 
 /* AUTO POPUP */
-.clustericon > .automatic-cluster-popup {
+.iotmap-clustericon > .iotmap-automatic-cluster-popup {
   position: absolute;
   bottom:0px;
   left: 0px;
@@ -155,7 +155,7 @@
 }
 
 
-.clustericon:hover > .automatic-cluster-popup {
+.iotmap-clustericon:hover > .iotmap-automatic-cluster-popup {
   position: absolute;
   bottom:-25px;
   left:-115px;
@@ -176,21 +176,21 @@
   z-index: 0;
 }
 
-.clustericon:hover > .automatic-cluster-popup .pop-up-title {
+.iotmap-clustericon:hover > .iotmap-automatic-cluster-popup .iotmap-pop-up-title {
   font-size: 20px;
 }
 
-.clustericon:hover > .automatic-cluster-popup .pop-up-title-icon {
+.iotmap-clustericon:hover > .iotmap-automatic-cluster-popup .iotmap-pop-up-title-icon {
   font-size: 20px;
   margin-right: 15px;
 }
 
-.clustericon:hover > .automatic-cluster-popup .pop-up-bullet {
+.iotmap-clustericon:hover > .iotmap-automatic-cluster-popup .iotmap-pop-up-bullet {
   font-size: 12px;
   color: transparent;
 }
 
-.clustericon:hover > .automatic-cluster-popup .pop-up-body {
+.iotmap-clustericon:hover > .iotmap-automatic-cluster-popup .iotmap-pop-up-body {
   font-size: 12px;
 }
 

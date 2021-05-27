@@ -55,10 +55,10 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const svgGauge = computeClusterGauge(cluster, config)
 
   // shadow
-  const imgShadow = `<img class='clusterShadow' src='${cluShadow}'/>`
+  const imgShadow = `<img class='iotmap-clusterShadow' src='${cluShadow}'/>`
 
   // label
-  const innerLabel = `<span class='clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
+  const innerLabel = `<span class='iotmap-clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
 
   // tab
   let tab = ``
@@ -68,32 +68,32 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
     const layerTemp = config.layerTemplates[cluster.layer]
     if (layerTemp?.content !== undefined) {
       if (layerTemp.type === TabType.normal || layerTemp.type === undefined) {
-        tab = `<span class='tab-top'>${layerTemp.content}</span>`
+        tab = `<span class='iotmap-tab-top'>${layerTemp.content}</span>`
       } else {
-        tab = `<span class='tab-top-big'>${layerTemp.content}</span>`
-        tab += `<span class='tab-top-big-left'></span>`
-        tab += `<span class='tab-top-big-right'></span>`
+        tab = `<span class='iotmap-tab-top-big'>${layerTemp.content}</span>`
+        tab += `<span class='iotmap-tab-top-big-left'></span>`
+        tab += `<span class='iotmap-tab-top-big-right'></span>`
       }
     }
   }
 
   // popup
-  const clusterSelectionClass = selected ? 'cluster-selected' : (automatic ? 'automatic-cluster' : 'cluster-unselected')
+  const clusterSelectionClass = selected ? 'iotmap-cluster-selected' : (automatic ? 'iotmap-automatic-cluster' : 'iotmap-cluster-unselected')
   const layerTemp = config.layerTemplates[cluster.layer]
-  let popup = `<div class='${(automatic ? 'automatic-cluster-popup' : 'manual-cluster-popup')}'>`
+  let popup = `<div class='${(automatic ? 'iotmap-automatic-cluster-popup' : 'iotmap-manual-cluster-popup')}'>`
 
   // popup title
   if (layerTemp !== undefined) {
-    popup += `<span class='pop-up-title'>
-              <span class='pop-up-title-icon'>${layerTemp.content ?? ''}</span>
+    popup += `<span class='iotmap-pop-up-title'>
+              <span class='iotmap-pop-up-title-icon'>${layerTemp.content ?? ''}</span>
               ${cluster.childCount} ${cluster.contentLabel}
             </span><br>`
   } else {
-    popup += `<span class='pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
+    popup += `<span class='iotmap-pop-up-title'>${cluster.childCount} ${cluster.contentLabel}</span><br>`
   }
 
   // popup body
-  popup += `<table class='cluster-popup-table'>`
+  popup += `<table class='iotmap-cluster-popup-table'>`
   popup += `<tr>`
   let elemNum = 1
   const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
@@ -104,13 +104,13 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
       const agregNum = (nbRows * (col - 1) + row - 1)
       if (agregNum < cluster.aggregation.length) {
         const currentAgreg = cluster.aggregation[agregNum]
-        const bullet = currentAgreg.bullet ?? `<span class='pop-up-bullet' style='text-shadow: 0 0 0 ${currentAgreg.color}'> &#x26aa;  </span>`
+        const bullet = currentAgreg.bullet ?? `<span class='iotmap-pop-up-bullet' style='text-shadow: 0 0 0 ${currentAgreg.color}'> &#x26aa;  </span>`
         const url = currentAgreg.url ?? ''
         const urlTarget = currentAgreg.urlTarget ?? ''
 
-        popup += `<td class='cluster-popup-body-bullet'><span >${bullet}</span></td>`
-        popup += `<td class='cluster-popup-body-cell'><span >`
-        popup += (url !== '') ? (`<a class='cluster-popup-body-link' href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
+        popup += `<td class='iotmap-cluster-popup-body-bullet'><span >${bullet}</span></td>`
+        popup += `<td class='iotmap-cluster-popup-body-cell'><span >`
+        popup += (url !== '') ? (`<a class='iotmap-cluster-popup-body-link' href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
         popup += `${currentAgreg.count} ${(currentAgreg.count === 1) ? currentAgreg.singularState : currentAgreg.pluralState} </span></td>`
         popup += (url !== '') ? `</a>` : ''
         if (elemNum % nbCols === 0) {
@@ -126,7 +126,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
 
   popup += `</div>`
 
-  const html = `<div class='clustericon ${clusterSelectionClass}'>
+  const html = `<div class='iotmap-clustericon ${clusterSelectionClass}'>
                   ${imgShadow}
                   ${popup}
                   ${commonSvg.cluster.svgDefinitionStart}
@@ -169,9 +169,9 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   const arrowConfig = config.userMarker.arrow
 
   // shadow file
-  const imgShadow = `<img class='usermarkershadow' src='${usrShadow}'/>`
+  const imgShadow = `<img class='iotmap-usermarkershadow' src='${usrShadow}'/>`
 
-  let html = `<div class='usermarkericon'>`
+  let html = `<div class='iotmap-usermarkericon'>`
   if (userMarker.direction !== undefined) {
     html += `<svg xmlns='http://www.w3.org/2000/svg'
                   width='${userMarkerSize}'
@@ -444,7 +444,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
     const arrowColor = (marker.shape.percent) ? marker.shape.color : funColor
     const strokeColor = (selected) ? funColor : 'white'
 
-    svgDirection = `<div class='${((selected) ? 'directionSelected' : 'directionUnselected')}'>
+    svgDirection = `<div class='${((selected) ? 'iotmap-directionSelected' : 'iotmap-directionUnselected')}'>
                     <svg xmlns='http://www.w3.org/2000/svg'
                        width='${arrowConf.fullWidth}'
                        height='${arrowConf.fullHeight}'
@@ -462,10 +462,10 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
     const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : config.markers.default.inner.color
 
     if (marker.inner.icon) { // icon
-      innerDesign = `<span class='innerspan ${marker.inner.icon} ${((selected) ? ' iconSelected' : ' iconUnselected')}'
+      innerDesign = `<span class='iotmap-innerspan ${marker.inner.icon} ${((selected) ? ' iotmap-iconSelected' : ' iotmap-iconUnselected')}'
                            style='color: ${innerColor}'></span>`
     } else if (marker.inner.label) { // label
-      innerDesign = `<span class='innerspan ${((selected) ? ' labelSelected' : ' labelUnselected')}'
+      innerDesign = `<span class='iotmap-innerspan ${((selected) ? ' iotmap-labelSelected' : ' iotmap-labelUnselected')}'
                            style='color: ${innerColor}'>${marker.inner.label[0]}</span>`
     }
   }
@@ -487,30 +487,30 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   }
 
   // shadow
-  const imgShadow = `<img class='${((selected) ? 'shadowSelected' : 'shadowUnselected')}' src='${shadowFile}'/>`
+  const imgShadow = `<img class='${((selected) ? 'iotmap-shadowSelected' : 'iotmap-shadowUnselected')}' src='${shadowFile}'/>`
 
   // tabs
   let tab = ``
   if (marker.tab !== undefined) {
     // color
     if (marker.tab.type === TabType.normal || marker.tab.type === undefined) {
-      tab = `<span class='tab-top'>${marker.tab.content}</span>`
+      tab = `<span class='iotmap-tab-top'>${marker.tab.content}</span>`
     } else {
-      tab = `<span class='tab-top-big'>${marker.tab.content}</span>`
-      tab += `<span class='tab-top-big-left'></span>`
-      tab += `<span class='tab-top-big-right'></span>`
+      tab = `<span class='iotmap-tab-top-big'>${marker.tab.content}</span>`
+      tab += `<span class='iotmap-tab-top-big-left'></span>`
+      tab += `<span class='iotmap-tab-top-big-right'></span>`
     }
   }
 
   // popup
   let popup = ''
   if (marker.popup !== undefined) {
-    popup = `<div class='marker-popup'>`
+    popup = `<div class='iotmap-marker-popup'>`
     if (marker.popup.title) {
-      popup += `<span class='pop-up-title'>${marker.popup.title}</span><br>`
+      popup += `<span class='iotmap-pop-up-title'>${marker.popup.title}</span><br>`
     }
     if (marker.popup.body) {
-      popup += `<span class='pop-up-body'>${marker.popup.body}</span><br>`
+      popup += `<span class='iotmap-pop-up-body'>${marker.popup.body}</span><br>`
     }
     popup += `</div>`
   }
@@ -522,12 +522,12 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   const h = markerConfig.origin.height + ((marker.shape.anchored || selected) ? markerConfig.origin.anchorHeight : 0)
 
   // result
-  const markerSelectionClass = selected ? 'marker-selected' : 'marker-unselected'
+  const markerSelectionClass = selected ? 'iotmap-marker-selected' : 'iotmap-marker-unselected'
 
-  const html = `<div class='markericon ${markerSelectionClass}'>
+  const html = `<div class='iotmap-markericon ${markerSelectionClass}'>
                   ${imgShadow}
                   ${popup}
-                  <div class='svgMarker'>
+                  <div class='iotmap-svgMarker'>
                   <svg xmlns='http://www.w3.org/2000/svg'
                        width='${markerConfig.width}'
                        height='${markerConfig.height + ((marker.shape.anchored || selected) ? markerConfig.anchorHeight : 0)}'

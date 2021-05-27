@@ -15,20 +15,20 @@
 /* markers.css */
 
 
-.markericon{
+.iotmap-markericon{
   position: relative;
   width: 0px;
   height: 0px;
   box-sizing: border-box;
 }
-.markericon .svgMarker {
+.iotmap-markericon .iotmap-svgMarker {
   position: absolute;
   top:0px;
   left:0px;
   z-index: 10;
 }
 
-.markericon .directionUnselected {
+.iotmap-markericon .iotmap-directionUnselected {
   position: absolute;
   top:-30px;
   left:-30px;
@@ -37,7 +37,7 @@
   z-index: 40;
 }
 
-.markericon .directionSelected {
+.iotmap-markericon .iotmap-directionSelected {
   position: absolute;
   top:-20px;
   left:-20px;
@@ -47,7 +47,7 @@
 }
 
 
-.markericon > .innerspan {
+.iotmap-markericon > .iotmap-innerspan {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -57,7 +57,7 @@
 
 }
 
-.markericon .labelUnselected{
+.iotmap-markericon .iotmap-labelUnselected{
   width:30px;
   height:30px;
   font-size:18px;
@@ -65,7 +65,7 @@
   font-weight: bold;
 }
 
-.markericon .labelSelected{
+.iotmap-markericon .iotmap-labelSelected{
   width:50px;
   height:50px;
   font-size:30px;
@@ -73,21 +73,21 @@
   font-weight: bold;
 }
 
-.markericon .iconUnselected{
+.iotmap-markericon .iotmap-iconUnselected{
   width:30px;
   height:30px;
   font-size:18px;
   line-height:30px;
 }
 
-.markericon .iconSelected{
+.iotmap-markericon .iotmap-iconSelected{
   width:50px;
   height:50px;
   font-size:26px;
   line-height:50px;
 }
 
-.markericon .shadowSelected{
+.iotmap-markericon .iotmap-shadowSelected{
   position: absolute;
   top:0px;
   left:-10px;
@@ -96,7 +96,7 @@
   z-index: 5;
 }
 
-.markericon .shadowUnselected{
+.iotmap-markericon .iotmap-shadowUnselected{
   position: absolute;
   top:-20px;
   left:-20px;
@@ -107,20 +107,20 @@
 
 
 
-.clustericon{
+.iotmap-clustericon{
   position: relative;
   width: 0px;
   height: 0px;
 }
 
-.clustericon > svg{
+.iotmap-clustericon > svg{
   position: absolute;
   top:0px;
   left:0px;
   z-index: 10;
 }
 
-.clustericon .clusterLabel{
+.iotmap-clustericon .iotmap-clusterLabel{
   position: absolute;
   top:0px;
   left:0px;
@@ -134,7 +134,7 @@
   text-align: center;
 }
 
-.clustericon .clusterShadow{
+.iotmap-clustericon .iotmap-clusterShadow{
   position: absolute;
   top:-9px;
   left:-9px;
@@ -143,28 +143,28 @@
   z-index: 5;
 }
 
-.clusteropacity {
+.iotmap-clusteropacity {
   fill-opacity: 0.5;
 }
 
-.clustericon:hover > .clusteropacity{
+.iotmap-clustericon:hover > .iotmap-clusteropacity{
   fill-opacity: 1;
 }
 
-.usermarkericon{
+.iotmap-usermarkericon{
   position: relative;
   width: 22px;
   height: 22px;
 }
 
-.usermarkericon > svg{
+.iotmap-usermarkericon > svg{
   position: absolute;
   top:0px;
   left:0px;
   z-index: 10;
 }
 
-.usermarkericon .usermarkershadow {
+.iotmap-usermarkericon .iotmap-usermarkershadow {
   position: absolute;
   top:-14px;
   left:-14px;

@@ -15,7 +15,7 @@
 
 // clusters
 export const cluster = {
-  svgDefinitionStart: `<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' class='clusteropacity'>`,
+  svgDefinitionStart: `<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50' class='iotmap-clusteropacity'>`,
   svgDefinitionEnd: `</svg>`,
   gauge: `fill-opacity='1' cx='25' cy='25' stroke-width='6' stroke-linecap='butt' fill='none'`,
   clusterBG: `<circle  r='25' cx='25' cy='25' fill='white'/>`,
