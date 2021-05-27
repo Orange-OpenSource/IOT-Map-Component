@@ -17,7 +17,6 @@ import {
   IotMapAreaManager
 } from 'iotmapmanager'
 
-
 @Component({
   selector: 'map-component',
   templateUrl: './map.component.html',
@@ -555,8 +554,8 @@ export class MapComponent implements AfterViewInit {
       },
       map: {
         externalClustering: true,
-        layerControl: false,
-        exclusiveLayers: true
+        layerControl: true,
+        exclusiveLayers: false
       },
       layerTemplates: {
         'etablissements': {

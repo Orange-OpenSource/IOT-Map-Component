@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.3.0
+* Version: 2.4.0
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -43,7 +43,7 @@ export abstract class IotMapDisplay extends L.Marker {
     // By default : Nothing to do
   }
 
-  updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {
+  updateAccuracyDisplay (selectedLayers: string[], display: boolean): void { // eslint-disable-line @typescript-eslint/no-unused-vars
     // By default : Nothing to do
   }
 }
