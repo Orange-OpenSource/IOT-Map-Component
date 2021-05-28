@@ -78,9 +78,8 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   }
 
   // popup
-  const clusterSelectionClass = selected ? 'iotmap-cluster-selected' : (automatic ? 'iotmap-automatic-cluster' : 'iotmap-cluster-unselected')
   const layerTemp = config.layerTemplates[cluster.layer]
-  let popup = `<div class='${(automatic ? 'iotmap-automatic-cluster-popup' : 'iotmap-manual-cluster-popup')}'>`
+  let popup = `<div class='iotmap-cluster-popup'>`
 
   // popup title
   if (layerTemp !== undefined) {
@@ -126,7 +125,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
 
   popup += `</div>`
 
-  const html = `<div class='iotmap-clustericon ${clusterSelectionClass}'>
+  const html = `<div class='iotmap-clustericon'>
                   ${imgShadow}
                   ${popup}
                   ${commonSvg.cluster.svgDefinitionStart}

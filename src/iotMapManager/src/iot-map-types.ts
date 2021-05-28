@@ -40,11 +40,15 @@ export abstract class IotMapDisplay extends L.Marker {
   abstract redraw (): void
 
   reactAfterZoom (): void {
-    // By default : Nothing to do
+    // By default: Nothing to do
+  }
+
+  elementClicked (): void {
+    // By default: Nothing to do
   }
 
   updateAccuracyDisplay (selectedLayers: string[], display: boolean): void { // eslint-disable-line @typescript-eslint/no-unused-vars
-    // By default : Nothing to do
+    // By default: Nothing to do
   }
 }
 

@@ -90,7 +90,7 @@
 
 
 /* Clusters TABS */
-.iotmap-cluster-unselected > .iotmap-tab-top, .iotmap-automatic-cluster > .iotmap-tab-top {
+.iotmap-clustericon > .iotmap-tab-top {
   position: absolute;
   background-color: white;
   left: 10px;
@@ -108,7 +108,7 @@
   text-align: center;
   visibility: visible;
 }
-.iotmap-cluster-unselected > .iotmap-tab-top-big , .iotmap-automatic-cluster > .iotmap-tab-top-big {
+.iotmap-clustericon > .iotmap-tab-top-big {
   position: absolute;
   background-color: white;
   left: 0px;
@@ -127,7 +127,7 @@
 
   visibility: visible;
 }
-.iotmap-cluster-unselected > .iotmap-tab-top-big-left , .iotmap-automatic-cluster > .iotmap-tab-top-big-left {
+.iotmap-clustericon > .iotmap-tab-top-big-left {
   position: absolute;
   background-color: white;
   left: 0px;
@@ -139,7 +139,7 @@
 
   visibility: visible;
 }
-.iotmap-cluster-unselected > .iotmap-tab-top-big-right , .iotmap-automatic-cluster > .iotmap-tab-top-big-right {
+.iotmap-clustericon > .iotmap-tab-top-big-right {
   position: absolute;
   background-color: white;
   right: -50px;
@@ -150,14 +150,11 @@
   z-index: 7;
   visibility: visible;
 }
-.iotmap-cluster-selected > .iotmap-tab-top,
-.iotmap-cluster-selected > .iotmap-tab-top-big,
-.iotmap-cluster-selected > .iotmap-tab-top-big-left,
-.iotmap-cluster-selected > .iotmap-tab-top-big-right,
-.iotmap-automatic-cluster:hover > .iotmap-tab-top,
-.iotmap-automatic-cluster:hover > .iotmap-tab-top-big,
-.iotmap-automatic-cluster:hover > .iotmap-tab-top-big-left,
-.iotmap-automatic-cluster:hover > .iotmap-tab-top-big-right {
+
+.iotmap-clustericon:hover > .iotmap-tab-top,
+.iotmap-clustericon:hover > .iotmap-tab-top-big,
+.iotmap-clustericon:hover > .iotmap-tab-top-big-left,
+.iotmap-clustericon:hover > .iotmap-tab-top-big-right {
   visibility: hidden;
   font-size: 1px;
 }

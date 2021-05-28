@@ -88,6 +88,8 @@ export class IotMapManager {
     if (this.config.map.externalClustering) { // manual clustering
       layer = new L.FeatureGroup()
       layer.on('click', this.onElementClick.bind(this))
+        .on('mouseover', this.onMarkerMouseOver)
+        .on('mouseout', this.onMarkerMouseOut)
     } else if (layerName === this.config.accuracyCircle.layerName ||
       layerName === this.config.userMarker.layerName ||
       layerName === this.config.path.layerName) { // accuracy area, user marker or path = no clustering
@@ -100,8 +102,8 @@ export class IotMapManager {
       })
 
       layer.on('animationend', this.onZoom.bind(this))
-        .on('clustermouseover', this.onClusterMouseOver.bind(this))
-        .on('clustermouseout', this.onClusterMouseOut.bind(this))
+        .on('clustermouseover', this.onClusterMouseOver)
+        .on('clustermouseout', this.onClusterMouseOut)
         .on('click', this.onElementClick.bind(this))
     }
 
@@ -239,6 +241,7 @@ export class IotMapManager {
    */
   private onElementClick (event) {
     const element = event.layer
+    element.elementClicked() // informe cluster to open
     if (this.selectedElement === element) {
       this.unselectElement(element)
     } else {
@@ -259,6 +262,22 @@ export class IotMapManager {
    * @param event - event data
    */
   private onClusterMouseOut (event) {
+    event.layer.setZIndexOffset(0)
+  }
+
+  /**
+   * Called on marker mouse over (to brind manual cluster in front)
+   * @param event - event data
+   */
+  private onMarkerMouseOver (event) {
+    event.layer.setZIndexOffset(100)
+  }
+
+  /**
+   * Called on marker mouse out (to brind manual cluster in background)
+   * @param event - event data
+   */
+  private onMarkerMouseOut (event) {
     event.layer.setZIndexOffset(0)
   }
 

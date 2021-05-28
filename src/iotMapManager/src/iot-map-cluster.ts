@@ -80,4 +80,13 @@ export class IotMapCluster extends IotMapDisplay {
   public redraw (): void {
     this.setIcon(getManualClusterIcon(this.data, this.config, this.selected, false))
   }
+
+  /**
+   * zoom in and center the map on cluster clicked
+   * This will change map bounds, and can make cluster opening
+   */
+  public elementClicked (): void {
+    const zoomLevel = this.map.getIotMap().getZoom()
+    this.map.getIotMap().flyTo(this.getData().location, (zoomLevel !== 18 ? zoomLevel + 1 : 18))
+  }
 }
