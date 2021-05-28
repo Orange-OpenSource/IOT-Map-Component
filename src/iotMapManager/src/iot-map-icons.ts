@@ -59,7 +59,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
 
   // label
   let innerLabel: string
-  const label = createLabel(cluster.childCount)
+  const label = computeLabel(cluster.childCount)
 
   if (label.length < 4) {
     innerLabel = `<span class='iotmap-clusterShortLabel' style='color: ${config.markers.font.color}'>${label}</span>`
@@ -148,7 +148,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const clusterSize = config.clusters.size
   return new L.DivIcon({
     html: html,
-    className: 'my-cluster-class',
+    className: 'iotmap-divicon',
     iconSize: L.point(clusterSize, clusterSize),
     iconAnchor: L.point(clusterSize / 2, clusterSize / 2)
   })
@@ -203,7 +203,7 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
 
   // creating icon
   return new L.DivIcon({
-    className: 'my-custom-pin',
+    className: 'iotmap-divicon',
     iconSize: L.point(userMarkerSize, userMarkerSize), // size of the icon
     iconAnchor: L.point(userMarkerSize / 2, userMarkerSize / 2), // point of the icon which will correspond to marker's location
     html: html
@@ -251,7 +251,7 @@ export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIco
 
   // creating icon
   return new L.DivIcon({
-    className: 'my-custom-pin',
+    className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
     html: html
@@ -552,7 +552,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
 
   // creating icon
   return new L.DivIcon({
-    className: 'my-custom-pin',
+    className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
     html: html
@@ -652,7 +652,11 @@ function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: Io
   return currentCluster
 }
 
-function createLabel (number: number): string {
+/**
+ * Compute a short label with rounded value
+ * @param number - number to display
+ */
+function computeLabel (number: number): string {
   let stringResult: string
   // get 3 significant digits
   const num = Math.pow(10, 3 - Math.floor(Math.log(number) / Math.LN10) - 1)
