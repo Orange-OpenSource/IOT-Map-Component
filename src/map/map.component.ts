@@ -317,6 +317,65 @@ export class MapComponent implements AfterViewInit {
 
   clustersList: IotCluster[] = [
     {
+      id: 'cluster 3',
+      location: {
+        lat: 44.882,
+        lng: 4.895
+      },
+      contentLabel: 'interfaces',
+      colNumber: 2,
+      childCount: 1230,
+      aggregation: [
+        {
+          singularState: 'registered',
+          pluralState: 'registered',
+          count: 150,
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
+        },
+        {
+          singularState: 'initializing',
+          pluralState: 'initializing',
+          count: 150,
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
+        },
+        {
+          singularState: 'initialized',
+          pluralState: 'initialized',
+          bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
+          count: 330,
+          color: '#527EDB'
+        },
+        {
+          singularState: 'activated',
+          pluralState: 'activated',
+          count: 300,
+          color: '#32C832',
+          url: 'http://www.orange.fr/fdsfsdf',
+          urlTarget: '_blank'
+        },
+        {
+          singularState: 'reactivated',
+          pluralState: 'reactivated',
+          count: 100,
+          color: '#32C832',
+          bullet: '<span class= "iotmap-icons-assistance" style="color: #32C832; font-size: 16px"></span>'
+        },
+        {
+          singularState: 'error',
+          pluralState: 'errors',
+          count: 100,
+          color: '#CD3C14'
+        },
+        {
+          singularState: 'deactivated',
+          pluralState: 'deactivated',
+          count: 100,
+          color: '#CCCCCC'
+        }]
+    },
+    {
       id: 'interfaces',
       location: {
         lat: 44.882,
@@ -325,19 +384,19 @@ export class MapComponent implements AfterViewInit {
       // layer: 'autos',
       contentLabel: 'interfaces',
       colNumber: 2,
-      childCount: 100,
+      childCount: 123000,
       aggregation: [
         {
           singularState: 'registered',
           pluralState: 'registered',
-          count: 15,
+          count: 18000,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
         },
         {
           singularState: 'initializing',
           pluralState: 'initializing',
-          count: 15,
+          count: 15000,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
         },
@@ -345,13 +404,13 @@ export class MapComponent implements AfterViewInit {
           singularState: 'initialized',
           pluralState: 'initialized',
           bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
-          count: 10,
+          count: 33000,
           color: '#527EDB'
         },
         {
           singularState: 'activated',
           pluralState: 'activated',
-          count: 30,
+          count: 30000,
           color: '#32C832',
           url: 'http://www.orange.fr/fdsfsdf',
           urlTarget: '_blank'
@@ -359,20 +418,20 @@ export class MapComponent implements AfterViewInit {
         {
           singularState: 'reactivated',
           pluralState: 'reactivated',
-          count: 10,
+          count: 10000,
           color: '#32C832',
           bullet: '<span class= "iotmap-icons-assistance" style="color: #32C832; font-size: 16px"></span>'
         },
         {
           singularState: 'error',
           pluralState: 'errors',
-          count: 10,
+          count: 10000,
           color: '#CD3C14'
         },
         {
           singularState: 'deactivated',
           pluralState: 'deactivated',
-          count: 10,
+          count: 10000,
           color: '#CCCCCC'
         }]
     },
@@ -384,34 +443,55 @@ export class MapComponent implements AfterViewInit {
       },
       layer: 'vehicles',
       contentLabel: 'Entertainment',
-      childCount: 60,
-      colNumber: 2,
+      childCount: 12000,
       aggregation: [
         {
-          singularState: 'food and drink',
-          pluralState: 'food and drink',
-          count: 15,
-          color: '#467e74',
-          bullet: '<span class="iotmap-icons-Entertainment_channel"></span>'
+          singularState: 'registered',
+          pluralState: 'registered',
+          count: 1500,
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
         },
         {
-          singularState: 'shopping',
-          pluralState: 'shopping',
-          count: 20,
-          color: '#b8860b',
-          url: 'http://www.google.fr'
+          singularState: 'initializing',
+          pluralState: 'initializing',
+          count: 1500,
+          color: '#527EDB',
+          bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
         },
         {
-          singularState: 'entertainment',
-          pluralState: 'entertainment',
-          count: 15,
-          color: '#886288'
+          singularState: 'initialized',
+          pluralState: 'initialized',
+          bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
+          count: 3000,
+          color: '#527EDB'
         },
         {
-          singularState: 'outdoor',
-          pluralState: 'outdoor',
-          count: 10,
-          color: '#176129'
+          singularState: 'activated',
+          pluralState: 'activated',
+          count: 3000,
+          color: '#32C832',
+          url: 'http://www.orange.fr/fdsfsdf',
+          urlTarget: '_blank'
+        },
+        {
+          singularState: 'reactivated',
+          pluralState: 'reactivated',
+          count: 1000,
+          color: '#32C832',
+          bullet: '<span class= "iotmap-icons-assistance" style="color: #32C832; font-size: 16px"></span>'
+        },
+        {
+          singularState: 'error',
+          pluralState: 'errors',
+          count: 1000,
+          color: '#CD3C14'
+        },
+        {
+          singularState: 'deactivated',
+          pluralState: 'deactivated',
+          count: 1000,
+          color: '#CCCCCC'
         }]
     }
   ];
