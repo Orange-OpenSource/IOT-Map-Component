@@ -58,7 +58,16 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
   const imgShadow = `<img class='iotmap-clusterShadow' src='${cluShadow}'/>`
 
   // label
-  const innerLabel = `<span class='iotmap-clusterLabel' style='color: ${config.markers.font.color}'>${cluster.childCount}</span>`
+  let innerLabel: string
+  const label = createLabel(cluster.childCount)
+
+  if (label.length < 4) {
+    innerLabel = `<span class='iotmap-clusterShortLabel' style='color: ${config.markers.font.color}'>${label}</span>`
+  } else if (label.length < 5) {
+    innerLabel = `<span class='iotmap-clusterMidLabel' style='color: ${config.markers.font.color}'>${label}</span>`
+  } else {
+    innerLabel = `<span class='iotmap-clusterLongLabel' style='color: ${config.markers.font.color}'>${label}</span>`
+  }
 
   // tab
   let tab = ``
@@ -641,5 +650,21 @@ function leafletClusterToIotCluster (leafletCluster: L.MarkerCluster, config: Io
   }
 
   return currentCluster
+}
+
+function createLabel (number: number): string {
+  let stringResult: string
+  // get 3 significant digits
+  const num = Math.pow(10, 3 - Math.floor(Math.log(number) / Math.LN10) - 1)
+  const res = Math.round(number * num) / num
+
+  if (res < 1000) {
+    stringResult = String(res)
+  } else if (res < 1000000) {
+    stringResult = String(res / 1000) + 'k'
+  } else {
+    stringResult = String(res / 1000000) + 'M'
+  }
+  return stringResult
 }
 /* eslint-enable quotes */
