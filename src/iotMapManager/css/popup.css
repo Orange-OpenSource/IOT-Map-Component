@@ -74,11 +74,11 @@
   text-align: center;
 }
 
-.iotmap-cluster-popup-body-cell a, .iotmap-cluster-popup-body-link:visited {
+.leaflet-container a, .leaflet-container a:visited {
   color: black;
 }
 
-.iotmap-cluster-popup-body-link:hover {
+.leaflet-container a:hover {
   color: #FF7900;
 }
 

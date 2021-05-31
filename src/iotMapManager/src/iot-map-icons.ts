@@ -118,7 +118,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
 
         popup += `<td class='iotmap-cluster-popup-body-bullet'><span >${bullet}</span></td>`
         popup += `<td class='iotmap-cluster-popup-body-cell'><span >`
-        popup += (url !== '') ? (`<a class='iotmap-cluster-popup-body-link' href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
+        popup += (url !== '') ? (`<a href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
         popup += `${currentAgreg.count} ${(currentAgreg.count === 1) ? currentAgreg.singularState : currentAgreg.pluralState} </span></td>`
         popup += (url !== '') ? `</a>` : ''
         if (elemNum % nbCols === 0) {
@@ -660,14 +660,16 @@ function computeLabel (number: number): string {
   let stringResult: string
   // get 3 significant digits
   const num = Math.pow(10, 3 - Math.floor(Math.log(number) / Math.LN10) - 1)
-  const res = Math.round(number * num) / num
+  const res = Math.round(Math.round(number * num) / num)
 
   if (res < 1000) {
     stringResult = String(res)
-  } else if (res < 1000000) {
-    stringResult = String(res / 1000) + 'k'
+  } else if (res < 1e6) {
+    stringResult = String(res / 1e3) + 'k'
+  } else if (res < 1e9) {
+    stringResult = String(res / 1e6) + 'M'
   } else {
-    stringResult = String(res / 1000000) + 'M'
+    stringResult = String(res / 1e9) + 'G'
   }
   return stringResult
 }
