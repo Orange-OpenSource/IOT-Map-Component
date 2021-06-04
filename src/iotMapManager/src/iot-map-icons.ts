@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.5.0
+* Version: 2.5.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -51,7 +51,7 @@ export function getMarkerIcon (marker: IotMarker, config: IotMapConfig, selected
  *
  * @remarks use this function for manual clustering purpose
  */
-export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig, selected = false, automatic: boolean): L.DivIcon {
+export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig): L.DivIcon {
   const svgGauge = computeClusterGauge(cluster, config)
 
   // shadow
@@ -163,7 +163,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig,
  */
 export function getAutomaticClusterIcon (leafletCluster: L.MarkerCluster, config: IotMapConfig): L.DivIcon {
   const iotCluster: IotCluster = leafletClusterToIotCluster(leafletCluster, config)
-  return getManualClusterIcon(iotCluster, config, false, true) // automatic cluster
+  return getManualClusterIcon(iotCluster, config) // automatic cluster
 }
 
 /**

@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.5.0
+* Version: 2.5.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -158,7 +158,6 @@ export class IotMapClusterManager {
           // add marker to new layer
           this.map.getLayer(currentClusterInfos.layer).addLayer(currentClusterObject)
         }
-
       }
     }
   }

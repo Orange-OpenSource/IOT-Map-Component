@@ -60,7 +60,7 @@ export class MapComponent implements AfterViewInit {
         lng: 4.875
       },
       popup: {
-        title: 'Ecole Jean Rostand : ',
+        title: 'Ecole Jean Rostand : <a href="http://www.google.fr"> test </a>',
         body: '<a href="https://bv.ac-grenoble.fr/carteforpub/uai/0260969M">ici</a>'
       },
       template: 'square',
@@ -317,14 +317,14 @@ export class MapComponent implements AfterViewInit {
 
   clustersList: IotCluster[] = [
     {
-      id: 'cluster 3',
+      id: 'cluster 1',
       location: {
         lat: 44.882,
         lng: 4.895
       },
       contentLabel: 'interfaces',
       colNumber: 2,
-      childCount: 1230,
+      childCount: 4860,
       aggregation: [
         {
           singularState: 'registered',
@@ -376,7 +376,7 @@ export class MapComponent implements AfterViewInit {
         }]
     },
     {
-      id: 'interfaces',
+      id: 'cluster 2',
       location: {
         lat: 44.882,
         lng: 4.89
@@ -436,7 +436,7 @@ export class MapComponent implements AfterViewInit {
         }]
     },
     {
-      id: 'entertainments',
+      id: 'cluster 3',
       location: {
         lat: 44.882,
         lng: 4.885
@@ -647,7 +647,7 @@ export class MapComponent implements AfterViewInit {
           content: '<img width=16 src="../assets/icons/check_your_balance.svg">'
         },
         'autos': {
-          content: 'Cars',
+          content: '<span class="iotmap-icons-4g"></span>',
           type: TabType.large
         }
       },
@@ -675,11 +675,12 @@ export class MapComponent implements AfterViewInit {
 
     this.iotMapAreaManager.addArea(this.zone)
 
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('entertainments', { layer: 'meters' }) }, 3000)
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('services', { layer: 'autos' }) }, 3000)
+    setTimeout(() => { this.iotMapClusterManager.redrawAll() }, 3000)
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 1', { layer: 'autos' }) }, 6000)
+    setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 3', { layer: 'etablissements' }) }, 6000)
 
-    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 5000)
-    // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
-    setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', { shape: { accuracy: undefined } }) }, 5000)
+    // setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 5000)
+    // // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
+    // setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', { shape: { accuracy: undefined } }) }, 5000)
   }
 }

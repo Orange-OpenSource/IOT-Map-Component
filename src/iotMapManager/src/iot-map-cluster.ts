@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.5.0
+* Version: 2.5.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -32,7 +32,7 @@ export class IotMapCluster extends IotMapDisplay {
    * @param config - configuration to use to display cluster
    */
   constructor (cluster: IotCluster, map: IotMapManager, config: IotMapConfig) {
-    super(cluster.location, { icon: getManualClusterIcon(cluster, config, false, false) })
+    super(cluster.location, { icon: getManualClusterIcon(cluster, config) })
     this.data = cluster
     this.map = map
     this.config = config
@@ -55,7 +55,7 @@ export class IotMapCluster extends IotMapDisplay {
    */
   public select (selected: boolean): void {
     this.selected = selected
-    this.setIcon(getManualClusterIcon(this.data, this.config, this.selected, false))
+    this.setIcon(getManualClusterIcon(this.data, this.config))
     this.setZIndexOffset((selected) ? 100 : 0)
   }
 
@@ -78,7 +78,7 @@ export class IotMapCluster extends IotMapDisplay {
    * Force cluster redrawing
    */
   public redraw (): void {
-    this.setIcon(getManualClusterIcon(this.data, this.config, this.selected, false))
+    this.setIcon(getManualClusterIcon(this.data, this.config))
   }
 
   /**
