@@ -152,6 +152,8 @@ export class IotMapMarkerManager {
       if (params.layer !== undefined) {
         oldLayerName = currentMarkerInfos.layer
         currentMarkerInfos.layer = params.layer
+
+        htmlModificationNeeded = true
       }
 
       // inner modified

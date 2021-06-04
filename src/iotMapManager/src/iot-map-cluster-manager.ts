@@ -109,6 +109,7 @@ export class IotMapClusterManager {
         const currentClusterInfos: IotCluster = currentClusterObject.getData()
 
         let htmlModificationNeeded = false
+        let oldLayerName: string = null
 
         // location modified
         if (params.location !== undefined) {
@@ -126,6 +127,7 @@ export class IotMapClusterManager {
 
         // layer modified
         if (params.layer !== undefined) {
+          oldLayerName = currentClusterInfos.layer
           currentClusterInfos.layer = params.layer
           htmlModificationNeeded = true
         }
@@ -148,6 +150,15 @@ export class IotMapClusterManager {
         if (htmlModificationNeeded) {
           currentClusterObject.redraw()
         }
+
+        // layer modified
+        if (oldLayerName != null) {
+          // remove marker from previous layer
+          this.map.getLayer(oldLayerName).removeLayer(currentClusterObject)
+          // add marker to new layer
+          this.map.getLayer(currentClusterInfos.layer).addLayer(currentClusterObject)
+        }
+
       }
     }
   }
