@@ -668,6 +668,14 @@ export class MapComponent implements AfterViewInit {
       const coord = this.commonIotMap.getIotMap().getBounds()
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
+
+    this.commonIotMap.onEltClick = (id) => {
+      console.log('click on ' + id + ' !')
+
+      setTimeout(() => {
+        this.iotMapMarkerManager.updateMarker(id, { popup: { title: 'Update', body: 'Popup mise à jour' } })
+      }, 3000)
+    }
     this.commonIotMap.init('iotMap')
     this.iotMapMarkerManager.addMarkers(this.markersList)
     this.iotMapClusterManager.addClusters(this.clustersList)
@@ -675,13 +683,5 @@ export class MapComponent implements AfterViewInit {
     this.iotMapPathManager.addPath(this.chemin)
 
     this.iotMapAreaManager.addArea(this.zone)
-
-    // setTimeout(() => { this.iotMapClusterManager.redrawAll() }, 3000)
-    // setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 1', { layer: 'autos' }) }, 6000)
-    // setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 3', { layer: 'etablissements' }) }, 6000)
-
-    // setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 5000)
-    // // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)
-    // setTimeout(() => { this.iotMapMarkerManager.updateMarker('s5', { shape: { accuracy: undefined } }) }, 5000)
   }
 }

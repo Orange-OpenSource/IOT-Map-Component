@@ -34,6 +34,11 @@ export enum PathIconType {start, mid, end} // eslint-disable-line no-unused-vars
  * @remarks same behaviour as L.Marker with a stored data structure to save displayed info
  */
 export abstract class IotMapDisplay extends L.Marker {
+  protected id
+  getId () : string {
+    return this.id
+  }
+
   abstract getData (): GeolocMarker
   abstract setData (data: GeolocMarker): void
   abstract select (selected: boolean): void

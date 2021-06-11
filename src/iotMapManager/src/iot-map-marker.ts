@@ -33,8 +33,8 @@ export class IotMapMarker extends IotMapDisplay {
 
   constructor (marker: IotMarker, map: IotMapManager, config: IotMapConfig) {
     super(marker.location, { icon: getMarkerIcon(marker, config) })
-
     this.data = marker
+    this.id = this.data.id
     this.config = config
     this.map = map
     this.data.layer = this.data.layer ?? 'default'

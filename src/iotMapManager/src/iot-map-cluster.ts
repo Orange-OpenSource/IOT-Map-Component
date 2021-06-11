@@ -34,6 +34,7 @@ export class IotMapCluster extends IotMapDisplay {
   constructor (cluster: IotCluster, map: IotMapManager, config: IotMapConfig) {
     super(cluster.location, { icon: getManualClusterIcon(cluster, config) })
     this.data = cluster
+    this.id = this.data.id
     this.map = map
     this.config = config
     this.data.layer = this.data.layer ?? 'default'

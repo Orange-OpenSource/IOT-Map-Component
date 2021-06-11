@@ -47,6 +47,9 @@ export class IotMapManager {
   // handler for 'moveend'
   public onMove?: () => void
 
+  // handler for 'click' on markers
+  public onEltClick?: (id: string) => void
+
   /**
    * Initialise a leaflet map with default position, zoom and layer
    *
@@ -172,6 +175,11 @@ export class IotMapManager {
       this.changeSelectionStatus(this.selectedElement, false)
     }
     this.changeSelectionStatus(elt, true)
+
+    // trigger event "on click"
+    if (this.onEltClick) {
+      this.onEltClick(elt.getId())
+    }
   }
 
   /**
