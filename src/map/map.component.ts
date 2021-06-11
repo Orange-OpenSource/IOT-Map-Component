@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core'
-
+import { LatLngBounds } from 'leaflet'
 import {
   IotMapManager,
   IotCluster,
@@ -322,6 +322,7 @@ export class MapComponent implements AfterViewInit {
         lat: 44.882,
         lng: 4.895
       },
+      markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9]),
       contentLabel: 'interfaces',
       colNumber: 2,
       childCount: 4860,
@@ -329,14 +330,14 @@ export class MapComponent implements AfterViewInit {
         {
           singularState: 'registered',
           pluralState: 'registered',
-          count: 150,
+          count: 1500,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
         },
         {
           singularState: 'initializing',
           pluralState: 'initializing',
-          count: 150,
+          count: 1500,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
         },
@@ -344,13 +345,13 @@ export class MapComponent implements AfterViewInit {
           singularState: 'initialized',
           pluralState: 'initialized',
           bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
-          count: 330,
+          count: 3300,
           color: '#527EDB'
         },
         {
           singularState: 'activated',
           pluralState: 'activated',
-          count: 300,
+          count: 3000,
           color: '#32C832',
           url: 'http://www.orange.fr/fdsfsdf',
           urlTarget: '_blank'
@@ -675,9 +676,9 @@ export class MapComponent implements AfterViewInit {
 
     this.iotMapAreaManager.addArea(this.zone)
 
-    setTimeout(() => { this.iotMapClusterManager.redrawAll() }, 3000)
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 1', { layer: 'autos' }) }, 6000)
-    setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 3', { layer: 'etablissements' }) }, 6000)
+    // setTimeout(() => { this.iotMapClusterManager.redrawAll() }, 3000)
+    // setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 1', { layer: 'autos' }) }, 6000)
+    // setTimeout(() => { this.iotMapClusterManager.updateCluster('cluster 3', { layer: 'etablissements' }) }, 6000)
 
     // setTimeout(() => { this.iotMapMarkerManager.updateMarker('s1', { shape: { accuracy: 600 } }) }, 5000)
     // // setTimeout(() => { this.iotMapMarkerManager.removeMarker('s1')}, 5000)

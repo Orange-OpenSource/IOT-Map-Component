@@ -149,6 +149,7 @@ export interface IotCluster extends GeolocMarker {
   contentLabel: string
   childCount: number
   colNumber?: number
+  markersArea?: L.LatLngBounds
   aggregation: {
     singularState: string
     pluralState: string

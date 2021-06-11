@@ -86,7 +86,12 @@ export class IotMapCluster extends IotMapDisplay {
    * This will change map bounds, and can make cluster opening
    */
   public elementClicked (): void {
-    const zoomLevel = this.map.getIotMap().getZoom()
-    this.map.getIotMap().flyTo(this.getData().location, (zoomLevel !== 18 ? zoomLevel + 1 : 18))
+    const markersArea = this.getData().markersArea
+    if (markersArea !== undefined) {
+      this.map.getIotMap().flyToBounds(markersArea)
+    } else {
+      const zoomLevel = this.map.getIotMap().getZoom()
+      this.map.getIotMap().flyTo(this.getData().location, (zoomLevel !== 18 ? zoomLevel + 1 : 18))
+    }
   }
 }
