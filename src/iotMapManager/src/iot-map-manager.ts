@@ -69,6 +69,7 @@ export class IotMapManager {
       .on('baselayerchange', this.onBaseLayerChange.bind(this))
       .on('overlayadd', this.onOverlayAdd.bind(this))
       .on('overlayremove', this.onOverlayRemove.bind(this))
+      .on('click', this.onClick.bind(this))
 
     this.selectedElement = undefined
   }
@@ -282,7 +283,7 @@ export class IotMapManager {
   }
 
   /**
-   * Called when displayed map area change (zoom in, zoom out, move...)
+   * Called when displayed map area change (zoom in, zoom out, move, click...)
    */
   private onZoom () {
     for (const id in this.displayedMarkers) {
@@ -319,6 +320,10 @@ export class IotMapManager {
       }
     }
     this.updateAccuracy()
+  }
+
+  private onClick () {
+    this.changeSelectionStatus(this.selectedElement, false)
   }
 
   private updateAccuracy (): void {
