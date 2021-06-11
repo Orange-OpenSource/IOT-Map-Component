@@ -88,7 +88,9 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
 
   // popup
   const layerTemp = config.layerTemplates[cluster.layer]
-  let popup = `<div class='iotmap-cluster-popup'>`
+  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
+
+  let popup = (nbCols > 1) ? `<div class='iotmap-cluster-big-popup'>` : `<div class='iotmap-cluster-popup'>`
 
   // popup title
   if (layerTemp !== undefined) {
@@ -101,10 +103,10 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
   }
 
   // popup body
-  popup += `<table class='iotmap-cluster-popup-table'>`
+  popup += `<table class='iotmap-cluster-big-popup-table'>`
   popup += `<tr>`
   let elemNum = 1
-  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
+
   const nbRows = Math.round(cluster.aggregation.length / nbCols)
 
   for (let row = 1; row <= nbRows; row++) {
@@ -116,8 +118,8 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
         const url = currentAgreg.url ?? ''
         const urlTarget = currentAgreg.urlTarget ?? ''
 
-        popup += `<td class='iotmap-cluster-popup-body-bullet'><span >${bullet}</span></td>`
-        popup += `<td class='iotmap-cluster-popup-body-cell'><span >`
+        popup += `<td class='iotmap-cluster-big-popup-body-bullet'><span >${bullet}</span></td>`
+        popup += `<td class='iotmap-cluster-big-popup-body-cell'><span >`
         popup += (url !== '') ? (`<a href='${url}` + ((urlTarget !== '') ? `' target='${urlTarget}` : '') + `'>`) : ''
         popup += `${currentAgreg.count} ${(currentAgreg.count === 1) ? currentAgreg.singularState : currentAgreg.pluralState} </span></td>`
         popup += (url !== '') ? `</a>` : ''
