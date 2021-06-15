@@ -449,14 +449,14 @@ export class MapComponent implements AfterViewInit {
         {
           singularState: 'registered',
           pluralState: 'registered',
-          count: 1500,
+          count: 5000,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 14px"> &#9711;  </span>'
         },
         {
           singularState: 'initializing',
           pluralState: 'initializing',
-          count: 1500,
+          count: 3000,
           color: '#527EDB',
           bullet: '<span style="color: #527EDB; font-size: 20px"> &#9678;  </span>'
         },
@@ -464,35 +464,16 @@ export class MapComponent implements AfterViewInit {
           singularState: 'initialized',
           pluralState: 'initialized',
           bullet: '<span style="color: #527EDB; font-size: 24px"> &#10687;  </span>',
-          count: 3000,
+          count: 2000,
           color: '#527EDB'
         },
         {
           singularState: 'activated',
           pluralState: 'activated',
-          count: 3000,
+          count: 2000,
           color: '#32C832',
           url: 'http://www.orange.fr/fdsfsdf',
           urlTarget: '_blank'
-        },
-        {
-          singularState: 'reactivated',
-          pluralState: 'reactivated',
-          count: 1000,
-          color: '#32C832',
-          bullet: '<span class= "iotmap-icons-assistance" style="color: #32C832; font-size: 16px"></span>'
-        },
-        {
-          singularState: 'error',
-          pluralState: 'errors',
-          count: 1000,
-          color: '#CD3C14'
-        },
-        {
-          singularState: 'deactivated',
-          pluralState: 'deactivated',
-          count: 1000,
-          color: '#CCCCCC'
         }]
     }
   ];
