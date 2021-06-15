@@ -59,7 +59,7 @@
     "@types/leaflet": "^1.5.19",
     "@types/leaflet.markercluster": "^1.4.3",
     "boosted": "^4.6.0",
-    "iotmapmanager": "^2.6.0",
+    "iotmapmanager": "^2.6.1",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "zone.js": "^0.11.3"

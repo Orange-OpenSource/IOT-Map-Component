@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.0
+* Version: 2.6.1
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -23,7 +23,7 @@ import { IotMapManager } from './iot-map-manager'
 export class IotMapCluster extends IotMapDisplay {
   private data: IotCluster
   private map: IotMapManager
-  private config: IotMapConfig
+  readonly config: IotMapConfig
   private selected = false
 
   /**
@@ -89,7 +89,7 @@ export class IotMapCluster extends IotMapDisplay {
   public elementClicked (): void {
     const markersArea = this.getData().markersArea
     if (markersArea !== undefined) {
-      this.map.getIotMap().flyToBounds(markersArea)
+      this.map.getIotMap().flyToBounds([[markersArea.getSouth(), markersArea.getWest()], [markersArea.getNorth(), markersArea.getEast()]])
     } else {
       const zoomLevel = this.map.getIotMap().getZoom()
       this.map.getIotMap().flyTo(this.getData().location, (zoomLevel !== 18 ? zoomLevel + 1 : 18))
