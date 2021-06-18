@@ -86,24 +86,6 @@
   line-height:50px;
 }
 
-.iotmap-markericon .iotmap-shadowSelected{
-  position: absolute;
-  top:0px;
-  left:-10px;
-  width:70px;
-  height: 70px;
-  z-index: 5;
-}
-
-.iotmap-markericon .iotmap-shadowUnselected{
-  position: absolute;
-  top:-20px;
-  left:-20px;
-  width:70px;
-  height: 70px;
-  z-index: 5;
-}
-
 /********************
   CLUSTERS
  ********************/

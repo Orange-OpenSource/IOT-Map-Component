@@ -390,6 +390,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   let svgGauge = ``
   let svgDirection = ``
   let shadowFile = ''
+  let shadowClass = ''
 
   const markerConfig = (selected)
     ? config.markers.size.selected
@@ -412,16 +413,24 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
       svgShape = `<path ${svg.selFunColour} fill='${funColor}'/>`
       svgBG = svg.selFunBg
     }
-    shadowFile = (marker.shape.type === ShapeType.circle) ? mobCirSelShadow : poiSqrSelShadow
+    if (marker.shape.type === ShapeType.circle) {
+      shadowFile = mobCirSelShadow
+      shadowClass = 'iotmap-selected-circle-shadow'
+    } else {
+      shadowFile = poiSqrSelShadow
+      shadowClass = 'iotmap-selected-square-shadow'
+    }
   } else if (marker.shape.type === ShapeType.circle) {
     if (marker.shape.anchored) {
       svgBorder = svg.pinBorder
       svgShape = `<path ${svg.pinStdColour} fill='${funColor}'/>`
       shadowFile = mobCirPinShadow
+      shadowClass = 'iotmap-circle-pin-shadow'
     } else {
       svgBorder = svg.border
       svgShape = `<circle ${svg.stdColour} fill='${funColor}'/>`
       shadowFile = mobCirShadow
+      shadowClass = 'iotmap-circle-shadow'
     }
   } else if (marker.shape.type === ShapeType.square) {
     if (marker.shape.anchored) {
@@ -434,6 +443,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
         svgBG = svg.pinFunBg
       }
       shadowFile = poiSqrPinShadow
+      shadowClass = 'iotmap-square-pin-shadow'
     } else {
       if (marker.shape.plain) {
         svgBorder = svg.border
@@ -444,6 +454,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
         svgBG = svg.funBg
       }
       shadowFile = poiSqrShadow
+      shadowClass = 'iotmap-square-shadow'
     }
   }
 
@@ -497,7 +508,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   }
 
   // shadow
-  const imgShadow = `<img class='${((selected) ? 'iotmap-shadowSelected' : 'iotmap-shadowUnselected')}' src='${shadowFile}'/>`
+  const imgShadow = `<img class=${shadowClass} src='${shadowFile}'/>`
 
   // tabs
   let tab = ``
