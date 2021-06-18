@@ -48,9 +48,6 @@ export class MapComponent implements AfterViewInit {
       },
       inner: {
         label: 'H'
-      },
-      shape: {
-        accuracy: 300
       }
     },
     {
@@ -102,7 +99,7 @@ export class MapComponent implements AfterViewInit {
         type: ShapeType.square,
         anchored: true,
         plain: false,
-        accuracy: 200
+        // accuracy: 200
       },
       inner: {
         icon: 'iotmap-icons-bluetooth',
@@ -189,7 +186,7 @@ export class MapComponent implements AfterViewInit {
         type: ShapeType.square,
         anchored: true,
         plain: true,
-        accuracy: 300
+        // accuracy: 300
       },
       layer: 'etablissements',
       inner: {
@@ -235,8 +232,7 @@ export class MapComponent implements AfterViewInit {
       inner: {
         icon: 'iotmap-icons-vehicle',
         color: 'black'
-      },
-      template: 'vehicle'
+      }
     },
     {
       id: 'c2',
@@ -483,7 +479,7 @@ export class MapComponent implements AfterViewInit {
       lat: 44.897,
       lng: 4.8813
     },
-    accuracy: 150,
+    // accuracy: 150,
     direction: 180
   }
 
@@ -666,3 +662,4 @@ export class MapComponent implements AfterViewInit {
     this.iotMapAreaManager.addArea(this.zone)
   }
 }
+
