@@ -88,7 +88,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
 
   // popup
   const layerTemp = config.layerTemplates[cluster.layer]
-  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
+  const nbCols = (cluster.aggregation.length === 1) ? 1 : (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
 
   let popup = (nbCols > 1) ? `<div class='iotmap-cluster-big-popup'>` : `<div class='iotmap-cluster-popup'>`
 
