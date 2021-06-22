@@ -116,7 +116,25 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'square'
     },
-
+    {
+      id: 's7',
+      location: {
+        lat: 40.895,
+        lng: 6.890
+      },
+      shape: {
+        type: ShapeType.square,
+        anchored: true,
+        plain: false,
+        // accuracy: 200
+      },
+      inner: {
+        img: 'https://img.icons8.com/ios/452/apple-phone.png',
+        color: 'green'
+      },
+      layer: 'etablissements',
+      status: 'inactive'
+    },
     // POI
     {
       id: 'p1',

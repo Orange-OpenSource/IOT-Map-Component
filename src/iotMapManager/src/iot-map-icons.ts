@@ -484,11 +484,17 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
 
     if (marker.inner.icon) { // icon
       innerDesign = `<span class='iotmap-innerspan ${marker.inner.icon} ${((selected) ? ' iotmap-iconSelected' : ' iotmap-iconUnselected')}'
-                           style='color: ${innerColor}'></span>`
-    } else if (marker.inner.label) { // label
+      style='color: ${innerColor}'></span>`
+
+    } else if (marker.inner.img) {
+      innerDesign = `<img src='${marker.inner.img}'>`
+    }
+    
+    else if (marker.inner.label) { // label
       innerDesign = `<span class='iotmap-innerspan ${((selected) ? ' iotmap-labelSelected' : ' iotmap-labelUnselected')}'
                            style='color: ${innerColor}'>${marker.inner.label[0]}</span>`
     }
+    
   }
 
   // state / gauge

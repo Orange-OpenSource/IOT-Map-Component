@@ -103,6 +103,7 @@ interface Shape {
  * Inner
  *
  * @param icon - (optional) define the icon displayed inside the shape.
+ * @param img - (optional) define the src of an img displayed inside the shape.
  * @param label - (optional) define the character displayed inside the shape.
  * @param color - (optional) define the color of the inner element.
  *
@@ -111,7 +112,8 @@ interface Shape {
 interface Inner {
   color?: string
 
-  icon?: string
+  icon?: string;
+  img?: string;
   // *** OR ***
   label?: string
 }
