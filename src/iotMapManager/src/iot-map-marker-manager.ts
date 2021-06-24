@@ -68,11 +68,7 @@ export class IotMapMarkerManager {
     const markerToRemove: IotMapMarker = this.markersObjects[markerId]
     if (markerToRemove) {
       markerToRemove.removeMarker()
-
-      const index = this.markersObjects.indexOf(markerToRemove, 0)
-      if (index > -1) {
-        this.markersObjects.splice(index, 1)
-      }
+      delete this.markersObjects[markerId]
     }
   }
 
