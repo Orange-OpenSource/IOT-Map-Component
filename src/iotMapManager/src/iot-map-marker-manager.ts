@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.2
+* Version: 2.6.3
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -154,10 +154,13 @@ export class IotMapMarkerManager {
 
       // inner modified
       if (params.inner !== undefined) {
+        if (params.inner.icon === null) { // cmd to remove icon
+          currentMarkerInfos.inner.icon = undefined
+        }
         currentMarkerInfos.inner = {
           color: params.inner?.color ?? currentMarkerInfos.inner?.color ?? this.config.markers.default.inner.color,
           icon: params.inner?.icon ?? currentMarkerInfos.inner?.icon,
-          label: (params.inner?.icon === undefined) ? (params.inner?.label ?? currentMarkerInfos.inner?.label) : undefined
+          label: params.inner?.label ?? currentMarkerInfos.inner?.label
         }
         htmlModificationNeeded = true
       }
