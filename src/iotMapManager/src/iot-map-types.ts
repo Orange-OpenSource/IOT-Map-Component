@@ -48,8 +48,8 @@ export abstract class IotMapDisplay extends L.Marker {
     // By default: Nothing to do
   }
 
-  // By default: Nothing to do
   elementClicked (): void {
+    // By default: Nothing to do
   }
 
   shiftMap (): void {
