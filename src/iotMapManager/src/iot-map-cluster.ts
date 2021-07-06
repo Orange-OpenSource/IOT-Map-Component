@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.3
+* Version: 2.6.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -94,5 +94,9 @@ export class IotMapCluster extends IotMapDisplay {
       const zoomLevel = this.map.getIotMap().getZoom()
       this.map.getIotMap().flyTo(this.getData().location, (zoomLevel !== 18 ? zoomLevel + 1 : 18))
     }
+  }
+
+  public isCluster (): boolean {
+    return true
   }
 }

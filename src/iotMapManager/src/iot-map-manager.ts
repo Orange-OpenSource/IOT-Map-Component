@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.3
+* Version: 2.6.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -92,8 +92,8 @@ export class IotMapManager {
     if (this.config.map.externalClustering) { // manual clustering
       layer = new L.FeatureGroup()
       layer.on('click', this.onElementClick.bind(this))
-        .on('mouseover', this.onMarkerMouseOver)
-        .on('mouseout', this.onMarkerMouseOut)
+        .on('mouseover', this.onElementMouseOver.bind(this))
+        .on('mouseout', this.onElementMouseOut)
     } else if (layerName === this.config.accuracyCircle.layerName ||
       layerName === this.config.userMarker.layerName ||
       layerName === this.config.path.layerName) { // accuracy area, user marker or path = no clustering
@@ -106,7 +106,7 @@ export class IotMapManager {
       })
 
       layer.on('animationend', this.onZoom.bind(this))
-        .on('clustermouseover', this.onClusterMouseOver)
+        .on('clustermouseover', this.onClusterMouseOver.bind(this))
         .on('clustermouseout', this.onClusterMouseOut)
         .on('click', this.onElementClick.bind(this))
     }
@@ -249,12 +249,20 @@ export class IotMapManager {
    * @param event - event data
    */
   private onElementClick (event) {
-    const element = event.layer
-    element.elementClicked() // informe cluster to open
-    if (this.selectedElement === element) {
-      this.unselectElement(element)
+    const element: IotMapDisplay = event.layer
+    if (this.config.map.externalClustering === true) {
+      if (element.isCluster()) {
+        element.elementClicked() // inform cluster to open
+      }
     } else {
-      this.selectElement(element)
+      if (this.selectedElement === element) {
+        this.unselectElement(element)
+      } else {
+        this.selectElement(element)
+        if (element.hasPopup()) {
+          this.shiftMap(element.getData().location)
+        }
+      }
     }
   }
 
@@ -264,6 +272,7 @@ export class IotMapManager {
    */
   private onClusterMouseOver (event) {
     event.layer.setZIndexOffset(100)
+    this.shiftMap(event.latlng)
   }
 
   /**
@@ -278,15 +287,19 @@ export class IotMapManager {
    * Called on marker mouse over (to brind manual cluster in front)
    * @param event - event data
    */
-  private onMarkerMouseOver (event) {
+  private onElementMouseOver (event) {
     event.layer.setZIndexOffset(100)
+
+    if (event.layer.isCluster()) {
+      this.shiftMap(event.layer.getData().location)
+    }
   }
 
   /**
    * Called on marker mouse out (to brind manual cluster in background)
    * @param event - event data
    */
-  private onMarkerMouseOut (event) {
+  private onElementMouseOut (event) {
     event.layer.setZIndexOffset(0)
   }
 
@@ -339,5 +352,37 @@ export class IotMapManager {
       const elt = this.displayedMarkers[id]
       elt.updateAccuracyDisplay(this.currentDisplayedLayers, this.accuracyDisplayed)
     }
+  }
+
+  private shiftMap (currentPos: L.LatLngExpression): void {
+    const eltPos = this.map.latLngToLayerPoint(currentPos)
+    const mapBounds = this.map.getBounds()
+    const northEastPos = this.map.latLngToLayerPoint(mapBounds.getNorthEast())
+    const southWestPos = this.map.latLngToLayerPoint(mapBounds.getSouthWest())
+
+    // top
+    if (eltPos.y - northEastPos.y < 200) {
+      const shift = 200 - (eltPos.y - northEastPos.y)
+      northEastPos.y -= shift
+      southWestPos.y -= shift
+    }
+
+    // left
+    if (eltPos.x - southWestPos.x < 150) {
+      const shift = 150 - (eltPos.x - southWestPos.x)
+      northEastPos.x -= shift
+      southWestPos.x -= shift
+    }
+
+    // bottom - no need to shift
+    // right
+    if (northEastPos.x - eltPos.x < 150) {
+      const shift = 150 - (northEastPos.x - eltPos.x)
+      northEastPos.x += shift
+      southWestPos.x += shift
+    }
+
+    const newMapBounds = L.latLngBounds(this.map.layerPointToLatLng(southWestPos), this.map.layerPointToLatLng(northEastPos))
+    this.map.flyToBounds(newMapBounds)
   }
 }

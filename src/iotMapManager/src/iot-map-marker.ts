@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.3
+* Version: 2.6.4
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -51,6 +51,11 @@ export class IotMapMarker extends IotMapDisplay {
     this.selected = selected
     this.setIcon(getMarkerIcon(this.data, this.config, selected))
     this.setZIndexOffset((selected) ? 100 : 0)
+
+    // if (this.selected && this.data.popup !== undefined) {
+    //   // move map if marker is too close to the edge
+    //   this.shiftMap()
+    // }
   }
 
   public getData (): IotMarker {
@@ -108,5 +113,13 @@ export class IotMapMarker extends IotMapDisplay {
     if (this.accuracyCircle) {
       this.map.getLayer(this.config.accuracyCircle.layerName).removeLayer(this.accuracyCircle)
     }
+  }
+
+  public isCluster (): boolean {
+    return false
+  }
+
+  public hasPopup (): boolean {
+    return this.data.popup !== undefined
   }
 }

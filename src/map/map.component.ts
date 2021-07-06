@@ -99,7 +99,7 @@ export class MapComponent implements AfterViewInit {
         type: ShapeType.square,
         anchored: true,
         plain: false,
-        // accuracy: 200
+        accuracy: 200
       },
       inner: {
         icon: 'iotmap-icons-bluetooth',
@@ -186,7 +186,7 @@ export class MapComponent implements AfterViewInit {
         type: ShapeType.square,
         anchored: true,
         plain: true,
-        // accuracy: 300
+        accuracy: 300
       },
       layer: 'etablissements',
       inner: {
@@ -479,7 +479,7 @@ export class MapComponent implements AfterViewInit {
       lat: 44.897,
       lng: 4.8813
     },
-    // accuracy: 150,
+    accuracy: 150,
     direction: 180
   }
 
@@ -647,8 +647,6 @@ export class MapComponent implements AfterViewInit {
     }
 
     this.commonIotMap.onEltClick = (id) => {
-      console.log('click on ' + id + ' !')
-
       setTimeout(() => {
         this.iotMapMarkerManager.updateMarker(id, { popup: { title: 'Update', body: 'Popup mise à jour' } })
       }, 3000)
@@ -662,4 +660,3 @@ export class MapComponent implements AfterViewInit {
     this.iotMapAreaManager.addArea(this.zone)
   }
 }
-
