@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.4
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -48,15 +48,13 @@ export abstract class IotMapDisplay extends L.Marker {
     // By default: Nothing to do
   }
 
+  // By default: Nothing to do
   elementClicked (): void {
+  }
+
+  shiftMap (): void {
     // By default: Nothing to do
   }
-
-  hasPopup (): boolean {
-    return false
-  }
-
-  abstract isCluster (): boolean
 
   updateAccuracyDisplay (selectedLayers: string[], display: boolean): void { // eslint-disable-line @typescript-eslint/no-unused-vars
     // By default: Nothing to do

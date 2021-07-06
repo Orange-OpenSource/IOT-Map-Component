@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.4
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -115,11 +115,37 @@ export class IotMapMarker extends IotMapDisplay {
     }
   }
 
-  public isCluster (): boolean {
-    return false
-  }
+  public shiftMap (): void {
+    if (this.selected && this.data.popup !== undefined) {
+      const eltPos = this.map.getIotMap().latLngToLayerPoint(this.data.location)
+      const mapBounds = this.map.getIotMap().getBounds()
+      const northEastPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getNorthEast())
+      const southWestPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getSouthWest())
 
-  public hasPopup (): boolean {
-    return this.data.popup !== undefined
+      // top
+      if (eltPos.y - northEastPos.y < 200) {
+        const shift = 200 - (eltPos.y - northEastPos.y)
+        northEastPos.y -= shift
+        southWestPos.y -= shift
+      }
+
+      // left
+      if (eltPos.x - southWestPos.x < 150) {
+        const shift = 150 - (eltPos.x - southWestPos.x)
+        northEastPos.x -= shift
+        southWestPos.x -= shift
+      }
+
+      // bottom - no need to shift
+      // right
+      if (northEastPos.x - eltPos.x < 150) {
+        const shift = 150 - (northEastPos.x - eltPos.x)
+        northEastPos.x += shift
+        southWestPos.x += shift
+      }
+
+      const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
+      this.map.getIotMap().flyToBounds(newMapBounds)
+    }
   }
 }

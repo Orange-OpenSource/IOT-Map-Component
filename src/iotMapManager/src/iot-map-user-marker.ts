@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.4
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -66,10 +66,6 @@ export class IotMapUserMarker extends IotMapDisplay {
     const newLatLng: L.LatLng = new L.LatLng(latlng.lat, latlng.lng)
     super.setLatLng(newLatLng)
     this.accuracyCircle.setLatLng(newLatLng)
-  }
-
-  public isCluster (): boolean {
-    return false
   }
 
   public updateAccuracyDisplay (selectedLayers: string[], display: boolean): void {

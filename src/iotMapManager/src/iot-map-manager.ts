@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.4
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -250,20 +250,15 @@ export class IotMapManager {
    */
   private onElementClick (event) {
     const element: IotMapDisplay = event.layer
-    if (this.config.map.externalClustering === true) {
-      if (element.isCluster()) {
-        element.elementClicked() // inform cluster to open
-      }
+
+    if (this.selectedElement === element) {
+      this.unselectElement(element)
     } else {
-      if (this.selectedElement === element) {
-        this.unselectElement(element)
-      } else {
-        this.selectElement(element)
-        if (element.hasPopup()) {
-          this.shiftMap(element.getData().location)
-        }
-      }
+      this.selectElement(element)
     }
+
+    element.elementClicked() // inform cluster to open
+    element.shiftMap()
   }
 
   /**
@@ -272,7 +267,6 @@ export class IotMapManager {
    */
   private onClusterMouseOver (event) {
     event.layer.setZIndexOffset(100)
-    this.shiftMap(event.latlng)
   }
 
   /**
@@ -289,10 +283,6 @@ export class IotMapManager {
    */
   private onElementMouseOver (event) {
     event.layer.setZIndexOffset(100)
-
-    if (event.layer.isCluster()) {
-      this.shiftMap(event.layer.getData().location)
-    }
   }
 
   /**
@@ -352,37 +342,5 @@ export class IotMapManager {
       const elt = this.displayedMarkers[id]
       elt.updateAccuracyDisplay(this.currentDisplayedLayers, this.accuracyDisplayed)
     }
-  }
-
-  private shiftMap (currentPos: L.LatLngExpression): void {
-    const eltPos = this.map.latLngToLayerPoint(currentPos)
-    const mapBounds = this.map.getBounds()
-    const northEastPos = this.map.latLngToLayerPoint(mapBounds.getNorthEast())
-    const southWestPos = this.map.latLngToLayerPoint(mapBounds.getSouthWest())
-
-    // top
-    if (eltPos.y - northEastPos.y < 200) {
-      const shift = 200 - (eltPos.y - northEastPos.y)
-      northEastPos.y -= shift
-      southWestPos.y -= shift
-    }
-
-    // left
-    if (eltPos.x - southWestPos.x < 150) {
-      const shift = 150 - (eltPos.x - southWestPos.x)
-      northEastPos.x -= shift
-      southWestPos.x -= shift
-    }
-
-    // bottom - no need to shift
-    // right
-    if (northEastPos.x - eltPos.x < 150) {
-      const shift = 150 - (northEastPos.x - eltPos.x)
-      northEastPos.x += shift
-      southWestPos.x += shift
-    }
-
-    const newMapBounds = L.latLngBounds(this.map.layerPointToLatLng(southWestPos), this.map.layerPointToLatLng(northEastPos))
-    this.map.flyToBounds(newMapBounds)
   }
 }
