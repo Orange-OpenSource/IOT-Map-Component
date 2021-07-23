@@ -60,6 +60,18 @@ export class IotMapManager {
     this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
       this.config.map.defaultZoomLevel)
 
+    // const imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+    const imageUrl = 'https://c.woopic.com/logo-orange.png'
+
+    const newLat = this.config.map.defaultLat + 0.01
+    const newLon = this.config.map.defaultLng + (0.01 / Math.cos(this.config.map.defaultLat))
+
+    const imageBounds = L.latLngBounds(
+      L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
+      L.latLng(newLat, newLon)
+    )
+    L.imageOverlay(imageUrl, imageBounds).addTo(this.map)
+
     // init base layers
     L.tileLayer(this.config.map.openStreetMapLayer,
       { attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })
