@@ -48,42 +48,55 @@
 
 .iotmap-markericon > .iotmap-innerspan {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 5px;
+  left: 5px;
   z-index: 25;
   text-align: center;
   font-family: "Helvetica Neue", 'helvetica';
-
 }
 
 .iotmap-markericon .iotmap-labelUnselected{
-  width:30px;
-  height:30px;
+  width:20px;
+  height:20px;
   font-size:18px;
-  line-height: 30px;
+  line-height: 20px;
   font-weight: bold;
 }
 
 .iotmap-markericon .iotmap-labelSelected{
-  width:50px;
-  height:50px;
+  width:40px;
+  height:40px;
   font-size:30px;
-  line-height:50px;
+  line-height:45px;
   font-weight: bold;
 }
 
 .iotmap-markericon .iotmap-iconUnselected{
-  width:30px;
-  height:30px;
+  width:20px;
+  height:20px;
   font-size:18px;
-  line-height:30px;
+  line-height: 20px;
 }
 
 .iotmap-markericon .iotmap-iconSelected{
-  width:50px;
-  height:50px;
+  width:40px;
+  height:40px;
   font-size:26px;
-  line-height:50px;
+  line-height:45px;
+}
+
+.iotmap-markericon .iotmap-imgUnselected{
+  width:20px;
+  height:20px;
+  font-size:18px;
+  line-height: 20px;
+}
+
+.iotmap-markericon .iotmap-imgSelected{
+  width:40px;
+  height:40px;
+  font-size:26px;
+  line-height:45px;
 }
 
 /********************

@@ -158,13 +158,21 @@ export class IotMapMarkerManager {
 
       // inner modified
       if (params.inner !== undefined) {
+        if (params.inner.img === null) { // cmd to remove icon
+          currentMarkerInfos.inner.img = undefined
+        }
+        if (params.inner.icon === null) { // cmd to remove icon
+          currentMarkerInfos.inner.icon = undefined
+        }
         currentMarkerInfos.inner = {
           color: params.inner?.color ?? currentMarkerInfos.inner?.color ?? this.config.markers.default.inner.color,
+          img: params.inner?.img ?? currentMarkerInfos.inner?.img,
           icon: params.inner?.icon ?? currentMarkerInfos.inner?.icon,
-          label: (params.inner?.icon === undefined) ? (params.inner?.label ?? currentMarkerInfos.inner?.label) : undefined
+          label: params.inner?.label ?? currentMarkerInfos.inner?.label
         }
         htmlModificationNeeded = true
       }
+
 
       // template modified
       if (params.template !== undefined) {
