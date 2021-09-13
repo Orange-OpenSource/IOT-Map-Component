@@ -173,7 +173,6 @@ export class IotMapMarkerManager {
         htmlModificationNeeded = true
       }
 
-
       // template modified
       if (params.template !== undefined) {
         const template = this.config.markerTemplates[params.template]
