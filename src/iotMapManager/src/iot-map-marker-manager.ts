@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.2
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -68,11 +68,7 @@ export class IotMapMarkerManager {
     const markerToRemove: IotMapMarker = this.markersObjects[markerId]
     if (markerToRemove) {
       markerToRemove.removeMarker()
-
-      const index = this.markersObjects.indexOf(markerToRemove, 0)
-      if (index > -1) {
-        this.markersObjects.splice(index, 1)
-      }
+      delete this.markersObjects[markerId]
     }
   }
 

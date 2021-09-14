@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.2
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -92,8 +92,8 @@ export class IotMapManager {
     if (this.config.map.externalClustering) { // manual clustering
       layer = new L.FeatureGroup()
       layer.on('click', this.onElementClick.bind(this))
-        .on('mouseover', this.onMarkerMouseOver)
-        .on('mouseout', this.onMarkerMouseOut)
+        .on('mouseover', this.onElementMouseOver.bind(this))
+        .on('mouseout', this.onElementMouseOut)
     } else if (layerName === this.config.accuracyCircle.layerName ||
       layerName === this.config.userMarker.layerName ||
       layerName === this.config.path.layerName) { // accuracy area, user marker or path = no clustering
@@ -106,7 +106,7 @@ export class IotMapManager {
       })
 
       layer.on('animationend', this.onZoom.bind(this))
-        .on('clustermouseover', this.onClusterMouseOver)
+        .on('clustermouseover', this.onClusterMouseOver.bind(this))
         .on('clustermouseout', this.onClusterMouseOut)
         .on('click', this.onElementClick.bind(this))
     }
@@ -249,13 +249,16 @@ export class IotMapManager {
    * @param event - event data
    */
   private onElementClick (event) {
-    const element = event.layer
-    element.elementClicked() // informe cluster to open
+    const element: IotMapDisplay = event.layer
+
     if (this.selectedElement === element) {
       this.unselectElement(element)
     } else {
       this.selectElement(element)
     }
+
+    element.elementClicked() // inform cluster to open
+    element.shiftMap()
   }
 
   /**
@@ -278,7 +281,7 @@ export class IotMapManager {
    * Called on marker mouse over (to brind manual cluster in front)
    * @param event - event data
    */
-  private onMarkerMouseOver (event) {
+  private onElementMouseOver (event) {
     event.layer.setZIndexOffset(100)
   }
 
@@ -286,7 +289,7 @@ export class IotMapManager {
    * Called on marker mouse out (to brind manual cluster in background)
    * @param event - event data
    */
-  private onMarkerMouseOut (event) {
+  private onElementMouseOut (event) {
     event.layer.setZIndexOffset(0)
   }
 

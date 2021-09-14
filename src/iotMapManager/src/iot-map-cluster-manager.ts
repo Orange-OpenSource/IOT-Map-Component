@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.2
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -76,10 +76,7 @@ export class IotMapClusterManager {
       const clusterToRemove: IotMapCluster = this.clustersObjects[clusterId]
       if (clusterToRemove) {
         clusterToRemove.removeCluster()
-        const index = this.clustersObjects.indexOf(clusterToRemove, 0)
-        if (index > -1) {
-          this.clustersObjects.splice(index, 1)
-        }
+        delete this.clustersObjects[clusterId]
       }
     }
   }

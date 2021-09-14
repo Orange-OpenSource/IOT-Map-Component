@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.2
+* Version: 2.6.5
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -88,7 +88,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
 
   // popup
   const layerTemp = config.layerTemplates[cluster.layer]
-  const nbCols = (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
+  const nbCols = (cluster.aggregation.length === 1) ? 1 : (cluster.colNumber ?? layerTemp?.popupColNumber) ?? 1
 
   let popup = (nbCols > 1) ? `<div class='iotmap-cluster-big-popup'>` : `<div class='iotmap-cluster-popup'>`
 

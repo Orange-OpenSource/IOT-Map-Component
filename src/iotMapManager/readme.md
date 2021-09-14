@@ -1,4 +1,4 @@
-# IotMapManager V2.6.2
+# IotMapManager V2.6.5
 
 This library provides management of markers dedicated to projects using mapping.
 ## use
@@ -250,6 +250,7 @@ interface Inner {
 }
 ```
 
+Note: the icon has priority over the label. To update a marker having an icon by a label, set `icon` to `null` and define a label.
 
 
 
