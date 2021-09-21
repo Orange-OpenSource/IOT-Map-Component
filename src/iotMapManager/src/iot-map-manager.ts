@@ -57,20 +57,37 @@ export class IotMapManager {
    */
   public init (selector: string): void {
     // init map
-    this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
-      this.config.map.defaultZoomLevel)
+
+
+    const decaly = 0.0015
+    const decalx = 0.003
+
+
+    ///48.83363, 2.37578
+    const centerLat = 48.83363
+    const centerLon = 2.37578
+
+    const tmpLat = centerLat - decaly
+    const tmpLon = centerLon - (decalx / Math.cos(Math.PI * tmpLat / 180))
+
+
+    //this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
+    this.map = L.map(selector).setView(L.latLng(centerLat, centerLon),
+      this.config.map.defaultZoomLevel + 5)
 
     // const imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
     const imageUrl = 'https://c.woopic.com/logo-orange.png'
 
-    const newLat = this.config.map.defaultLat + 0.01
-    const newLon = this.config.map.defaultLng + (0.01 / Math.cos(this.config.map.defaultLat))
+    const newLat = centerLat + decaly
+    const newLon = centerLon + (decalx / Math.cos(Math.PI * newLat / 180))
+
 
     const imageBounds = L.latLngBounds(
-      L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
+      L.latLng(tmpLat, tmpLon),
       L.latLng(newLat, newLon)
     )
-    L.imageOverlay(imageUrl, imageBounds).addTo(this.map)
+    const pic = L.imageOverlay(imageUrl, imageBounds, { className: 'iotmap-imgOverlay', opacity: 0.5 }).addTo(this.map)
+
 
     // init base layers
     L.tileLayer(this.config.map.openStreetMapLayer,
@@ -87,6 +104,7 @@ export class IotMapManager {
       .on('click', this.onClick.bind(this))
 
     this.selectedElement = undefined
+
   }
 
   /**

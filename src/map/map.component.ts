@@ -1,21 +1,21 @@
-import { AfterViewInit, Component } from '@angular/core'
-import { LatLngBounds } from 'leaflet'
+import {AfterViewInit, Component} from '@angular/core'
+import {LatLngBounds} from 'leaflet'
 import {
-  IotMapManager,
-  IotCluster,
-  IotMarker,
-  IotUserMarker,
-  IotPath,
   IotArea,
-  ShapeType,
-  IotMapConfig,
-  TabType,
-  IotMapMarkerManager,
+  IotCluster,
+  IotMapAreaManager,
   IotMapClusterManager,
-  IotMapUserMarkerManager,
+  IotMapConfig,
+  IotMapManager,
+  IotMapMarkerManager,
   IotMapPathManager,
-  IotMapAreaManager
-} from 'iotmapmanager'
+  IotMapUserMarkerManager,
+  IotMarker,
+  IotPath,
+  IotUserMarker,
+  ShapeType,
+  TabType
+} from '../iotMapManager/index'
 
 @Component({
   selector: 'map-component',
@@ -32,6 +32,214 @@ export class MapComponent implements AfterViewInit {
   iotMapPathManager: IotMapPathManager = new IotMapPathManager(this.commonIotMap, this.conf)
   iotMapAreaManager: IotMapAreaManager = new IotMapAreaManager(this.commonIotMap, this.conf)
   title = 'IotMap';
+
+
+  /*louvre: IotMarker[] = [
+    {
+      id: 'louvre0',
+      location: {
+        // 48.860743255641864, 2.334427649553126
+        lat: 48.860743255641864,
+        lng: 2.334427649553126
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'green'
+      }
+    },
+    {
+      id: 'louvre1',
+      location: {
+        //48.861085136556426, 2.3380619555947417
+        lat: 48.861085136556426,
+        lng: 2.3380619555947417
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'blue'
+      }
+    },
+    {
+      id: 'louvre2',
+      location: {
+        //48.86070879079482, 2.339612689001815
+        lat: 48.86070879079482,
+        lng: 2.339612689001815
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'pink'
+      }
+    },
+    {
+      id: 'louvre3',
+      location: {
+        //48.859671980834776, 2.339080338429262
+        //48.8596527407599, 2.3390260721760634
+        lat: 48.8596527407599,
+        lng: 2.3390260721760634
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'red'
+      }
+    },
+    {
+      id: 'louvre4',
+      location: {
+        //48.86003015712788, 2.3374938944991324
+        //48.85999653931958, 2.3374827904733784
+        lat: 48.85999653931958,
+        lng: 2.3374827904733784
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'black'
+      }
+    },
+    {
+      id: 'louvre5',
+      location: {
+        //48.86181511023282, 2.3350407456120705
+        lat: 48.86181511023282,
+        lng: 2.3350407456120705
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'orange'
+      }
+    }
+  ]
+
+  louvreCentre: IotMarker = {
+    id: 'louvreCentre',
+    location: {
+      //48.860725898553596, 2.337101853987359
+      //48.86073553757946, 2.337023713004858
+      // lat: 48.86036,
+      // lng: 2.33855
+      lat: 48.86073553757946,
+      lng:  2.337023713004858
+    },
+    shape: {
+      type: ShapeType.square,
+      anchored: true,
+      color: 'red',
+      plain: false
+    }
+  }
+
+  louvreReference: IotMarker = {
+    id: 'reference',
+    location: {
+      lat: this.louvreCentre.location.lat - 0.0015,
+      lng: this.louvreCentre.location.lng - (0.005 / Math.cos(Math.PI * (this.louvreCentre.location.lat - 0.0015) / 180))
+      // lat: 48.86036 - 0.0015,
+      // lng: 2.33854 - (0.005 / Math.cos(Math.PI * (48.86036 - 0.0015) / 180))
+    },
+    shape: {
+      color: 'purple'
+    }
+  }*/
+
+
+  centreBiblio: IotMarker = {
+    id: 'biblioCentre',
+    location: {
+      //48.83358390619775, 2.3757654984848973
+      //48.83363, 2.37578
+      lat: 48.83363,
+      lng: 2.37578
+    },
+    shape: {
+      type: ShapeType.square,
+      plain: false,
+      color: 'black'
+    }
+  }
+
+  biblioReference: IotMarker = {
+    id: 'ref',
+    location: {
+      lat: this.centreBiblio.location.lat - 0.0015,
+      lng: this.centreBiblio.location.lng - (0.003 / Math.cos(Math.PI * (this.centreBiblio.location.lat - 0.0015) / 180))
+    }
+  }
+
+  biblio: IotMarker[] = [
+    {
+      id: 'b1',
+      location: {
+        //48.83416, 2.37383
+        lat: 48.83416,
+        lng: 2.37383
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'blue'
+      }
+    },
+    {
+      id: 'b2',
+      location: {
+        //48.83498, 2.37534
+        lat: 48.83498,
+        lng: 2.37534
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'red'
+      }
+    },
+    {
+      id: 'b3',
+      location: {
+        //48.83309, 2.37772
+        lat: 48.83309,
+        lng: 2.37772
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'orange'
+      }
+    },
+    {
+      id: 'b4',
+      location: {
+        //48.83226, 2.37622
+        lat: 48.83226,
+        lng: 2.37622
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'green'
+      }
+    },
+    {
+      id: 'b5',
+      location: {
+        lat: 48.83414,
+        lng: 2.37411
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'blue'
+      }
+    },
+    {
+      id: 'b6',
+      location: {
+        lat: 48.83411,
+        lng: 2.37472
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'blue'
+      }
+    }
+  ]
+
+
 
   markersList: IotMarker[] = [
     // square
@@ -595,6 +803,47 @@ export class MapComponent implements AfterViewInit {
     ]
   }
 
+
+  transforme (P1: IotMarker, P2: IotMarker, center: IotMarker, P: IotMarker, id: string) : IotMarker {
+    const xa = P1.location.lat - center.location.lat
+    const ya = (P1.location.lng - center.location.lng) * Math.cos(Math.PI * P1.location.lat / 180)
+
+    const xb = P2.location.lat - center.location.lat
+    const yb = (P2.location.lng - center.location.lng) * Math.cos(Math.PI * P2.location.lat / 180)
+
+    const x = P.location.lat - center.location.lat
+    const y = (P.location.lng - center.location.lng) * Math.cos(Math.PI * P.location.lat / 180)
+
+    const d = Math.sqrt(xa * xa + ya * ya)
+    const cosT = (xa * xb + ya * yb) / (d * d)
+    const sinT = (yb * xa - ya * xb) / (d * d)
+
+    const lat = center.location.lat + (x * cosT - y * sinT)
+    const lng = center.location.lng + (x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)
+
+    const distance = Math.sqrt((x * cosT - y * sinT) * (x * cosT - y * sinT) + ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)) * ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)))
+    const Presult: IotMarker = {
+      id: id,
+      location: {
+        lat: lat,
+        lng: lng
+      },
+      shape: {
+        type: ShapeType.square,
+        color: P.shape.color
+      },
+      popup: {
+        title: 'distance',
+        body: distance.toString()
+      }
+    }
+    return Presult
+  }
+
+
+
+
+
   ngAfterViewInit (): void {
     this.conf.setConfig({
       markerTemplates: {
@@ -646,17 +895,97 @@ export class MapComponent implements AfterViewInit {
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
 
-    this.commonIotMap.onEltClick = (id) => {
+    /*this.commonIotMap.onEltClick = (id) => {
       setTimeout(() => {
-        this.iotMapMarkerManager.updateMarker(id, { popup: { title: 'Update', body: 'Popup mise à jour' } })
+        this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
       }, 3000)
-    }
+    }*/
     this.commonIotMap.init('iotMap')
-    this.iotMapMarkerManager.addMarkers(this.markersList)
-    this.iotMapClusterManager.addClusters(this.clustersList)
-    this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
-    this.iotMapPathManager.addPath(this.chemin)
 
-    this.iotMapAreaManager.addArea(this.zone)
+    this.iotMapMarkerManager.addMarker(this.centreBiblio)
+    this.iotMapMarkerManager.addMarker(this.biblioReference)
+    this.iotMapMarkerManager.addMarkers(this.biblio)
+
+    const B0 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[0], 'bib0')
+    this.iotMapMarkerManager.addMarker(B0)
+
+    const B1 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[1], 'bib1')
+    this.iotMapMarkerManager.addMarker(B1)
+
+    const B2 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[2], 'bib2')
+    this.iotMapMarkerManager.addMarker(B2)
+
+    const B3 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[3], 'bib3')
+    this.iotMapMarkerManager.addMarker(B3)
+
+    const B4 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[4], 'bib4')
+    this.iotMapMarkerManager.addMarker(B4)
+
+    const B5 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[5], 'bib5')
+    this.iotMapMarkerManager.addMarker(B5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*this.iotMapMarkerManager.addMarkers(this.louvre)
+
+
+    this.iotMapMarkerManager.addMarker(this.louvreCentre)
+    // this.iotMapMarkerManager.addMarker(this.louvreReference)
+
+
+    const Pres = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[0], 'l')
+    this.iotMapMarkerManager.addMarker(Pres)
+
+    const Pres1 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[1], 'l1')
+    this.iotMapMarkerManager.addMarker(Pres1)
+
+    const Pres2 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[2], 'l2')
+    this.iotMapMarkerManager.addMarker(Pres2)
+
+    const Pres3 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[3], 'l3')
+    this.iotMapMarkerManager.addMarker(Pres3)
+
+    const Pres4 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[4], 'l4')
+    this.iotMapMarkerManager.addMarker(Pres4)
+
+    const Pres5 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[5], 'l5')
+    this.iotMapMarkerManager.addMarker(Pres5)*/
+
+    // const Pres1 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[0], 'l0')
+    // this.iotMapMarkerManager.addMarker(Pres1)
+    //
+    // const Pres2 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[1], 'l1')
+    // this.iotMapMarkerManager.addMarker(Pres2)
+    //
+    // const Pres3 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[2], 'l2' )
+    // this.iotMapMarkerManager.addMarker(Pres3)
+
+
+    // this.iotMapMarkerManager.addMarkers(this.markersList)
+    // this.iotMapClusterManager.addClusters(this.clustersList)
+    // this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
+    // this.iotMapPathManager.addPath(this.chemin)
+    //
+    // this.iotMapAreaManager.addArea(this.zone)
   }
 }
