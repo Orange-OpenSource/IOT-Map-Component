@@ -119,17 +119,17 @@ export class MapComponent implements AfterViewInit {
     {
       id: 's7',
       location: {
-        lat: 40.895,
-        lng: 6.890
+        lat: 44.895,
+        lng: 4.885
       },
       shape: {
         type: ShapeType.square,
         anchored: true,
-        plain: false,
+        plain: false // ,
         // accuracy: 200
       },
       inner: {
-        img: 'https://img.icons8.com/ios/452/apple-phone.png',
+        img: 'https://c.woopic.com/logo-orange.png',
         color: 'green'
       },
       layer: 'etablissements',
