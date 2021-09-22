@@ -1,21 +1,21 @@
-import {AfterViewInit, Component} from '@angular/core'
-import {LatLngBounds} from 'leaflet'
+import { AfterViewInit, Component } from '@angular/core'
+import { LatLngBounds } from 'leaflet'
 import {
-  IotArea,
-  IotCluster,
-  IotMapAreaManager,
-  IotMapClusterManager,
-  IotMapConfig,
   IotMapManager,
-  IotMapMarkerManager,
-  IotMapPathManager,
-  IotMapUserMarkerManager,
+  IotCluster,
   IotMarker,
-  IotPath,
   IotUserMarker,
+  IotPath,
+  IotArea,
   ShapeType,
-  TabType
-} from '../iotMapManager/index'
+  IotMapConfig,
+  TabType,
+  IotMapMarkerManager,
+  IotMapClusterManager,
+  IotMapUserMarkerManager,
+  IotMapPathManager,
+  IotMapAreaManager
+} from 'iotmapmanager'
 
 @Component({
   selector: 'map-component',
@@ -324,7 +324,25 @@ export class MapComponent implements AfterViewInit {
       },
       template: 'square'
     },
-
+    {
+      id: 's7',
+      location: {
+        lat: 44.895,
+        lng: 4.885
+      },
+      shape: {
+        type: ShapeType.square,
+        anchored: true,
+        plain: false // ,
+        // accuracy: 200
+      },
+      inner: {
+        img: 'https://c.woopic.com/logo-orange.png',
+        color: 'green'
+      },
+      layer: 'etablissements',
+      status: 'inactive'
+    },
     // POI
     {
       id: 'p1',

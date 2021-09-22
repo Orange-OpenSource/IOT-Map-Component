@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.5
+* Version: 2.6.6
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -482,9 +482,11 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   if (marker.inner) {
     const innerColor = (marker.inner.color !== undefined) ? marker.inner.color : config.markers.default.inner.color
 
-    if (marker.inner.icon) { // icon
+    if (marker.inner.img) {
+      innerDesign = `<img src='${marker.inner.img}' class='iotmap-innerspan ${((selected) ? ' iotmap-imgSelected' : ' iotmap-imgUnselected')}'>`
+    } else if (marker.inner.icon) { // icon
       innerDesign = `<span class='iotmap-innerspan ${marker.inner.icon} ${((selected) ? ' iotmap-iconSelected' : ' iotmap-iconUnselected')}'
-                           style='color: ${innerColor}'></span>`
+      style='color: ${innerColor}'></span>`
     } else if (marker.inner.label) { // label
       innerDesign = `<span class='iotmap-innerspan ${((selected) ? ' iotmap-labelSelected' : ' iotmap-labelUnselected')}'
                            style='color: ${innerColor}'>${marker.inner.label[0]}</span>`

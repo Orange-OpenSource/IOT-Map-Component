@@ -6,7 +6,6 @@
 - [Quick start](#quick-start)
 - [Storybook](#storybook)
 
-
 ## Presentation
 
 IOT-Map-Component is a map component, based on [Leaflet](https://leafletjs.com/), to be integrated in computer or mobile web applications developed in Angular or REACT. 
@@ -16,7 +15,7 @@ This component manipulates the following <ins>entities</ins>, with according **a
 
 <ins>Markers</ins>, to be displayed at a **location**, on a **layer** of the map, potentially described by a **popup**, with **title** and **body** HTML messages displayed on click. Markers contain also: 
 - a **shape** with a **type** (can be *circle* or *square*), **anchored** or not, **plain** or not, displayed in a **color** and with a circle of **accuracy**. For *circle* shapes, **shape** can contain additionnally a **percent** gauge and an angle (0-360) **direction**,
-- an **inner** which can be either an **icon** or a **label**, in a specific **color**,
+- an **inner** which can be either an **icon** or a **label**, in a specific **color**, or a **img** (which can be a local or Internet image).
 
 Note that shapes appear bigger when selected, and always with an anchor for a better accuracy.
 
