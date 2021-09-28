@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core'
-import { LatLngBounds } from 'leaflet'
+//import { LatLngBounds } from 'leaflet'
+import * as L2 from 'leaflet'
 import {
   IotMapManager,
   IotCluster,
@@ -15,7 +16,8 @@ import {
   IotMapUserMarkerManager,
   IotMapPathManager,
   IotMapAreaManager
-} from 'iotmapmanager'
+// } from 'iotmapmanager'
+} from '../iotMapManager/index'
 
 @Component({
   selector: 'map-component',
@@ -142,7 +144,7 @@ export class MapComponent implements AfterViewInit {
     }
   }*/
 
-
+/*
   centreBiblio: IotMarker = {
     id: 'biblioCentre',
     location: {
@@ -239,6 +241,107 @@ export class MapComponent implements AfterViewInit {
     }
   ]
 
+*/
+
+  decalLat = 0.001
+  decalLng = 0.0056
+
+  gailleton: IotMarker[] = [
+    {
+      id: 'g1',
+      location: {
+        //45.75512743341294, 4.834667681878418
+        lat: 45.755134,
+        lng: 4.834652
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'blue'
+      }
+    },
+    {
+      id: 'g2',
+      location: {
+        //45.75566928929636, 4.834978641871743
+        lat: 45.755659,
+        lng: 4.835008
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'red'
+      }
+    },
+    {
+      id: 'g3',
+      location: {
+        //45.75570139293618, 4.835210829204908
+        lat: 45.755696,
+        lng: 4.835217
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'orange'
+      }
+    },
+    {
+      id: 'g4',
+      location: {
+        //45.75508243571907, 4.834834773352696
+        // 45.75508251864569, 4.834835319950544
+        lat: 45.755085,
+        lng: 4.834809
+      },
+      shape: {
+        type: ShapeType.circle,
+        color: 'green'
+      }
+    }
+  ]
+
+  gailletonCentre: IotMarker = {
+    id: 'gailletonCentre',
+    location: {
+      //45.755429627783094, 4.834957807600014
+      // 45,75541415631009 / 4,834938805301769
+      //lat: 45.75541415631009,
+      //lng: 4.834938805301769
+      lat: (this.gailleton[0].location.lat + this.gailleton[2].location.lat) / 2,
+      lng: (this.gailleton[0].location.lng + this.gailleton[2].location.lng) / 2
+    },
+    shape: {
+      type: ShapeType.square,
+      plain: false,
+      color: 'black'
+    },
+    inner: {
+      img: 'https://c.woopic.com/logo-orange.png'
+    }
+  }
+
+  demoImg: IotMarker = {
+    id: 'demoImg',
+    location: {
+      // 45.76478072570448, 4.845946665049823
+      lat: 45.76478072570448,
+      lng: 4.845946665049823
+    },
+    shape: {
+      type: ShapeType.square,
+      plain: false,
+      color: 'black'
+    },
+    inner: {
+      img: 'https://c.woopic.com/logo-orange.png'
+    }
+  }
+
+  gailletonReference: IotMarker = {
+    id: 'ref',
+    location: {
+      lat: this.gailletonCentre.location.lat - this.decalLat,
+      lng: this.gailletonCentre.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
+    }
+  }
 
 
   markersList: IotMarker[] = [
@@ -544,7 +647,7 @@ export class MapComponent implements AfterViewInit {
         lat: 44.882,
         lng: 4.895
       },
-      markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9]),
+      markersArea: new L2.LatLngBounds([44.880, 4.89], [44.885, 4.9]),
       contentLabel: 'interfaces',
       colNumber: 2,
       childCount: 4860,
@@ -822,6 +925,7 @@ export class MapComponent implements AfterViewInit {
   }
 
 
+
   transforme (P1: IotMarker, P2: IotMarker, center: IotMarker, P: IotMarker, id: string) : IotMarker {
     const xa = P1.location.lat - center.location.lat
     const ya = (P1.location.lng - center.location.lng) * Math.cos(Math.PI * P1.location.lat / 180)
@@ -849,10 +953,6 @@ export class MapComponent implements AfterViewInit {
       shape: {
         type: ShapeType.square,
         color: P.shape.color
-      },
-      popup: {
-        title: 'distance',
-        body: distance.toString()
       }
     }
     return Presult
@@ -878,6 +978,9 @@ export class MapComponent implements AfterViewInit {
         }
       },
       map: {
+        defaultLat: this.demoImg.location.lat,  //   this.gailletonCentre.location.lat,
+        defaultLng: this.demoImg.location.lng,  // this.gailletonCentre.location.lng,
+        defaultZoomLevel: 16,
         externalClustering: true,
         layerControl: true,
         exclusiveLayers: false
@@ -913,34 +1016,94 @@ export class MapComponent implements AfterViewInit {
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
 
-    /*this.commonIotMap.onEltClick = (id) => {
-      setTimeout(() => {
-        this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
-      }, 3000)
-    }*/
+    this.commonIotMap.onEltClick = (id) => {
+      if (id === 'gailletonCentre') {
+        setTimeout(() => {
+          // this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
+
+          const imageUrl = '../assets/plan.png'
+
+          const tmpLat = this.gailletonCentre.location.lat - this.decalLat //45.752324247407444
+          const tmpLon = this.gailletonCentre.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
+
+          const newLat = this.gailletonCentre.location.lat + this.decalLat
+          const newLon = this.gailletonCentre.location.lng + (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
+
+
+          const imageBounds = new L2.LatLngBounds(
+            L2.latLng(tmpLat, tmpLon),
+            L2.latLng(newLat, newLon)
+          )
+
+          const pic = L2.imageOverlay(imageUrl, imageBounds, {className: 'iotmap-imgOverlay'}).addTo(this.commonIotMap.getIotMap())
+
+
+          this.iotMapMarkerManager.removeMarker('gailletonCentre')
+
+
+          const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[0], 'bib0')
+          this.iotMapMarkerManager.addMarker(B0)
+
+          const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[1], 'bib1')
+          this.iotMapMarkerManager.addMarker(B1)
+
+          const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[2], 'bib2')
+          this.iotMapMarkerManager.addMarker(B2)
+
+          const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[3], 'bib3')
+          this.iotMapMarkerManager.addMarker(B3)
+
+          this.iotMapMarkerManager.removeMarkers(['g1', 'g2', 'g3', 'g4'])
+          this.commonIotMap.getIotMap().setZoom(this.commonIotMap.getIotMap().getZoom() - 1)
+        }, 100)
+      }
+    }
     this.commonIotMap.init('iotMap')
 
-    this.iotMapMarkerManager.addMarker(this.centreBiblio)
-    this.iotMapMarkerManager.addMarker(this.biblioReference)
-    this.iotMapMarkerManager.addMarkers(this.biblio)
+    this.iotMapMarkerManager.addMarker(this.demoImg)
+    this.iotMapMarkerManager.addMarker(this.gailletonCentre)
+    // this.iotMapMarkerManager.addMarker(this.gailletonReference)
+    this.iotMapMarkerManager.addMarkers(this.gailleton)
 
-    const B0 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[0], 'bib0')
-    this.iotMapMarkerManager.addMarker(B0)
+    // const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[0], 'bib0')
+    // this.iotMapMarkerManager.addMarker(B0)
+    //
+    // const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[1], 'bib1')
+    // this.iotMapMarkerManager.addMarker(B1)
+    //
+    // const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[2], 'bib2')
+    // this.iotMapMarkerManager.addMarker(B2)
+    //
+    // const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[3], 'bib3')
+    // this.iotMapMarkerManager.addMarker(B3)
 
-    const B1 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[1], 'bib1')
-    this.iotMapMarkerManager.addMarker(B1)
+    // const B4 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[4], 'bib4')
+    // this.iotMapMarkerManager.addMarker(B4)
+    // const B4 = this.transforme(this.gailleton[0], this.gailletonReference, this.gailletonCentre, this.gailleton[4], 'bib4')
+    // this.iotMapMarkerManager.addMarker(B4)
 
-    const B2 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[2], 'bib2')
-    this.iotMapMarkerManager.addMarker(B2)
 
-    const B3 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[3], 'bib3')
-    this.iotMapMarkerManager.addMarker(B3)
-
-    const B4 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[4], 'bib4')
-    this.iotMapMarkerManager.addMarker(B4)
-
-    const B5 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[5], 'bib5')
-    this.iotMapMarkerManager.addMarker(B5)
+    // this.iotMapMarkerManager.addMarker(this.centreBiblio)
+    // this.iotMapMarkerManager.addMarker(this.biblioReference)
+    // this.iotMapMarkerManager.addMarkers(this.biblio)
+    //
+    // const B0 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[0], 'bib0')
+    // this.iotMapMarkerManager.addMarker(B0)
+    //
+    // const B1 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[1], 'bib1')
+    // this.iotMapMarkerManager.addMarker(B1)
+    //
+    // const B2 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[2], 'bib2')
+    // this.iotMapMarkerManager.addMarker(B2)
+    //
+    // const B3 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[3], 'bib3')
+    // this.iotMapMarkerManager.addMarker(B3)
+    //
+    // const B4 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[4], 'bib4')
+    // this.iotMapMarkerManager.addMarker(B4)
+    //
+    // const B5 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[5], 'bib5')
+    // this.iotMapMarkerManager.addMarker(B5)
 
 
 
