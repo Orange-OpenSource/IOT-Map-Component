@@ -17,6 +17,7 @@ import 'leaflet.markercluster'
 import { IotMapConfig } from './iot-map-config'
 import { IotMapDisplay } from './iot-map-types'
 import { getAutomaticClusterIcon } from './iot-map-icons'
+import {TileLayer} from "leaflet";
 
 export class IotMapManager {
   private map: L.Map
@@ -32,6 +33,8 @@ export class IotMapManager {
   private firstLayerAdded = true
   private accuracyDisplayed = true
   private currentDisplayedLayers: string[] = []
+
+  private tile: TileLayer;
 
   /**
    * Constructor
@@ -61,9 +64,10 @@ export class IotMapManager {
       this.config.map.defaultZoomLevel)
 
     // init base layers
-    L.tileLayer(this.config.map.openStreetMapLayer,
-      { attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })
-      .addTo(this.map)
+    this.tile = L.tileLayer(this.config.map.openStreetMapLayer,
+      {attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+    this.tile.addTo(this.map)
+
     if (this.config.map.layerControl) {
       this.layerControl = L.control.layers(this.baseLayers, this.markersLayers).addTo(this.map)
     }
@@ -75,9 +79,16 @@ export class IotMapManager {
       .on('click', this.onClick.bind(this))
 
     this.selectedElement = undefined
-
   }
 
+  public setIndoorMap () {
+    this.tile.removeFrom(this.map)
+  }
+
+  public setOutdoorMap () {
+    this.tile.removeFrom(this.map)
+    this.tile.addTo(this.map)
+  }
   /**
    * Create a layer according to marker / cluster types : if clustering is automatic or external, if layer is for
    * displaying accuracy areas or user marker...
