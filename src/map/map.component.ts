@@ -298,8 +298,28 @@ export class MapComponent implements AfterViewInit {
     }
   ]
 
-  gailletonCentre: IotMarker = {
-    id: 'gailletonCentre',
+  gailletonCentreIndoor: IotMarker = {
+    id: 'gailletonCentreIndoor',
+    location: {
+      //45.755429627783094, 4.834957807600014
+      // 45,75541415631009 / 4,834938805301769
+      //lat: 45.75541415631009,
+      //lng: 4.834938805301769
+      lat: (this.gailleton[0].location.lat + this.gailleton[2].location.lat) / 2,
+      lng: (this.gailleton[0].location.lng + this.gailleton[2].location.lng) / 2
+    },
+    shape: {
+      type: ShapeType.square,
+      plain: false,
+      color: 'black'
+    },
+    inner: {
+      img: 'https://c.woopic.com/logo-orange.png'
+    }
+  }
+
+  gailletonCentreOutdoor: IotMarker = {
+    id: 'gailletonCentreOutdoor',
     location: {
       //45.755429627783094, 4.834957807600014
       // 45,75541415631009 / 4,834938805301769
@@ -338,8 +358,8 @@ export class MapComponent implements AfterViewInit {
   gailletonReference: IotMarker = {
     id: 'ref',
     location: {
-      lat: this.gailletonCentre.location.lat - this.decalLat,
-      lng: this.gailletonCentre.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
+      lat: this.gailletonCentreOutdoor.location.lat - this.decalLat,
+      lng: this.gailletonCentreOutdoor.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
     }
   }
 
@@ -924,9 +944,9 @@ export class MapComponent implements AfterViewInit {
     ]
   }
 
+  pic: L2.ImageOverlay
 
-
-  transforme (P1: IotMarker, P2: IotMarker, center: IotMarker, P: IotMarker, id: string) : IotMarker {
+  transforme (P1: IotMarker, P2: IotMarker, center: IotMarker, P: IotMarker) : IotMarker {
     const xa = P1.location.lat - center.location.lat
     const ya = (P1.location.lng - center.location.lng) * Math.cos(Math.PI * P1.location.lat / 180)
 
@@ -943,9 +963,9 @@ export class MapComponent implements AfterViewInit {
     const lat = center.location.lat + (x * cosT - y * sinT)
     const lng = center.location.lng + (x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)
 
-    const distance = Math.sqrt((x * cosT - y * sinT) * (x * cosT - y * sinT) + ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)) * ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)))
+    // const distance = Math.sqrt((x * cosT - y * sinT) * (x * cosT - y * sinT) + ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)) * ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)))
     const Presult: IotMarker = {
-      id: id,
+      id: P.id + 'x',
       location: {
         lat: lat,
         lng: lng
@@ -1017,51 +1037,62 @@ export class MapComponent implements AfterViewInit {
     }
 
     this.commonIotMap.onEltClick = (id) => {
-      if (id === 'gailletonCentre') {
-        setTimeout(() => {
-          // this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
+      if (id === 'gailletonCentreOutdoor') {
+        // this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
+        this.commonIotMap.setIndoorMap()
 
-          const imageUrl = '../assets/plan.png'
+        const imageUrl = '../assets/plan.png'
 
-          const tmpLat = this.gailletonCentre.location.lat - this.decalLat //45.752324247407444
-          const tmpLon = this.gailletonCentre.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
+        const tmpLat = this.gailletonCentreOutdoor.location.lat - this.decalLat //45.752324247407444
+        const tmpLon = this.gailletonCentreOutdoor.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
 
-          const newLat = this.gailletonCentre.location.lat + this.decalLat
-          const newLon = this.gailletonCentre.location.lng + (this.decalLng / Math.cos(Math.PI * (this.gailletonCentre.location.lat - this.decalLat) / 180))
-
-
-          const imageBounds = new L2.LatLngBounds(
-            L2.latLng(tmpLat, tmpLon),
-            L2.latLng(newLat, newLon)
-          )
-
-          const pic = L2.imageOverlay(imageUrl, imageBounds, {className: 'iotmap-imgOverlay'}).addTo(this.commonIotMap.getIotMap())
+        const newLat = this.gailletonCentreOutdoor.location.lat + this.decalLat
+        const newLon = this.gailletonCentreOutdoor.location.lng + (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
 
 
-          this.iotMapMarkerManager.removeMarker('gailletonCentre')
+        const imageBounds = new L2.LatLngBounds(
+          L2.latLng(tmpLat, tmpLon),
+          L2.latLng(newLat, newLon)
+        )
+
+        this.pic = L2.imageOverlay(imageUrl, imageBounds, {className: 'iotmap-imgOverlay'})
+        this.pic.addTo(this.commonIotMap.getIotMap())
 
 
-          const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[0], 'bib0')
-          this.iotMapMarkerManager.addMarker(B0)
+        this.iotMapMarkerManager.removeMarker('gailletonCentreOutdoor')
+        this.iotMapMarkerManager.addMarker(this.gailletonCentreIndoor)
 
-          const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[1], 'bib1')
-          this.iotMapMarkerManager.addMarker(B1)
+        const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[0])
+        this.iotMapMarkerManager.addMarker(B0)
 
-          const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[2], 'bib2')
-          this.iotMapMarkerManager.addMarker(B2)
+        const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[1])
+        this.iotMapMarkerManager.addMarker(B1)
 
-          const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[3], 'bib3')
-          this.iotMapMarkerManager.addMarker(B3)
+        const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[2])
+        this.iotMapMarkerManager.addMarker(B2)
 
-          this.iotMapMarkerManager.removeMarkers(['g1', 'g2', 'g3', 'g4'])
-          this.commonIotMap.getIotMap().setZoom(this.commonIotMap.getIotMap().getZoom() - 1)
-        }, 100)
+        const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[3])
+        this.iotMapMarkerManager.addMarker(B3)
+
+        this.iotMapMarkerManager.removeMarkers(['g1', 'g2', 'g3', 'g4'])
+        this.commonIotMap.getIotMap().setZoom(this.conf.map.defaultZoomLevel)
+
+      } else if (id === 'gailletonCentreIndoor') {
+        this.commonIotMap.setOutdoorMap()
+
+        this.pic.removeFrom(this.commonIotMap.getIotMap())
+
+        this.iotMapMarkerManager.removeMarker('gailletonCentreIndoor')
+        this.iotMapMarkerManager.addMarker(this.gailletonCentreOutdoor)
+        this.iotMapMarkerManager.addMarkers(this.gailleton)
+        this.iotMapMarkerManager.removeMarkers(['g1x', 'g2x', 'g3x', 'g4x'])
+        this.commonIotMap.getIotMap().setZoom(this.conf.map.defaultZoomLevel)
       }
     }
     this.commonIotMap.init('iotMap')
 
     this.iotMapMarkerManager.addMarker(this.demoImg)
-    this.iotMapMarkerManager.addMarker(this.gailletonCentre)
+    this.iotMapMarkerManager.addMarker(this.gailletonCentreOutdoor)
     // this.iotMapMarkerManager.addMarker(this.gailletonReference)
     this.iotMapMarkerManager.addMarkers(this.gailleton)
 
