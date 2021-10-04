@@ -681,7 +681,6 @@ export class MapComponent implements AfterViewInit {
     this.iotMapClusterManager.updateCluster('cluster 1', { markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9])})
 
     this.iotMapAreaManager.addArea(this.zone)
-
   }
 }
 
