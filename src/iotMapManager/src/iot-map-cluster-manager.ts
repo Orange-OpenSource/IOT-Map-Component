@@ -142,6 +142,10 @@ export class IotMapClusterManager {
           currentClusterInfos.aggregation = params.aggregation
           htmlModificationNeeded = true
         }
+        // Update cluster zoom
+        if (params.markersArea !== undefined) {
+          currentClusterInfos.markersArea = params.markersArea
+        }
 
         // update cluster icon
         if (htmlModificationNeeded) {

@@ -336,7 +336,8 @@ export class MapComponent implements AfterViewInit {
         lat: 44.882,
         lng: 4.895
       },
-      markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9]),
+      // markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9]),
+      markersArea: new LatLngBounds([0,0], [1,1]),
       contentLabel: 'interfaces',
       colNumber: 2,
       childCount: 4860,
@@ -676,8 +677,11 @@ export class MapComponent implements AfterViewInit {
     this.iotMapClusterManager.addClusters(this.clustersList)
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
     this.iotMapPathManager.addPath(this.chemin)
+    // Do the same when you want to override the zoom on a clicked cluster
+    this.iotMapClusterManager.updateCluster('cluster 1', { markersArea: new LatLngBounds([44.880, 4.89], [44.885, 4.9])})
 
     this.iotMapAreaManager.addArea(this.zone)
+
   }
 }
 
