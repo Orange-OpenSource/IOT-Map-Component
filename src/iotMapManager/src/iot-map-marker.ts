@@ -1,6 +1,6 @@
 /*
 * Software Name : IotMapManager
-* Version: 2.6.7
+* Version: 2.6.8
 * SPDX-FileCopyrightText: Copyright (c) 2020 Orange
 * SPDX-License-Identifier: MIT
 *
@@ -51,11 +51,6 @@ export class IotMapMarker extends IotMapDisplay {
     this.selected = selected
     this.setIcon(getMarkerIcon(this.data, this.config, selected))
     this.setZIndexOffset((selected) ? 100 : 0)
-
-    // if (this.selected && this.data.popup !== undefined) {
-    //   // move map if marker is too close to the edge
-    //   this.shiftMap()
-    // }
   }
 
   public getData (): IotMarker {
@@ -122,11 +117,15 @@ export class IotMapMarker extends IotMapDisplay {
       const northEastPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getNorthEast())
       const southWestPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getSouthWest())
 
+      let needToshift = false
+
       // top
       if (eltPos.y - northEastPos.y < 200) {
         const shift = 200 - (eltPos.y - northEastPos.y)
         northEastPos.y -= shift
         southWestPos.y -= shift
+
+        needToshift = true
       }
 
       // left
@@ -134,6 +133,8 @@ export class IotMapMarker extends IotMapDisplay {
         const shift = 150 - (eltPos.x - southWestPos.x)
         northEastPos.x -= shift
         southWestPos.x -= shift
+
+        needToshift = true
       }
 
       // bottom - no need to shift
@@ -142,10 +143,14 @@ export class IotMapMarker extends IotMapDisplay {
         const shift = 150 - (northEastPos.x - eltPos.x)
         northEastPos.x += shift
         southWestPos.x += shift
+
+        needToshift = true
       }
 
-      const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
-      this.map.getIotMap().flyToBounds(newMapBounds)
+      if (needToshift) {
+        const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
+        this.map.getIotMap().flyToBounds(newMapBounds)
+      }
     }
   }
 }

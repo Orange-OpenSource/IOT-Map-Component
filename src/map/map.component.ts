@@ -48,6 +48,48 @@ export class MapComponent implements AfterViewInit {
       },
       inner: {
         label: 'H'
+      },
+      popup: {
+        title: 'S1',
+        body: 'body de s1'
+      }
+    },
+    {
+      id: 's1bis',
+      location: {
+        lat: 44.895,
+        lng: 4.870
+      },
+      template: 'square',
+      status: 'test', // 'warning',
+      tab: {
+        content: '<span class="iotmap-icons-vehicle"></span>'
+      },
+      inner: {
+        label: 'H'
+      },
+      popup: {
+        title: 'S1bis',
+        body: 'body de s1bis'
+      }
+    },
+    {
+      id: 's1ter',
+      location: {
+        lat: 44.895,
+        lng: 4.870
+      },
+      template: 'square',
+      status: 'test', // 'warning',
+      tab: {
+        content: '<span class="iotmap-icons-vehicle"></span>'
+      },
+      inner: {
+        label: 'H'
+      },
+      popup: {
+        title: 'S1ter',
+        body: 'body de s1ter'
       }
     },
     {
@@ -630,7 +672,7 @@ export class MapComponent implements AfterViewInit {
         }
       },
       map: {
-        externalClustering: true,
+        externalClustering: false,
         layerControl: true,
         exclusiveLayers: false
       },
@@ -665,13 +707,6 @@ export class MapComponent implements AfterViewInit {
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
     }
 
-    this.commonIotMap.onEltClick = (id) => {
-      console.log('click on ' + id + ' !')
-
-      setTimeout(() => {
-        this.iotMapMarkerManager.updateMarker(id, { popup: { title: 'Update', body: 'Popup mise à jour' } })
-      }, 3000)
-    }
     this.commonIotMap.init('iotMap')
     this.iotMapMarkerManager.addMarkers(this.markersList)
     this.iotMapClusterManager.addClusters(this.clustersList)
