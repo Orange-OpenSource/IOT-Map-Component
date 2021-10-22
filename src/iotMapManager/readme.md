@@ -38,7 +38,7 @@ iotMapPathManager: IotMapPathManager = new IotMapPathManager(this.commonIotMap, 
 In your css file:
 
 ```
-@import 'iotmapmanager/iotMapManager.css'; 
+@import 'iotmapmanager/iot-map-manager.css';
 ```
 
 If your use TypeScript, all types are defined in lib/index.d.ts
