@@ -3,3 +3,10 @@
 @import "~boosted/dist/css/boosted.min.css";
 
 @import 'assets/fonts/iotmap-icons.css';
+
+
+
+.iotmap-imgOverlay {
+  transform-origin: left bottom !important;
+}
+

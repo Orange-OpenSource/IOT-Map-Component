@@ -27,6 +27,7 @@ export class IotMapConfig {
     externalClustering: false,
     layerControl: true,
     exclusiveLayers: false,
+    bearing: 0,
 
     // *** Private conf: not modified by SetConfig ***
     geoportailLayer: 'https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
@@ -390,6 +391,9 @@ export class IotMapConfig {
       }
       if (newConfig.map.exclusiveLayers !== undefined) {
         this.map.exclusiveLayers = newConfig.map.exclusiveLayers
+      }
+      if (newConfig.map.bearing !== undefined) {
+        this.map.bearing = newConfig.map.bearing
       }
     }
 

@@ -1,5 +1,4 @@
 import { AfterViewInit, Component } from '@angular/core'
-//import { LatLngBounds } from 'leaflet'
 import * as L2 from 'leaflet'
 import {
   IotMapManager,
@@ -35,222 +34,10 @@ export class MapComponent implements AfterViewInit {
   iotMapAreaManager: IotMapAreaManager = new IotMapAreaManager(this.commonIotMap, this.conf)
   title = 'IotMap';
 
-
-  /*louvre: IotMarker[] = [
-    {
-      id: 'louvre0',
-      location: {
-        // 48.860743255641864, 2.334427649553126
-        lat: 48.860743255641864,
-        lng: 2.334427649553126
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'green'
-      }
-    },
-    {
-      id: 'louvre1',
-      location: {
-        //48.861085136556426, 2.3380619555947417
-        lat: 48.861085136556426,
-        lng: 2.3380619555947417
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'blue'
-      }
-    },
-    {
-      id: 'louvre2',
-      location: {
-        //48.86070879079482, 2.339612689001815
-        lat: 48.86070879079482,
-        lng: 2.339612689001815
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'pink'
-      }
-    },
-    {
-      id: 'louvre3',
-      location: {
-        //48.859671980834776, 2.339080338429262
-        //48.8596527407599, 2.3390260721760634
-        lat: 48.8596527407599,
-        lng: 2.3390260721760634
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'red'
-      }
-    },
-    {
-      id: 'louvre4',
-      location: {
-        //48.86003015712788, 2.3374938944991324
-        //48.85999653931958, 2.3374827904733784
-        lat: 48.85999653931958,
-        lng: 2.3374827904733784
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'black'
-      }
-    },
-    {
-      id: 'louvre5',
-      location: {
-        //48.86181511023282, 2.3350407456120705
-        lat: 48.86181511023282,
-        lng: 2.3350407456120705
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'orange'
-      }
-    }
-  ]
-
-  louvreCentre: IotMarker = {
-    id: 'louvreCentre',
-    location: {
-      //48.860725898553596, 2.337101853987359
-      //48.86073553757946, 2.337023713004858
-      // lat: 48.86036,
-      // lng: 2.33855
-      lat: 48.86073553757946,
-      lng:  2.337023713004858
-    },
-    shape: {
-      type: ShapeType.square,
-      anchored: true,
-      color: 'red',
-      plain: false
-    }
-  }
-
-  louvreReference: IotMarker = {
-    id: 'reference',
-    location: {
-      lat: this.louvreCentre.location.lat - 0.0015,
-      lng: this.louvreCentre.location.lng - (0.005 / Math.cos(Math.PI * (this.louvreCentre.location.lat - 0.0015) / 180))
-      // lat: 48.86036 - 0.0015,
-      // lng: 2.33854 - (0.005 / Math.cos(Math.PI * (48.86036 - 0.0015) / 180))
-    },
-    shape: {
-      color: 'purple'
-    }
-  }*/
-
-/*
-  centreBiblio: IotMarker = {
-    id: 'biblioCentre',
-    location: {
-      //48.83358390619775, 2.3757654984848973
-      //48.83363, 2.37578
-      lat: 48.83363,
-      lng: 2.37578
-    },
-    shape: {
-      type: ShapeType.square,
-      plain: false,
-      color: 'black'
-    }
-  }
-
-  biblioReference: IotMarker = {
-    id: 'ref',
-    location: {
-      lat: this.centreBiblio.location.lat - 0.0015,
-      lng: this.centreBiblio.location.lng - (0.003 / Math.cos(Math.PI * (this.centreBiblio.location.lat - 0.0015) / 180))
-    }
-  }
-
-  biblio: IotMarker[] = [
-    {
-      id: 'b1',
-      location: {
-        //48.83416, 2.37383
-        lat: 48.83416,
-        lng: 2.37383
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'blue'
-      }
-    },
-    {
-      id: 'b2',
-      location: {
-        //48.83498, 2.37534
-        lat: 48.83498,
-        lng: 2.37534
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'red'
-      }
-    },
-    {
-      id: 'b3',
-      location: {
-        //48.83309, 2.37772
-        lat: 48.83309,
-        lng: 2.37772
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'orange'
-      }
-    },
-    {
-      id: 'b4',
-      location: {
-        //48.83226, 2.37622
-        lat: 48.83226,
-        lng: 2.37622
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'green'
-      }
-    },
-    {
-      id: 'b5',
-      location: {
-        lat: 48.83414,
-        lng: 2.37411
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'blue'
-      }
-    },
-    {
-      id: 'b6',
-      location: {
-        lat: 48.83411,
-        lng: 2.37472
-      },
-      shape: {
-        type: ShapeType.circle,
-        color: 'blue'
-      }
-    }
-  ]
-
-*/
-
-  decalLat = 0.001
-  decalLng = 0.0056
-
   gailleton: IotMarker[] = [
     {
       id: 'g1',
       location: {
-        //45.75512743341294, 4.834667681878418
         lat: 45.755134,
         lng: 4.834652
       },
@@ -262,7 +49,6 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'g2',
       location: {
-        //45.75566928929636, 4.834978641871743
         lat: 45.755659,
         lng: 4.835008
       },
@@ -274,7 +60,6 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'g3',
       location: {
-        //45.75570139293618, 4.835210829204908
         lat: 45.755696,
         lng: 4.835217
       },
@@ -286,8 +71,6 @@ export class MapComponent implements AfterViewInit {
     {
       id: 'g4',
       location: {
-        //45.75508243571907, 4.834834773352696
-        // 45.75508251864569, 4.834835319950544
         lat: 45.755085,
         lng: 4.834809
       },
@@ -297,72 +80,6 @@ export class MapComponent implements AfterViewInit {
       }
     }
   ]
-
-  gailletonCentreIndoor: IotMarker = {
-    id: 'gailletonCentreIndoor',
-    location: {
-      //45.755429627783094, 4.834957807600014
-      // 45,75541415631009 / 4,834938805301769
-      //lat: 45.75541415631009,
-      //lng: 4.834938805301769
-      lat: (this.gailleton[0].location.lat + this.gailleton[2].location.lat) / 2,
-      lng: (this.gailleton[0].location.lng + this.gailleton[2].location.lng) / 2
-    },
-    shape: {
-      type: ShapeType.square,
-      plain: false,
-      color: 'black'
-    },
-    inner: {
-      img: 'https://c.woopic.com/logo-orange.png'
-    }
-  }
-
-  gailletonCentreOutdoor: IotMarker = {
-    id: 'gailletonCentreOutdoor',
-    location: {
-      //45.755429627783094, 4.834957807600014
-      // 45,75541415631009 / 4,834938805301769
-      //lat: 45.75541415631009,
-      //lng: 4.834938805301769
-      lat: (this.gailleton[0].location.lat + this.gailleton[2].location.lat) / 2,
-      lng: (this.gailleton[0].location.lng + this.gailleton[2].location.lng) / 2
-    },
-    shape: {
-      type: ShapeType.square,
-      plain: false,
-      color: 'black'
-    },
-    inner: {
-      img: 'https://c.woopic.com/logo-orange.png'
-    }
-  }
-
-  demoImg: IotMarker = {
-    id: 'demoImg',
-    location: {
-      // 45.76478072570448, 4.845946665049823
-      lat: 45.76478072570448,
-      lng: 4.845946665049823
-    },
-    shape: {
-      type: ShapeType.square,
-      plain: false,
-      color: 'black'
-    },
-    inner: {
-      img: 'https://c.woopic.com/logo-orange.png'
-    }
-  }
-
-  gailletonReference: IotMarker = {
-    id: 'ref',
-    location: {
-      lat: this.gailletonCentreOutdoor.location.lat - this.decalLat,
-      lng: this.gailletonCentreOutdoor.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
-    }
-  }
-
 
   markersList: IotMarker[] = [
     // square
@@ -429,8 +146,8 @@ export class MapComponent implements AfterViewInit {
       shape: {
         type: ShapeType.square,
         anchored: true,
-        plain: false,
-        accuracy: 200
+        plain: false//,
+        // accuracy: 200
       },
       inner: {
         icon: 'iotmap-icons-bluetooth',
@@ -535,7 +252,7 @@ export class MapComponent implements AfterViewInit {
         type: ShapeType.square,
         anchored: true,
         plain: true,
-        accuracy: 300
+        // accuracy: 300
       },
       layer: 'etablissements',
       inner: {
@@ -544,44 +261,26 @@ export class MapComponent implements AfterViewInit {
       },
       status: 'inactive'
     },
-    {
-      id: 'p6',
-      location: {
-        lat: 44.890,
-        lng: 4.895
-      },
-      shape: {
-        type: ShapeType.square,
-        plain: true,
-        anchored: false
-      },
-      layer: 'etablissements',
-      inner: {
-        icon: 'iotmap-icons-map_pin',
-        color: 'white'
-      }
-    },
 
-    // circle
     {
       id: 'c1',
       layer: 'circles',
       location: {
         lat: 44.885,
         lng: 4.870
-      },
+      }//,
 
-      shape: {
-        type: ShapeType.circle,
-        percent: 75,
-        anchored: false,
-        direction: 0
-      },
-      status: 'positive',
-      inner: {
-        icon: 'iotmap-icons-vehicle',
-        color: 'black'
-      }
+      // shape: {
+      //   type: ShapeType.circle,
+      //   percent: 75,
+      //   anchored: false//,
+      //   direction: 0
+      // },
+      // status: 'positive',
+      // inner: {
+      //   icon: 'iotmap-icons-vehicle',
+      //   color: 'black'
+      // }
     },
     {
       id: 'c2',
@@ -658,7 +357,18 @@ export class MapComponent implements AfterViewInit {
         label: 'H',
         color: 'black'
       }
-    }];
+    },
+
+
+    {
+      id: 'c1',
+      layer: 'circles',
+      location: {
+        lat: 44.885,
+        lng: 4.870
+      }//,
+    }
+  ];
 
   clustersList: IotCluster[] = [
     {
@@ -821,116 +531,116 @@ export class MapComponent implements AfterViewInit {
           urlTarget: '_blank'
         }]
     }
-  ];
+  ]
 
   userMarker: IotUserMarker = {
     location: {
       lat: 44.897,
       lng: 4.8813
     },
-    accuracy: 150,
+    // accuracy: 150,
     direction: 180
   }
 
   chemin: IotPath = {
     id: 'chemin',
     points: [
-      { lat: 44.9, lng: 4.8818 },
-      { lat: 44.899, lng: 4.8816 },
-      { lat: 44.898, lng: 4.8814 },
-      { lat: 44.897, lng: 4.8813 },
-      { lat: 44.896, lng: 4.8811 },
-      { lat: 44.895, lng: 4.8809 },
-      { lat: 44.894, lng: 4.8807 },
-      { lat: 44.893, lng: 4.8807 },
-      { lat: 44.893, lng: 4.8810 },
-      { lat: 44.8929, lng: 4.882 },
-      { lat: 44.8929, lng: 4.883 },
-      { lat: 44.8929, lng: 4.884 },
-      { lat: 44.8925, lng: 4.884 },
-      { lat: 44.892, lng: 4.884 }],
+      {lat: 44.9, lng: 4.8818},
+      {lat: 44.899, lng: 4.8816},
+      {lat: 44.898, lng: 4.8814},
+      {lat: 44.897, lng: 4.8813},
+      {lat: 44.896, lng: 4.8811},
+      {lat: 44.895, lng: 4.8809},
+      {lat: 44.894, lng: 4.8807},
+      {lat: 44.893, lng: 4.8807},
+      {lat: 44.893, lng: 4.8810},
+      {lat: 44.8929, lng: 4.882},
+      {lat: 44.8929, lng: 4.883},
+      {lat: 44.8929, lng: 4.884},
+      {lat: 44.8925, lng: 4.884},
+      {lat: 44.892, lng: 4.884}],
     positions: [
-      { lat: 44.896, lng: 4.8811 },
-      { lat: 44.8929, lng: 4.884 }],
+      {lat: 44.896, lng: 4.8811},
+      {lat: 44.8929, lng: 4.884}],
     additional: [
       {
         line: 1,
         color: '#CD3C14',
         points: [
-          { lat: 44.9, lng: 4.8818 },
-          { lat: 44.899, lng: 4.8816 },
-          { lat: 44.898, lng: 4.8814 },
-          { lat: 44.897, lng: 4.8813 },
-          { lat: 44.896, lng: 4.8811 },
-          { lat: 44.895, lng: 4.8809 }]
+          {lat: 44.9, lng: 4.8818},
+          {lat: 44.899, lng: 4.8816},
+          {lat: 44.898, lng: 4.8814},
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811},
+          {lat: 44.895, lng: 4.8809}]
       },
       {
         line: 1,
         color: '#CD3C14',
         points: [
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
+          {lat: 44.8929, lng: 4.883},
+          {lat: 44.8929, lng: 4.884},
+          {lat: 44.8925, lng: 4.884},
+          {lat: 44.892, lng: 4.884}]
       },
       {
         line: 2,
         color: '#FFCC00',
         points: [
-          { lat: 44.897, lng: 4.8813 },
-          { lat: 44.896, lng: 4.8811 },
-          { lat: 44.895, lng: 4.8809 },
-          { lat: 44.894, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8810 },
-          { lat: 44.8929, lng: 4.882 }]
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811},
+          {lat: 44.895, lng: 4.8809},
+          {lat: 44.894, lng: 4.8807},
+          {lat: 44.893, lng: 4.8807},
+          {lat: 44.893, lng: 4.8810},
+          {lat: 44.8929, lng: 4.882}]
       },
       {
         line: 2,
         color: '#FFCC00',
         points: [
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
+          {lat: 44.8925, lng: 4.884},
+          {lat: 44.892, lng: 4.884}]
       },
       {
         line: 3,
         color: '#32C832',
         points: [
-          { lat: 44.9, lng: 4.8818 },
-          { lat: 44.899, lng: 4.8816 },
-          { lat: 44.898, lng: 4.8814 },
-          { lat: 44.897, lng: 4.8813 },
-          { lat: 44.896, lng: 4.8811 }]
+          {lat: 44.9, lng: 4.8818},
+          {lat: 44.899, lng: 4.8816},
+          {lat: 44.898, lng: 4.8814},
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811}]
       },
       {
         line: 3,
         color: '#32C832',
         points: [
-          { lat: 44.895, lng: 4.8809 },
-          { lat: 44.894, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8810 },
-          { lat: 44.8929, lng: 4.882 },
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
+          {lat: 44.895, lng: 4.8809},
+          {lat: 44.894, lng: 4.8807},
+          {lat: 44.893, lng: 4.8807},
+          {lat: 44.893, lng: 4.8810},
+          {lat: 44.8929, lng: 4.882},
+          {lat: 44.8929, lng: 4.883},
+          {lat: 44.8929, lng: 4.884},
+          {lat: 44.8925, lng: 4.884},
+          {lat: 44.892, lng: 4.884}]
       },
       {
         line: 4,
         color: '#CCCCCC',
         points: [
-          { lat: 44.897, lng: 4.8813 },
-          { lat: 44.896, lng: 4.8811 },
-          { lat: 44.895, lng: 4.8809 },
-          { lat: 44.894, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8807 },
-          { lat: 44.893, lng: 4.8810 },
-          { lat: 44.8929, lng: 4.882 },
-          { lat: 44.8929, lng: 4.883 },
-          { lat: 44.8929, lng: 4.884 },
-          { lat: 44.8925, lng: 4.884 },
-          { lat: 44.892, lng: 4.884 }]
+          {lat: 44.897, lng: 4.8813},
+          {lat: 44.896, lng: 4.8811},
+          {lat: 44.895, lng: 4.8809},
+          {lat: 44.894, lng: 4.8807},
+          {lat: 44.893, lng: 4.8807},
+          {lat: 44.893, lng: 4.8810},
+          {lat: 44.8929, lng: 4.882},
+          {lat: 44.8929, lng: 4.883},
+          {lat: 44.8929, lng: 4.884},
+          {lat: 44.8925, lng: 4.884},
+          {lat: 44.892, lng: 4.884}]
       }
     ]
   }
@@ -938,49 +648,13 @@ export class MapComponent implements AfterViewInit {
   zone: IotArea = {
     id: 'zone1',
     points: [
-      { lat: 44.887, lng: 4.885 },
-      { lat: 44.888, lng: 4.9 },
-      { lat: 44.89, lng: 4.883 }
+      {lat: 44.887, lng: 4.885},
+      {lat: 44.888, lng: 4.9},
+      {lat: 44.89, lng: 4.883}
     ]
   }
 
-  pic: L2.ImageOverlay
-
-  transforme (P1: IotMarker, P2: IotMarker, center: IotMarker, P: IotMarker) : IotMarker {
-    const xa = P1.location.lat - center.location.lat
-    const ya = (P1.location.lng - center.location.lng) * Math.cos(Math.PI * P1.location.lat / 180)
-
-    const xb = P2.location.lat - center.location.lat
-    const yb = (P2.location.lng - center.location.lng) * Math.cos(Math.PI * P2.location.lat / 180)
-
-    const x = P.location.lat - center.location.lat
-    const y = (P.location.lng - center.location.lng) * Math.cos(Math.PI * P.location.lat / 180)
-
-    const d = Math.sqrt(xa * xa + ya * ya)
-    const cosT = (xa * xb + ya * yb) / (d * d)
-    const sinT = (yb * xa - ya * xb) / (d * d)
-
-    const lat = center.location.lat + (x * cosT - y * sinT)
-    const lng = center.location.lng + (x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)
-
-    // const distance = Math.sqrt((x * cosT - y * sinT) * (x * cosT - y * sinT) + ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)) * ((x * sinT + y * cosT) / Math.cos(Math.PI * lat / 180)))
-    const Presult: IotMarker = {
-      id: P.id + 'x',
-      location: {
-        lat: lat,
-        lng: lng
-      },
-      shape: {
-        type: ShapeType.square,
-        color: P.shape.color
-      }
-    }
-    return Presult
-  }
-
-
-
-
+  currentBearing = 0
 
   ngAfterViewInit (): void {
     this.conf.setConfig({
@@ -998,12 +672,13 @@ export class MapComponent implements AfterViewInit {
         }
       },
       map: {
-        defaultLat: this.demoImg.location.lat,  //   this.gailletonCentre.location.lat,
-        defaultLng: this.demoImg.location.lng,  // this.gailletonCentre.location.lng,
+        defaultLat: 45.755020,
+        defaultLng: 4.832584,
         defaultZoomLevel: 16,
         externalClustering: true,
         layerControl: true,
-        exclusiveLayers: false
+        exclusiveLayers: false,
+        bearing: 0
       },
       layerTemplates: {
         'etablissements': {
@@ -1031,173 +706,76 @@ export class MapComponent implements AfterViewInit {
       }
     })
 
+    this.commonIotMap.onMoveStart = (e) => {
+      this.commonIotMap.removeOverlayImage()
+    }
+
     this.commonIotMap.onMove = () => {
       const coord = this.commonIotMap.getIotMap().getBounds()
       console.log('map bounds changed: [' + coord.getNorthEast().lat + ', ' + coord.getNorthEast().lng + '] / [' + coord.getSouthWest().lat + ', ' + coord.getSouthWest().lng + ']')
-    }
 
-    this.commonIotMap.onEltClick = (id) => {
-      if (id === 'gailletonCentreOutdoor') {
-        // this.iotMapMarkerManager.updateMarker(id, {popup: {title: 'Update', body: 'Popup mise à jour'}})
-        this.commonIotMap.setIndoorMap()
-
-        const imageUrl = '../assets/plan.png'
-
-        const tmpLat = this.gailletonCentreOutdoor.location.lat - this.decalLat //45.752324247407444
-        const tmpLon = this.gailletonCentreOutdoor.location.lng - (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
-
-        const newLat = this.gailletonCentreOutdoor.location.lat + this.decalLat
-        const newLon = this.gailletonCentreOutdoor.location.lng + (this.decalLng / Math.cos(Math.PI * (this.gailletonCentreOutdoor.location.lat - this.decalLat) / 180))
-
-
-        const imageBounds = new L2.LatLngBounds(
-          L2.latLng(tmpLat, tmpLon),
-          L2.latLng(newLat, newLon)
+      const currentZoom = this.commonIotMap.getIotMap().getZoom()
+      if (currentZoom >= 18) {
+        // rotate map
+        const bearing = 65
+        this.commonIotMap.displayOverlayImage(
+          '../assets/plan.png',
+          bearing,
+          new L2.Point(this.gailleton[2].location.lat, this.gailleton[2].location.lng),
+          new L2.Point(this.gailleton[3].location.lat, this.gailleton[3].location.lng)
         )
 
-        this.pic = L2.imageOverlay(imageUrl, imageBounds, {className: 'iotmap-imgOverlay'})
-        this.pic.addTo(this.commonIotMap.getIotMap())
+        if (bearing !== this.currentBearing) {
+          let nbSteps = 0
+          for (let i = 0; i * 10 < bearing; i++) {
+            if (i * 10 > this.currentBearing) {
+              setTimeout(() => {
+                this.commonIotMap.getIotMap().setBearing(i * 10)
+              }, 100 * i)
+            }
+            nbSteps = i
+          }
+
+          setTimeout(() => {
+            this.commonIotMap.getIotMap().setBearing(bearing)
+            this.currentBearing = bearing
+          }, 100 * (nbSteps + 1))
+        }
+      }
 
 
-        this.iotMapMarkerManager.removeMarker('gailletonCentreOutdoor')
-        this.iotMapMarkerManager.addMarker(this.gailletonCentreIndoor)
+      if (currentZoom < 18) {
+        // rotate map
+        const bearing = 0
+        let nbSteps = 1
 
-        const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[0])
-        this.iotMapMarkerManager.addMarker(B0)
+        if (bearing !== this.currentBearing) {
+          this.commonIotMap.removeOverlayImage()
+          for (let i = 0; this.currentBearing - (i * 10) > 0; i++) {
+            setTimeout(() => {
+              this.commonIotMap.getIotMap().setBearing(this.currentBearing - (i * 10))
+            }, 100 * i)
+            nbSteps = i
+          }
 
-        const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[1])
-        this.iotMapMarkerManager.addMarker(B1)
-
-        const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[2])
-        this.iotMapMarkerManager.addMarker(B2)
-
-        const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentreOutdoor, this.gailleton[3])
-        this.iotMapMarkerManager.addMarker(B3)
-
-        this.iotMapMarkerManager.removeMarkers(['g1', 'g2', 'g3', 'g4'])
-        this.commonIotMap.getIotMap().setZoom(this.conf.map.defaultZoomLevel)
-
-      } else if (id === 'gailletonCentreIndoor') {
-        this.commonIotMap.setOutdoorMap()
-
-        this.pic.removeFrom(this.commonIotMap.getIotMap())
-
-        this.iotMapMarkerManager.removeMarker('gailletonCentreIndoor')
-        this.iotMapMarkerManager.addMarker(this.gailletonCentreOutdoor)
-        this.iotMapMarkerManager.addMarkers(this.gailleton)
-        this.iotMapMarkerManager.removeMarkers(['g1x', 'g2x', 'g3x', 'g4x'])
-        this.commonIotMap.getIotMap().setZoom(this.conf.map.defaultZoomLevel)
+          setTimeout(() => {
+            this.commonIotMap.getIotMap().setBearing(bearing)
+            this.currentBearing = bearing
+          }, 100 * nbSteps)
+        }
       }
     }
+
     this.commonIotMap.init('iotMap')
 
-    this.iotMapMarkerManager.addMarker(this.demoImg)
-    this.iotMapMarkerManager.addMarker(this.gailletonCentreOutdoor)
-    // this.iotMapMarkerManager.addMarker(this.gailletonReference)
+    // this.iotMapMarkerManager.addMarker(this.demoImg)
     this.iotMapMarkerManager.addMarkers(this.gailleton)
 
-    // const B0 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[0], 'bib0')
-    // this.iotMapMarkerManager.addMarker(B0)
+    this.iotMapMarkerManager.addMarkers(this.markersList)
+    this.iotMapClusterManager.addClusters(this.clustersList)
+    this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
+    this.iotMapPathManager.addPath(this.chemin)
     //
-    // const B1 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[1], 'bib1')
-    // this.iotMapMarkerManager.addMarker(B1)
-    //
-    // const B2 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[2], 'bib2')
-    // this.iotMapMarkerManager.addMarker(B2)
-    //
-    // const B3 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[3], 'bib3')
-    // this.iotMapMarkerManager.addMarker(B3)
-
-    // const B4 = this.transforme(this.gailleton[3], this.gailletonReference, this.gailletonCentre, this.gailleton[4], 'bib4')
-    // this.iotMapMarkerManager.addMarker(B4)
-    // const B4 = this.transforme(this.gailleton[0], this.gailletonReference, this.gailletonCentre, this.gailleton[4], 'bib4')
-    // this.iotMapMarkerManager.addMarker(B4)
-
-
-    // this.iotMapMarkerManager.addMarker(this.centreBiblio)
-    // this.iotMapMarkerManager.addMarker(this.biblioReference)
-    // this.iotMapMarkerManager.addMarkers(this.biblio)
-    //
-    // const B0 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[0], 'bib0')
-    // this.iotMapMarkerManager.addMarker(B0)
-    //
-    // const B1 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[1], 'bib1')
-    // this.iotMapMarkerManager.addMarker(B1)
-    //
-    // const B2 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[2], 'bib2')
-    // this.iotMapMarkerManager.addMarker(B2)
-    //
-    // const B3 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[3], 'bib3')
-    // this.iotMapMarkerManager.addMarker(B3)
-    //
-    // const B4 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[4], 'bib4')
-    // this.iotMapMarkerManager.addMarker(B4)
-    //
-    // const B5 = this.transforme(this.biblio[0], this.biblioReference, this.centreBiblio, this.biblio[5], 'bib5')
-    // this.iotMapMarkerManager.addMarker(B5)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*this.iotMapMarkerManager.addMarkers(this.louvre)
-
-
-    this.iotMapMarkerManager.addMarker(this.louvreCentre)
-    // this.iotMapMarkerManager.addMarker(this.louvreReference)
-
-
-    const Pres = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[0], 'l')
-    this.iotMapMarkerManager.addMarker(Pres)
-
-    const Pres1 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[1], 'l1')
-    this.iotMapMarkerManager.addMarker(Pres1)
-
-    const Pres2 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[2], 'l2')
-    this.iotMapMarkerManager.addMarker(Pres2)
-
-    const Pres3 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[3], 'l3')
-    this.iotMapMarkerManager.addMarker(Pres3)
-
-    const Pres4 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[4], 'l4')
-    this.iotMapMarkerManager.addMarker(Pres4)
-
-    const Pres5 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[5], 'l5')
-    this.iotMapMarkerManager.addMarker(Pres5)*/
-
-    // const Pres1 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[0], 'l0')
-    // this.iotMapMarkerManager.addMarker(Pres1)
-    //
-    // const Pres2 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[1], 'l1')
-    // this.iotMapMarkerManager.addMarker(Pres2)
-    //
-    // const Pres3 = this.transforme(this.louvre[0], this.louvreReference, this.louvreCentre, this.louvre[2], 'l2' )
-    // this.iotMapMarkerManager.addMarker(Pres3)
-
-
-    // this.iotMapMarkerManager.addMarkers(this.markersList)
-    // this.iotMapClusterManager.addClusters(this.clustersList)
-    // this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
-    // this.iotMapPathManager.addPath(this.chemin)
-    //
-    // this.iotMapAreaManager.addArea(this.zone)
+    this.iotMapAreaManager.addArea(this.zone)
   }
 }

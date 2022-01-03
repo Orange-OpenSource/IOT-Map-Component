@@ -14,10 +14,11 @@
 
 import * as L from 'leaflet'
 import 'leaflet.markercluster'
+
 import { IotMapConfig } from './iot-map-config'
 import { IotMapDisplay } from './iot-map-types'
 import { getAutomaticClusterIcon } from './iot-map-icons'
-import {TileLayer} from "leaflet";
+import { TileLayer } from 'leaflet'
 
 export class IotMapManager {
   private map: L.Map
@@ -36,6 +37,8 @@ export class IotMapManager {
 
   private tile: TileLayer;
 
+  private pic: L.ImageOverlay
+
   /**
    * Constructor
    * @param config - config to use for map display
@@ -49,6 +52,7 @@ export class IotMapManager {
   // ------------------------------------------------------------------------------------------------------------------
   // handler for 'moveend'
   public onMove?: () => void
+  public onMoveStart?: (e) => void
 
   // handler for 'click' on markers
   public onEltClick?: (id: string) => void
@@ -60,12 +64,12 @@ export class IotMapManager {
    */
   public init (selector: string): void {
     // init map
-    this.map = L.map(selector).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
+    this.map = L.map(selector, { rotate: true, maxZoom: 22, maxNativeZoom: 19 }).setView(L.latLng(this.config.map.defaultLat, this.config.map.defaultLng),
       this.config.map.defaultZoomLevel)
 
     // init base layers
     this.tile = L.tileLayer(this.config.map.openStreetMapLayer,
-      {attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+      { attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })
     this.tile.addTo(this.map)
 
     if (this.config.map.layerControl) {
@@ -73,22 +77,58 @@ export class IotMapManager {
     }
 
     this.map.on('moveend', this.onMove)
+      .on('movestart', this.onMoveStart)
       .on('baselayerchange', this.onBaseLayerChange.bind(this))
-      .on('overlayadd', this.onOverlayAdd.bind(this))
-      .on('overlayremove', this.onOverlayRemove.bind(this))
       .on('click', this.onClick.bind(this))
 
     this.selectedElement = undefined
+
+    // set bearing
+    this.map.setBearing(this.config.map.bearing)
   }
 
-  public setIndoorMap () {
-    this.tile.removeFrom(this.map)
+  public displayOverlayImage (image: string, bearing: number, bottomLeft: L.Point, topRight: L.Point) {
+    const bl = this.map.project([bottomLeft.x, bottomLeft.y])
+    const tr = this.map.project([topRight.x, topRight.y])
+    const dLat = Math.abs(bl.x - tr.x)
+    const dLng = Math.abs(bl.y - tr.y)
+    const dCarte = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLng, 2))
+
+    // sur le plan
+    // getImagesize : l = 2808, L = 536
+    const imgLength = 2808
+    const imgWidth = 536
+    const dPlan = Math.sqrt(Math.pow(imgLength, 2) + Math.pow(imgWidth, 2))
+
+    // rapport
+    const ratio = dCarte / dPlan
+
+    // destination
+    const pxDest = new L.Point(tr.x + imgLength * ratio, tr.y - imgWidth * ratio)
+    const pxDestUnProject = this.map.unproject(pxDest)
+
+    const img = new Image()
+    img.src = '../assets/plan.png'
+    img.onload = function () {
+      const imageUrl = '../assets/plan.png'
+      const imageBounds = new L.LatLngBounds(
+        L.latLng(topRight.x, topRight.y),
+        pxDestUnProject
+      )
+
+      this.pic = L.imageOverlay(imageUrl, imageBounds).addTo(this.map)
+      this.pic.getElement().classList.add('iotmap-imgOverlay')
+      this.pic.getElement().style.transform = this.pic.getElement().style.transform.replace(/ rotate\(.+\)/, '')
+      this.pic.getElement().style.transform += ' rotate(' + (-bearing) + 'deg)'
+    }.bind(this)
   }
 
-  public setOutdoorMap () {
-    this.tile.removeFrom(this.map)
-    this.tile.addTo(this.map)
+  public removeOverlayImage () {
+    if (this.pic) {
+      this.pic.removeFrom(this.map)
+    }
   }
+
   /**
    * Create a layer according to marker / cluster types : if clustering is automatic or external, if layer is for
    * displaying accuracy areas or user marker...
@@ -270,7 +310,9 @@ export class IotMapManager {
     }
 
     element.elementClicked() // inform cluster to open
-    element.shiftMap()
+    // element.shiftMap()
+
+    this.map.fitBounds(this.map.getBounds())
   }
 
   /**
@@ -322,27 +364,6 @@ export class IotMapManager {
       this.currentDisplayedLayers = event.name
       this.updateAccuracy()
     }
-  }
-
-  private onOverlayAdd (event) {
-    if (event.name === this.config.accuracyCircle.layerName) {
-      this.accuracyDisplayed = true
-    } else {
-      this.currentDisplayedLayers.push(event.name)
-    }
-    this.updateAccuracy()
-  }
-
-  private onOverlayRemove (event) {
-    if (event.name === this.config.accuracyCircle.layerName) {
-      this.accuracyDisplayed = false
-    } else {
-      const index = this.currentDisplayedLayers.indexOf(event.name, 0)
-      if (index > -1) {
-        this.currentDisplayedLayers.splice(index, 1)
-      }
-    }
-    this.updateAccuracy()
   }
 
   private onClick () {
