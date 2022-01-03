@@ -87,7 +87,7 @@ export class IotMapManager {
     this.map.setBearing(this.config.map.bearing)
   }
 
-  public displayOverlayImage (image: string, bearing: number, bottomLeft: L.Point, topRight: L.Point) {
+  public displayOverlayImage (image: string, bearing: number, bottomLeft: L.Point, topRight: L.Point): void {
     const bl = this.map.project([bottomLeft.x, bottomLeft.y])
     const tr = this.map.project([topRight.x, topRight.y])
     const dLat = Math.abs(bl.x - tr.x)
@@ -123,7 +123,7 @@ export class IotMapManager {
     }.bind(this)
   }
 
-  public removeOverlayImage () {
+  public removeOverlayImage (): void {
     if (this.pic) {
       this.pic.removeFrom(this.map)
     }

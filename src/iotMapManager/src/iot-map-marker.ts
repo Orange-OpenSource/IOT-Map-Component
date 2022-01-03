@@ -115,62 +115,47 @@ export class IotMapMarker extends IotMapDisplay {
     }
   }
 
-  private rotateFrom (origin: L.Point, theta: number, pivot: L.Point): L.Point {
-    if (!theta) { return origin; }
-    // Rotate around (pivot.x, pivot.y) by:
-    // 1. subtract (pivot.x, pivot.y)
-    // 2. rotate around (0, 0)
-    // 3. add (pivot.x, pivot.y) back
-    // same as `this.subtract(pivot).rotate(theta).add(pivot)`
-    const sinTheta = Math.sin(theta);
-    const cosTheta = Math.cos(theta);
-    const cx = pivot.x
-    const cy = pivot.y;
-    const x = origin.x - cx
-    const y = origin.y - cy;
-
-    return new L.Point(
-      x * cosTheta - y * sinTheta + cx,
-      x * sinTheta + y * cosTheta + cy
-    )
-  }
-
   public shiftMap (): void {
     if (this.selected && this.data.popup !== undefined) {
-      const eltPos: L.Point = this.map.getIotMap().latLngToLayerPoint(this.data.location)
-
+      const eltPos = this.map.getIotMap().latLngToLayerPoint(this.data.location)
       const mapBounds = this.map.getIotMap().getBounds()
       const northEastPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getNorthEast())
       const southWestPos = this.map.getIotMap().latLngToLayerPoint(mapBounds.getSouthWest())
 
+      let needToshift = false
+
       // top
-      // if (eltPos.y - northEastPos.y < 200) {
-      //   const shift = 200 - (eltPos.y - northEastPos.y)
-      //   northEastPos.y -= shift
-      //   southWestPos.y -= shift
-      // }
-      //
-      // // left
-      // if (eltPos.x - southWestPos.x < 150) {
-      //   const shift = 150 - (eltPos.x - southWestPos.x)
-      //   northEastPos.x -= shift
-      //   southWestPos.x -= shift
-      // }
-      //
-      // // bottom - no need to shift
-      // // right
-      // if (northEastPos.x - eltPos.x < 150) {
-      //   const shift = 150 - (northEastPos.x - eltPos.x)
-      //   northEastPos.x += shift
-      //   southWestPos.x += shift
-      // }
+      if (eltPos.y - northEastPos.y < 200) {
+        const shift = 200 - (eltPos.y - northEastPos.y)
+        northEastPos.y -= shift
+        southWestPos.y -= shift
 
-      const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
-      // this.map.getIotMap().flyToBounds(newMapBounds)
-      this.map.getIotMap().fitBounds(this.map.getIotMap().getBounds())
+        needToshift = true
+      }
 
-      // console.log('mapBounds : ' + mapBounds)
-      // this.map.getIotMap().setMaxBounds(this.map.getIotMap().getBounds())
+      // left
+      if (eltPos.x - southWestPos.x < 150) {
+        const shift = 150 - (eltPos.x - southWestPos.x)
+        northEastPos.x -= shift
+        southWestPos.x -= shift
+
+        needToshift = true
+      }
+
+      // bottom - no need to shift
+      // right
+      if (northEastPos.x - eltPos.x < 150) {
+        const shift = 150 - (northEastPos.x - eltPos.x)
+        northEastPos.x += shift
+        southWestPos.x += shift
+
+        needToshift = true
+      }
+
+      if (needToshift) {
+        const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
+        this.map.getIotMap().flyToBounds(newMapBounds)
+      }
     }
   }
 }
