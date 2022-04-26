@@ -9,7 +9,7 @@
 <h3 align="center">IoT Map Component</h3>
 
 <p align="center">
-  IoT Map Component is a map component, based on [Leaflet](https://leafletjs.com/), to be integrated in computer or mobile web applications developed in Angular or React. It provides Orange branded design and user experience.
+  IoT Map Component is a map component, based on <a href="https://leafletjs.com/">Leaflet</a>, to be integrated in computer or mobile web applications developed in Angular or React. It provides Orange branded design and user experience.
   <br>
   <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/tree/master/src/iotMapManager#readme"><strong>Visit documentation</strong></a>
   <br>
