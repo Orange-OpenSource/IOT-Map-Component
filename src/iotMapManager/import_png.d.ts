@@ -5,7 +5,7 @@
 * SPDX-License-Identifier: MIT
 *
 * This software is distributed under the MIT License,
-* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/master/LICENSE
+* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/main/LICENSE
 * or see the "license.txt" file for more details.
 *
 * Author: S. Gateau
