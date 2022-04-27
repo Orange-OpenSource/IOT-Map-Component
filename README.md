@@ -1,5 +1,3 @@
-# IOT-Map-Component 
-
 <p align="center">
   <a href="https://boosted.orange.com/">
     <img src="https://boosted.orange.com/docs/5.1/assets/brand/orange-logo.svg" alt="Orange logo" width="50" height="50">
