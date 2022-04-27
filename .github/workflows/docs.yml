@@ -2,7 +2,7 @@ name: Docs
 on:
   push:
     branches:
-      - master-jd-build-refactoring
+      - master
 
 env:
   FORCE_COLOR: 2
