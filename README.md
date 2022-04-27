@@ -12,9 +12,9 @@
   <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/tree/master/src/iotMapManager#readme"><strong>Visit documentation</strong></a>
   <br>
   <br>
-  <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/issues/new">Report bug</a>
+  <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/issues/new?assignees=-&labels=bug&template=bug_report.yml&title=Provide+a+general+summary+of+the+issue">Report bug</a>
   ·
-  <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/issues/new">Request feature</a>
+  <a href="https://github.com/Orange-OpenSource/IOT-Map-Component/issues/new?assignees=&labels=feature&template=feature_request.yml&title=Suggest+a+new+feature">Request feature</a>
 </p>
 
 ## Table of contents
