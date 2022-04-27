@@ -16,6 +16,7 @@ import {
   IotMapPathManager,
   IotMapAreaManager
 } from 'iotmapmanager'
+import * as L from 'leaflet';
 
 @Component({
   selector: 'map-component',
@@ -708,6 +709,9 @@ export class MapComponent implements AfterViewInit {
     }
 
     this.commonIotMap.init('iotMap')
+
+    this.commonIotMap.getIotMap().fitBounds(L.latLngBounds(L.latLng(40.712, -74.227), L.latLng(40.774, -74.125)));
+
     this.iotMapMarkerManager.addMarkers(this.markersList)
     this.iotMapClusterManager.addClusters(this.clustersList)
     this.iotMapUserMarkerManager.addUserMarker(this.userMarker)
