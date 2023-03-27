@@ -1,10 +1,4 @@
-<p align="center">
-  <a href="https://boosted.orange.com/">
-    <img src="https://boosted.orange.com/docs/5.1/assets/brand/orange-logo.svg" alt="Orange logo" width="50" height="50">
-  </a>
-</p>
-
-<h3 align="center">IoT Map Component</h3>
+<h1 align="center">IoT Map Component</h1>
 
 <p align="center">
   IoT Map Component is a map component, based on <a href="https://leafletjs.com/">Leaflet</a>, to be integrated in computer or mobile web applications developed in Angular or React. It provides Orange branded design and user experience.
