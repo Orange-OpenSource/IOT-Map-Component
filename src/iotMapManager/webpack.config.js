@@ -16,6 +16,9 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    leaflet: 'leaflet'
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
