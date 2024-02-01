@@ -2,7 +2,7 @@ name: Docs
 on:
   push:
     branches:
-      - master-bump-node-14-docs-workflow
+      - master
 
 jobs:
   docs:
