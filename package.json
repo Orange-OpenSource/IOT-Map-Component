@@ -31,10 +31,10 @@
     "@angular/cli": "^11.0.5",
     "@babel/core": "^7.12.3",
     "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-knobs": "^6.4.0",
     "@storybook/addon-links": "^6.4.9",
-    "@storybook/html": "^6.4.9",
+    "@storybook/html": "^7.6.12",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "babel-loader": "^8.2.1",
@@ -51,7 +51,7 @@
     "typedoc": "^0.20.28"
   },
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.1100.5",
+    "@angular-devkit/build-angular": "^17.1.2",
     "@angular/common": "^11.0.5",
     "@angular/compiler": "^11.0.5",
     "@angular/compiler-cli": "^11.0.5",
