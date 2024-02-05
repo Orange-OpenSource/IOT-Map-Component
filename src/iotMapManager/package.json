@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "npm run dist",
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode development",
     "dist": "webpack --mode production",
