@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
   "devDependencies": {
-    "@angular/cli": "^11.0.5",
+    "@angular/cli": "^17.1.2",
     "@babel/core": "^7.12.3",
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
