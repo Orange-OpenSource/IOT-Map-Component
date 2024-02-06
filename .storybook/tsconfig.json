@@ -1,0 +1,15 @@
+{
+  //"extends": "../src/tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": "../src",
+    "module": "amd",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    //"outFile": "../../built/local/tsc.js",
+    "sourceMap": true
+  },
+  "include": [
+    "../src/iotMapManager/**/*"
+  ]
+}
