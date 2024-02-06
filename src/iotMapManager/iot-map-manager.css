@@ -13,7 +13,6 @@
 */
 
 /* iot-map-manager.css */
-@import '~boosted/dist/css/orangeHelvetica.min.css';
 @import './css/map.css';
 @import './css/markers.css';
 @import './css/popup.css';

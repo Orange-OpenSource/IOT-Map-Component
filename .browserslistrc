@@ -1,7 +1,0 @@
-# https://github.com/browserslist/browserslist#readme
-# Same list as Boosted (see https://github.com/Orange-OpenSource/Orange-Boosted-Bootstrap/blob/v4-dev/.browserslistrc)
-
->= 1%
-last 1 major version
-not dead
-Firefox ESR

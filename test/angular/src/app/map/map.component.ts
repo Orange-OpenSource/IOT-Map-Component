@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core'
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { LatLngBounds } from 'leaflet'
 import {
   IotMapManager,
@@ -18,7 +18,9 @@ import {
 } from 'iotmapmanager'
 
 @Component({
-  selector: 'map-component',
+  selector: 'map',
+  standalone: true,
+  imports: [],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
