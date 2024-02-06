@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode development",
     "dist": "webpack --mode production",
+    "release": "npm run dist && npm pack",
     "watch": "webpack --watch --mode development"
   },
   "files": [
