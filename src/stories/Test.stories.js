@@ -26,19 +26,39 @@ export const Clusters = {
     },
   },
   render: (args) => {
-    console.log(args)
-    addEventListener('DOMContentLoaded', init);
+    if (args.markersList) {
+      markersList = args.markersList;
+    }
+    addEventListener('DOMContentLoaded', update);
     return template
-  }
+  },
 };
 
-function init() {
-  let config = new IotMapConfig()
+let toto = 0
+
+function update() {
+  let config = new IotMapConfig();
   let mapManager = new IotMapManager(config);
   let markerManager = new IotMapMarkerManager(mapManager, config)
   mapManager.init('iotMap');
+
+  console.log('markersList', markersList)
+  console.log('Letter', markersList[0].tab.content)
+
   markerManager.addMarkers(markersList);
-  removeEventListener('DOMContentLoaded', init);
+  
+  // markerManager.updateAllMarkers(markersList);
+
+  // markerManager.updateAllMarkers(markersList);
+  // markerManager.updateAllMarkers(markersList);
+
+  // markerManager.redrawAll();
+
+  // TODO: check size of the map
+  // console.log(markerManager.getAllMarkers())
+
+  // markerManager.updateAllMarkers(markersList);
+  removeEventListener('DOMContentLoaded', update);
 }
 
 /*
