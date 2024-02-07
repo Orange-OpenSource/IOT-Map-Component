@@ -6,20 +6,11 @@ const template = `<div id="iotMap" style="width: 1280px; height: 720px"></div>`;
 let markersList = MARKER_LIST;
 
 export default {
-  title: 'Example/Test',
+  title: 'Examples',
   parameters: {
     layout: 'fullscreen',
   },
 };
-
-/* export const Test1 = {
-  play: async ({ canvasElement }) => {
-    let config = new IotMapConfig()
-    let mapManager = new IotMapManager(config);
-    let markerManager = new IotMapMarkerManager(mapManager, config)
-    mapManager.init('iotMap');
-  }
-}; */
 
 ///////////////////////////////////////////////////////////////
 // CLUSTERS
