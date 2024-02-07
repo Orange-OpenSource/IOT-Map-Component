@@ -1,5 +1,6 @@
 import { IotMapConfig, IotMapManager, IotMapMarkerManager } from 'iotmapmanager/dist';
 import { MARKER_LIST } from './Test.stories.const';
+import './Test.stories.css';
 
 const template = `<div id="iotMap" style="width: 1280px; height: 720px"></div>`;
 let markersList = MARKER_LIST;
