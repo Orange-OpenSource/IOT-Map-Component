@@ -1,70 +1,28 @@
 import { IotMapConfig, IotMapManager, IotMapMarkerManager } from 'iotmapmanager/dist';
-import { MARKER_LIST } from './data.const';
 import './stories.css';
 
 const template = `<div id="iotMap" style="width: 1280px; height: 720px"></div>`;
 
-const locationParams = (id) => [
-  number('longitude', 44.895, {step: 0.001}, 'item ' + id),
-  number('latitude', 4.87, {step: 0.001}, 'item ' + id),
-];
-
-const shapeParams = (id) => ({
-  type: select(
-    'Shape type',
-    [ShapeType.circle, ShapeType.square],
-    0,
-    'item ' + id
-  ),
-  color: color('Shape color', '#FFCC00', 'item ' + id),
-  anchored: boolean('With anchor', false, 'item ' + id),
-  plain: boolean('Plain shape', false, 'item ' + id),
-  accuracy: accuracyParams(id),
-  direction: directionParams(id)
-});
-
-const innerParams = (id) => ({
-  color: color('Inner color', 'green', 'item ' + id),
-  label: text('Inner letter', 'J', 'item ' + id),
-  icon: text('Inner icon', 'iotmap-icons-temperature', 'item ' + id),
-});
-
-const innerStoryParams = (id) => ({
+let markersList = [{
   id: 's1',
-  location: locationParams(id),
-  shape: shapeParams(id),
-  inner: innerParams(id),
-});
-
-// let markersList = [innerStoryParams[0]];
-
-let shapeColor = '#FFCC00';
-
-let markersList = [
-  {
-    id: 's1',
-    location: {
-      lat: 44.895,
-      lng: 4.870
-    },
-    template: 'square',
-    // status: 'warning',
-    tab: {
-      content: 'H',
-      type: 0, // TabType.normal,
-    },
-    shape: {
-      type: 0,
-      color: shapeColor,
-      anchored: false,
-      plain: false,
-      accuracy: 12,
-      direction: 'd'
-    }
+  location: [
+    44.895,
+    4.87
+  ],
+  shape: {
+    type: 0, // select('Shape type',[ShapeType.circle, ShapeType.square],0,'item ' + id),
+    color: '#FFCC00',
+    anchored: false, // boolean('With anchor', false, 'item ' + id),
+    plain: false, // boolean('Plain shape', false, 'item ' + id),
+    accuracy: 150, // [number('accuracy', 150, {step: 20}, 'item 0'),],
+    direction: 0, // number('direction',0,{range: true,min: 0,max: 360,step: 10,}, 'item ' + id)
   },
-];
-
-console.log([innerStoryParams[0]])
+  inner: {
+    color: 'green', // color('Inner color', 'green', 'item ' + id),
+    label: 'J', // text('Inner letter', 'J', 'item ' + id),
+    icon: 'iotmap-icons-temperature', //text('Inner icon', 'iotmap-icons-temperature', 'item ' + id),
+  },
+}];
 
 export default {
   title: 'Inner',
@@ -78,36 +36,48 @@ function update() {
   let mapManager = new IotMapManager(config);
   let markerManager = new IotMapMarkerManager(mapManager, config)
   mapManager.init('iotMap');
-
-  console.log(markersList)
-
   markerManager.addMarkers(markersList);
   removeEventListener('DOMContentLoaded', update);
 }
 
 export const Inner = {
   argTypes: {
+    longitude: {
+      control: {
+        type: 'number',
+        step: 0.001,
+        value: markersList[0].location[0]
+      }
+    },
+    latitude: {
+      control: {
+        type: 'number',
+        step: 0.001,
+        value: markersList[0].location[1]
+      }
+    },
+    shapeType: {
+      control: 'radio', options: ['Circle', 'Square'], value: markersList[0].shape.type === 0 ? 'Circle' : 'Square'
+    },
     shapeColor: {
       control: {
         type: 'color',
-        // color: shapeColor,
-        value: shapeColor
+        value: markersList[0].shape.color
       }
-    },
-    markersList: {
-      control: {
-        type: 'object',
-        value: markersList
-      },
     },
   },
   render: (args) => {
-    console.log('render', args.markersList)
-    if (args.shapeColor) {
-      shapeColor = args.shapeColor; 
+    if (undefined !== args.longitude) {
+      markersList[0].location[0] = args.longitude;
     }
-    if (args.markersList) {
-      markersList = args.markersList;
+    if (undefined !== args.latitude) {
+      markersList[0].location[1] = args.latitude;
+    }
+    if (undefined !== args.shapeType) {
+      markersList[0].shape.type = args.shapeType === 'Circle' ? 0 : 1;
+    }
+    if (undefined !== args.shapeColor) {
+      markersList[0].shape.color = args.shapeColor;
     }
     addEventListener('DOMContentLoaded', update);
     return template
