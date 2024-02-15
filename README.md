@@ -92,4 +92,4 @@ Angular sample of use is given in ```map/map.components.ts``` (and not included 
 
 ## Storybook
 
-In order to discover or demonstrate, without any integration, entities and attributes defined in the map component, a storybook instance is accessible [here](https://orange-opensource.github.io/IOT-Map-Component/?path=/story/iot-map-manager--clusters).
+In order to discover or demonstrate, without any integration, entities and attributes defined in the map component, a storybook instance is accessible [here](https://orange-opensource.github.io/IOT-Map-Component).
