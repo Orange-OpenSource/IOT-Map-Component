@@ -8,7 +8,7 @@
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "cd src/iotMapManager && npm i && npm run build && cd ../.. && storybook build -o ./docs && mkdir -p docs/assets/img && cp src/iotMapManager/img/* docs/assets/img/",
+    "build-storybook": "storybook build -o ./docs && mkdir -p docs/assets/img && cp src/iotMapManager/img/* docs/assets/img/",
     "deploy-storybook": "git add docs && git commit -m 'chore(storybook): deploy' --allow-empty && git subtree split --branch gh-pages --prefix docs && git push origin gh-pages -f && echo 'Storybook successfully deployed'"
   },
   "repository": {
