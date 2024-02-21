@@ -50,7 +50,7 @@ export class IotMapMarker extends IotMapDisplay {
   public select (selected: boolean): void {
     this.selected = selected
     this.setIcon(getMarkerIcon(this.data, this.config, selected))
-    this.setZIndexOffset((selected) ? 100 : 0)
+    this.setZIndexOffset((selected) ? 1000000 : 0)
   }
 
   public getData (): IotMarker {
