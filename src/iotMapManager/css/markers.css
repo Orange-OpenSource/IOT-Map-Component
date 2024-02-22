@@ -59,16 +59,18 @@
   width:20px;
   height:20px;
   font-size:18px;
-  line-height: 20px;
+  line-height: 1.333333333;
   font-weight: bold;
+  text-align: center;
 }
 
 .iotmap-markericon .iotmap-labelSelected{
   width:40px;
   height:40px;
   font-size:30px;
-  line-height:45px;
+  line-height:1.6;
   font-weight: bold;
+  text-align: center;
 }
 
 .iotmap-markericon .iotmap-iconUnselected{
@@ -126,7 +128,7 @@
   font-size: 18px;
   font-family: "Helvetica Neue", 'helvetica';
   font-weight: bold;
-  line-height:50px;
+  line-height:3;
   text-align: center;
 }
 
@@ -140,7 +142,7 @@
   font-size: 14px;
   font-family: "Helvetica Neue", 'helvetica';
   font-weight: bold;
-  line-height:50px;
+  line-height:3.857;
   text-align: center;
 }
 
@@ -154,7 +156,7 @@
   font-size: 13px;
   font-family: "Helvetica Neue", 'helvetica';
   font-weight: bold;
-  line-height:50px;
+  line-height:4;
   text-align: center;
 }
 
