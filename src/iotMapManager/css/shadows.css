@@ -21,6 +21,7 @@
   width:70px;
   height: 26px;
   z-index: 5;
+  pointer-events: none;
 }
 
 .iotmap-markericon .iotmap-selected-square-shadow {
@@ -30,6 +31,7 @@
   width:70px;
   height: 24px;
   z-index: 5;
+  pointer-events: none;
 }
 
 .iotmap-markericon .iotmap-circle-shadow {
@@ -39,6 +41,7 @@
   width: 66px;
   height: 66px;
   z-index: 5;
+  pointer-events: none;
 }
 
 .iotmap-markericon .iotmap-circle-pin-shadow {
@@ -48,6 +51,7 @@
   width:70px;
   height: 24px;
   z-index: 5;
+  pointer-events: none;
 }
 
 .iotmap-markericon .iotmap-square-shadow {
@@ -57,6 +61,7 @@
   width:70px;
   height: 70px;
   z-index: 5;
+  pointer-events: none;
 }
 
 .iotmap-markericon .iotmap-square-pin-shadow {
@@ -66,4 +71,5 @@
   width:70px;
   height: 26px;
   z-index: 5;
+  pointer-events: none;
 }

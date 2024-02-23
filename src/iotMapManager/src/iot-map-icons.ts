@@ -463,7 +463,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
     const arrowConf = config.markers.size.directionArrow
     const shift = (selected) ? 0 : 3 * arrowConf.height / 4
     const arrowColor = (marker.shape.percent) ? marker.shape.color : funColor
-    const strokeColor = (selected) ? funColor : 'white'
+    const strokeColor = (selected) ? funColor : 'var(--marker-border-color, white)'
 
     svgDirection = `<div class='${((selected) ? 'iotmap-directionSelected' : 'iotmap-directionUnselected')}'>
                     <svg xmlns='http://www.w3.org/2000/svg'
