@@ -1,7 +1,6 @@
-name: Docs
+name: Docs release
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+  workflow_dispatch:
 
 env:
   FORCE_COLOR: 2
@@ -22,3 +21,8 @@ jobs:
         run: npm ci
       - name: Build Storybook
         run: npm run build-storybook
+      - name: Deploy Storybook
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          npm run deploy-storybook
