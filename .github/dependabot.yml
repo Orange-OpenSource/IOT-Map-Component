@@ -49,7 +49,7 @@ updates:
     labels:
       - dependencies
     schedule:
-      interval: weekly,
+      interval: weekly
       day: tuesday
       time: "12:00"
       timezone: Europe/Paris
