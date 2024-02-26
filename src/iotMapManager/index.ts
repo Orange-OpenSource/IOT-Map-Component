@@ -1,15 +1,13 @@
 /*
-* Software Name : IotMapManager
-* Version: 2.6.8
-* SPDX-FileCopyrightText: Copyright (c) 2020 - 2024 Orange
+* Software Name : Iot Map Component
+* SPDX-FileCopyrightText: Copyright (c) Orange SA
 * SPDX-License-Identifier: MIT
 *
-* This software is distributed under the MIT License,
-* the text of which is available at https://github.com/Orange-OpenSource/IOT-Map-Component/blob/main/LICENSE
-* or see the "license.txt" file for more details.
+* This software is distributed under the MIT license,
+* the text of which is available at https://opensource.org/license/MIT/
+* or see the "LICENSE" file for more details.
 *
-* Author: S. Gateau
-* Software description: provide markers, tabs, clusters and paths dedicated to iot projects using mapping
+* Software description: web library for interactive maps providing Orange branded reusable markers, tabs, clusters and paths
 */
 
 export * from './src/iot-map-config'

@@ -33,7 +33,7 @@
     "UserMarker",
     "Path"
   ],
-  "author": "sandrinegateau",
+  "author": "Orange SA",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Orange-OpenSource/IOT-Map-Component/issues"
@@ -47,11 +47,11 @@
     "leaflet.markercluster": "^1.4.1"
   },
   "devDependencies": {
-    "ts-loader": "^8.1.0",
-    "typescript": "^4.2.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
     "url-loader": "^4.1.1",
-    "webpack": "^5.28.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^5.0.1"
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   }
 }
