@@ -30,6 +30,7 @@
     "@storybook/html": "^7.6.17",
     "@storybook/html-webpack5": "^7.6.17",
     "@storybook/test": "^7.6.17",
+    "boosted": "^5.3.3",
     "iotmapmanager": "file:src/iotMapManager",
     "ods-storybook-theme": "^1.1.0",
     "react": "^18.2.0",
