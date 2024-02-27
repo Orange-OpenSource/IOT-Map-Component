@@ -14,6 +14,10 @@
 
 /* map.css */
 
+.leaflet-container {
+  font-family: HelvNeueOrange, "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /* layers icon */
 .leaflet-top.leaflet-right .leaflet-control-layers:nth-child(1) .leaflet-control-layers-toggle {
   background-image: url('../img/Layers.png');
@@ -42,5 +46,4 @@
   background-color: #FF7900;
   color: black;
 }
-
 
