@@ -147,7 +147,7 @@ export class IotMapMarker extends IotMapDisplay {
 
       if (needToshift) {
         const newMapBounds = L.latLngBounds(this.map.getIotMap().layerPointToLatLng(southWestPos), this.map.getIotMap().layerPointToLatLng(northEastPos))
-        this.map.getIotMap().flyToBounds(newMapBounds)
+        this.map.getIotMap().fitBounds(newMapBounds)
       }
     }
   }

@@ -276,7 +276,7 @@ export class IotMapManager {
   }
 
   /**
-   * Called on marker mouse over (to brind manual cluster in front)
+   * Called on marker mouse over (to bring manual cluster in front)
    * @param event - event data
    */
   private onElementMouseOver (event) {
@@ -284,7 +284,7 @@ export class IotMapManager {
   }
 
   /**
-   * Called on marker mouse out (to brind manual cluster in background)
+   * Called on marker mouse out (to bring manual cluster in background)
    * @param event - event data
    */
   private onElementMouseOut (event) {
