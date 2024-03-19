@@ -3,8 +3,11 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 /** @type { import('@storybook/html-vite').StorybookConfig } */
 const config = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: [
+    "../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+  ],
   addons: [
+    "@storybook/addon-a11y",
     "@storybook/addon-essentials",
     "@storybook/addon-webpack5-compiler-swc"
   ],

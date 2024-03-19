@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
   "devDependencies": {
+    "@storybook/addon-a11y": "^8.0.2",
     "@storybook/addon-essentials": "^8.0.2",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
     "@storybook/blocks": "^8.0.2",
