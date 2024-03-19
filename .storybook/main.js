@@ -1,19 +1,20 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+/** @type { import('@storybook/html-vite').StorybookConfig } */
 const config = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: [
+    "../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+  ],
   addons: [
-    "@storybook/addon-links",
+    "@storybook/addon-a11y",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
+    "@storybook/addon-webpack5-compiler-swc"
   ],
   framework: {
     name: "@storybook/html-webpack5",
     options: {
-      builder: {
-        useSWC: true,
-      },
+      builder: {},
     },
   },
   docs: {
