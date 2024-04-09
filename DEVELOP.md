@@ -14,7 +14,6 @@ Now open a new terminal and run:
 
 ```sh
 cd test/angular
-nvm use
 npm i
 npm run start
 ```
