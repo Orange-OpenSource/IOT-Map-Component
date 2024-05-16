@@ -17,9 +17,7 @@ const config = {
       builder: {},
     },
   },
-  docs: {
-    autodocs: "tag",
-  },
+  docs: {},
   webpackFinal: async (config, {configType}) => {
     config.resolve.plugins = [
       new TsconfigPathsPlugin({
