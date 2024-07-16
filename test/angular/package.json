@@ -20,7 +20,7 @@
     "@angular/router": "^18.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.6.3",
-    "webpack": "^5.90.3",
+    "webpack": "^5.93.0",
     "zone.js": "~0.14.7"
   },
   "devDependencies": {
@@ -38,6 +38,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "leaflet": "^1.6.0",
-    "typescript": "~5.4.5"
+    "typescript": "^5.5.3"
   }
 }
