@@ -34,9 +34,5 @@
     "ods-storybook-theme": "^1.1.0",
     "storybook": "^8.2.4",
     "tsconfig-paths-webpack-plugin": "^4.1.0"
-  },
-  "dependencies": {
-    "typescript": "^5.5.3",
-    "webpack": "^5.93.0"
   }
 }
