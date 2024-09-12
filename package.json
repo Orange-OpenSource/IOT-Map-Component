@@ -23,17 +23,17 @@
   },
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.2.9",
-    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-a11y": "^8.3.0",
+    "@storybook/addon-essentials": "^8.3.0",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
-    "@storybook/blocks": "^8.2.9",
-    "@storybook/html": "^8.2.9",
-    "@storybook/html-webpack5": "^8.2.9",
-    "@storybook/manager-api": "^8.2.9",
-    "@storybook/test": "^8.2.9",
+    "@storybook/blocks": "^8.3.0",
+    "@storybook/html": "^8.3.0",
+    "@storybook/html-webpack5": "^8.3.0",
+    "@storybook/manager-api": "^8.3.0",
+    "@storybook/test": "^8.3.0",
     "iotmapmanager": "file:src/iotMapManager",
     "ods-storybook-theme": "^1.1.0",
-    "storybook": "^8.2.9",
+    "storybook": "^8.3.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0"
   }
 }
