@@ -41,7 +41,7 @@
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
   "dependencies": {
     "@types/leaflet": "^1.9.14",
-    "@types/leaflet.markercluster": "^1.4.3",
+    "@types/leaflet.markercluster": "^1.5.5",
     "leaflet": "^1.6.0",
     "leaflet-polylineoffset": "^1.1.1",
     "leaflet.markercluster": "^1.4.1"
