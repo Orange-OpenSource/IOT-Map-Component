@@ -18,11 +18,10 @@ import {
 } from 'iotmapmanager'
 
 @Component({
-  selector: 'map',
-  standalone: true,
-  imports: [],
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+    selector: 'map',
+    imports: [],
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css']
 })
 
 export class MapComponent implements AfterViewInit {
