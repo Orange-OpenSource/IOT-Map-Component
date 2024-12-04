@@ -19,6 +19,4 @@
 
   "include": ["index.ts", "import_png.d.ts", "./src/*.ts"],
   "exclude": [ "lib", "**/*.test.ts"],
-  "strict": false, // Strict types, eg. prohibits `var x=0; x=null`
-  "alwaysStrict": true // Enable JavaScript's "use strict" mode
 }
