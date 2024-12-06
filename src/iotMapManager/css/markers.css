@@ -13,10 +13,14 @@
 /* markers.css */
 
 .iotmap-markericon{
+  --marker-border-color: white;
   position: relative;
   width: 0px;
   height: 0px;
   box-sizing: border-box;
+}
+.iotmap-markericon:hover {
+  --marker-border-color: black;
 }
 .iotmap-markericon .iotmap-svgMarker {
   position: absolute;
