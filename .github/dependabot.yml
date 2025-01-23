@@ -2,6 +2,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    reviewers:
+      - louismaximepiton
     labels:
       - dependencies
     schedule:
@@ -32,6 +34,8 @@ updates:
           - "*"
   - package-ecosystem: npm
     directory: "/test/angular"
+    reviewers:
+      - louismaximepiton
     labels:
       - dependencies
     schedule:
@@ -46,6 +50,8 @@ updates:
           - "*"
   - package-ecosystem: npm
     directory: "/src/iotMapManager"
+    reviewers:
+      - louismaximepiton
     labels:
       - dependencies
     schedule:
