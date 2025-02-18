@@ -8,8 +8,8 @@ updates:
       - dependencies
     schedule:
       interval: weekly
-      day: tuesday
-      time: "12:00"
+      day: friday
+      time: "06:00"
       timezone: Europe/Paris
     groups:
       github-actions-deps:
@@ -23,8 +23,8 @@ updates:
       - dependencies
     schedule:
       interval: weekly
-      day: tuesday
-      time: "12:00"
+      day: friday
+      time: "06:00"
       timezone: Europe/Paris
     versioning-strategy: increase
     rebase-strategy: disabled
@@ -40,8 +40,8 @@ updates:
       - dependencies
     schedule:
       interval: weekly
-      day: tuesday
-      time: "12:00"
+      day: friday
+      time: "06:00"
       timezone: Europe/Paris
     versioning-strategy: increase
     groups:
@@ -56,7 +56,7 @@ updates:
       - dependencies
     schedule:
       interval: weekly
-      day: tuesday
-      time: "12:00"
+      day: friday
+      time: "06:00"
       timezone: Europe/Paris
     versioning-strategy: increase
