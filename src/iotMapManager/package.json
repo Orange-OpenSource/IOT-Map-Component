@@ -1,6 +1,6 @@
 {
   "name": "iotmapmanager",
-  "version": "2.6.9",
+  "version": "2.6.10-alpha.1",
   "description": "Manage markers, clusters, user marker or paths on IotMaps",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
@@ -39,19 +39,19 @@
     "url": "https://github.com/Orange-OpenSource/IOT-Map-Component/issues"
   },
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
-  "dependencies": {
-    "@types/leaflet": "^1.9.17",
-    "@types/leaflet.markercluster": "^1.5.5",
-    "leaflet": "^1.6.0",
-    "leaflet-polylineoffset": "^1.1.1",
-    "leaflet.markercluster": "^1.4.1"
+  "peerDependencies": {
+    "leaflet": ">=1.6.0",
+    "leaflet-polylineoffset": ">=1.1.1",
+    "leaflet.markercluster": ">=1.4.1"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.16",
+    "@types/leaflet.markercluster": "^1.5.5",
     "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
+    "typescript": "^5.8.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.99.6",
+    "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.0"
   }
 }
