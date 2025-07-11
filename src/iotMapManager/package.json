@@ -45,7 +45,7 @@
     "leaflet.markercluster": ">=1.4.1"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.19",
+    "@types/leaflet": "^1.9.20",
     "@types/leaflet.markercluster": "^1.5.5",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.2",
