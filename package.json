@@ -33,7 +33,7 @@
     "@storybook/test": "^8.6.14",
     "iotmapmanager": "file:src/iotMapManager",
     "ods-storybook-theme": "^1.1.0",
-    "storybook": "^8.6.14",
+    "storybook": "^8.6.15",
     "tsconfig-paths-webpack-plugin": "^4.2.0"
   }
 }
