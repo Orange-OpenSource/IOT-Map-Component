@@ -1,6 +1,6 @@
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
-/** @type { import('@storybook/html').Preview } */
+/** @type { import('@storybook/html-vite').Preview } */
 const preview = {
   parameters: {
     controls: {
@@ -9,7 +9,7 @@ const preview = {
         date: /Date$/i,
       },
     },
-    viewport: { viewports: INITIAL_VIEWPORTS },
+    viewport: { options: INITIAL_VIEWPORTS },
   },
 };
 

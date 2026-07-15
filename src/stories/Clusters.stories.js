@@ -1,4 +1,4 @@
-import { IotMapConfig, IotMapManager, IotMapMarkerManager } from 'iotmapmanager/dist';
+import { IotMapConfig, IotMapManager, IotMapMarkerManager } from 'iotmapmanager/index.ts';
 import { MARKER_LIST } from './data.const';
 import './stories.css';
 
