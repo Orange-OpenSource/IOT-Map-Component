@@ -2,7 +2,7 @@ import {
   IotMapConfig,
   IotMapManager,
   IotMapMarkerManager,
-} from "iotmapmanager/dist";
+} from "iotmapmanager/index.ts";
 import "./stories.css";
 
 const template = `<div id="iotMap" style="width: 1280px; height: 720px"></div>`;
