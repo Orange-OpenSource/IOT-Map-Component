@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
 
-    "target": "es5",
-    "module": "es6",
-    "moduleResolution": "node",
+    "target": "es6",
+    "module": "node16",
+    "moduleResolution": "node16",
     "lib": ["es2016", "dom", "es5"],
     "sourceMap": true, // Creates *.js.map files
     "jsx": "react", // Causes inline XML (JSX code) to be expanded
