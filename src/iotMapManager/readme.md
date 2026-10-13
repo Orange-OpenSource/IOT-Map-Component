@@ -43,6 +43,27 @@ In your CSS file:
 
 If you use TypeScript, all types are defined in lib/index.d.ts
 
+## Keyboard accessibility
+
+Keyboard interaction is enabled by default:
+
+- **Tab / Shift+Tab**: move between visible markers, clusters and controls. Focus has a visible outline.
+- **Enter / Space** on the **+ / - zoom buttons**: zoom in or out while keeping focus on the button. Holding Shift preserves Leaflet's accelerated zoom. Disabled controls and zoom limits remain respected.
+- **Enter / Space** on a marker: toggle its information popup, using the same selection and `onEltClick` behavior as a mouse click.
+- **Focus a cluster**: show its information popup without zooming. The popup stays visible while navigating its links.
+- **Enter / Space** on a manual or automatic cluster: perform the usual click action (zoom or spiderfy). Focus returns to the map so navigation can continue when the cluster disappears.
+- **Escape**: close the focused marker or cluster popup and return focus to its icon. A dismissed cluster popup reappears after leaving and refocusing the cluster.
+
+Links and controls in visible popups retain their native keyboard and mouse actions without activating the enclosing marker or cluster. Hidden popups are excluded from keyboard navigation. Mouse selection, cluster hover and cluster expansion remain available.
+
+Markers with a popup and clusters expose `aria-expanded` on their icon container. It follows marker selection and cluster popup visibility (hover, focus and Escape dismissal), including icon regeneration. Markers without a popup do not receive this attribute. Opening a popup does not move focus into its content: use Tab to reach its links and controls.
+
+Include `iot-map-manager.css` for popup visibility and focus styling. These interactions do not make the entire map accessible; applications remain responsible for meaningful content and an accessible alternative representation.
+
+To validate these interactions manually, run `npm run storybook` from the repository root and open a marker story and the **Clusters** story. Use Tab / Shift+Tab to check the focus indicator, Enter / Space to activate markers and clusters, and Escape to dismiss their popups. Check that links in visible popups remain usable, hidden popup content is skipped, and mouse clicks and hover still work.
+Also check the + / - zoom buttons with Tab, Enter and Space, including Shift activation and the minimum/maximum zoom limits.
+The **AccessibleNames** story includes a marker popup with a link and a cluster popup with an aggregation link. Use it to inspect `aria-expanded`, navigate into the popup and dismiss it with Escape.
+
 ## marker definition
 A marker is defined as follows:
 
@@ -397,5 +418,3 @@ IotMapPathManager requires a configuration object and an IotMapManager
 
 ### IotMapAreaManager
 This class manages areas:
-
-

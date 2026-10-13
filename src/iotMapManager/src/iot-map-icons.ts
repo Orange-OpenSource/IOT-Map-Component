@@ -25,6 +25,62 @@ import poiSqrSelShadow from '../img/POI_SQR_SEL_Shadow.png'
 import poiSqrPinShadow from '../img/POI_SQR_PIN_Shadow.png'
 import usrShadow from '../img/USR_Shadow.png'
 
+export function updatePopupExpanded (icon: HTMLElement, focused = icon.contains(icon.ownerDocument.activeElement)): void {
+  const marker = icon.querySelector(':scope > .iotmap-markericon')
+  const cluster = icon.querySelector(':scope > .iotmap-clustericon')
+  if (marker?.querySelector(':scope > .iotmap-marker-popup')) {
+    icon.setAttribute('aria-expanded', String(marker.classList.contains('iotmap-marker-selected')))
+  } else if (cluster?.querySelector(':scope > .iotmap-cluster-popup, :scope > .iotmap-cluster-big-popup')) {
+    const expanded = !icon.classList.contains('iotmap-popup-dismissed') && (focused || cluster.matches(':hover'))
+    icon.setAttribute('aria-expanded', String(expanded))
+  } else {
+    icon.removeAttribute('aria-expanded')
+  }
+}
+
+const popupStateIcons = new WeakSet<HTMLElement>()
+
+class InteractiveDivIcon extends L.DivIcon {
+  createIcon (oldIcon?: HTMLElement): HTMLElement {
+    const dismissed = oldIcon?.classList.contains('iotmap-popup-dismissed')
+    const icon = super.createIcon(oldIcon)
+    // DivIcon resets className on redraw; keep an explicit dismissal until focus leaves.
+    if (dismissed && icon.contains(icon.ownerDocument.activeElement)) {
+      icon.classList.add('iotmap-popup-dismissed')
+    }
+    updatePopupExpanded(icon)
+    // Leaflet may reuse the container when regenerating its contents.
+    if (!popupStateIcons.has(icon)) {
+      popupStateIcons.add(icon)
+      icon.addEventListener('focusin', () => updatePopupExpanded(icon, true))
+      icon.addEventListener('focusout', event => {
+        updatePopupExpanded(icon, event.relatedTarget instanceof Node && icon.contains(event.relatedTarget))
+      })
+      icon.addEventListener('mouseover', () => updatePopupExpanded(icon))
+      icon.addEventListener('mouseout', () => updatePopupExpanded(icon))
+    }
+    icon.querySelectorAll<HTMLElement>('.iotmap-marker-popup, .iotmap-cluster-popup, .iotmap-cluster-big-popup')
+      .forEach(popup => {
+        popup.addEventListener('click', event => {
+          if (event.target instanceof Element) {
+            const control = event.target.closest('a, button, input, select, textarea, [contenteditable], [role="button"]')
+            if (control && popup.contains(control)) {
+              // Preserve control actions without selecting or expanding the enclosing marker.
+              event.stopPropagation()
+            }
+          }
+        })
+        popup.addEventListener('keypress', event => {
+          if (event.key === 'Enter') {
+            // Leaflet.markercluster listens for Enter on keypress as well as click.
+            event.stopPropagation()
+          }
+        })
+      })
+    return icon
+  }
+}
+
 /* eslint-disable quotes */
 /**
  * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
@@ -146,7 +202,7 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
                 </div>`
 
   const clusterSize = config.clusters.size
-  return new L.DivIcon({
+  return new InteractiveDivIcon({
     html: html,
     className: 'iotmap-divicon',
     iconSize: L.point(clusterSize, clusterSize),
@@ -564,7 +620,7 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   const iconAnchor : L.Point = L.point(iconSize.x / 2, (!(marker.shape.anchored || selected)) ? iconSize.y / 2 : iconSize.y)
 
   // creating icon
-  return new L.DivIcon({
+  return new InteractiveDivIcon({
     className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
