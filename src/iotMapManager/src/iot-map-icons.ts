@@ -25,6 +25,44 @@ import poiSqrSelShadow from '../img/POI_SQR_SEL_Shadow.png'
 import poiSqrPinShadow from '../img/POI_SQR_PIN_Shadow.png'
 import usrShadow from '../img/USR_Shadow.png'
 
+/**
+ * Sets or clears the accessible name provided by the library user.
+ * The name is set through the DOM, so it is never interpreted as HTML.
+ */
+export function applyAriaLabel (element: Element | null | undefined, label?: string, role?: string): void {
+  if (!element) {
+    return
+  }
+  if (label) {
+    element.setAttribute('aria-label', label)
+    if (role) {
+      element.setAttribute('role', role)
+    }
+  } else {
+    element.removeAttribute('aria-label')
+  }
+}
+
+interface AccessibleDivIconOptions extends L.DivIconOptions {
+  ariaLabel?: string
+}
+
+class AccessibleDivIcon extends L.DivIcon {
+  private readonly ariaLabel?: string
+
+  constructor (options: AccessibleDivIconOptions) {
+    super(options)
+    this.ariaLabel = options.ariaLabel
+  }
+
+  createIcon (oldIcon?: HTMLElement): HTMLElement {
+    const icon = super.createIcon(oldIcon)
+    // Leaflet reuses the element on setIcon, so a removed label must be cleared.
+    applyAriaLabel(icon, this.ariaLabel)
+    return icon
+  }
+}
+
 export function updatePopupExpanded (icon: HTMLElement, focused = icon.contains(icon.ownerDocument.activeElement)): void {
   const marker = icon.querySelector(':scope > .iotmap-markericon')
   const cluster = icon.querySelector(':scope > .iotmap-clustericon')
@@ -40,7 +78,7 @@ export function updatePopupExpanded (icon: HTMLElement, focused = icon.contains(
 
 const popupStateIcons = new WeakSet<HTMLElement>()
 
-class InteractiveDivIcon extends L.DivIcon {
+class InteractiveDivIcon extends AccessibleDivIcon {
   createIcon (oldIcon?: HTMLElement): HTMLElement {
     const dismissed = oldIcon?.classList.contains('iotmap-popup-dismissed')
     const icon = super.createIcon(oldIcon)
@@ -206,7 +244,8 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
     html: html,
     className: 'iotmap-divicon',
     iconSize: L.point(clusterSize, clusterSize),
-    iconAnchor: L.point(clusterSize / 2, clusterSize / 2)
+    iconAnchor: L.point(clusterSize / 2, clusterSize / 2),
+    ariaLabel: cluster.ariaLabel ?? config.accessibility.clusterAriaLabel?.(cluster)
   })
 }
 
@@ -258,11 +297,12 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   html += imgShadow
 
   // creating icon
-  return new L.DivIcon({
+  return new AccessibleDivIcon({
     className: 'iotmap-divicon',
     iconSize: L.point(userMarkerSize, userMarkerSize), // size of the icon
     iconAnchor: L.point(userMarkerSize / 2, userMarkerSize / 2), // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: userMarker.ariaLabel
   })
 }
 
@@ -270,8 +310,9 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
  * Returns a DivIcon compatible with leaflet, representing a start, end or intermediate path icon
  * @param type - PathIconType = start, end or mid
  * @param config - config to use to display start / end / mid icons
+ * @param ariaLabel - (optional) accessible name of the icon
  */
-export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIcon {
+export function getPathIcon (type: PathIconType, config: IotMapConfig, ariaLabel?: string): L.DivIcon {
   let svg: string
   switch (type) {
     case PathIconType.start: {
@@ -306,11 +347,12 @@ export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIco
   const iconAnchor : L.Point = L.point(iconSize.x / 2, iconSize.y / 2)
 
   // creating icon
-  return new L.DivIcon({
+  return new AccessibleDivIcon({
     className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: ariaLabel
   })
 }
 
@@ -624,7 +666,8 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
     className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: marker.ariaLabel
   })
 }
 

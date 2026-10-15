@@ -64,6 +64,48 @@ To validate these interactions manually, run `npm run storybook` from the reposi
 Also check the + / - zoom buttons with Tab, Enter and Space, including Shift activation and the minimum/maximum zoom limits.
 The **AccessibleNames** story includes a marker popup with a link and a cluster popup with an aggregation link. Use it to inspect `aria-expanded`, navigate into the popup and dismiss it with Escape.
 
+## Accessible names
+
+Every element can be given an optional accessible name announced by assistive technologies. Nothing changes in the generated HTML when it is not provided.
+
+| Element | Property |
+| --- | --- |
+| Marker | `ariaLabel` |
+| Manual cluster | `ariaLabel` |
+| User marker | `ariaLabel` |
+| Area | `ariaLabel` |
+| Path | `ariaLabel` (main line), `additional[].ariaLabel` (additional lines), `iconsAriaLabel.start` / `.end` / `.position` (icons) |
+
+```typescript
+const marker: IotMarker = {
+  id: 'sensor-1',
+  location: { lat: 44.88, lng: 4.88 },
+  ariaLabel: 'Sensor 1, temperature alert'
+}
+```
+
+Automatic clusters have no user data: provide a function in the configuration. It receives the cluster (`childCount`, `layer`, `aggregation`...) and is also used for manual clusters without their own `ariaLabel`.
+
+```typescript
+const conf = new IotMapConfig()
+conf.setConfig({
+  accessibility: {
+    clusterAriaLabel: cluster => `Group of ${cluster.childCount} elements`
+  }
+})
+```
+
+Labels are set as DOM attributes, not HTML, and are refreshed whenever an icon is regenerated. Markers, clusters and icons keep their focusable button role; paths and areas get `role="img"`. Set the configuration function before adding elements: existing icons are not refreshed.
+
+Use `updateMarker`, `updateCluster` or `updateUserMarker` to change an existing element's `ariaLabel`; changing only this property also redraws the icon. The same behavior applies to `updateAllMarkers` and `updateAllClusters`.
+
+- Omit `ariaLabel` (or pass `undefined`) to keep the current name.
+- Pass `ariaLabel: ''` to remove the name. For manual clusters, this also suppresses the configured `clusterAriaLabel` fallback.
+
+```typescript
+markerManager.updateMarker('sensor-1', { ariaLabel: 'Sensor 1, normal temperature' })
+markerManager.updateMarker('sensor-1', { ariaLabel: '' })
+```
 ## marker definition
 A marker is defined as follows:
 
