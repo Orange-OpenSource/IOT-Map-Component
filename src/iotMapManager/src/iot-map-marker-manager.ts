@@ -96,6 +96,11 @@ export class IotMapMarkerManager {
       let htmlModificationNeeded = false
       let oldLayerName: string = null
 
+      if (params.ariaLabel !== undefined) {
+        currentMarkerInfos.ariaLabel = params.ariaLabel
+        htmlModificationNeeded = true
+      }
+
       // popup modified
       if (params.popup !== undefined) {
         if (params.popup.title === null && params.popup.body === null) { // cmd to remove popup
