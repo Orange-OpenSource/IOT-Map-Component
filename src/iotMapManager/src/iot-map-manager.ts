@@ -10,8 +10,10 @@
 * Software description: web library for interactive maps providing Orange branded reusable markers, tabs, clusters and paths
 */
 
-import * as L from 'leaflet'
+// Order matters: the CommonJS output snapshots Leaflet in `L` (__importStar), so plugins must extend Leaflet before that import.
+import 'leaflet'
 import 'leaflet.markercluster'
+import * as L from 'leaflet'
 import { IotMapConfig } from './iot-map-config'
 import { IotMapDisplay } from './iot-map-types'
 import { getAutomaticClusterIcon } from './iot-map-icons'
