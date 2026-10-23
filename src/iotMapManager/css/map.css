@@ -41,4 +41,11 @@
   color: black;
 }
 
+.leaflet-control-zoom a:focus-visible {
+  outline: 3px solid black;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px white;
+  position: relative;
+  z-index: 1;
+}
 

@@ -16,7 +16,7 @@ import 'leaflet.markercluster'
 import * as L from 'leaflet'
 import { IotMapConfig } from './iot-map-config'
 import { IotMapDisplay } from './iot-map-types'
-import { getAutomaticClusterIcon } from './iot-map-icons'
+import { getAutomaticClusterIcon, updatePopupExpanded } from './iot-map-icons'
 
 export class IotMapManager {
   private map: L.Map
@@ -75,6 +75,77 @@ export class IotMapManager {
       .on('click', this.onClick.bind(this))
 
     this.selectedElement = undefined
+    this.initKeyboardInteractions()
+  }
+
+  private initKeyboardInteractions (): void {
+    const container = this.map.getContainer()
+    const getIcon = (target: EventTarget | null): HTMLElement | null => {
+      if (!(target instanceof Element)) {
+        return null
+      }
+      const icon = target.closest<HTMLElement>('.iotmap-divicon')
+      return icon?.querySelector('.iotmap-markericon, .iotmap-clustericon') ? icon : null
+    }
+
+    const onKeyDown = (event: KeyboardEvent): void => {
+      const target = event.target
+      if (target instanceof HTMLElement &&
+          target.matches('.leaflet-control-zoom-in, .leaflet-control-zoom-out') &&
+          this.map.zoomControl?.getContainer()?.contains(target) &&
+          (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault()
+        event.stopPropagation()
+        if (!event.repeat) {
+          // Preserve Leaflet's disabled states, zoom limits and Shift acceleration.
+          target.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            shiftKey: event.shiftKey
+          }))
+        }
+        return
+      }
+      const icon = getIcon(event.target)
+      if (!icon) {
+        return
+      }
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        event.stopPropagation()
+        // Restore focus before regenerating a popup that may contain the focused control.
+        icon.focus({ preventScroll: true })
+        if (this.selectedElement?.getElement() === icon) {
+          this.unselectElement(this.selectedElement)
+        }
+        icon.classList.add('iotmap-popup-dismissed')
+        updatePopupExpanded(icon)
+      } else if (event.target === icon && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault()
+        event.stopPropagation()
+        if (!event.repeat) {
+          const isCluster = icon.querySelector('.iotmap-clustericon') !== null
+          // Use the existing click path, including Leaflet's zoom/spiderfy behavior.
+          icon.click()
+          if (isCluster) {
+            container.focus({ preventScroll: true })
+          }
+        }
+      }
+    }
+    const onFocusOut = (event: FocusEvent): void => {
+      const icon = getIcon(event.target)
+      if (icon && (!(event.relatedTarget instanceof Node) || !icon.contains(event.relatedTarget))) {
+        icon.classList.remove('iotmap-popup-dismissed')
+        updatePopupExpanded(icon, false)
+      }
+    }
+    container.addEventListener('keydown', onKeyDown, true)
+    container.addEventListener('focusout', onFocusOut)
+    this.map.once('unload', () => {
+      container.removeEventListener('keydown', onKeyDown, true)
+      container.removeEventListener('focusout', onFocusOut)
+    })
   }
 
   /**

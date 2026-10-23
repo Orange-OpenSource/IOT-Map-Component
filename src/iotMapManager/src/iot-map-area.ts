@@ -14,6 +14,7 @@ import { IotMapConfig } from './iot-map-config'
 import { IotArea } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
 import { Polygon } from 'leaflet'
+import { applyAriaLabel } from './iot-map-icons'
 
 /**
  * Class IotMapArea displaying a Area
@@ -43,5 +44,7 @@ export class IotMapArea extends Polygon {
     this.data = area
     this.config = config
     this.map = map
+    // The SVG element only exists once the area is added to the map.
+    this.on('add', () => applyAriaLabel(this.getElement(), this.data.ariaLabel, 'img'))
   }
 }

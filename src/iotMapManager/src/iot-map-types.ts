@@ -131,6 +131,7 @@ interface Inner {
  * @param inner - (optional) define inner elements (see Inner interface)
  * @param template - (optional) name of the template to apply
  * @param status - (optional) name of the status to apply
+ * @param ariaLabel - (optional) accessible name announced by assistive technologies
  */
 export interface IotMarker extends GeolocMarker {
   id: string
@@ -141,6 +142,7 @@ export interface IotMarker extends GeolocMarker {
   inner?: Inner
   template?: string
   status?: string
+  ariaLabel?: string
 }
 
 /**
@@ -151,6 +153,7 @@ export interface IotMarker extends GeolocMarker {
  * @param contentLabel - label displayed as title of popup
  * @param childCount - number of markers clustered. Displayed as inner element
  * @param aggregation - array of markers types. Each type represented by a color, a number and a state (sing and plur)
+ * @param ariaLabel - (optional) accessible name announced by assistive technologies. Takes precedence over config.accessibility.clusterAriaLabel
  */
 export interface IotCluster extends GeolocMarker {
   id: string
@@ -158,6 +161,7 @@ export interface IotCluster extends GeolocMarker {
   contentLabel: string
   childCount: number
   colNumber?: number
+  ariaLabel?: string
   markersArea?: L.LatLngBounds
   aggregation: {
     singularState: string
@@ -175,10 +179,12 @@ export interface IotCluster extends GeolocMarker {
  *
  * @param direction - (optional) clockwise angle describing the arrow direction
  * @param accuracy - (optional) define accuracy area radius around the user marker location.
+ * @param ariaLabel - (optional) accessible name announced by assistive technologies
  */
 export interface IotUserMarker extends GeolocMarker {
   direction?: number
   accuracy?: number
+  ariaLabel?: string
 }
 
 /**
@@ -256,6 +262,9 @@ export interface LayerTemplate {
  *            additional.points - (mandatory) at least 2 points to define a path
  *            additional.color - (mandatory) color used to display additional path
  *            additional.number - (mandatory) line number (1..4 : 1 is full left, 4 full right in the direction of travel)
+ *            additional.ariaLabel - (optional) accessible name of the additional path
+ * @param ariaLabel - (optional) accessible name of the main path line
+ * @param iconsAriaLabel - (optional) accessible names of the start, end and intermediate position icons
  */
 export interface IotPath {
   id: string
@@ -266,7 +275,14 @@ export interface IotPath {
     points: Location[]
     color: string
     line: number
+    ariaLabel?: string
   }[]
+  ariaLabel?: string
+  iconsAriaLabel?: {
+    start?: string
+    end?: string
+    position?: string
+  }
 }
 
 /**
@@ -275,6 +291,7 @@ export interface IotPath {
  * @param points - (mandatory) at least 3 points to define an area
  * @param borderColor - (optional) color of the area border
  * @param fillColor - (optional) fill color of the area
+ * @param ariaLabel - (optional) accessible name announced by assistive technologies
  */
 export interface IotArea {
   id: string
@@ -282,4 +299,5 @@ export interface IotArea {
   color?: string
   fillColor?: string
   fillOpacity?: number
+  ariaLabel?: string
 }
