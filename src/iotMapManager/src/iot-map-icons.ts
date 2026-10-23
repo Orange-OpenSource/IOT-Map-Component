@@ -58,7 +58,7 @@ class AccessibleDivIcon extends L.DivIcon {
   createIcon (oldIcon?: HTMLElement): HTMLElement {
     const icon = super.createIcon(oldIcon)
     // Leaflet reuses the element on setIcon, so a removed label must be cleared.
-    applyAriaLabel(icon, this.ariaLabel)
+    applyAriaLabel(icon, this.ariaLabel, 'button')
     return icon
   }
 }
