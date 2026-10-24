@@ -25,6 +25,100 @@ import poiSqrSelShadow from '../img/POI_SQR_SEL_Shadow.png'
 import poiSqrPinShadow from '../img/POI_SQR_PIN_Shadow.png'
 import usrShadow from '../img/USR_Shadow.png'
 
+/**
+ * Sets or clears the accessible name provided by the library user.
+ * The name is set through the DOM, so it is never interpreted as HTML.
+ */
+export function applyAriaLabel (element: Element | null | undefined, label?: string, role?: string): void {
+  if (!element) {
+    return
+  }
+  if (label) {
+    element.setAttribute('aria-label', label)
+    if (role) {
+      element.setAttribute('role', role)
+    }
+  } else {
+    element.removeAttribute('aria-label')
+  }
+}
+
+interface AccessibleDivIconOptions extends L.DivIconOptions {
+  ariaLabel?: string
+}
+
+class AccessibleDivIcon extends L.DivIcon {
+  private readonly ariaLabel?: string
+
+  constructor (options: AccessibleDivIconOptions) {
+    super(options)
+    this.ariaLabel = options.ariaLabel
+  }
+
+  createIcon (oldIcon?: HTMLElement): HTMLElement {
+    const icon = super.createIcon(oldIcon)
+    // Leaflet reuses the element on setIcon, so a removed label must be cleared.
+    applyAriaLabel(icon, this.ariaLabel, 'button')
+    return icon
+  }
+}
+
+export function updatePopupExpanded (icon: HTMLElement, focused = icon.contains(icon.ownerDocument.activeElement)): void {
+  const marker = icon.querySelector(':scope > .iotmap-markericon')
+  const cluster = icon.querySelector(':scope > .iotmap-clustericon')
+  if (marker?.querySelector(':scope > .iotmap-marker-popup')) {
+    icon.setAttribute('aria-expanded', String(marker.classList.contains('iotmap-marker-selected')))
+  } else if (cluster?.querySelector(':scope > .iotmap-cluster-popup, :scope > .iotmap-cluster-big-popup')) {
+    const expanded = !icon.classList.contains('iotmap-popup-dismissed') && (focused || cluster.matches(':hover'))
+    icon.setAttribute('aria-expanded', String(expanded))
+  } else {
+    icon.removeAttribute('aria-expanded')
+  }
+}
+
+const popupStateIcons = new WeakSet<HTMLElement>()
+
+class InteractiveDivIcon extends AccessibleDivIcon {
+  createIcon (oldIcon?: HTMLElement): HTMLElement {
+    const dismissed = oldIcon?.classList.contains('iotmap-popup-dismissed')
+    const icon = super.createIcon(oldIcon)
+    // DivIcon resets className on redraw; keep an explicit dismissal until focus leaves.
+    if (dismissed && icon.contains(icon.ownerDocument.activeElement)) {
+      icon.classList.add('iotmap-popup-dismissed')
+    }
+    updatePopupExpanded(icon)
+    // Leaflet may reuse the container when regenerating its contents.
+    if (!popupStateIcons.has(icon)) {
+      popupStateIcons.add(icon)
+      icon.addEventListener('focusin', () => updatePopupExpanded(icon, true))
+      icon.addEventListener('focusout', event => {
+        updatePopupExpanded(icon, event.relatedTarget instanceof Node && icon.contains(event.relatedTarget))
+      })
+      icon.addEventListener('mouseover', () => updatePopupExpanded(icon))
+      icon.addEventListener('mouseout', () => updatePopupExpanded(icon))
+    }
+    icon.querySelectorAll<HTMLElement>('.iotmap-marker-popup, .iotmap-cluster-popup, .iotmap-cluster-big-popup')
+      .forEach(popup => {
+        popup.addEventListener('click', event => {
+          if (event.target instanceof Element) {
+            const control = event.target.closest('a, button, input, label, select, textarea, [contenteditable], [role="button"]')
+            if (control && popup.contains(control)) {
+              // Preserve control actions without selecting or expanding the enclosing marker.
+              event.stopPropagation()
+            }
+          }
+        })
+        popup.addEventListener('keypress', event => {
+          if (event.key === 'Enter') {
+            // Leaflet.markercluster listens for Enter on keypress as well as click.
+            event.stopPropagation()
+          }
+        })
+      })
+    return icon
+  }
+}
+
 /* eslint-disable quotes */
 /**
  * Returns a DivIcon compatible with leaflet, representing all marker information (shape, tab, popup, size...)
@@ -146,11 +240,12 @@ export function getManualClusterIcon (cluster: IotCluster, config: IotMapConfig)
                 </div>`
 
   const clusterSize = config.clusters.size
-  return new L.DivIcon({
+  return new InteractiveDivIcon({
     html: html,
     className: 'iotmap-divicon',
     iconSize: L.point(clusterSize, clusterSize),
-    iconAnchor: L.point(clusterSize / 2, clusterSize / 2)
+    iconAnchor: L.point(clusterSize / 2, clusterSize / 2),
+    ariaLabel: cluster.ariaLabel ?? config.accessibility.clusterAriaLabel?.(cluster)
   })
 }
 
@@ -202,11 +297,12 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
   html += imgShadow
 
   // creating icon
-  return new L.DivIcon({
+  return new AccessibleDivIcon({
     className: 'iotmap-divicon',
     iconSize: L.point(userMarkerSize, userMarkerSize), // size of the icon
     iconAnchor: L.point(userMarkerSize / 2, userMarkerSize / 2), // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: userMarker.ariaLabel
   })
 }
 
@@ -214,8 +310,9 @@ export function getUserMarkerIcon (userMarker: IotUserMarker, config: IotMapConf
  * Returns a DivIcon compatible with leaflet, representing a start, end or intermediate path icon
  * @param type - PathIconType = start, end or mid
  * @param config - config to use to display start / end / mid icons
+ * @param ariaLabel - (optional) accessible name of the icon
  */
-export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIcon {
+export function getPathIcon (type: PathIconType, config: IotMapConfig, ariaLabel?: string): L.DivIcon {
   let svg: string
   switch (type) {
     case PathIconType.start: {
@@ -250,11 +347,12 @@ export function getPathIcon (type: PathIconType, config: IotMapConfig): L.DivIco
   const iconAnchor : L.Point = L.point(iconSize.x / 2, iconSize.y / 2)
 
   // creating icon
-  return new L.DivIcon({
+  return new AccessibleDivIcon({
     className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: ariaLabel
   })
 }
 
@@ -564,11 +662,12 @@ function getMarkerDivIcon (marker: IotMarker, config: IotMapConfig, selected: bo
   const iconAnchor : L.Point = L.point(iconSize.x / 2, (!(marker.shape.anchored || selected)) ? iconSize.y / 2 : iconSize.y)
 
   // creating icon
-  return new L.DivIcon({
+  return new InteractiveDivIcon({
     className: 'iotmap-divicon',
     iconSize: iconSize, // size of the icon
     iconAnchor: iconAnchor, // point of the icon which will correspond to marker's location
-    html: html
+    html: html,
+    ariaLabel: marker.ariaLabel
   })
 }
 

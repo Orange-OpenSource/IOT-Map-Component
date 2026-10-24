@@ -59,6 +59,11 @@ export class IotMapUserMarkerManager {
     if (this.userMarkerObject !== null) {
       let htmlModificationNeeded = false
       const userMarkerInfo = this.userMarkerObject.getData()
+      if (params.ariaLabel !== undefined) {
+        userMarkerInfo.ariaLabel = params.ariaLabel
+        htmlModificationNeeded = true
+      }
+
       if (params.location !== undefined) {
         userMarkerInfo.location = params.location
         this.userMarkerObject.setPosition(userMarkerInfo.location)
@@ -89,7 +94,8 @@ export class IotMapUserMarkerManager {
       const userMarker: IotUserMarker = {
         location: params.location,
         direction: params.direction,
-        accuracy: params.accuracy
+        accuracy: params.accuracy,
+        ariaLabel: params.ariaLabel
       }
       this.addUserMarker(userMarker)
     }
