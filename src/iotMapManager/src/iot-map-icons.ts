@@ -101,7 +101,7 @@ class InteractiveDivIcon extends AccessibleDivIcon {
       .forEach(popup => {
         popup.addEventListener('click', event => {
           if (event.target instanceof Element) {
-            const control = event.target.closest('a, button, input, select, textarea, [contenteditable], [role="button"]')
+            const control = event.target.closest('a, button, input, label, select, textarea, [contenteditable], [role="button"]')
             if (control && popup.contains(control)) {
               // Preserve control actions without selecting or expanding the enclosing marker.
               event.stopPropagation()
