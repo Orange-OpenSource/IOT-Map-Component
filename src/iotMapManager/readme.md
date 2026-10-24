@@ -52,7 +52,7 @@ Keyboard interaction is enabled by default:
 - **Enter / Space** on a marker: toggle its information popup, using the same selection and `onEltClick` behavior as a mouse click.
 - **Focus a cluster**: show its information popup without zooming. The popup stays visible while navigating its links.
 - **Enter / Space** on a manual or automatic cluster: perform the usual click action (zoom or spiderfy). Focus returns to the map so navigation can continue when the cluster disappears.
-- **Escape**: close the focused marker or cluster popup and return focus to its icon. A dismissed cluster popup reappears after leaving and refocusing the cluster.
+- **Escape**: close the focused marker or cluster popup and return focus to its icon, unless a control inside the popup consumes the event with `preventDefault()` or `stopPropagation()`. A dismissed cluster popup reappears after leaving and refocusing the cluster.
 
 Links and controls in visible popups retain their native keyboard and mouse actions without activating the enclosing marker or cluster. Hidden popups are excluded from keyboard navigation. Mouse selection, cluster hover and cluster expansion remain available.
 

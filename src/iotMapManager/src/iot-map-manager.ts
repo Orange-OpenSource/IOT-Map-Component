@@ -108,17 +108,7 @@ export class IotMapManager {
       if (!icon) {
         return
       }
-      if (event.key === 'Escape') {
-        event.preventDefault()
-        event.stopPropagation()
-        // Restore focus before regenerating a popup that may contain the focused control.
-        icon.focus({ preventScroll: true })
-        if (this.selectedElement?.getElement() === icon) {
-          this.unselectElement(this.selectedElement)
-        }
-        icon.classList.add('iotmap-popup-dismissed')
-        updatePopupExpanded(icon)
-      } else if (event.target === icon && (event.key === 'Enter' || event.key === ' ')) {
+      if (event.target === icon && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault()
         event.stopPropagation()
         if (!event.repeat) {
@@ -131,6 +121,24 @@ export class IotMapManager {
         }
       }
     }
+    const onEscape = (event: KeyboardEvent): void => {
+      if (event.key !== 'Escape' || event.defaultPrevented) {
+        return
+      }
+      const icon = getIcon(event.target)
+      if (!icon) {
+        return
+      }
+      event.preventDefault()
+      event.stopPropagation()
+      // Restore focus before regenerating a popup that may contain the focused control.
+      icon.focus({ preventScroll: true })
+      if (this.selectedElement?.getElement() === icon) {
+        this.unselectElement(this.selectedElement)
+      }
+      icon.classList.add('iotmap-popup-dismissed')
+      updatePopupExpanded(icon)
+    }
     const onFocusOut = (event: FocusEvent): void => {
       const icon = getIcon(event.target)
       if (icon && (!(event.relatedTarget instanceof Node) || !icon.contains(event.relatedTarget))) {
@@ -139,9 +147,11 @@ export class IotMapManager {
       }
     }
     container.addEventListener('keydown', onKeyDown, true)
+    container.addEventListener('keydown', onEscape)
     container.addEventListener('focusout', onFocusOut)
     this.map.once('unload', () => {
       container.removeEventListener('keydown', onKeyDown, true)
+      container.removeEventListener('keydown', onEscape)
       container.removeEventListener('focusout', onFocusOut)
     })
   }
