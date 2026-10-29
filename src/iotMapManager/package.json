@@ -48,7 +48,7 @@
     "@types/leaflet": "^1.9.21",
     "@types/leaflet.markercluster": "^1.5.6",
     "ts-loader": "^9.6.2",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.112.2",
     "webpack-cli": "^7.2.3",
