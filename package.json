@@ -23,12 +23,12 @@
   },
   "homepage": "https://github.com/Orange-OpenSource/IOT-Map-Component#readme",
   "devDependencies": {
-    "@storybook/addon-a11y": "10.5.0",
-    "@storybook/addon-docs": "10.5.0",
-    "@storybook/html-vite": "10.5.0",
+    "@ouds/storybook-theme": "^1.0.0",
+    "@storybook/addon-a11y": "10.6.5",
+    "@storybook/addon-docs": "10.6.5",
+    "@storybook/html-vite": "10.6.5",
     "iotmapmanager": "file:src/iotMapManager",
     "mkdirp": "^3.0.1",
-    "ods-storybook-theme": "^2.0.0",
-    "storybook": "10.5.0"
+    "storybook": "10.6.5"
   }
 }
