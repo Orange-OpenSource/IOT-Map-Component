@@ -152,7 +152,11 @@
 .iotmap-clustericon:hover > .iotmap-tab-top,
 .iotmap-clustericon:hover > .iotmap-tab-top-big,
 .iotmap-clustericon:hover > .iotmap-tab-top-big-left,
-.iotmap-clustericon:hover > .iotmap-tab-top-big-right {
+.iotmap-clustericon:hover > .iotmap-tab-top-big-right,
+.iotmap-divicon:focus-within > .iotmap-clustericon > .iotmap-tab-top,
+.iotmap-divicon:focus-within > .iotmap-clustericon > .iotmap-tab-top-big,
+.iotmap-divicon:focus-within > .iotmap-clustericon > .iotmap-tab-top-big-left,
+.iotmap-divicon:focus-within > .iotmap-clustericon > .iotmap-tab-top-big-right {
   visibility: hidden;
   font-size: 1px;
 }

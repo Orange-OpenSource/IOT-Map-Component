@@ -12,6 +12,16 @@
 
 /* markers.css */
 
+.iotmap-divicon:focus-visible {
+  outline: 3px solid black;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px white;
+}
+
+.iotmap-divicon:focus-within {
+  z-index: 10000 !important;
+}
+
 .iotmap-markericon{
   position: relative;
   width: 0px;
@@ -169,7 +179,8 @@
   fill-opacity: 0.5;
 }
 
-.iotmap-clustericon:hover > .iotmap-clusteropacity{
+.iotmap-clustericon:hover > .iotmap-clusteropacity,
+.iotmap-divicon:focus-within > .iotmap-clustericon > .iotmap-clusteropacity {
   fill-opacity: 1;
 }
 

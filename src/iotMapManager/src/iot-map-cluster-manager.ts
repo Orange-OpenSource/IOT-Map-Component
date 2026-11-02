@@ -106,6 +106,11 @@ export class IotMapClusterManager {
         let htmlModificationNeeded = false
         let oldLayerName: string = null
 
+        if (params.ariaLabel !== undefined) {
+          currentClusterInfos.ariaLabel = params.ariaLabel
+          htmlModificationNeeded = true
+        }
+
         // location modified
         if (params.location !== undefined) {
           currentClusterInfos.location = params.location

@@ -10,9 +10,17 @@
 * Software description: web library for interactive maps providing Orange branded reusable markers, tabs, clusters and paths
 */
 
-import { MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate, TabType } from './iot-map-types'
+import { IotCluster, MarkerStatus, MarkerTemplate, ShapeType, LayerTemplate, TabType } from './iot-map-types'
 
 export class IotMapConfig {
+  /*
+   *** Accessibility: optional, nothing is added to the generated HTML when undefined
+   */
+  accessibility: {
+    // Accessible name of a cluster without its own ariaLabel (mainly automatic clusters)
+    clusterAriaLabel?: (cluster: IotCluster) => string
+  } = {}
+
   /*
    *** Default configuration definition :
    */
@@ -361,6 +369,13 @@ export class IotMapConfig {
    *
    */
   public setConfig (newConfig: Partial<IotMapConfig>): void {
+    /*
+     *** ACCESSIBILITY ***
+    */
+    if (newConfig.accessibility?.clusterAriaLabel !== undefined) {
+      this.accessibility.clusterAriaLabel = newConfig.accessibility.clusterAriaLabel
+    }
+
     /*
      *** MAP ***
     */

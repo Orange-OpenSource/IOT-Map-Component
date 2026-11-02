@@ -13,7 +13,7 @@
 import { IotMapConfig } from './iot-map-config'
 import { IotPath, PathIconType } from './iot-map-types'
 import { IotMapManager } from './iot-map-manager'
-import { getPathIcon } from './iot-map-icons'
+import { getPathIcon, applyAriaLabel } from './iot-map-icons'
 
 import { Polyline as leafletPolyline, Marker, marker } from 'leaflet'
 import 'leaflet-polylineoffset'
@@ -49,6 +49,8 @@ export class IotMapPath extends leafletPolyline {
     this.data = path
     this.config = config
     this.map = map
+    // The SVG element only exists once the path is added to the map.
+    this.on('add', () => applyAriaLabel(this.getElement(), this.data.ariaLabel, 'img'))
   }
 
   /**
@@ -56,7 +58,7 @@ export class IotMapPath extends leafletPolyline {
    */
   public getStart (): Marker {
     this.start?.remove()
-    this.start = marker(this.data.points[0], { icon: getPathIcon(PathIconType.start, this.config), interactive: false })
+    this.start = marker(this.data.points[0], { icon: getPathIcon(PathIconType.start, this.config, this.data.iconsAriaLabel?.start), interactive: false })
     return this.start
   }
 
@@ -65,7 +67,7 @@ export class IotMapPath extends leafletPolyline {
    */
   public getEnd (): Marker {
     this.end?.remove()
-    this.end = marker(this.data.points[this.data.points.length - 1], { icon: getPathIcon(PathIconType.end, this.config), interactive: false })
+    this.end = marker(this.data.points[this.data.points.length - 1], { icon: getPathIcon(PathIconType.end, this.config, this.data.iconsAriaLabel?.end), interactive: false })
     return this.end
   }
 
@@ -76,7 +78,7 @@ export class IotMapPath extends leafletPolyline {
     this.mids?.forEach(pos => pos.remove())
     if (this.data.positions !== undefined) {
       this.data.positions.forEach(pos => {
-        const newMarker = marker(pos, { icon: getPathIcon(PathIconType.mid, this.config), interactive: false })
+        const newMarker = marker(pos, { icon: getPathIcon(PathIconType.mid, this.config, this.data.iconsAriaLabel?.position), interactive: false })
         this.mids.push(newMarker)
       })
     }
@@ -99,6 +101,7 @@ export class IotMapPath extends leafletPolyline {
           interactive: false,
           offset: IotMapPath.getOffset(path.line)
         })
+        newPath.on('add', () => applyAriaLabel(newPath.getElement(), path.ariaLabel, 'img'))
         this.additionalPaths.push(newPath)
       })
     }
